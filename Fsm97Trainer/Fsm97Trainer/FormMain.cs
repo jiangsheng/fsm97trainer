@@ -3,6 +3,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -27,6 +28,8 @@ namespace Fsm97Trainer
         }
         MenusProcess menusProcess = new MenusProcess();
 
+        public List<Player> PlayerData { get; private set; }
+
         private void FormMain_Load(object sender, EventArgs e)
         {
            
@@ -36,76 +39,13 @@ namespace Fsm97Trainer
         {
             try
             {
-                Process[] processes = Process.GetProcessesByName("MENUS");
-                if (processes.Count() > 1)
-                {
-                    MessageBox.Show("检测到多个游戏进程 (More than one menus process found)");
-                    return;
-                }
-                else if (processes.Count() == 0)
-                {
-                    MessageBox.Show("未检测到游戏进程 (Menuse process not found)");
-                    return;
-                }
-
-                var gameProcess = processes.First();
-                var gameExeFilePath = gameProcess.MainModule.FileName;
-                Encoding encoding;
-                FileInfo fi = new FileInfo(gameExeFilePath);
-                switch (fi.Length)
-                {
-                    case 1378816:
-                        //menusProcess.SubCountAddress = 0x614610;
-                        //menusProcess.DivisionFactorAddress = 0x4f3a60;
-                        menusProcess.TeamDataAddress = 0x00547102;
-                        menusProcess.DateAddress = 0x00562ED8;
-                        encoding = Encoding.GetEncoding(936);
-                        break;
-                    case 1135104://English Ver
-                        //menusProcess.SubCountAddress = 0x5846e8;
-                        //menusProcess.DivisionFactorAddress = 0x4f5178;
-                        encoding = Encoding.GetEncoding(437);
-                        menusProcess.DateAddress = 0x005A4ae8;
-                        menusProcess.TeamDataAddress = 0x00588D12;
-                        break;
-                    default:
-                        MessageBox.Show("不支持的游戏版本 Unsupported Game version");
-                        return;
-                }
-                List<Team> teams = new List<Team>();
-                List<Player> players = new List<Player>();
-                MemorySharp memorySharp = new MemorySharp(gameProcess);
-                for (int i = 0; i < 348; i++)
-                {
-                    Team team = new Team();
-                    int teamDataAddress = menusProcess.TeamDataAddress + i * 0x140;
-                    team.Name = memorySharp.ReadString
-                        (new IntPtr(teamDataAddress), encoding, false, 16);
-                    team.FanGroupName = memorySharp.ReadString
-                        (new IntPtr(teamDataAddress + 0x19), false, 16);
-                    team.Abbreviation = memorySharp.ReadString
-                        (new IntPtr(teamDataAddress + 0x2b), encoding, false, 3);
-                    team.ManagerFirstName = memorySharp.ReadString
-                        (new IntPtr(teamDataAddress + 0x94), encoding, false, 11);
-                    team.ManagerLastName = memorySharp.ReadString
-                        (new IntPtr(teamDataAddress + 0xaf), encoding, false, 11);
-                    int currentDate = memorySharp.Read<int>(new IntPtr(menusProcess.DateAddress), false);
-                    int teamPlayerAddress = memorySharp.Read<int>(new IntPtr(teamDataAddress + 0x136), false);
-                    if (teamPlayerAddress != 0)
-                    {
-                        team.Players = ReadPlayers(memorySharp, teamPlayerAddress, team, encoding, currentDate);
-                        teams.Add(team);
-                        players.AddRange(team.Players);
-                    }
-                    else
-                    {
-                        
-                    }
-                }
-                SaveToCsv(players);
+                var players=this.ReadPlayers();
+                if(players.Count>0)
+                    SaveToCsv(players);
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 throw;
             }
         }
@@ -134,6 +74,85 @@ namespace Fsm97Trainer
                     Process.Start(psi);
                 }
             }
+        }
+        List<Player> ReadPlayers()
+        {
+            List<Player> players = new List<Player>();
+            Process[] processes = Process.GetProcessesByName("MENUS");
+            if (processes.Count() > 1)
+            {
+                MessageBox.Show("检测到多个游戏进程 (More than one menus process found)");
+                return players;
+            }
+            else if (processes.Count() == 0)
+            {
+                MessageBox.Show("未检测到游戏进程 (Menuse process not found)");
+                return players;
+            }
+
+            var gameProcess = processes.First();
+            var gameExeFilePath = gameProcess.MainModule.FileName;
+            Encoding encoding;
+            FileInfo fi = new FileInfo(gameExeFilePath);
+            switch (fi.Length)
+            {
+                case 1378816:
+                    //menusProcess.SubCountAddress = 0x614610;
+                    //menusProcess.DivisionFactorAddress = 0x4f3a60;
+                    menusProcess.TeamDataAddress = 0x00547102;
+                    menusProcess.DateAddress = 0x00562ED8;
+                    encoding = Encoding.GetEncoding(936);
+                    break;
+                case 1135104://English Ver
+                             //menusProcess.SubCountAddress = 0x5846e8;
+                             //menusProcess.DivisionFactorAddress = 0x4f5178;
+                    encoding = Encoding.GetEncoding(437);
+                    menusProcess.DateAddress = 0x005A4ae8;
+                    menusProcess.TeamDataAddress = 0x00588D12;
+                    break;
+                default:
+                    MessageBox.Show("不支持的游戏版本 Unsupported Game version");
+                    return players;
+            }
+            List<Team> teams = new List<Team>();
+            
+            MemorySharp memorySharp = new MemorySharp(gameProcess);
+            for (int i = 0; i < 348; i++)
+            {
+                Team team = new Team();
+                int teamDataAddress = menusProcess.TeamDataAddress + i * 0x140;
+                team.Name = memorySharp.ReadString
+                    (new IntPtr(teamDataAddress), encoding, false, 24);
+                team.FanGroupName = memorySharp.ReadString
+                    (new IntPtr(teamDataAddress + 0x19), false, 16);
+                team.Abbreviation = memorySharp.ReadString
+                    (new IntPtr(teamDataAddress + 0x2b), encoding, false, 3);
+                team.ManagerFirstName = memorySharp.ReadString
+                    (new IntPtr(teamDataAddress + 0x94), encoding, false, 11);
+                team.ManagerLastName = memorySharp.ReadString
+                    (new IntPtr(teamDataAddress + 0xaf), encoding, false, 11);
+                int currentDate = memorySharp.Read<int>(new IntPtr(menusProcess.DateAddress), false);
+                int teamPlayerAddress = memorySharp.Read<int>(new IntPtr(teamDataAddress + 0x136), false);
+                if (teamPlayerAddress == 0) 
+                    teamPlayerAddress = memorySharp.Read<int>(new IntPtr(teamDataAddress + 0x13a), false);
+                if (teamPlayerAddress != 0)
+                {
+                    team.Players = ReadPlayers(memorySharp, teamPlayerAddress, team, encoding, currentDate);
+                    teams.Add(team);
+                    players.AddRange(team.Players);
+                    Debug.WriteLine(String.Format("{0} has {1} players", team.Name, team.Players.Count));
+                    foreach (var player in team.Players)
+                    {
+                        Debug.WriteLine(String.Format("{0}, {1},{2},{3},{4},{5} ", player.LastName,player.FirstName,
+                            player.Speed,player.Agility,player.Acceleration,player.Stamina));
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine(String.Format("{0} has no players", team.Name));
+                }
+            }
+            return players;
         }
 
         private List<Player> ReadPlayers(MemorySharp memorySharp, int nodeAddress, Team team,Encoding encoding, int currentDate)
@@ -164,32 +183,32 @@ namespace Fsm97Trainer
             player.LastName = memorySharp.ReadString
                         (new IntPtr(playerDataAddress + 0x1c), encoding, false, 0x13);
             player.Position = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x30), false);
-            player.Number= memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x32), false);
-            player.Speed = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x33), false);
-            player.Agility = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x34), false);
-            player.Acceleration = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x35), false);
-            player.Stamina = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x36), false);
-            player.Strength = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x37), false);
-            player.Fitness = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x38), false);
-            player.Shooting = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x39), false);
-            player.Passing = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x3a), false);
-            player.Heading = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x3b), false);
-            player.Control = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x3c), false);
-            player.Dribbling = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x3d), false);
-            player.Coolness = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x3e), false);
-            player.Awareness = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x3f), false);
-            player.TackleDetermination = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x40), false);
-            player.TackleSkill = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x41), false);
-            player.Flair = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x42), false);
-            player.Kicking = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x43), false);
-            player.Throwing = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x44), false);
-            player.Handling = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x45), false);
-            player.ThrowIn = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x46), false);
-            player.Leadship = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x47), false);
-            player.Consistency = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x48), false);
-
-            player.Determination = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x49), false);
-            player.Greed = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x4a), false);
+            byte[] bytes = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x32), 0x19, false);
+            player.Number = bytes[0];
+            player.Speed = bytes[1]; 
+            player.Agility = bytes[2];
+            player.Acceleration = bytes[3];
+            player.Stamina = bytes[4];
+            player.Strength = bytes[5];
+            player.Fitness = bytes[6];
+            player.Shooting = bytes[7];
+            player.Passing = bytes[8];
+            player.Heading = bytes[9];
+            player.Control = bytes[10];
+            player.Dribbling = bytes[11];
+            player.Coolness = bytes[12];
+            player.Awareness = bytes[13];
+            player.TackleDetermination = bytes[14];
+            player.TackleSkill = bytes[15];
+            player.Flair = bytes[16];
+            player.Kicking = bytes[17];
+            player.Throwing = bytes[18];
+            player.Handling = bytes[19];
+            player.ThrowIn = bytes[20];
+            player.Leadership = bytes[21];
+            player.Consistency = bytes[22];
+            player.Determination = bytes[23];
+            player.Greed = bytes[24];
             player.PositionName = GetPositionName(player.Position);
             player.PositionRating = GetPositionRating(player, player.Position);
             int bestPosition = 0;
@@ -206,7 +225,7 @@ namespace Fsm97Trainer
             player.BestPosition = bestPosition;
             player.BestPositionName = GetPositionName(bestPosition);
             player.BestPositionRating = bestPositionRating;
-            player.Nationality= memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x1f), false);
+            player.Nationality= memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x2f), false);
             player.NationalityName = GetNationalityName(player.Nationality);
             ushort birthDate = memorySharp.Read<ushort>(new IntPtr(playerDataAddress + 0x52), false);
             DateTime currentDateTime = new DateTime(1899, 12, 31).AddDays(currentDate);
@@ -218,15 +237,18 @@ namespace Fsm97Trainer
             player.Age= years % 256;
             return player;
         }
-
+        //see country,.txt for coutries
         private string GetNationalityName(int nationality)
         {
             switch (nationality)
             {
-                case 0x1a: return "ENG";
+                case 0x1a:
+                case 0x36:
+                case 0x42: 
+                case 0x53: return "ENG";
                 case 0x1f: return "FRA";
                 case 0x21: return "GER";
-                case 0x1c: return "ITA";
+                case 0x28: return "ITA";
                 case 0x49: return "SPA";
                 default:return "OTH";
             }
@@ -257,7 +279,7 @@ namespace Fsm97Trainer
                         player.Passing * 3 + player.Heading * 14 +
                         player.TackleDetermination * 10 + player.TackleSkill * 50 +
                         player.Coolness * 7 + player.Awareness * 8 +
-                        player.Consistency * 2 + player.Leadship * 3;
+                        player.Consistency * 2 + player.Leadership * 3;
                     break;
                 case 4:
                 case 5:
@@ -337,6 +359,278 @@ namespace Fsm97Trainer
                 case 15: return "SS";
                 case 14: return "FOR";
                 default:return String.Empty;
+            }
+        }
+
+        private void toolStripButtonCopyPlayerData_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.PlayerData = this.ReadPlayers();
+                MessageBox.Show("球员数据已复制(Player data copied)");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+            
+        }
+
+        private void toolStripLabelPastePlayerData_Click(object sender, EventArgs e)
+        {
+            Process[] processes = Process.GetProcessesByName("MENUS");
+            if (processes.Count() > 1)
+            {
+                MessageBox.Show("检测到多个游戏进程 (More than one menus process found)");
+                return;
+            }
+            else if (processes.Count() == 0)
+            {
+                MessageBox.Show("未检测到游戏进程 (Menuse process not found)");
+                return;
+            }
+            var gameProcess = processes.First();
+            try
+            {
+                if (PlayerData == null)
+                {
+                    MessageBox.Show("请先复制数据！(Please copy player data first)");
+                }
+                LoadPlayerData(gameProcess, this.PlayerData);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+            
+            MessageBox.Show("球员数据已粘贴(Player data pasted)");
+        }
+
+        private void LoadPlayerData(Process gameProcess, List<Player> playerData)
+        {            
+            var gameExeFilePath = gameProcess.MainModule.FileName;
+            Encoding encoding;
+            FileInfo fi = new FileInfo(gameExeFilePath);
+            switch (fi.Length)
+            {
+                case 1378816:
+                    //menusProcess.SubCountAddress = 0x614610;
+                    //menusProcess.DivisionFactorAddress = 0x4f3a60;
+                    menusProcess.TeamDataAddress = 0x00547102;
+                    menusProcess.DateAddress = 0x00562ED8;
+                    encoding = Encoding.GetEncoding(936);
+                    break;
+                case 1135104://English Ver
+                             //menusProcess.SubCountAddress = 0x5846e8;
+                             //menusProcess.DivisionFactorAddress = 0x4f5178;
+                    encoding = Encoding.GetEncoding(437);
+                    menusProcess.DateAddress = 0x005A4ae8;
+                    menusProcess.TeamDataAddress = 0x00588D12;
+                    break;
+                default:
+                    MessageBox.Show("不支持的游戏版本 Unsupported Game version");
+                    return ;
+            }
+            var currentPlayerData = this.ReadPlayers();
+            var fromPlayerIndex = new PlayerCollectionWithIndex(currentPlayerData);
+            var toPlayerIndex = new PlayerCollectionWithIndex(playerData);
+            var tasks = new WritePlayerTaskCollectionWithIndex(fromPlayerIndex, toPlayerIndex);
+            List<Team> teams = new List<Team>();
+            
+
+            MemorySharp memorySharp = new MemorySharp(gameProcess);
+            for (int i = 0; i < 348; i++)
+            {
+                Team team = new Team();
+                int teamDataAddress = menusProcess.TeamDataAddress + i * 0x140;
+                team.Name = memorySharp.ReadString
+                    (new IntPtr(teamDataAddress), encoding, false, 24);
+                team.FanGroupName = memorySharp.ReadString
+                    (new IntPtr(teamDataAddress + 0x19), false, 16);
+                team.Abbreviation = memorySharp.ReadString
+                    (new IntPtr(teamDataAddress + 0x2b), encoding, false, 3);
+                team.ManagerFirstName = memorySharp.ReadString
+                    (new IntPtr(teamDataAddress + 0x94), encoding, false, 11);
+                team.ManagerLastName = memorySharp.ReadString
+                    (new IntPtr(teamDataAddress + 0xaf), encoding, false, 11);
+                int currentDate = memorySharp.Read<int>(new IntPtr(menusProcess.DateAddress), false);
+                int teamPlayerAddress = memorySharp.Read<int>(new IntPtr(teamDataAddress + 0x136), false);
+                if(teamPlayerAddress==0) teamPlayerAddress= memorySharp.Read<int>(new IntPtr(teamDataAddress + 0x13a), false);
+                if (teamPlayerAddress != 0)
+                {
+                    
+                    WritePlayers(memorySharp, teamPlayerAddress, team, encoding, currentDate
+                        , tasks);
+                }
+                else
+                {
+                    Debug.WriteLine(String.Format("{0} has no players", team.Name));
+                }    
+            }
+        }
+
+
+        private void WritePlayers(MemorySharp memorySharp, int nodeAddress, Team team, Encoding encoding, int currentDate,
+            WritePlayerTaskCollectionWithIndex tasks)
+        {
+
+            //playerDataAddress =029b84b0
+            int nextNodeAddress = memorySharp.Read<int>(new IntPtr(nodeAddress + 4), false);
+            //nextNodeAddress =02982f0
+            do
+            {
+                int playerDataAddress = memorySharp.Read<int>(new IntPtr(nodeAddress), false);
+                WritePlayer(memorySharp, playerDataAddress, team, encoding, currentDate, tasks);
+                nodeAddress = nextNodeAddress;
+                nextNodeAddress = memorySharp.Read<int>(new IntPtr(nodeAddress + 4), false);
+            } while (nextNodeAddress != 0);
+        }
+
+        private void WritePlayer(MemorySharp memorySharp, int playerDataAddress, Team team, Encoding encoding,
+            int currentDate,
+            WritePlayerTaskCollectionWithIndex tasks)
+        {
+            byte[] bytes = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x32), 0x19, false);
+
+            Player player = new Player
+            {
+                FirstName = memorySharp.ReadString
+                        (new IntPtr(playerDataAddress + 4), encoding, false, 0x18),
+                LastName = memorySharp.ReadString
+                (new IntPtr(playerDataAddress + 0x1c), encoding, false, 0x13),
+                ThrowIn = bytes[20],
+                Leadership = bytes[21],
+                Greed = bytes[24]
+            };
+            var taskList = tasks.LookupByName(player.LastName, player.FirstName);
+            if (taskList == null) return;
+            var task = taskList.Where(t => t.From.ThrowIn == player.ThrowIn && t.From.Leadership == player.Leadership
+                && t.From.Greed == player.Greed
+            && (t.WritePlayerTaskAction== WritePlayerTaskAction.None)).FirstOrDefault();
+            if (task != null)
+            {
+                taskList.Remove(task);
+                return;
+            }
+            task = taskList.Where(t => t.From.ThrowIn == player.ThrowIn && t.From.Leadership == player.Leadership
+                && t.From.Greed == player.Greed
+                && (t.WritePlayerTaskAction == WritePlayerTaskAction.Update)).FirstOrDefault();
+            if (task != null)
+            {
+                bytes[1]= (byte)task.To.Speed;
+                bytes[2] = (byte)task.To.Agility;
+                bytes[3] = (byte)task.To.Acceleration;
+                bytes[4] = (byte)task.To.Stamina;
+                bytes[5] = (byte)task.To.Strength;
+                bytes[6] = (byte)task.To.Fitness;
+                bytes[7] = (byte)task.To.Shooting;
+                bytes[8] = (byte)task.To.Passing;
+                bytes[9] = (byte)task.To.Heading;
+                bytes[10] = (byte)task.To.Control;
+                bytes[11] = (byte)task.To.Dribbling;
+                bytes[12] = (byte)task.To.Coolness;
+                bytes[13] = (byte)task.To.Awareness;
+                bytes[14] = (byte)task.To.TackleDetermination;
+                bytes[15] = (byte)task.To.TackleSkill;
+                bytes[16] = (byte)task.To.Flair;
+                bytes[17] = (byte)task.To.Kicking;
+                bytes[18] = (byte)task.To.Throwing;
+                bytes[19] = (byte)task.To.Handling;
+                bytes[20] = (byte)task.To.ThrowIn;
+                bytes[21] = (byte)task.To.Leadership;
+                bytes[22] = (byte)task.To.Consistency;
+                bytes[23] = (byte)task.To.Determination;
+                bytes[24] = (byte)task.To.Greed;
+                memorySharp.Write<byte>(new IntPtr(playerDataAddress + 0x32), bytes, false);
+                taskList.Remove(task);
+                return;
+            }
+            task = taskList.Where(t=>t.WritePlayerTaskAction == WritePlayerTaskAction.Respawn).FirstOrDefault();
+            if (task != null)
+            {
+                bytes[1] = (byte)task.To.Speed;
+                bytes[2] = (byte)task.To.Agility;
+                bytes[3] = (byte)task.To.Acceleration;
+                bytes[4] = (byte)task.To.Stamina;
+                bytes[5] = (byte)task.To.Strength;
+                bytes[6] = (byte)task.To.Fitness;
+                bytes[7] = (byte)task.To.Shooting;
+                bytes[8] = (byte)task.To.Passing;
+                bytes[9] = (byte)task.To.Heading;
+                bytes[10] = (byte)task.To.Control;
+                bytes[11] = (byte)task.To.Dribbling;
+                bytes[12] = (byte)task.To.Coolness;
+                bytes[13] = (byte)task.To.Awareness;
+                bytes[14] = (byte)task.To.TackleDetermination;
+                bytes[15] = (byte)task.To.TackleSkill;
+                bytes[16] = (byte)task.To.Flair;
+                bytes[17] = (byte)task.To.Kicking;
+                bytes[18] = (byte)task.To.Throwing;
+                bytes[19] = (byte)task.To.Handling;
+                bytes[20] = (byte)task.To.ThrowIn;
+                bytes[21] = (byte)task.To.Leadership;
+                bytes[22] = (byte)task.To.Consistency;
+                bytes[23] = (byte)task.To.Determination;
+                bytes[24] = (byte)task.To.Greed;
+                memorySharp.Write<byte>(new IntPtr(playerDataAddress + 0x32), bytes, false);
+                taskList.Remove(task);
+                return;
+            }
+        }
+
+        private void toolStripButtonImport_Click(object sender, EventArgs e)
+        {
+            Process[] processes = Process.GetProcessesByName("MENUS");
+            if (processes.Count() > 1)
+            {
+                MessageBox.Show("检测到多个游戏进程 (More than one menus process found)");
+                return;
+            }
+            else if (processes.Count() == 0)
+            {
+                MessageBox.Show("未检测到游戏进程 (Menuse process not found)");
+                return;
+            }
+            var gameProcess = processes.First();
+            
+            try
+            {
+                var players = this.LoadFromCsv();
+                if (players.Count > 0)
+                {
+                    LoadPlayerData(gameProcess, players);
+                    MessageBox.Show("球员数据已导入(Player data imported)");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+        }
+
+        private List<Player> LoadFromCsv()
+        {
+            CultureInfo ci = CultureInfo.CurrentCulture;
+
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.FileName = "players.csv";
+                ofd.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+                ofd.Title = "选择球员数据保存路径(Select player data export location)";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    CsvConfiguration config = new CsvConfiguration(ci);
+
+                    using (var reader = new StreamReader(ofd.FileName, Encoding.UTF8))
+                    using (var csv = new CsvReader(reader, config))
+                    {
+                        return csv.GetRecords<Player>().ToList();
+                    }
+                }
+                return new List<Player>();
             }
         }
     }
