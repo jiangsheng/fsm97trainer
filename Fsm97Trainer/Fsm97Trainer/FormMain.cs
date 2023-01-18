@@ -182,8 +182,11 @@ namespace Fsm97Trainer
                         (new IntPtr(playerDataAddress+4), encoding, false, 0x18);
             player.LastName = memorySharp.ReadString
                         (new IntPtr(playerDataAddress + 0x1c), encoding, false, 0x13);
+            player.Nationality = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x2f), false);
+            player.NationalityName = GetNationalityName(player.Nationality);
             player.Position = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x30), false);
-            byte[] bytes = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x32), 0x19, false);
+            player.Status= memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x31), false);
+            byte[] bytes = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x32), 0x1c, false);
             player.Number = bytes[0];
             player.Speed = bytes[1]; 
             player.Agility = bytes[2];
@@ -209,6 +212,16 @@ namespace Fsm97Trainer
             player.Consistency = bytes[22];
             player.Determination = bytes[23];
             player.Greed = bytes[24];
+            player.Form = bytes[25];
+            player.Moral = bytes[26];
+            player.Energy = bytes[27];
+            //salary
+            bytes = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x60), 0x7, false);
+
+            player.GamesThisSeason = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x6e), false);
+            player.Goals= memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x73), false);
+            player.MVP= memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x74), false);
+            player.ContractWeeks = memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x75), false);
             player.PositionName = GetPositionName(player.Position);
             player.PositionRating = GetPositionRating(player, player.Position);
             int bestPosition = 0;
@@ -225,8 +238,7 @@ namespace Fsm97Trainer
             player.BestPosition = bestPosition;
             player.BestPositionName = GetPositionName(bestPosition);
             player.BestPositionRating = bestPositionRating;
-            player.Nationality= memorySharp.Read<byte>(new IntPtr(playerDataAddress + 0x2f), false);
-            player.NationalityName = GetNationalityName(player.Nationality);
+
             ushort birthDate = memorySharp.Read<ushort>(new IntPtr(playerDataAddress + 0x52), false);
             DateTime currentDateTime = new DateTime(1899, 12, 31).AddDays(currentDate);
             DateTime birthday= new DateTime(1899, 12, 31).AddDays(birthDate);

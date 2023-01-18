@@ -49,6 +49,15 @@ namespace Fsm97Trainer
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public int Number { get; set; }
+        public int Status { get; set; }
+        public int ContractWeeks {get; set; }
+        public int Form{ get; set; }
+        public int Moral { get; set; }
+        public int Energy { get; set; }
+        public int Goals{ get; set; }
+        public int MVP{ get; set; }
+        public int GamesThisSeason{ get; set; }
+
         public override string ToString()
         {
             return String.Format("{0}, {1}:{2}, {3}, {4}", LastName, FirstName, ThrowIn, Leadership, Greed);
