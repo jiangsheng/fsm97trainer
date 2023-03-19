@@ -13,7 +13,7 @@ namespace Fsm97Trainer
         public string Abbreviation { get; set; }
         public string ManagerFirstName { get; set; }
         public string ManagerLastName { get; set; }
-        public List<Player> Players { get; set; }
+        public List<PlayerNode> PlayerNodes { get; set; }
 
         //00588D12 Arsenal Team Name (16 Chars)
         //00588D2b Fan Group Name

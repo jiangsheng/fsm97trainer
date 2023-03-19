@@ -35,13 +35,36 @@ namespace Fsm97Trainer
         public int Consistency { get; set; }
         public int Determination { get; set; }
         public int Greed { get; set; }
-        public int Position { get; set; }
+        int position;
+        public int Position
+        {
+            get
+            {
+                return position;
+            }
+            set
+            {
+                position = value;
+                PositionName = GetPositionName(position);
+                PositionRating = GetPositionRating(Position);
+            }
+        }
         public string PositionName { get; set; }
         public int PositionRating { get; set; }
         public int BestPosition { get; set; }
         public string BestPositionName { get; set; }
         public int BestPositionRating { get; set; }
-        public int Nationality { get; set; }
+
+        int nationality;
+        public int Nationality
+        {
+            get { return nationality; }
+            set
+            {
+                nationality = value;
+                NationalityName = GetNationalityName(value);
+            }
+        }
         public string NationalityName { get; set; }
         public string TeamName { get; set; }
         public string TeamAbbrivation { get; set; }
@@ -50,14 +73,35 @@ namespace Fsm97Trainer
         public string FirstName { get; set; }
         public int Number { get; set; }
         public int Status { get; set; }
-        public int ContractWeeks {get; set; }
-        public int Form{ get; set; }
+        public int ContractWeeks { get; set; }
+        public int Form { get; set; }
         public int Moral { get; set; }
         public int Energy { get; set; }
-        public int Goals{ get; set; }
-        public int MVP{ get; set; }
-        public int GamesThisSeason{ get; set; }
-
+        public double Salary { get; set; }
+        public int Goals { get; set; }
+        public int MVP { get; set; }
+        public int GamesThisSeason { get; set; }
+        public int Statistics
+        {
+            get
+            {
+                return (Speed + Agility + Acceleration + Stamina + Strength + Fitness + Shooting + Passing + Heading + Control
+                    + Dribbling + TackleDetermination + TackleSkill + Coolness + Awareness + Flair + Kicking + Throwing + Handling
+                    + ThrowIn + Leadership + Consistency + Determination + Greed) / 24 + (Form + Moral + Energy) / 25;
+            }
+        }
+        Team team;
+        [Ignore]
+        public Team Team
+        {
+            get { return team; }
+            set
+            {
+                team = value;
+                TeamName = team.Name;
+                TeamAbbrivation = team.Abbreviation;
+            }
+        }
         public override string ToString()
         {
             return String.Format("{0}, {1}:{2}, {3}, {4}", LastName, FirstName, ThrowIn, Leadership, Greed);
@@ -89,12 +133,153 @@ namespace Fsm97Trainer
             result = fromPlayer.Determination - toPlayer.Determination; if (result != 0) return result;
             result = fromPlayer.Greed - toPlayer.Greed; return result;
         }
+        public void UpdateBestPosition()
+        {
+            int bestPosition = 0;
+            int bestPositionRating = 0;
+            for (int i = 0; i < 16; i++)
+            {
+                int testPositionRating = GetPositionRating(i);
+                if (bestPositionRating < testPositionRating)
+                {
+                    bestPosition = i;
+                    bestPositionRating = testPositionRating;
+                }
+            }
+            BestPosition = bestPosition;
+            BestPositionName = GetPositionName(bestPosition);
+            BestPositionRating = bestPositionRating;
+        }
+        //see country,.txt for coutries
+        private string GetNationalityName(int nationality)
+        {
+            switch (nationality)
+            {
+                case 0x1a:
+                case 0x36:
+                case 0x42:
+                case 0x53: return "ENG";
+                case 0x1f: return "FRA";
+                case 0x21: return "GER";
+                case 0x28: return "ITA";
+                case 0x49: return "SPA";
+                default: return "OTH";
+            }
+        }
+
+        public int GetPositionRating(int position)
+        {
+            int playerRating = 0;
+            switch (position)
+            {
+                case 0:
+                    playerRating = Speed * 2 + Agility * 25 +
+                        Passing * 2 + Control * 4 +
+                        Coolness * 7 + Awareness * 10 +
+                        Kicking * 8 + Throwing * 6 + Handling * 30 +
+                        Consistency * 6;
+                    break;
+                case 1:
+                case 2:
+                    playerRating = Speed * 3 +
+                        Passing * 7 + Heading * 8 +
+                        TackleDetermination * 10 + TackleSkill * 44 +
+                        Coolness * 7 + Awareness * 15 +
+                        Consistency * 4 + Determination * 2;
+                    break;
+                case 3:
+                    playerRating = Speed * 3 +
+                        Passing * 3 + Heading * 14 +
+                        TackleDetermination * 10 + TackleSkill * 50 +
+                        Coolness * 7 + Awareness * 8 +
+                        Consistency * 2 + Leadership * 3;
+                    break;
+                case 4:
+                case 5:
+                    playerRating = Speed * 7 + Agility * 4 + Acceleration * 11 +
+                        Passing * 12 + Dribbling * 26 +
+                        TackleDetermination * 3 + TackleSkill * 26 +
+                        Flair * 5 + Awareness * 6;
+                    break;
+                case 6:
+                    playerRating = Speed * 12 + Acceleration * 6 +
+                        Passing * 15 + Heading * 3 + Dribbling * 15 +
+                        TackleDetermination * 3 + TackleSkill * 26 +
+                        Awareness * 20;
+                    break;
+                case 7:
+                    playerRating = Speed * 5 +
+                        Passing * 40 + Heading * 5 +
+                        TackleDetermination * 3 + TackleSkill * 27 +
+                        Awareness * 20;
+                    break;
+                case 8:
+                case 9:
+                    playerRating = Speed * 10 + Acceleration * 5 +
+                        Shooting * 3 + Passing * 42 + Control * 5 + Dribbling * 5 +
+                        TackleSkill * 20 +
+                        Flair * 5 + Awareness * 5;
+                    break;
+                case 10:
+                    playerRating = Speed * 10 + Acceleration * 5 +
+                        Shooting * 5 + Passing * 46 + Control * 5 + Dribbling * 5 +
+                        TackleSkill * 14 +
+                        Flair * 5 + Awareness * 5;
+                    break;
+                case 11:
+                case 12:
+                    playerRating = Speed * 10 + Agility * 3 + Acceleration * 10 +
+                        Shooting * 3 + Passing * 31 + Control * 3 + Dribbling * 27 +
+                        TackleSkill * 3 +
+                         Awareness * 3 + Flair * 7;
+                    break;
+                case 13:
+                    playerRating = Speed * 12 + Agility * 2 + Acceleration * 8 +
+                        Shooting * 4 + Passing * 14 + Heading + Control * 10 + Dribbling * 27 +
+                         Awareness * 12 + Flair * 10;
+                    break;
+                case 14:
+                    playerRating = Speed * 10 + Agility * 2 + Acceleration * 9 +
+                        Shooting * 36 + Passing * 4 + Heading * 10 + Control * 10 + Dribbling * 3 +
+                        +Coolness * 3 + Awareness * 4 + Flair * 9;
+                    break;
+                case 15:
+                    playerRating = Speed * 6 + Agility * 2 + Acceleration * 6 +
+                        Shooting * 29 + Passing * 16 + Heading * 7 + Control * 13 + Dribbling * 6 +
+                        +Coolness * 2 + Awareness * 3 + Flair * 10;
+                    break;
+            }
+            return playerRating / 100;
+        }
+        public string GetPositionName(int position)
+        {
+            switch (position)
+            {
+                case 0: return "GK";
+                case 1: return "RB";
+                case 2: return "LB";
+                case 3: return "CD";
+                case 4: return "RWB";
+                case 5: return "LWB";
+                case 6: return "SW";
+                case 7: return "DM";
+                case 8: return "RM";
+                case 9: return "LM";
+                case 10: return "AM";
+                case 11: return "RW";
+                case 12: return "LW";
+                case 13: return "FR";
+                case 15: return "SS";
+                case 14: return "FOR";
+                default: return String.Empty;
+            }
+        }
     }
-    public class NamesakePlayers:List<Player>
+    public class NamesakePlayers : List<Player>
     {
 
     }
-    public class PlayerCollectionWithIndex:Dictionary<string,Dictionary<string, NamesakePlayers>>
+    public class PlayerCollectionWithIndex : Dictionary<string, Dictionary<string, NamesakePlayers>>
     {
         public PlayerCollectionWithIndex(List<Player> players)
         {
@@ -126,10 +311,10 @@ namespace Fsm97Trainer
                 result.AddRange(item.Value);
             }
             return result;
-        }        
+        }
     }
     public enum WritePlayerTaskAction
-    { 
+    {
         None,
         Update,
         Respawn
@@ -137,13 +322,13 @@ namespace Fsm97Trainer
     public class WritePlayerTask
     {
         public WritePlayerTaskAction WritePlayerTaskAction { get; set; }
-        public Player From { get; set; }        
+        public Player From { get; set; }
         public Player To { get; set; }
     }
-    public class WritePlayerTaskCollectionWithIndex:Dictionary<string,
+    public class WritePlayerTaskCollectionWithIndex : Dictionary<string,
         Dictionary<string, List<WritePlayerTask>>>
     {
-        public List<WritePlayerTask> LookupByName(string lastName, string fistName )
+        public List<WritePlayerTask> LookupByName(string lastName, string fistName)
         {
             var result = new List<WritePlayerTask>();
             if (!this.ContainsKey(lastName)) return result;
@@ -200,10 +385,10 @@ namespace Fsm97Trainer
                         }
                     }
                 }
-                respawnFromPlayersWithSameLastName = respawnFromPlayersWithSameLastName.OrderBy(p=>p.Greed+ p.Leadership + p.ThrowIn).ToList();
+                respawnFromPlayersWithSameLastName = respawnFromPlayersWithSameLastName.OrderBy(p => p.Greed + p.Leadership + p.ThrowIn).ToList();
                 respawnToPlayersWithSameLastName = respawnToPlayersWithSameLastName.OrderByDescending(p => p.Greed + p.Leadership + p.ThrowIn).ToList();
                 int i = 0;
-                for (; i < respawnFromPlayersWithSameLastName.Count && i< respawnToPlayersWithSameLastName.Count; i++)
+                for (; i < respawnFromPlayersWithSameLastName.Count && i < respawnToPlayersWithSameLastName.Count; i++)
                 {
                     var fromPlayer = respawnFromPlayersWithSameLastName[i];
                     var toPlayer = respawnToPlayersWithSameLastName[i];
@@ -221,7 +406,7 @@ namespace Fsm97Trainer
                     respawnToPlayers.Add(respawnToPlayersWithSameLastName[j]);
                 }
             }
-            
+
             for (int i = 0; i < respawnFromPlayers.Count && i < respawnToPlayers.Count; i++)
             {
                 var fromPlayer = respawnFromPlayers[i];
@@ -240,6 +425,6 @@ namespace Fsm97Trainer
                 this[from.LastName].Add(from.FirstName, new List<WritePlayerTask>());
             this[from.LastName][from.FirstName].Add(writePlayerTask);
         }
-     
+
     }
 }

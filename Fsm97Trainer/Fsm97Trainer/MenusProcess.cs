@@ -12,5 +12,6 @@ namespace Fsm97Trainer
         //public int DivisionFactorAddress { get; set; }
         public int TeamDataAddress { get; set; }
         public int DateAddress { get; set; }
+        public int CurrentTeamIndexAddress { get; internal set; }
     }
 }
