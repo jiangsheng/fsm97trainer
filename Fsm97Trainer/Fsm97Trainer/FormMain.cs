@@ -177,8 +177,9 @@ namespace Fsm97Trainer
                 result.Add(resultNode);
                 //move next
                 nodeAddress = nextNodeAddress;
-                nextNodeAddress = memorySharp.Read<int>(new IntPtr(nodeAddress + 4), false);
-            } while (nextNodeAddress != 0);
+                if(nodeAddress!=0)
+                    nextNodeAddress = memorySharp.Read<int>(new IntPtr(nodeAddress + 4), false);
+            } while (nodeAddress != 0);
             return result;
         }
 
@@ -333,8 +334,9 @@ namespace Fsm97Trainer
                 int playerDataAddress = memorySharp.Read<int>(new IntPtr(nodeAddress), false);
                 WritePlayerWithTask(memorySharp, playerDataAddress, team, encoding, currentDate, tasks);
                 nodeAddress = nextNodeAddress;
-                nextNodeAddress = memorySharp.Read<int>(new IntPtr(nodeAddress + 4), false);
-            } while (nextNodeAddress != 0);
+                if (nodeAddress != 0)
+                    nextNodeAddress = memorySharp.Read<int>(new IntPtr(nodeAddress + 4), false);
+            } while (nodeAddress != 0);
         }
 
         private void WritePlayerWithTask(MemorySharp memorySharp, int playerDataAddress, Team team, Encoding encoding,
@@ -724,6 +726,61 @@ namespace Fsm97Trainer
             else
             {
                 Debug.WriteLine(String.Format("{0} has no players", team.Name));
+            }
+        }
+
+        private void buttonImproveAllPlayersBy1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ImproveAllPlayersBy1();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+
+            MessageBox.Show("所有球员数据已增益(All Player data boosted)");
+        }
+
+        private void ImproveAllPlayersBy1()
+        {
+            var playerNodes = ReadPlayers();
+            MemorySharp memorySharp = new MemorySharp(playerNodes.GameProcess);
+            int increment = 1;
+            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                increment = 99;
+            foreach (var playerNode in playerNodes)
+            {
+                var player = playerNode.Data;
+                player.Speed += increment; if (player.Speed > 99) player.Speed = 99;
+                player.Agility += increment; if (player.Agility > 99) player.Agility = 99;
+                player.Acceleration += increment; if (player.Acceleration > 99) player.Acceleration = 99;
+                player.Stamina += increment; if (player.Stamina > 99) player.Stamina = 99;
+                player.Strength += increment; if (player.Strength > 99) player.Strength = 99;
+                player.Fitness += increment; if (player.Fitness > 99) player.Fitness = 99;
+                player.Shooting += increment; if (player.Shooting > 99) player.Shooting = 99;
+                player.Passing += increment; if (player.Passing > 99) player.Passing = 99;
+                player.Heading += increment; if (player.Heading > 99) player.Heading = 99;
+                player.Control += increment; if (player.Control > 99) player.Control = 99;
+                player.Dribbling += increment; if (player.Dribbling > 99) player.Dribbling = 99;
+                player.TackleDetermination += increment; if (player.TackleDetermination > 99) player.TackleDetermination = 99;
+                player.TackleSkill += increment; if (player.TackleSkill > 99) player.TackleSkill = 99;
+                player.Coolness += increment; if (player.Coolness > 99) player.Coolness = 99;
+                player.Awareness += increment; if (player.Awareness > 99) player.Awareness = 99;
+                player.Flair += increment; if (player.Flair > 99) player.Flair = 99;
+                player.Kicking += increment; if (player.Kicking > 99) player.Kicking = 99;
+                player.Throwing += increment; if (player.Throwing > 99) player.Throwing = 99;
+                player.Handling += increment; if (player.Handling > 99) player.Handling = 99;
+                player.ThrowIn += increment; if (player.ThrowIn > 99) player.ThrowIn = 99;
+                player.Leadership += increment; if (player.Leadership > 99) player.Leadership = 99;
+                player.Consistency += increment; if (player.Consistency > 99) player.Consistency = 99;
+                player.Determination += increment; if (player.Determination > 99) player.Determination = 99;
+                player.Greed += increment; if (player.Greed > 99) player.Greed = 99;
+                player.UpdateBestPosition();
+                player.Position = player.BestPosition;
+                WritePlayer(memorySharp, playerNode.DataAddress, player);
             }
         }
     }

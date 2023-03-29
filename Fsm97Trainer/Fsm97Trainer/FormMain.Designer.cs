@@ -43,6 +43,7 @@
             this.buttonBoostYouthPlayer = new System.Windows.Forms.Button();
             this.buttonRotateByEnergy = new System.Windows.Forms.Button();
             this.buttonRotateByStatistics = new System.Windows.Forms.Button();
+            this.buttonImproveAllPlayersBy1 = new System.Windows.Forms.Button();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -112,8 +113,9 @@
             this.tableLayoutPanel1.Controls.Add(this.buttonCopyPlayerData, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.buttonPastePlayerData, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.buttonBoostYouthPlayer, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.buttonRotateByEnergy, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.buttonRotateByStatistics, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.buttonRotateByEnergy, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.buttonImproveAllPlayersBy1, 2, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -194,9 +196,9 @@
             // 
             this.buttonRotateByEnergy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonRotateByEnergy.Enabled = false;
-            this.buttonRotateByEnergy.Location = new System.Drawing.Point(635, 72);
+            this.buttonRotateByEnergy.Location = new System.Drawing.Point(635, 141);
             this.buttonRotateByEnergy.Name = "buttonRotateByEnergy";
-            this.buttonRotateByEnergy.Size = new System.Drawing.Size(312, 63);
+            this.buttonRotateByEnergy.Size = new System.Drawing.Size(312, 64);
             this.buttonRotateByEnergy.TabIndex = 14;
             this.buttonRotateByEnergy.Text = "体力优先轮换(Rotate by Energy)";
             this.buttonRotateByEnergy.UseVisualStyleBackColor = true;
@@ -213,6 +215,17 @@
             this.buttonRotateByStatistics.Text = "统计优先轮换(RotateByStatistics)";
             this.buttonRotateByStatistics.UseVisualStyleBackColor = true;
             this.buttonRotateByStatistics.Click += new System.EventHandler(this.buttonRotateByStatistics_Click);
+            // 
+            // buttonImproveAllPlayersBy1
+            // 
+            this.buttonImproveAllPlayersBy1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonImproveAllPlayersBy1.Location = new System.Drawing.Point(635, 72);
+            this.buttonImproveAllPlayersBy1.Name = "buttonImproveAllPlayersBy1";
+            this.buttonImproveAllPlayersBy1.Size = new System.Drawing.Size(312, 63);
+            this.buttonImproveAllPlayersBy1.TabIndex = 16;
+            this.buttonImproveAllPlayersBy1.Text = "所有球员数据+1(Improve All Players by 1)";
+            this.buttonImproveAllPlayersBy1.UseVisualStyleBackColor = true;
+            this.buttonImproveAllPlayersBy1.Click += new System.EventHandler(this.buttonImproveAllPlayersBy1_Click);
             // 
             // FormMain
             // 
@@ -249,6 +262,7 @@
         private System.Windows.Forms.Button buttonBoostYouthPlayer;
         private System.Windows.Forms.Button buttonRotateByEnergy;
         private System.Windows.Forms.Button buttonRotateByStatistics;
+        private System.Windows.Forms.Button buttonImproveAllPlayersBy1;
     }
 }
 
