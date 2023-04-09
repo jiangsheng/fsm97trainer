@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -41,12 +42,17 @@
             this.buttonCopyPlayerData = new System.Windows.Forms.Button();
             this.buttonPastePlayerData = new System.Windows.Forms.Button();
             this.buttonBoostYouthPlayer = new System.Windows.Forms.Button();
-            this.buttonRotateByEnergy = new System.Windows.Forms.Button();
             this.buttonRotateByStatistics = new System.Windows.Forms.Button();
+            this.buttonRotateByEnergy = new System.Windows.Forms.Button();
             this.buttonImproveAllPlayersBy1 = new System.Windows.Forms.Button();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBoxAutoTrain = new System.Windows.Forms.CheckBox();
+            this.checkBoxConvertToGK = new System.Windows.Forms.CheckBox();
+            this.timerUpdateTrainingSchedule = new System.Windows.Forms.Timer(this.components);
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -103,19 +109,21 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.buttonExportPlayerData, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.buttonImportPlayerData, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.buttonCopyPlayerData, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.buttonPastePlayerData, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.buttonBoostYouthPlayer, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.buttonRotateByStatistics, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.buttonRotateByEnergy, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.buttonImproveAllPlayersBy1, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.buttonPastePlayerData, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.buttonRotateByStatistics, 3, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -130,9 +138,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(319, 138);
+            this.label3.Location = new System.Drawing.Point(240, 138);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(310, 70);
+            this.label3.Size = new System.Drawing.Size(231, 70);
             this.label3.TabIndex = 8;
             this.label3.Text = "@2022 Sheng Jiang @jiangsheng";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -142,7 +150,7 @@
             this.buttonExportPlayerData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonExportPlayerData.Location = new System.Drawing.Point(3, 3);
             this.buttonExportPlayerData.Name = "buttonExportPlayerData";
-            this.buttonExportPlayerData.Size = new System.Drawing.Size(310, 63);
+            this.buttonExportPlayerData.Size = new System.Drawing.Size(231, 63);
             this.buttonExportPlayerData.TabIndex = 9;
             this.buttonExportPlayerData.Text = "导出球员数据(Export Player Data)";
             this.buttonExportPlayerData.UseVisualStyleBackColor = true;
@@ -151,9 +159,9 @@
             // buttonImportPlayerData
             // 
             this.buttonImportPlayerData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonImportPlayerData.Location = new System.Drawing.Point(319, 3);
+            this.buttonImportPlayerData.Location = new System.Drawing.Point(240, 3);
             this.buttonImportPlayerData.Name = "buttonImportPlayerData";
-            this.buttonImportPlayerData.Size = new System.Drawing.Size(310, 63);
+            this.buttonImportPlayerData.Size = new System.Drawing.Size(231, 63);
             this.buttonImportPlayerData.TabIndex = 10;
             this.buttonImportPlayerData.Text = "导入球员数据(Import player data)";
             this.buttonImportPlayerData.UseVisualStyleBackColor = true;
@@ -162,9 +170,9 @@
             // buttonCopyPlayerData
             // 
             this.buttonCopyPlayerData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCopyPlayerData.Location = new System.Drawing.Point(635, 3);
+            this.buttonCopyPlayerData.Location = new System.Drawing.Point(477, 3);
             this.buttonCopyPlayerData.Name = "buttonCopyPlayerData";
-            this.buttonCopyPlayerData.Size = new System.Drawing.Size(312, 63);
+            this.buttonCopyPlayerData.Size = new System.Drawing.Size(231, 63);
             this.buttonCopyPlayerData.TabIndex = 11;
             this.buttonCopyPlayerData.Text = "复制球员数据（Copy Player Data）";
             this.buttonCopyPlayerData.UseVisualStyleBackColor = true;
@@ -173,9 +181,9 @@
             // buttonPastePlayerData
             // 
             this.buttonPastePlayerData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonPastePlayerData.Location = new System.Drawing.Point(3, 72);
+            this.buttonPastePlayerData.Location = new System.Drawing.Point(714, 3);
             this.buttonPastePlayerData.Name = "buttonPastePlayerData";
-            this.buttonPastePlayerData.Size = new System.Drawing.Size(310, 63);
+            this.buttonPastePlayerData.Size = new System.Drawing.Size(233, 63);
             this.buttonPastePlayerData.TabIndex = 12;
             this.buttonPastePlayerData.Text = "粘贴球员数据(Paste Player Data)";
             this.buttonPastePlayerData.UseVisualStyleBackColor = true;
@@ -184,48 +192,92 @@
             // buttonBoostYouthPlayer
             // 
             this.buttonBoostYouthPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonBoostYouthPlayer.Location = new System.Drawing.Point(319, 72);
+            this.buttonBoostYouthPlayer.Location = new System.Drawing.Point(240, 72);
             this.buttonBoostYouthPlayer.Name = "buttonBoostYouthPlayer";
-            this.buttonBoostYouthPlayer.Size = new System.Drawing.Size(310, 63);
+            this.buttonBoostYouthPlayer.Size = new System.Drawing.Size(231, 63);
             this.buttonBoostYouthPlayer.TabIndex = 13;
             this.buttonBoostYouthPlayer.Text = "改善新人数据（Boost Youth Data）";
             this.buttonBoostYouthPlayer.UseVisualStyleBackColor = true;
             this.buttonBoostYouthPlayer.Click += new System.EventHandler(this.buttonBoostYouthPlayer_Click);
             // 
-            // buttonRotateByEnergy
-            // 
-            this.buttonRotateByEnergy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRotateByEnergy.Enabled = false;
-            this.buttonRotateByEnergy.Location = new System.Drawing.Point(635, 141);
-            this.buttonRotateByEnergy.Name = "buttonRotateByEnergy";
-            this.buttonRotateByEnergy.Size = new System.Drawing.Size(312, 64);
-            this.buttonRotateByEnergy.TabIndex = 14;
-            this.buttonRotateByEnergy.Text = "体力优先轮换(Rotate by Energy)";
-            this.buttonRotateByEnergy.UseVisualStyleBackColor = true;
-            this.buttonRotateByEnergy.Click += new System.EventHandler(this.buttonRotateByEnergy_Click);
-            // 
             // buttonRotateByStatistics
             // 
             this.buttonRotateByStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonRotateByStatistics.Enabled = false;
-            this.buttonRotateByStatistics.Location = new System.Drawing.Point(3, 141);
+            this.buttonRotateByStatistics.Location = new System.Drawing.Point(714, 141);
             this.buttonRotateByStatistics.Name = "buttonRotateByStatistics";
-            this.buttonRotateByStatistics.Size = new System.Drawing.Size(310, 64);
+            this.buttonRotateByStatistics.Size = new System.Drawing.Size(233, 64);
             this.buttonRotateByStatistics.TabIndex = 15;
             this.buttonRotateByStatistics.Text = "统计优先轮换(RotateByStatistics)";
             this.buttonRotateByStatistics.UseVisualStyleBackColor = true;
             this.buttonRotateByStatistics.Click += new System.EventHandler(this.buttonRotateByStatistics_Click);
             // 
+            // buttonRotateByEnergy
+            // 
+            this.buttonRotateByEnergy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonRotateByEnergy.Enabled = false;
+            this.buttonRotateByEnergy.Location = new System.Drawing.Point(477, 141);
+            this.buttonRotateByEnergy.Name = "buttonRotateByEnergy";
+            this.buttonRotateByEnergy.Size = new System.Drawing.Size(231, 64);
+            this.buttonRotateByEnergy.TabIndex = 14;
+            this.buttonRotateByEnergy.Text = "体力优先轮换(Rotate by Energy)";
+            this.buttonRotateByEnergy.UseVisualStyleBackColor = true;
+            this.buttonRotateByEnergy.Click += new System.EventHandler(this.buttonRotateByEnergy_Click);
+            // 
             // buttonImproveAllPlayersBy1
             // 
             this.buttonImproveAllPlayersBy1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonImproveAllPlayersBy1.Location = new System.Drawing.Point(635, 72);
+            this.buttonImproveAllPlayersBy1.Location = new System.Drawing.Point(477, 72);
             this.buttonImproveAllPlayersBy1.Name = "buttonImproveAllPlayersBy1";
-            this.buttonImproveAllPlayersBy1.Size = new System.Drawing.Size(312, 63);
+            this.buttonImproveAllPlayersBy1.Size = new System.Drawing.Size(231, 63);
             this.buttonImproveAllPlayersBy1.TabIndex = 16;
             this.buttonImproveAllPlayersBy1.Text = "所有球员数据+1(Improve All Players by 1)";
             this.buttonImproveAllPlayersBy1.UseVisualStyleBackColor = true;
             this.buttonImproveAllPlayersBy1.Click += new System.EventHandler(this.buttonImproveAllPlayersBy1_Click);
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxAutoTrain, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxConvertToGK, 0, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 72);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(231, 63);
+            this.tableLayoutPanel2.TabIndex = 17;
+            // 
+            // checkBoxAutoTrain
+            // 
+            this.checkBoxAutoTrain.AutoSize = true;
+            this.checkBoxAutoTrain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBoxAutoTrain.Location = new System.Drawing.Point(3, 3);
+            this.checkBoxAutoTrain.Name = "checkBoxAutoTrain";
+            this.checkBoxAutoTrain.Size = new System.Drawing.Size(225, 25);
+            this.checkBoxAutoTrain.TabIndex = 0;
+            this.checkBoxAutoTrain.Text = "自动训练(Auto-Train)";
+            this.checkBoxAutoTrain.UseVisualStyleBackColor = true;
+            this.checkBoxAutoTrain.CheckedChanged += new System.EventHandler(this.checkBoxAutoTrain_CheckedChanged);
+            // 
+            // checkBoxConvertToGK
+            // 
+            this.checkBoxConvertToGK.AutoSize = true;
+            this.checkBoxConvertToGK.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBoxConvertToGK.Location = new System.Drawing.Point(3, 34);
+            this.checkBoxConvertToGK.Name = "checkBoxConvertToGK";
+            this.checkBoxConvertToGK.Size = new System.Drawing.Size(225, 26);
+            this.checkBoxConvertToGK.TabIndex = 1;
+            this.checkBoxConvertToGK.Text = "守门员训练法(Convert to GK)";
+            this.checkBoxConvertToGK.UseVisualStyleBackColor = true;
+            this.checkBoxConvertToGK.CheckedChanged += new System.EventHandler(this.checkBoxConvertToGK_CheckedChanged);
+            // 
+            // timerUpdateTrainingSchedule
+            // 
+            this.timerUpdateTrainingSchedule.Interval = 1000;
+            this.timerUpdateTrainingSchedule.Tick += new System.EventHandler(this.timerUpdateTrainingSchedule_Tick);
             // 
             // FormMain
             // 
@@ -241,6 +293,8 @@
             this.toolStripContainer1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -263,6 +317,10 @@
         private System.Windows.Forms.Button buttonRotateByEnergy;
         private System.Windows.Forms.Button buttonRotateByStatistics;
         private System.Windows.Forms.Button buttonImproveAllPlayersBy1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.CheckBox checkBoxAutoTrain;
+        private System.Windows.Forms.CheckBox checkBoxConvertToGK;
+        private System.Windows.Forms.Timer timerUpdateTrainingSchedule;
     }
 }
 

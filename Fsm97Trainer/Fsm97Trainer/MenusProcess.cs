@@ -13,5 +13,6 @@ namespace Fsm97Trainer
         public int TeamDataAddress { get; set; }
         public int DateAddress { get; set; }
         public int CurrentTeamIndexAddress { get; internal set; }
+        public int TrainingDataAddress { get; internal set; }
     }
 }
