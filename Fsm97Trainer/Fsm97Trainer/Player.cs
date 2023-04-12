@@ -1,8 +1,4 @@
-﻿using CsvHelper.Configuration.Attributes;
-using Fsm97Trainer;
-using System;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace Fsm97Trainer
 {
@@ -84,11 +80,10 @@ namespace Fsm97Trainer
             {
                 return (Speed + Agility + Acceleration + Stamina + Strength + Fitness + Shooting + Passing + Heading + Control
                     + Dribbling + TackleDetermination + TackleSkill + Coolness + Awareness + Flair + Kicking + Throwing + Handling
-                    + ThrowIn + Leadership + Consistency + Determination + Greed) / 24 + (Form + Moral + Energy) / 25;
+                    + ThrowIn + Leadership + Consistency + Determination + Greed+ Form+ Moral+ Energy) / 24 ;
             }
         }
         Team team;
-        [Ignore]
         public Team Team
         {
             get { return team; }
@@ -101,7 +96,9 @@ namespace Fsm97Trainer
         }
         public override string ToString()
         {
-            return String.Format("{0}, {1}:{2}, {3}, {4}", LastName, FirstName, ThrowIn, Leadership, Greed);
+            return String.Format("{0}, {1}: age {2}, position {3}, rating {4},Throwin {5}, Lead {6}, Greed {7}", LastName, FirstName,
+                Age,PositionName,PositionRating,                
+                ThrowIn, Leadership, Greed);
         }
         internal static int CompareAttributes(Player fromPlayer, Player toPlayer)
         {
@@ -167,80 +164,80 @@ namespace Fsm97Trainer
         public int GetPositionRating(int position)
         {
             int playerRating = 0;
-            switch (position)
+            switch ((PlayerPosition)position)
             {
-                case 0:
+                case PlayerPosition.GK:
                     playerRating = Speed * 2 + Agility * 25 +
                         Passing * 2 + Control * 4 +
                         Coolness * 7 + Awareness * 10 +
                         Kicking * 8 + Throwing * 6 + Handling * 30 +
                         Consistency * 6;
                     break;
-                case 1:
-                case 2:
+                case PlayerPosition.LB:
+                case PlayerPosition.RB:
                     playerRating = Speed * 3 +
                         Passing * 7 + Heading * 8 +
                         TackleDetermination * 10 + TackleSkill * 44 +
                         Coolness * 7 + Awareness * 15 +
                         Consistency * 4 + Determination * 2;
                     break;
-                case 3:
+                case PlayerPosition.CD:
                     playerRating = Speed * 3 +
                         Passing * 3 + Heading * 14 +
                         TackleDetermination * 10 + TackleSkill * 50 +
                         Coolness * 7 + Awareness * 8 +
                         Consistency * 2 + Leadership * 3;
                     break;
-                case 4:
-                case 5:
+                case PlayerPosition.LWB:
+                case PlayerPosition.RWB:
                     playerRating = Speed * 7 + Agility * 4 + Acceleration * 11 +
                         Passing * 12 + Dribbling * 26 +
                         TackleDetermination * 3 + TackleSkill * 26 +
                         Flair * 5 + Awareness * 6;
                     break;
-                case 6:
+                case PlayerPosition.SW:
                     playerRating = Speed * 12 + Acceleration * 6 +
                         Passing * 15 + Heading * 3 + Dribbling * 15 +
                         TackleDetermination * 3 + TackleSkill * 26 +
                         Awareness * 20;
                     break;
-                case 7:
+                case PlayerPosition.DM:
                     playerRating = Speed * 5 +
                         Passing * 40 + Heading * 5 +
                         TackleDetermination * 3 + TackleSkill * 27 +
                         Awareness * 20;
                     break;
-                case 8:
-                case 9:
+                case PlayerPosition.LM:
+                case PlayerPosition.RM:
                     playerRating = Speed * 10 + Acceleration * 5 +
                         Shooting * 3 + Passing * 42 + Control * 5 + Dribbling * 5 +
                         TackleSkill * 20 +
                         Flair * 5 + Awareness * 5;
                     break;
-                case 10:
+                case PlayerPosition.AM:
                     playerRating = Speed * 10 + Acceleration * 5 +
                         Shooting * 5 + Passing * 46 + Control * 5 + Dribbling * 5 +
                         TackleSkill * 14 +
                         Flair * 5 + Awareness * 5;
                     break;
-                case 11:
-                case 12:
+                case PlayerPosition.LW:
+                case PlayerPosition.RW:
                     playerRating = Speed * 10 + Agility * 3 + Acceleration * 10 +
                         Shooting * 3 + Passing * 31 + Control * 3 + Dribbling * 27 +
                         TackleSkill * 3 +
                          Awareness * 3 + Flair * 7;
                     break;
-                case 13:
+                case PlayerPosition.FR:
                     playerRating = Speed * 12 + Agility * 2 + Acceleration * 8 +
                         Shooting * 4 + Passing * 14 + Heading + Control * 10 + Dribbling * 27 +
                          Awareness * 12 + Flair * 10;
                     break;
-                case 14:
+                case PlayerPosition.SS:
                     playerRating = Speed * 10 + Agility * 2 + Acceleration * 9 +
                         Shooting * 36 + Passing * 4 + Heading * 10 + Control * 10 + Dribbling * 3 +
                         +Coolness * 3 + Awareness * 4 + Flair * 9;
                     break;
-                case 15:
+                case PlayerPosition.FOR:
                     playerRating = Speed * 6 + Agility * 2 + Acceleration * 6 +
                         Shooting * 29 + Passing * 16 + Heading * 7 + Control * 13 + Dribbling * 6 +
                         +Coolness * 2 + Awareness * 3 + Flair * 10;
@@ -250,26 +247,7 @@ namespace Fsm97Trainer
         }
         public string GetPositionName(int position)
         {
-            switch (position)
-            {
-                case 0: return "GK";
-                case 1: return "RB";
-                case 2: return "LB";
-                case 3: return "CD";
-                case 4: return "RWB";
-                case 5: return "LWB";
-                case 6: return "SW";
-                case 7: return "DM";
-                case 8: return "RM";
-                case 9: return "LM";
-                case 10: return "AM";
-                case 11: return "RW";
-                case 12: return "LW";
-                case 13: return "FR";
-                case 15: return "SS";
-                case 14: return "FOR";
-                default: return String.Empty;
-            }
+            return Enum.GetName(typeof(PlayerPosition), position);
         }
     }
 }
