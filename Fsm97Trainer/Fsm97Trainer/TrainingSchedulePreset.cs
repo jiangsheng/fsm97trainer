@@ -52,9 +52,9 @@ namespace Fsm97Trainer
         };
         public static TrainingScheduleType[] ImproveAwarenessScheduleMaxPower = new TrainingScheduleType[] {
            TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
-            TrainingScheduleType.ZonalDefence, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.TrainingMatch
+            TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
+            TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
+            TrainingScheduleType.ZonalDefence
         };
         public static TrainingScheduleType[] ImproveDetermination = new TrainingScheduleType[] {
            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,

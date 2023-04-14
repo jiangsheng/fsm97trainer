@@ -63,17 +63,108 @@ namespace Fsm97Trainer
                 case PlayerPosition.SW: return GetSWTrainingSchedule(player, maxPower, noAlternativeTraining);
 
                 case PlayerPosition.LWB:
-                case PlayerPosition.RWB: 
+                case PlayerPosition.RWB:
+                     return GetLRWBTrainingSchedule(player, maxPower, noAlternativeTraining);
                 case PlayerPosition.LM:
                 case PlayerPosition.RM:
-                case PlayerPosition.AM: return GetLRAMLRWBTrainingSchedule(player, maxPower, noAlternativeTraining);
+                case PlayerPosition.AM:
+                        return GetLRAMTrainingSchedule(player, maxPower, noAlternativeTraining);
                 case PlayerPosition.LW:
-                case PlayerPosition.RW:
-                case PlayerPosition.FR:
-                case PlayerPosition.SS: 
-                case PlayerPosition.FOR: return GetFrontCourtTrainingSchedule(player, maxPower, noAlternativeTraining);
+                case PlayerPosition.RW: return GetLRWTrainingSchedule(player, maxPower, noAlternativeTraining);
+                case PlayerPosition.FR: return GetFRTrainingSchedule(player, maxPower, noAlternativeTraining);
+                case PlayerPosition.SS: return GetSSTrainingSchedule(player, maxPower, noAlternativeTraining);
+                case PlayerPosition.FOR: return GetFORTrainingSchedule(player, maxPower, noAlternativeTraining);
                 default: return GenericTraining(player, maxPower);
             }
+        }
+        private static TrainingScheduleType[] GetLRWBTrainingSchedule(Player player, bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Fitness < 99)
+            {
+                return ImproveFitness(player);
+            }
+            if (player.Dribbling < 90)
+                return TrainingSchedulePreset.ControlAllWeek;
+            if (player.TackleSkill < 90) return ImproveTackle(player);
+            if (player.Passing < 90)
+                return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Acceleration < 90)
+            {
+                return TrainingSchedulePreset.SprintingAllWeek;
+            }
+            return GetLRAMLRWBTrainingSchedule(player, maxPower, noAlternativeTraining);
+        }
+        private static TrainingScheduleType[] GetLRAMTrainingSchedule(Player player, bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Fitness < 99)
+            {
+                return ImproveFitness(player);
+            }
+
+            if (player.Passing < 90)
+                return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Awareness < 90) return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.TackleSkill < 90) return ImproveTackle(player);
+            return GetLRAMLRWBTrainingSchedule(player, maxPower, noAlternativeTraining);
+        }
+
+        private static TrainingScheduleType[] GetLRWTrainingSchedule(Player player, bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Control < 90)
+                return TrainingSchedulePreset.ControlAllWeek;
+            if (player.Passing< 90)
+                return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Speed < 90 || player.Acceleration < 90)
+            {
+                return TrainingSchedulePreset.SprintingAllWeek;
+            }
+            return GetFrontCourtTrainingSchedule(player, maxPower, noAlternativeTraining);
+        }
+
+        private static TrainingScheduleType[] GetFRTrainingSchedule(Player player, bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Control < 90)
+                return TrainingSchedulePreset.ControlAllWeek;
+            if (player.Shooting < 90)
+                return TrainingSchedulePreset.TrainingMatchAllWeek;
+
+            if (player.Speed < 90 || player.Acceleration < 90)
+            {
+                return ImproveSpeedWithHeading(player);
+            }
+            if (player.Flair < 90|| player.Awareness<90)
+                return TrainingSchedulePreset.TrainingMatchAllWeek;
+            return GetFrontCourtTrainingSchedule(player, maxPower, noAlternativeTraining);
+        }
+
+        private static TrainingScheduleType[] GetSSTrainingSchedule(Player player, bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Shooting < 90)
+                return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Speed < 90 || player.Passing< 90)
+            {
+                return ImproveSpeedWithHeading(player);
+            }
+            if (player.Control < 90)
+                return TrainingSchedulePreset.ControlAllWeek;
+            if (player.Flair < 90)
+                return TrainingSchedulePreset.TrainingMatchAllWeek;
+            return GetFrontCourtTrainingSchedule(player, maxPower, noAlternativeTraining);
+        }
+
+        private static TrainingScheduleType[] GetFORTrainingSchedule(Player player, bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Shooting<90)
+                return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Speed < 90 || player.Acceleration < 90)
+            {
+                return ImproveSpeedWithHeading(player);
+            }
+            if (player.Control < 90)
+                return TrainingSchedulePreset.ControlAllWeek;
+            if (player.Flair< 90)
+                return TrainingSchedulePreset.TrainingMatchAllWeek;
+            return GetFrontCourtTrainingSchedule(player, maxPower, noAlternativeTraining);
         }
 
         private static TrainingScheduleType[] GetFrontCourtTrainingSchedule(Player player, bool maxPower, bool noAlternativeTraining)
@@ -236,6 +327,14 @@ namespace Fsm97Trainer
             {
                 return ImproveFitness(player);
             }
+
+            if (player.Passing < 90)
+            {
+                return TrainingSchedulePreset.TrainingMatchAllWeek;
+            }
+            if ( player.TackleSkill < 90) return ImproveTackle(player);
+            if (player.Awareness < 90) return TrainingSchedulePreset.TrainingMatchAllWeek;
+
             if (player.Speed < 99)
             {
                 return ImproveSpeedWithHeading(player);
@@ -259,6 +358,10 @@ namespace Fsm97Trainer
             {
                 return ImproveFitness(player);
             }
+            if (player.TackleSkill < 90) return ImproveTackle(player);
+            if (player.Awareness < 90) return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Dribbling < 90) return TrainingSchedulePreset.ControlAllWeek;
+            if (player.Passing < 90) return TrainingSchedulePreset.TrainingMatchAllWeek;
             if (player.Speed < 99)
             {
                 return ImproveSpeedWithHeading(player);
@@ -286,6 +389,19 @@ namespace Fsm97Trainer
             {
                 return ImproveFitness(player);
             }
+
+            if (player.TackleSkill < 80)
+            {
+                return ImproveTackle(player);
+            }
+            if (player.Heading < 80)
+            {
+                return TrainingSchedulePreset.ImproveHeading;
+            }
+            if (player.TackleDetermination < 80)
+            {
+                return ImproveTackle(player);
+            }
             if (player.Speed < 99)
             {
                 return ImproveSpeedWithHeading(player);
@@ -312,6 +428,18 @@ namespace Fsm97Trainer
             {
                 return ImproveFitness(player);
             }
+
+            if (player.TackleSkill < 80)
+            {
+                return ImproveTackle(player);
+            }
+            if (player.Awareness < 80) return TrainingSchedulePreset.TrainingMatchAllWeek;
+
+            if (player.TackleDetermination < 80)
+            {
+                return ImproveTackle(player);
+            }
+
             if (player.Determination < 99) return TrainingSchedulePreset.ImproveDetermination;
             if (player.Speed < 99)
             {
