@@ -11,8 +11,8 @@ namespace Fsm97Trainer
         GK, RB, LB, CD,
         RWB, LWB, SW, DM,
         RM, LM, AM,
-        LW, RW,
-        FR, SS, FOR
+        RW,LW,
+        FR, FOR,SS
 
     }
 }

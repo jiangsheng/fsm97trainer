@@ -74,6 +74,7 @@ namespace Fsm97Trainer
         public int Goals { get; set; }
         public int MVP { get; set; }
         public int GamesThisSeason { get; set; }
+        public ushort BirthDateOffset { get; set; }
         public int Statistics
         {
             get
@@ -130,10 +131,10 @@ namespace Fsm97Trainer
         public void UpdateBestPosition()
         {
             int bestPosition = 0;
-            int bestPositionRating = 0;
+            double bestPositionRating = 0;
             for (int i = 0; i < 16; i++)
             {
-                int testPositionRating = GetPositionRating(i);
+                double testPositionRating = GetPositionRatingDouble(i);
                 if (bestPositionRating < testPositionRating)
                 {
                     bestPosition = i;
@@ -142,8 +143,9 @@ namespace Fsm97Trainer
             }
             BestPosition = bestPosition;
             BestPositionName = GetPositionName(bestPosition);
-            BestPositionRating = bestPositionRating;
+            BestPositionRating = (int) bestPositionRating;
         }
+
         //see country,.txt for coutries
         private string GetNationalityName(int nationality)
         {
@@ -160,10 +162,9 @@ namespace Fsm97Trainer
                 default: return "OTH";
             }
         }
-
-        public int GetPositionRating(int position)
+        private double GetPositionRatingDouble(int position)
         {
-            int playerRating = 0;
+            double playerRating = 0;
             switch ((PlayerPosition)position)
             {
                 case PlayerPosition.GK:
@@ -232,18 +233,24 @@ namespace Fsm97Trainer
                         Shooting * 4 + Passing * 14 + Heading + Control * 10 + Dribbling * 27 +
                          Awareness * 12 + Flair * 10;
                     break;
-                case PlayerPosition.SS:
+                case PlayerPosition.FOR:
                     playerRating = Speed * 10 + Agility * 2 + Acceleration * 9 +
                         Shooting * 36 + Passing * 4 + Heading * 10 + Control * 10 + Dribbling * 3 +
                         +Coolness * 3 + Awareness * 4 + Flair * 9;
                     break;
-                case PlayerPosition.FOR:
+                case PlayerPosition.SS:
                     playerRating = Speed * 6 + Agility * 2 + Acceleration * 6 +
                         Shooting * 29 + Passing * 16 + Heading * 7 + Control * 13 + Dribbling * 6 +
                         +Coolness * 2 + Awareness * 3 + Flair * 10;
                     break;
             }
             return playerRating / 100;
+        }
+
+
+        public int GetPositionRating(int position)
+        {
+            return (int)GetPositionRatingDouble(position);
         }
         public string GetPositionName(int position)
         {

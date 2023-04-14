@@ -35,11 +35,50 @@ namespace Fsm97Trainer
         }
 
         MenusProcess MenusProcess { get; set; }
-        public List<Player> PlayerData { get; private set; }
+        public List<Player> PlayerData { get; set; }
+        public bool AutoTrain { get; set; }
+        public bool MaxEnergy { get; set; }
+        public bool ConvertToGK { get; set; }
+        public bool AutoResetStatus { get; set; }
+        public bool MaxForm { get; set; }
+        public bool MaxMorale { get; set; }
+        public bool MaxPower { get; set; }
+        public bool NoAlternativeTraining { get; set; }
+        public bool ContractAutoRenew { get; set; }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            checkBoxAutoTrain.Checked = this.AutoTrain;
+            checkBoxConvertToGK.Checked=this.ConvertToGK ;
+            checkBoxNoAlternativeTraining.Checked = this.NoAlternativeTraining;
 
+            checkBoxNoAbsense.Checked = this.AutoResetStatus;
+            
+            checkBoxMaxEnergy.Checked = this.MaxEnergy;
+            checkBoxMaxForm.Checked = this.MaxForm;
+            checkBoxMaxMorale.Checked = this.MaxMorale;
+
+            checkBoxMaxStrength.Checked = this.MaxPower;
+            
+            checkBoxContractAutoRenew.Checked = this.ContractAutoRenew;
+            this.checkBoxFastTimer_CheckedChanged(sender, e);
+            this.checkBoxSlowTimer_CheckedChanged(sender, e);
+        }
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.AutoTrain = checkBoxAutoTrain.Checked;
+            this.ConvertToGK = checkBoxConvertToGK.Checked;
+            this.NoAlternativeTraining = checkBoxNoAlternativeTraining.Checked;
+
+            this.AutoResetStatus = checkBoxNoAbsense.Checked;
+            
+            this.MaxEnergy = checkBoxMaxEnergy.Checked;
+            this.MaxForm = checkBoxMaxForm.Checked;
+            this.MaxMorale = checkBoxMaxMorale.Checked;
+
+            this.MaxPower = checkBoxMaxStrength.Checked;
+            
+            this.ContractAutoRenew = checkBoxContractAutoRenew.Checked;
         }
         private MenusProcess GetMenusProcess()
         {
@@ -52,7 +91,9 @@ namespace Fsm97Trainer
             {
                 try
                 {
-                    int currentTeam = MenusProcess.ReadCurrentTeamIndex();
+                   if(!MenusProcess.HasExited())
+                        return MenusProcess;
+                    MenusProcess = new MenusProcess();
                     return MenusProcess;
                 }
                 catch (Exception ex)
@@ -81,8 +122,6 @@ namespace Fsm97Trainer
 
         private static void SaveToCsv(List<PlayerNode> players)
         {
-            CultureInfo ci = CultureInfo.CurrentCulture;
-
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.FileName = "players.csv";
@@ -92,7 +131,7 @@ namespace Fsm97Trainer
                 {
                     CsvConfiguration config = new CsvConfiguration();
                     config.Encoding = Encoding.UTF8;
-                    config.CultureInfo = CultureInfo.CurrentCulture;
+                    config.CultureInfo = new CultureInfo("zh-hans");
                     using (var writer = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
                     using (var csv = new CsvWriter(writer, config))
                     {
@@ -172,7 +211,7 @@ namespace Fsm97Trainer
                 {
                     CsvConfiguration config = new CsvConfiguration();
                     config.Encoding = Encoding.UTF8;
-                    config.CultureInfo = CultureInfo.CurrentCulture;
+                    config.CultureInfo = new CultureInfo("zh-hans");
                     using (var reader = new StreamReader(ofd.FileName, Encoding.UTF8))
                     using (var csv = new CsvReader(reader, config))
                     {
@@ -213,11 +252,24 @@ namespace Fsm97Trainer
 
         private void Rotate(RotateMethod rotateMethod)
         {
+           
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
-                menusProcess.RotatePlayer(rotateMethod);
-                MessageBox.Show("球员已轮换(Player rotated)");
+                if (!menusProcess.HasExited())
+                {
+                    var result = MessageBox.Show("请切换到训练安排页。继续？\r\n"
+    + "Please switch to the training schedule page first. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        menusProcess.RotatePlayer(rotateMethod);
+                        MessageBox.Show("球员已轮换(Player rotated)");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("游戏进程找不到(Cannot find game process)");
+                }                
             }
             catch (Exception ex)
             {
@@ -267,10 +319,12 @@ namespace Fsm97Trainer
             bool maxEnergy = checkBoxMaxEnergy.Checked;
             bool maxForm = checkBoxMaxForm.Checked;
             bool maxMorale = checkBoxMaxMorale.Checked;
+            bool maxPower = checkBoxMaxStrength.Checked;
+            bool noAlternativeTraining=checkBoxNoAlternativeTraining.Checked;
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
-                menusProcess.FastUpdate(autoTrain, convertToGK, autoResetStatus, maxEnergy, maxForm, maxMorale);
+                menusProcess.FastUpdate(autoTrain, convertToGK, autoResetStatus, maxEnergy, maxForm, maxMorale, maxPower, noAlternativeTraining);
             }
             catch (Exception ex)
             {
@@ -282,7 +336,7 @@ namespace Fsm97Trainer
 
         private void checkBoxSlowTimer_CheckedChanged(object sender, EventArgs e)
         {
-            timerUpdateSlow.Enabled = this.checkBoxContractAutoRenew.Checked;
+            timerUpdateSlow.Enabled = this.checkBoxContractAutoRenew.Checked || checkBoxMaxStrength.Checked;
 
         }
         bool inSlowTimer = false;
@@ -291,10 +345,11 @@ namespace Fsm97Trainer
             if (inSlowTimer) return;
             inSlowTimer = true;
             var autoRenewContracts = checkBoxContractAutoRenew.Checked;
+            bool maxPower = checkBoxMaxStrength.Checked;
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
-                menusProcess.SlowUpdate(autoRenewContracts);
+                menusProcess.SlowUpdate(autoRenewContracts, maxPower);
             }
             catch (Exception ex)
             {
@@ -302,5 +357,59 @@ namespace Fsm97Trainer
             }
             inSlowTimer = false;
         }
+
+        private void buttonResetDate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MenusProcess menusProcess = GetMenusProcess();
+                if (!menusProcess.HasExited())
+                {
+                    var result = MessageBox.Show("为了避免2079年球员年龄出错，请在2079年之前重设日期。另外，如果在赛季中重设，会造成赛程错误，应该在休赛期重设日期。继续？\r\n"
+    + "To avoid age bug after 2079 you should reset date before 2079. In addition, resetting date would disrupt game scheduling, you should only do it in offseason. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        menusProcess.ResetDate();
+                        MessageBox.Show("游戏日期已重设 (Game Date Reset)");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("游戏进程找不到(Cannot find game process)");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonAutoPosition_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MenusProcess menusProcess = GetMenusProcess();
+                if (!menusProcess.HasExited())
+                {
+                    var result = MessageBox.Show("请切换到训练安排页。继续？\r\n"
+    + "Please switch to the training schedule page first. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+
+                        menusProcess.AutoPosition();
+                        MessageBox.Show("位置已重设 (Position Auto Reset)");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("游戏进程找不到(Cannot find game process)");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
     }
 }

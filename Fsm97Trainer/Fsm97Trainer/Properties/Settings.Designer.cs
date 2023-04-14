@@ -22,5 +22,113 @@ namespace Fsm97Trainer.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoTrain {
+            get {
+                return ((bool)(this["AutoTrain"]));
+            }
+            set {
+                this["AutoTrain"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ConvertToGK {
+            get {
+                return ((bool)(this["ConvertToGK"]));
+            }
+            set {
+                this["ConvertToGK"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool NoAlternativeTraining {
+            get {
+                return ((bool)(this["NoAlternativeTraining"]));
+            }
+            set {
+                this["NoAlternativeTraining"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ContractAutoRenew {
+            get {
+                return ((bool)(this["ContractAutoRenew"]));
+            }
+            set {
+                this["ContractAutoRenew"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoResetStatus {
+            get {
+                return ((bool)(this["AutoResetStatus"]));
+            }
+            set {
+                this["AutoResetStatus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MaxForm {
+            get {
+                return ((bool)(this["MaxForm"]));
+            }
+            set {
+                this["MaxForm"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MaxMoral {
+            get {
+                return ((bool)(this["MaxMoral"]));
+            }
+            set {
+                this["MaxMoral"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MaxEnergy {
+            get {
+                return ((bool)(this["MaxEnergy"]));
+            }
+            set {
+                this["MaxEnergy"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MaxStrength {
+            get {
+                return ((bool)(this["MaxStrength"]));
+            }
+            set {
+                this["MaxStrength"] = value;
+            }
+        }
     }
 }

@@ -44,6 +44,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.timerUpdateFast = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateSlow = new System.Windows.Forms.Timer(this.components);
+            this.checkBoxMaxStrength = new System.Windows.Forms.CheckBox();
+            this.buttonResetDate = new System.Windows.Forms.Button();
+            this.buttonAutoPosition = new System.Windows.Forms.Button();
+            this.checkBoxNoAlternativeTraining = new System.Windows.Forms.CheckBox();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tableLayoutPanelMain.SuspendLayout();
@@ -114,15 +118,18 @@
             this.tableLayoutPanelMain.Controls.Add(this.buttonImportPlayerData, 1, 0);
             this.tableLayoutPanelMain.Controls.Add(this.buttonCopyPlayerData, 2, 0);
             this.tableLayoutPanelMain.Controls.Add(this.buttonBoostYouthPlayer, 1, 1);
-            this.tableLayoutPanelMain.Controls.Add(this.buttonRotateByEnergy, 2, 2);
             this.tableLayoutPanelMain.Controls.Add(this.buttonImproveAllPlayersBy1, 2, 1);
             this.tableLayoutPanelMain.Controls.Add(this.buttonPastePlayerData, 3, 0);
-            this.tableLayoutPanelMain.Controls.Add(this.buttonRotateByStatistics, 3, 2);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanelMain.Controls.Add(this.checkBoxNoAbsense, 0, 2);
             this.tableLayoutPanelMain.Controls.Add(this.checkBoxContractAutoRenew, 3, 1);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanel1, 1, 2);
             this.tableLayoutPanelMain.Controls.Add(this.label3, 3, 3);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonRotateByEnergy, 1, 3);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonRotateByStatistics, 2, 3);
+            this.tableLayoutPanelMain.Controls.Add(this.checkBoxMaxStrength, 2, 2);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonResetDate, 3, 2);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonAutoPosition, 0, 3);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
@@ -181,10 +188,9 @@
             // buttonRotateByEnergy
             // 
             this.buttonRotateByEnergy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRotateByEnergy.Enabled = false;
-            this.buttonRotateByEnergy.Location = new System.Drawing.Point(477, 163);
+            this.buttonRotateByEnergy.Location = new System.Drawing.Point(240, 243);
             this.buttonRotateByEnergy.Name = "buttonRotateByEnergy";
-            this.buttonRotateByEnergy.Size = new System.Drawing.Size(231, 74);
+            this.buttonRotateByEnergy.Size = new System.Drawing.Size(231, 77);
             this.buttonRotateByEnergy.TabIndex = 14;
             this.buttonRotateByEnergy.Text = "体力优先轮换(Rotate by Energy)";
             this.buttonRotateByEnergy.UseVisualStyleBackColor = true;
@@ -215,10 +221,9 @@
             // buttonRotateByStatistics
             // 
             this.buttonRotateByStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRotateByStatistics.Enabled = false;
-            this.buttonRotateByStatistics.Location = new System.Drawing.Point(714, 163);
+            this.buttonRotateByStatistics.Location = new System.Drawing.Point(477, 243);
             this.buttonRotateByStatistics.Name = "buttonRotateByStatistics";
-            this.buttonRotateByStatistics.Size = new System.Drawing.Size(233, 74);
+            this.buttonRotateByStatistics.Size = new System.Drawing.Size(231, 77);
             this.buttonRotateByStatistics.TabIndex = 15;
             this.buttonRotateByStatistics.Text = "统计优先轮换(RotateByStatistics)";
             this.buttonRotateByStatistics.UseVisualStyleBackColor = true;
@@ -227,15 +232,17 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.checkBoxAutoTrain, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.checkBoxConvertToGK, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxNoAlternativeTraining, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 83);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(231, 74);
             this.tableLayoutPanel2.TabIndex = 17;
             // 
@@ -245,7 +252,7 @@
             this.checkBoxAutoTrain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBoxAutoTrain.Location = new System.Drawing.Point(3, 3);
             this.checkBoxAutoTrain.Name = "checkBoxAutoTrain";
-            this.checkBoxAutoTrain.Size = new System.Drawing.Size(225, 31);
+            this.checkBoxAutoTrain.Size = new System.Drawing.Size(225, 18);
             this.checkBoxAutoTrain.TabIndex = 0;
             this.checkBoxAutoTrain.Text = "自动训练(Auto-Train)";
             this.checkBoxAutoTrain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -256,9 +263,9 @@
             // 
             this.checkBoxConvertToGK.AutoSize = true;
             this.checkBoxConvertToGK.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBoxConvertToGK.Location = new System.Drawing.Point(3, 40);
+            this.checkBoxConvertToGK.Location = new System.Drawing.Point(3, 27);
             this.checkBoxConvertToGK.Name = "checkBoxConvertToGK";
-            this.checkBoxConvertToGK.Size = new System.Drawing.Size(225, 31);
+            this.checkBoxConvertToGK.Size = new System.Drawing.Size(225, 18);
             this.checkBoxConvertToGK.TabIndex = 1;
             this.checkBoxConvertToGK.Text = "守门员训练法(Convert to GK)";
             this.checkBoxConvertToGK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -368,6 +375,53 @@
             this.timerUpdateSlow.Interval = 60000;
             this.timerUpdateSlow.Tick += new System.EventHandler(this.timerUpdateSlow_Tick);
             // 
+            // checkBoxMaxStrength
+            // 
+            this.checkBoxMaxStrength.AutoSize = true;
+            this.checkBoxMaxStrength.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBoxMaxStrength.Location = new System.Drawing.Point(477, 163);
+            this.checkBoxMaxStrength.Name = "checkBoxMaxStrength";
+            this.checkBoxMaxStrength.Size = new System.Drawing.Size(231, 74);
+            this.checkBoxMaxStrength.TabIndex = 22;
+            this.checkBoxMaxStrength.Text = "力量最大(Max Strength)";
+            this.checkBoxMaxStrength.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxMaxStrength.UseVisualStyleBackColor = true;
+            this.checkBoxMaxStrength.CheckedChanged += new System.EventHandler(this.checkBoxSlowTimer_CheckedChanged);
+            // 
+            // buttonResetDate
+            // 
+            this.buttonResetDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonResetDate.Location = new System.Drawing.Point(714, 163);
+            this.buttonResetDate.Name = "buttonResetDate";
+            this.buttonResetDate.Size = new System.Drawing.Size(233, 74);
+            this.buttonResetDate.TabIndex = 23;
+            this.buttonResetDate.Text = "重设日期";
+            this.buttonResetDate.UseVisualStyleBackColor = true;
+            this.buttonResetDate.Click += new System.EventHandler(this.buttonResetDate_Click);
+            // 
+            // buttonAutoPosition
+            // 
+            this.buttonAutoPosition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonAutoPosition.Location = new System.Drawing.Point(3, 243);
+            this.buttonAutoPosition.Name = "buttonAutoPosition";
+            this.buttonAutoPosition.Size = new System.Drawing.Size(231, 77);
+            this.buttonAutoPosition.TabIndex = 24;
+            this.buttonAutoPosition.Text = "自适应位置(Auto Position)";
+            this.buttonAutoPosition.UseVisualStyleBackColor = true;
+            this.buttonAutoPosition.Click += new System.EventHandler(this.buttonAutoPosition_Click);
+            // 
+            // checkBoxNoAlternativeTraining
+            // 
+            this.checkBoxNoAlternativeTraining.AutoSize = true;
+            this.checkBoxNoAlternativeTraining.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBoxNoAlternativeTraining.Location = new System.Drawing.Point(3, 51);
+            this.checkBoxNoAlternativeTraining.Name = "checkBoxNoAlternativeTraining";
+            this.checkBoxNoAlternativeTraining.Size = new System.Drawing.Size(225, 20);
+            this.checkBoxNoAlternativeTraining.TabIndex = 2;
+            this.checkBoxNoAlternativeTraining.Text = "不转练(Current position training only)";
+            this.checkBoxNoAlternativeTraining.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxNoAlternativeTraining.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -376,6 +430,7 @@
             this.Controls.Add(this.toolStripContainer1);
             this.Name = "FormMain";
             this.Text = "FSM97 Trainer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.ResumeLayout(false);
@@ -419,6 +474,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox checkBoxMaxMorale;
         private System.Windows.Forms.CheckBox checkBoxMaxEnergy;
+        private System.Windows.Forms.CheckBox checkBoxMaxStrength;
+        private System.Windows.Forms.Button buttonResetDate;
+        private System.Windows.Forms.Button buttonAutoPosition;
+        private System.Windows.Forms.CheckBox checkBoxNoAlternativeTraining;
     }
 }
 

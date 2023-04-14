@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Fsm97Trainer
 {
@@ -31,328 +32,365 @@ namespace Fsm97Trainer
 
     public class TrainingSchedule
     {
-        static TrainingScheduleType[] TrainingMatchAllWeek = new TrainingScheduleType[] {
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch
-        };
-        static TrainingScheduleType[] ControlAllWeek = new TrainingScheduleType[] {
-            TrainingScheduleType.Control, TrainingScheduleType.Control,
-            TrainingScheduleType.Control, TrainingScheduleType.Control,
-            TrainingScheduleType.Control, TrainingScheduleType.Control,
-            TrainingScheduleType.Control
-
-        };
-        static TrainingScheduleType[] ImproveHandling = new TrainingScheduleType[] {
-           TrainingScheduleType.Handling, TrainingScheduleType.Handling,
-            TrainingScheduleType.Handling, TrainingScheduleType.Handling,
-            TrainingScheduleType.Handling, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Handling
-        };
-        static TrainingScheduleType[] ImproveKicking = new TrainingScheduleType[] {
-           TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
-            TrainingScheduleType.GoalKeeping, TrainingScheduleType.Throwing,
-            TrainingScheduleType.Kicking
-        };
-        static TrainingScheduleType[] ImproveThrowing = new TrainingScheduleType[] {
-           TrainingScheduleType.Throwing, TrainingScheduleType.Throwing,
-            TrainingScheduleType.Throwing, TrainingScheduleType.Throwing,
-            TrainingScheduleType.Throwing, TrainingScheduleType.Throwing,
-            TrainingScheduleType.Throwing
-        };
-        static TrainingScheduleType[] ImproveHeading = new TrainingScheduleType[] {
-           TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Heading,
-            TrainingScheduleType.Heading
-        };
-        static TrainingScheduleType[] ImproveAwareness = new TrainingScheduleType[] {
-           TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
-            TrainingScheduleType.ZonalDefence, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.TrainingMatch
-        };
-        static TrainingScheduleType[] ImproveDetermination = new TrainingScheduleType[] {
-           TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining
-        };
-        static TrainingScheduleType[] ImproveMarking = new TrainingScheduleType[] {
-           TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.TrainingMatch
-        };
-        static TrainingScheduleType[] ImproveTacklingSkill = new TrainingScheduleType[] {
-           TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
-            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
-            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
-            TrainingScheduleType.TrainingMatch
-        };
-        static TrainingScheduleType[] ImproveTacklingBalanced = new TrainingScheduleType[] {
-           TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.Marking, TrainingScheduleType.Tackling,
-            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
-            TrainingScheduleType.TrainingMatch
-        };
-
-        static TrainingScheduleType[] FiveASideAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.FiveASide, TrainingScheduleType.FiveASide,
-            TrainingScheduleType.FiveASide, TrainingScheduleType.FiveASide,
-            TrainingScheduleType.FiveASide, TrainingScheduleType.FiveASide,
-            TrainingScheduleType.FiveASide
-        };
-        static TrainingScheduleType[] SprintingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Sprinting
-        };
-        static TrainingScheduleType[] SprintingWithHeading = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Heading
-        };
-
-        static TrainingScheduleType[] SprintingWithWeightTraining = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining
-        };
-        static TrainingScheduleType[] ImproveStrength = new TrainingScheduleType[] {
-           TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.WeightTraining
-        };
-
-        static TrainingScheduleType[] MaintainShape = new TrainingScheduleType[] {
-           TrainingScheduleType.WeightTraining, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Handling,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.Throwing,
-            TrainingScheduleType.Control
-        };
-
-        public static TrainingScheduleType[] GetTrainingSchedule(Player player)
+        public static TrainingScheduleType[] GetTrainingSchedule(Player player,bool autoResetStatus,bool maxEnergy, bool maxPower, bool noAlternativeTraining)
         {
             TrainingScheduleType[] schedule;
             if (player.Fitness < 99 && player.Position == (byte)PlayerPosition.GK && player.BestPosition != (byte)PlayerPosition.GK)
             {
-                schedule = (TrainingScheduleType[])GetTrainingSchedule(player, (PlayerPosition)player.BestPosition).Clone();
+                schedule = (TrainingScheduleType[])GetTrainingSchedule(player, (PlayerPosition)player.BestPosition, maxPower, noAlternativeTraining).Clone();
             }
             else
-                schedule = (TrainingScheduleType[])GetTrainingSchedule(player, (PlayerPosition)player.Position).Clone();
+                schedule = (TrainingScheduleType[])GetTrainingSchedule(player, (PlayerPosition)player.Position, maxPower, noAlternativeTraining).Clone();
 
-            if (player.Status == 0 && player.Position != (byte)PlayerPosition.GK && player.Fitness < 99)
+            if (!autoResetStatus && !maxEnergy)
             {
-                schedule[1] = schedule[3] = schedule[5] = TrainingScheduleType.Physiotherapist;
+                if (player.Status == 0 && player.Position != (byte)PlayerPosition.GK && player.Fitness < 99)
+                {
+                    schedule[1] = schedule[3] = schedule[5] = TrainingScheduleType.Physiotherapist;
+                }
             }
             return schedule;
         }
-        public static TrainingScheduleType[] GetTrainingSchedule(Player player, PlayerPosition position)
+        public static TrainingScheduleType[] GetTrainingSchedule(Player player, PlayerPosition position, bool maxPower, bool noAlternativeTraining)
         {
             switch (position)
             {
-                case PlayerPosition.GK: return GetGKTrainingSchedule(player);
+                case PlayerPosition.GK: return GetGKTrainingSchedule(player, maxPower, noAlternativeTraining);
                 case PlayerPosition.LB:
-                case PlayerPosition.RB: return GetGLRBTrainingSchedule(player);
-                case PlayerPosition.CD: return GetCDTrainingSchedule(player);
+                case PlayerPosition.RB: return GetGLRBTrainingSchedule(player, maxPower, noAlternativeTraining);
+                case PlayerPosition.CD: return GetCDTrainingSchedule(player, maxPower, noAlternativeTraining);
+                case PlayerPosition.DM: return GetDMTrainingSchedule(player, maxPower, noAlternativeTraining);
+                case PlayerPosition.SW: return GetSWTrainingSchedule(player, maxPower, noAlternativeTraining);
+
                 case PlayerPosition.LWB:
-                case PlayerPosition.RWB: return GetLRWBTrainingSchedule(player);
-                case PlayerPosition.SW: return GetSWTrainingSchedule(player);
-                case PlayerPosition.DM: return GetDMTrainingSchedule(player);
+                case PlayerPosition.RWB: 
                 case PlayerPosition.LM:
-                case PlayerPosition.RM: return GetLRMTrainingSchedule(player);
-                case PlayerPosition.AM: return GetAMTrainingSchedule(player);
+                case PlayerPosition.RM:
+                case PlayerPosition.AM: return GetLRAMLRWBTrainingSchedule(player, maxPower, noAlternativeTraining);
                 case PlayerPosition.LW:
-                case PlayerPosition.RW: return GetLRWTrainingSchedule(player);
-                case PlayerPosition.FR: return GetFRTrainingSchedule(player);
-                case PlayerPosition.SS: return GetSSTrainingSchedule(player);
-                case PlayerPosition.FOR: return GetFORTrainingSchedule(player);
-                default: return GenericTraining(player);
+                case PlayerPosition.RW:
+                case PlayerPosition.FR:
+                case PlayerPosition.SS: 
+                case PlayerPosition.FOR: return GetFrontCourtTrainingSchedule(player, maxPower, noAlternativeTraining);
+                default: return GenericTraining(player, maxPower);
             }
         }
 
-        private static TrainingScheduleType[] GetFORTrainingSchedule(Player player)
+        private static TrainingScheduleType[] GetFrontCourtTrainingSchedule(Player player, bool maxPower, bool noAlternativeTraining)
         {
-            if (player.Speed < 99) return SprintingAllWeek;
-            if (player.Acceleration < 99) return SprintingAllWeek;
-            if (player.Agility < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Shooting < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Heading < 99) return ImproveHeading;
-            if (player.Control < 99 || player.Dribbling < 99 || player.Coolness < 99) return ControlAllWeek;
-            if (player.Awareness < 99) return ImproveAwareness;
-            if (player.Flair < 99) return FiveASideAllWeek;
-            return GenericTraining(player);
-        }
-
-        private static TrainingScheduleType[] GetSSTrainingSchedule(Player player)
-        {
-            if (player.Speed < 99) return SprintingAllWeek;
-            if (player.Acceleration < 99) return SprintingAllWeek;
-            if (player.Agility < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Shooting < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Heading < 99) return ImproveHeading;
-            if (player.Control < 99 || player.Dribbling < 99||player.Coolness<99) return ControlAllWeek;            
-            if (player.Awareness < 99) return ImproveAwareness;
-            if (player.Flair < 99) return FiveASideAllWeek;
-            return GenericTraining(player);
-        }
-
-        private static TrainingScheduleType[] GetFRTrainingSchedule(Player player)
-        {
-            if (player.Speed < 99) return SprintingAllWeek;
-            if (player.Acceleration < 99) return SprintingAllWeek;
-            if (player.Agility < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Shooting < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Heading < 99) return ImproveHeading;
-            if (player.Control < 99 || player.Dribbling < 99) return ControlAllWeek;
-            if (player.Awareness < 99) return ImproveAwareness;
-            if (player.Flair < 99) return FiveASideAllWeek;
-            return GenericTraining(player);
-        }
-
-        private static TrainingScheduleType[] GetLRWTrainingSchedule(Player player)
-        {
-            if (player.Speed < 99) return SprintingAllWeek;
-            if (player.Acceleration < 99) return SprintingAllWeek;
-            if (player.Agility < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Shooting < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Control < 99 || player.Dribbling < 99) return ControlAllWeek;
-            if (player.Awareness < 99) return ImproveAwareness;
-            if (player.Flair < 99) return FiveASideAllWeek;
-            if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
-            return GenericTraining(player);
-        }
-
-        private static TrainingScheduleType[] GetAMTrainingSchedule(Player player)
-        {
-            if (player.Speed < 99) return SprintingAllWeek;
-            if (player.Acceleration < 99) return SprintingAllWeek;
-            if (player.Shooting < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Control < 99 || player.Dribbling < 99) return ControlAllWeek;
-            if (player.Awareness < 99) return ImproveAwareness;
-            if (player.Flair < 99) return FiveASideAllWeek;
-            if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
-            return GenericTraining(player);
-
-        }
-
-        private static TrainingScheduleType[] GetDMTrainingSchedule(Player player)
-        {
-            if (player.Speed < 99) return SprintingAllWeek;
-            if (player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Heading < 99) return ImproveHeading;
-            if (player.Awareness < 99) return ImproveAwareness;
-            if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
-            return GenericTraining(player);
-        }
-
-        private static TrainingScheduleType[] GetLRMTrainingSchedule(Player player)
-        {
-            if (player.Speed < 99) return SprintingAllWeek;
-            if (player.Acceleration < 99) return SprintingAllWeek;
-            if (player.Shooting < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Control < 99 || player.Dribbling < 99) return ControlAllWeek;
-            if (player.Awareness < 99) return ImproveAwareness;
-            if (player.Flair < 99) return FiveASideAllWeek;
-            if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
-            return GenericTraining(player);
-        }
-
-        private static TrainingScheduleType[] GetSWTrainingSchedule(Player player)
-        {
-            if (player.Speed < 99) return SprintingAllWeek;
-            if (player.Acceleration < 99) return SprintingAllWeek;
-            if (player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Heading < 99) return ImproveHeading;
-            if (player.Dribbling < 99) return ControlAllWeek;
-            if (player.Awareness < 99) return ImproveAwareness;
-            if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
-            return GenericTraining(player);
-        }
-
-        private static TrainingScheduleType[] GetLRWBTrainingSchedule(Player player)
-        {
-            if (player.Speed < 99) return SprintingAllWeek;
-            if (player.Acceleration < 99) return SprintingAllWeek;
-            if (player.Agility < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Dribbling < 99) return ControlAllWeek;
-            if (player.Flair < 99) return FiveASideAllWeek;
-            if (player.Awareness < 99) return ImproveAwareness;
-            if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
-            return GenericTraining(player);
-        }
-
-        private static TrainingScheduleType[] GetCDTrainingSchedule(Player player)
-        {
-            if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
-            if (player.Speed < 99) return SprintingAllWeek;
-            if (player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Heading < 99) return ImproveHeading;
-            
-            if (player.Coolness < 99) return ControlAllWeek;
-            if (player.Awareness < 99) return ImproveAwareness;
-            if (player.Consistency < 99) return ControlAllWeek;
-            return GenericTraining(player);
-        }
-
-        private static TrainingScheduleType[] GetGLRBTrainingSchedule(Player player)
-        {
-            if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
-            if (player.Awareness < 99) return ImproveAwareness;
-            if (player.Heading < 99) return ImproveHeading;
-            if (player.Passing < 99) return TrainingMatchAllWeek;
+            if (player.Fitness < 99)
+            {
+                return ImproveFitness(player);
+            }
             if (player.Speed < 99)
             {
-                if (player.Determination > 90)
-                    return SprintingAllWeek;
-                else
-                    return SprintingWithWeightTraining;
+                return ImproveSpeedWithHeading(player);                
             }
-            if (player.Consistency < 99) return ControlAllWeek;
-            if (player.Determination < 99) return ImproveDetermination;
-            return GenericTraining(player);
-        }
-
-        private static TrainingScheduleType[] GetGKTrainingSchedule(Player player)
-        {
-            if (player.Handling < 99) return ImproveHandling;
-            if (player.Kicking < 99) return ImproveKicking;
-            if (player.Throwing < 99) return ImproveThrowing;
-            if (player.Speed < 99) return SprintingAllWeek;
-            if (player.Passing < 99 || player.Agility < 99) return TrainingMatchAllWeek;
-            if (player.Consistency < 99 || player.Control < 99 || player.Coolness < 99) return ControlAllWeek;
-            if (player.Awareness < 99) return ImproveAwareness;
-            return GenericTraining(player);
-        }
-
-        private static TrainingScheduleType[] GenericTraining(Player player)
-        {
-            if (player.Speed < 99) return SprintingAllWeek;
             if (player.Acceleration < 99)
             {
-                if (player.Heading > 90) return SprintingAllWeek;
-                else return SprintingWithHeading;
+                return ImproveAccelerationWithHeading(player);
             }
-            if (player.Agility < 99 || player.Shooting < 99 || player.Passing < 99) return TrainingMatchAllWeek;
-            if (player.Heading < 99) return ImproveHeading;
-            if (player.Control < 99 || player.Dribbling < 99 || player.Coolness < 99) return ControlAllWeek;
-            if (player.Flair < 99) return FiveASideAllWeek;
-            if (player.Awareness < 99) return ImproveAwareness;
+            if (player.Shooting < 99 || player.Passing < 99) return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Heading < 99) return TrainingSchedulePreset.ImproveHeading;
+            if (player.Control < 99 || player.Dribbling < 99 || player.Coolness < 99) return TrainingSchedulePreset.ControlAllWeek;
+            if (player.Awareness < 99) return ImproveAwareness(player, maxPower);
+            if (player.Agility < 99) return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Flair < 99) return TrainingSchedulePreset.FiveASideAllWeek;
+            if (noAlternativeTraining)
+            { 
+                if(player.Consistency<99) return TrainingSchedulePreset.ControlAllWeek;
+                return TrainingSchedulePreset.MaintainShape;
+            }
+            return GenericTraining(player, maxPower);
+        }
+
+        private static TrainingScheduleType[] ImproveAwareness(Player player, bool maxPower)
+        {
+            if (!maxPower)
+                return TrainingSchedulePreset.ImproveAwarenessScheduleMaxPower;
+            return TrainingSchedulePreset.ImproveAwarenessSchedule; 
+        }
+
+        private static TrainingScheduleType[] ImproveSpeedWithHeading(Player player)
+        {
+            if (player.Acceleration > player.Speed)
+            {
+                if (player.Heading < 90)
+                {
+                    return TrainingSchedulePreset.SprintingWithHeading;
+                }
+                else
+                    return TrainingSchedulePreset.SprintingAllWeek;
+            }
+            else
+                return TrainingSchedulePreset.SprintingAllWeek;
+        }
+        private static TrainingScheduleType[] ImproveAccelerationWithHeading(Player player)
+        {
+            if (player.Heading < 90)
+            {
+                return TrainingSchedulePreset.SprintingWithHeading;
+            }
+            else
+                return TrainingSchedulePreset.SprintingAllWeek;
+        }
+        
+        private static TrainingScheduleType[] ImproveSpeedWithWeightTraining(Player player)
+        {
+            if (player.Determination < 99)
+            {
+                return TrainingSchedulePreset.SprintingWithWeightTraining;
+            }
+            else
+                return TrainingSchedulePreset.SprintingAllWeek;
+        }
+        private static TrainingScheduleType[] ImproveFitness(Player player)
+        {
+            var position = (PlayerPosition)player.Position;
+            switch (position)
+            {
+                case PlayerPosition.GK:
+                case PlayerPosition.LWB:
+                case PlayerPosition.RWB:
+                case PlayerPosition.LM:
+                case PlayerPosition.RM:
+                case PlayerPosition.AM:
+                case PlayerPosition.LW:
+                case PlayerPosition.RW:
+                    if (player.Speed < 99)
+                    {
+                        return TrainingSchedulePreset.SprintingAllWeek;
+                    }
+                    break;
+                case PlayerPosition.LB:
+                case PlayerPosition.RB:
+                    if (player.Speed < 99)
+                    {
+                        return ImproveSpeedWithWeightTraining(player);
+                    }
+                    break;
+                default:
+                    if (player.Speed < 99)
+                    {
+                        return ImproveSpeedWithHeading(player);
+                    }
+                    break;
+            }
+            switch (position)
+            {
+                case PlayerPosition.GK:
+                case PlayerPosition.LB:
+                case PlayerPosition.RB:
+                case PlayerPosition.CD:
+                case PlayerPosition.DM:
+                    break;
+                case PlayerPosition.LWB:
+                case PlayerPosition.RWB:
+                case PlayerPosition.LM:
+                case PlayerPosition.RM:
+                case PlayerPosition.AM:
+                case PlayerPosition.LW:
+                case PlayerPosition.RW:
+                    if (player.Acceleration < 99)
+                    {
+                        return TrainingSchedulePreset.SprintingAllWeek;
+                    }
+                    break;
+                default:
+                    if (player.Acceleration < 99)
+                    {
+                        return ImproveAccelerationWithHeading(player);
+                    }
+                    break;
+            }
+            return TrainingSchedulePreset.TrainingMatchAllWeek;
+        
+        }
+
+        private static TrainingScheduleType[] GetLRAMLRWBTrainingSchedule(Player player, bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Fitness < 99)
+            {
+                return ImproveFitness(player);
+            }
+            if (player.Speed < 99|| player.Acceleration < 99)
+            {
+                return TrainingSchedulePreset.SprintingAllWeek;
+            }
+            if (player.Shooting < 99 || player.Passing < 99) return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Control < 99 || player.Dribbling < 99) return TrainingSchedulePreset.ControlAllWeek;
+            if (player.Flair < 99) return TrainingSchedulePreset.FiveASideAllWeek;
+            if (player.Awareness < 99) return ImproveAwareness(player, maxPower);
             if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
-            if (player.Consistency < 99) return ControlAllWeek;
-            if (player.Determination < 99) return ImproveDetermination;
-            if (player.Handling < 99) return ImproveHandling;
-            if (player.Kicking < 99) return ImproveKicking;
-            if (player.Throwing < 99) return ImproveThrowing;
-            if (player.Strength < 99) return ImproveStrength;
-            return MaintainShape;
+            if (noAlternativeTraining)
+            {
+                if (player.Consistency < 99) return TrainingSchedulePreset.ControlAllWeek;
+                return TrainingSchedulePreset.MaintainShape;
+            }
+            return GenericTraining(player, maxPower);
+        }
+
+        private static TrainingScheduleType[] GetDMTrainingSchedule(Player player,bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Fitness < 99)
+            {
+                return ImproveFitness(player);
+            }
+            if (player.Speed < 99)
+            {
+                return ImproveSpeedWithHeading(player);
+            }
+            if (player.Passing < 99) return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Heading < 99) return TrainingSchedulePreset.ImproveHeading;
+            if (player.Awareness < 99) return ImproveAwareness(player,maxPower);
+            if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
+            if (noAlternativeTraining)
+            {
+                if (player.Consistency < 99) return TrainingSchedulePreset.ControlAllWeek;
+                return TrainingSchedulePreset.MaintainShape;
+            }
+            return GenericTraining(player, maxPower);
+        }
+
+
+        private static TrainingScheduleType[] GetSWTrainingSchedule(Player player,bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Fitness < 99)
+            {
+                return ImproveFitness(player);
+            }
+            if (player.Speed < 99)
+            {
+                return ImproveSpeedWithHeading(player);
+            }
+            if (player.Acceleration < 99)
+            {
+                return ImproveAccelerationWithHeading(player);
+            }
+            if (player.Passing < 99) return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Heading < 99) return TrainingSchedulePreset.ImproveHeading;
+            if (player.Dribbling < 99) return TrainingSchedulePreset.ControlAllWeek;
+            if (player.Awareness < 99) return ImproveAwareness(player,maxPower);
+            if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
+            if (noAlternativeTraining)
+            {
+                if (player.Consistency < 99) return TrainingSchedulePreset.ControlAllWeek;
+                return TrainingSchedulePreset.MaintainShape;
+            }
+            return GenericTraining(player, maxPower);
+        }
+
+        private static TrainingScheduleType[] GetCDTrainingSchedule(Player player,bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Fitness < 99)
+            {
+                return ImproveFitness(player);
+            }
+            if (player.Speed < 99)
+            {
+                return ImproveSpeedWithHeading(player);
+            }
+            if (player.Passing < 99) return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Heading < 99) return TrainingSchedulePreset.ImproveHeading;
+
+            if (player.Awareness < 99) return ImproveAwareness(player, maxPower);
+            if (player.TackleDetermination < 99 || player.TackleSkill < 99)
+            {
+                return ImproveTackle(player);
+            }
+            if (player.Coolness < 99|| player.Consistency < 99) return TrainingSchedulePreset.ControlAllWeek;
+            if (noAlternativeTraining)
+            {
+                return TrainingSchedulePreset.MaintainShape;
+            }
+            return GenericTraining(player, maxPower);
+        }
+
+        private static TrainingScheduleType[] GetGLRBTrainingSchedule(Player player,bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Fitness < 99)
+            {
+                return ImproveFitness(player);
+            }
+            if (player.Determination < 99) return TrainingSchedulePreset.ImproveDetermination;
+            if (player.Speed < 99)
+            {
+                return ImproveSpeedWithHeading(player);
+            }
+            if (player.Passing < 99) return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Heading < 99) return TrainingSchedulePreset.ImproveHeading;
+
+            if (player.Awareness < 99) return ImproveAwareness(player,maxPower);
+            if (player.TackleDetermination < 99 || player.TackleSkill < 99)
+            {
+                return ImproveTackle(player);
+            }
+            if (player.Coolness < 99 || player.Consistency < 99) return TrainingSchedulePreset.ControlAllWeek;
+            if (noAlternativeTraining)
+            {
+                return TrainingSchedulePreset.MaintainShape;
+            }
+            return GenericTraining(player, maxPower);
+        }
+
+        private static TrainingScheduleType[] GetGKTrainingSchedule(Player player,bool maxPower, bool noAlternativeTraining)
+        {
+            if (player.Fitness < player.Handling)
+            {
+                return ImproveFitness(player);
+            }
+            if (player.Handling < 99) return TrainingSchedulePreset.ImproveHandling;
+            if (player.Kicking < 99) return TrainingSchedulePreset.ImproveKicking;
+            if (player.Throwing < 99) return TrainingSchedulePreset.ImproveThrowing;
+
+            if (player.Speed < 99)
+            {
+                return TrainingSchedulePreset.SprintingAllWeek;
+            }
+            if (player.Passing < 99 || player.Agility < 99) return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Consistency < 99 || player.Control < 99 || player.Coolness < 99) return TrainingSchedulePreset.ControlAllWeek;
+            if (player.Awareness < 99) return ImproveAwareness(player,maxPower);
+            if (noAlternativeTraining)
+            {
+                return TrainingSchedulePreset.MaintainShape;
+            }
+            return GenericTraining(player, maxPower);
+        }
+
+        private static TrainingScheduleType[] GenericTraining(Player player,bool maxPower)
+        {
+            if (player.Fitness < 99)
+            {
+                return ImproveFitness(player);
+            }
+            if (player.Acceleration < 99)
+            {
+                if (player.Heading > 90)
+                {
+                    if (player.Determination < 99)
+                    {
+                        return TrainingSchedulePreset.SprintingWithWeightTraining;
+                    }
+                    else
+                        return TrainingSchedulePreset.SprintingAllWeek;
+                }
+                else 
+                    return TrainingSchedulePreset.SprintingWithHeading;
+            }
+            if (player.Agility < 99 || player.Shooting < 99 || player.Passing < 99) return TrainingSchedulePreset.TrainingMatchAllWeek;
+            if (player.Heading < 99) return TrainingSchedulePreset.ImproveHeading;
+            if (player.Control < 99 || player.Dribbling < 99 || player.Coolness < 99) return TrainingSchedulePreset.ControlAllWeek;
+            if (player.Flair < 99) return TrainingSchedulePreset.FiveASideAllWeek;
+            if (player.Awareness < 99) return ImproveAwareness(player,maxPower);
+            if (player.TackleDetermination < 99 || player.TackleSkill < 99) return ImproveTackle(player);
+            if (player.Consistency < 99) return TrainingSchedulePreset.ControlAllWeek;
+            if (player.Determination < 99) return TrainingSchedulePreset.ImproveDetermination;
+            if (player.Handling < 99) return TrainingSchedulePreset.ImproveHandling;
+            if (player.Kicking < 99) return TrainingSchedulePreset.ImproveKicking;
+            if (player.Throwing < 99) return TrainingSchedulePreset.ImproveThrowing;
+            if (player.Strength < 99) return TrainingSchedulePreset.ImproveStrength;
+            return TrainingSchedulePreset.MaintainShape;
+
         }
 
 
@@ -360,15 +398,15 @@ namespace Fsm97Trainer
         {
             if (player.TackleDetermination < player.TackleSkill)
             {
-                return ImproveMarking;
+                return TrainingSchedulePreset.ImproveMarking;
             }
             else if (player.TackleDetermination == player.TackleSkill)
             {
-                return ImproveTacklingBalanced;
+                return TrainingSchedulePreset.ImproveTacklingBalanced;
             }
             else
             {
-                return ImproveTacklingSkill;
+                return TrainingSchedulePreset.ImproveTacklingSkill;
             }
         }
     }

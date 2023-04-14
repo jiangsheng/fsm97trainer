@@ -74,6 +74,7 @@
     <Compile Include="RotateMethod.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="TrainingSchedule.cs" />
+    <Compile Include="TrainingSchedulePreset.cs" />
     <Compile Include="WritePlayerTask.cs" />
     <Compile Include="WritePlayerTaskAction.cs" />
     <Compile Include="WritePlayerTaskCollectionWithIndex.cs" />

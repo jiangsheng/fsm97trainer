@@ -10,9 +10,10 @@ namespace Fsm97Trainer
     {
         public PlayerMap()
         {
-            AutoMap()
-                ;
+            AutoMap();
             Map(m => m.Team).Ignore();
+            Map(m => m.BirthDateOffset).Ignore();
+            
         }
 
     }
