@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FSM97Lib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +22,7 @@ namespace FSM97Patcher
             InitializeComponent();
         }
         int detectAddressPatch = 0;
+        int trainingEffectAddress = 0;
         byte[] patched = new byte[] { 0xb8, 0x5, 0x0, 0x0, 0x0 };
         byte[] unpatched = new byte[] { 0x8b, 0xc8, 0xff, 0x52, 0x40 };
         private void buttonBrowse_Click(object sender, EventArgs e)
@@ -66,6 +68,12 @@ namespace FSM97Patcher
                 {
                     outStream.Seek(detectAddressPatch, SeekOrigin.Begin);
                     outStream.Write(patched,0,patched.Length);
+                    var patchSchedulingEffect = TrainingScheduleEffect.GetTrainingScheduleEffect(GetTrainingEffectModifier());
+                    if (trainingEffectAddress != 0)
+                    {
+                        outStream.Seek(trainingEffectAddress, SeekOrigin.Begin);
+                        outStream.Write(patchSchedulingEffect, 0, patchSchedulingEffect.Length);
+                    }
                 }
             }
             catch (Exception ex)
@@ -73,6 +81,17 @@ namespace FSM97Patcher
                 MessageBox.Show(ex.Message);
             }
             OnNewFileEntered();
+        }
+
+        private TrainingEffectModifier GetTrainingEffectModifier()
+        {
+            TrainingEffectModifier result = new TrainingEffectModifier();
+            result.TrainingEffectX2 = checkBoxTrainingEffectX2.Checked;
+            result.ThrowingTrainThrowIn = checkBoxThrowInImprovesThrowing.Checked;
+            result.ShootingTrainGreed=checkBoxShootingTraingGreed.Checked;
+            result.PassingTrainLeadership = checkBoxPassingMatchImproveLeadership.Checked;
+            result.RemoveNegativeTraining = checkBoxTrainingMatchNongativeEffect.Checked; 
+            return result;
         }
 
         private void OnNewFileEntered()
@@ -92,6 +111,7 @@ namespace FSM97Patcher
                         detectAddress1 = 0x9e993;
                         detectAddress2 = 0x9e99c;
                         detectAddressPatch = 0x9e997;
+                        trainingEffectAddress = 0xe2aa0;
                         detect1 = new byte[] { 0xf9, 0xff, 0x8b, 0x10 };
                         detect2 = new byte[] { 0xa3, 0x10, 0x46, 0x61 };                        
                         gameVersion = "中文版 (Chinese Ver)";

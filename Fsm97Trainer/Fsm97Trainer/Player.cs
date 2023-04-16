@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FSM97Lib;
+using System;
 
 namespace Fsm97Trainer
 {
@@ -162,7 +163,7 @@ namespace Fsm97Trainer
                 default: return "OTH";
             }
         }
-        private double GetPositionRatingDouble(int position)
+        public double GetPositionRatingDouble(int position)
         {
             double playerRating = 0;
             switch ((PlayerPosition)position)
@@ -255,6 +256,95 @@ namespace Fsm97Trainer
         public string GetPositionName(int position)
         {
             return Enum.GetName(typeof(PlayerPosition), position);
+        }
+
+        internal int BestFitInFormation(Formation targetFormation)
+        {
+            double bestPositionRating = 0;
+            int bestPosition=0;
+            for (int i = 0; i < targetFormation.PlayersInEachPosition.Length; i++)
+            {
+                if (targetFormation.PlayersInEachPosition[i] > 0)
+                {
+                    double testPositionRating = GetPositionRatingDouble(i);
+                    if (bestPositionRating < testPositionRating)
+                    {
+                        bestPosition = i;
+                        bestPositionRating = testPositionRating;
+                    }
+                }
+            }
+            return bestPosition;
+        }
+        internal int GetBestPositionExceptGKInFormation(Formation formation)
+        {
+            double bestPositionRating = 0;
+            int bestPosition = 0;
+            for (int i = 1; i <=(int) PlayerPosition.SS; i++)
+            {
+                if (formation != null)
+                {
+                    if (formation.PlayersInEachPosition[i] == 0) continue;
+                }
+                double testPositionRating = GetPositionRatingDouble(i);
+                if (bestPositionRating < testPositionRating)
+                {
+                    bestPosition = i;
+                    bestPositionRating = testPositionRating;
+                }
+            }
+            return bestPosition;
+        }
+        internal double GetBestPositionRatingExceptGKInFormation(Formation formation)
+        {
+            double bestPositionRating = 0;
+            int bestPosition = 0;
+            for (int i = 1; i <=(int)PlayerPosition.SS; i++)
+            {
+                if (formation != null)
+                {
+                    if (formation.PlayersInEachPosition[i] == 0) continue;
+                }
+                double testPositionRating = GetPositionRatingDouble(i);
+                if (bestPositionRating < testPositionRating)
+                {
+                    bestPosition = i;
+                    bestPositionRating = testPositionRating;
+                }
+            }
+            return bestPositionRating;
+        }
+
+        internal double GetBestPositionRating(PlayerPosition[] targetPositions)
+        {
+            double bestPositionRating = 0;
+            PlayerPosition bestPosition = 0;
+            foreach (var targetPosition in targetPositions)
+            {
+                double testPositionRating = GetPositionRatingDouble((int)targetPosition);
+                if (bestPositionRating < testPositionRating)
+                {
+                    bestPosition = targetPosition;
+                    bestPositionRating = testPositionRating;
+                }
+            }
+            return bestPositionRating;
+        }
+
+        internal int BestFitInPositions(PlayerPosition[] targetPositions)
+        {
+            double bestPositionRating = 0;
+            PlayerPosition bestPosition = 0;
+            foreach (var targetPosition in targetPositions)
+            {
+                double testPositionRating = GetPositionRatingDouble((int)targetPosition);
+                if (bestPositionRating < testPositionRating)
+                {
+                    bestPosition = targetPosition;
+                    bestPositionRating = testPositionRating;
+                }
+            }
+            return (int)bestPosition;
         }
     }
 }

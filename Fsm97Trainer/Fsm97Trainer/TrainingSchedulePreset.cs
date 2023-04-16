@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FSM97Lib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,11 +27,25 @@ namespace Fsm97Trainer
             TrainingScheduleType.Handling, TrainingScheduleType.Kicking,
             TrainingScheduleType.Handling
         };
+        public static TrainingScheduleType[] HandlingAllWeek = new TrainingScheduleType[] {
+           TrainingScheduleType.Handling, TrainingScheduleType.Handling,
+            TrainingScheduleType.Handling, TrainingScheduleType.Handling,
+            TrainingScheduleType.Handling, TrainingScheduleType.Handling,
+            TrainingScheduleType.Handling
+        };
         public static TrainingScheduleType[] ImproveKicking = new TrainingScheduleType[] {
            TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
             TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
             TrainingScheduleType.Kicking, TrainingScheduleType.Throwing,
             TrainingScheduleType.Kicking
+
+        };
+        public static TrainingScheduleType[] KickingAllWeek = new TrainingScheduleType[] {
+           TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
+            TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
+            TrainingScheduleType.Kicking, TrainingScheduleType.Throwing,
+            TrainingScheduleType.Kicking
+
         };
         public static TrainingScheduleType[] ImproveThrowing = new TrainingScheduleType[] {
            TrainingScheduleType.Throwing, TrainingScheduleType.Throwing,
@@ -44,6 +59,13 @@ namespace Fsm97Trainer
             TrainingScheduleType.Sprinting, TrainingScheduleType.Heading,
             TrainingScheduleType.Heading
         };
+        public static TrainingScheduleType[] HeadingAllWeek = new TrainingScheduleType[] {
+           TrainingScheduleType.Heading, TrainingScheduleType.Heading,
+            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
+            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
+            TrainingScheduleType.Heading
+        };
+
         public static TrainingScheduleType[] ImproveAwarenessSchedule = new TrainingScheduleType[] {
            TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
             TrainingScheduleType.ZonalDefence, TrainingScheduleType.Sprinting,
@@ -68,6 +90,20 @@ namespace Fsm97Trainer
             TrainingScheduleType.Marking, TrainingScheduleType.Marking,
             TrainingScheduleType.TrainingMatch
         };
+        public static TrainingScheduleType[] MarkingAllWeek = new TrainingScheduleType[] {
+           TrainingScheduleType.Marking, TrainingScheduleType.Marking,
+            TrainingScheduleType.Marking, TrainingScheduleType.Marking,
+            TrainingScheduleType.Marking, TrainingScheduleType.Marking,
+            TrainingScheduleType.TrainingMatch
+        };
+        public static TrainingScheduleType[] ImproveTacklingSkillAllWeek = new TrainingScheduleType[] {
+           TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
+            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
+            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
+            TrainingScheduleType.Tackling
+        };
+
+        
         public static TrainingScheduleType[] ImproveTacklingSkill = new TrainingScheduleType[] {
            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
             TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
@@ -76,11 +112,16 @@ namespace Fsm97Trainer
         };
         public static TrainingScheduleType[] ImproveTacklingBalanced = new TrainingScheduleType[] {
            TrainingScheduleType.Marking, TrainingScheduleType.Marking,
+            TrainingScheduleType.Marking, TrainingScheduleType.Marking,
+            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
+            TrainingScheduleType.Tackling
+        };
+        public static TrainingScheduleType[] ImproveTacklingBalancedWithTrainingMatch = new TrainingScheduleType[] {
+           TrainingScheduleType.Marking, TrainingScheduleType.Marking,
             TrainingScheduleType.Marking, TrainingScheduleType.Tackling,
             TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
             TrainingScheduleType.TrainingMatch
         };
-
         public static TrainingScheduleType[] FiveASideAllWeek = new TrainingScheduleType[] {
            TrainingScheduleType.FiveASide, TrainingScheduleType.FiveASide,
             TrainingScheduleType.FiveASide, TrainingScheduleType.FiveASide,
@@ -112,6 +153,13 @@ namespace Fsm97Trainer
             TrainingScheduleType.Sprinting, TrainingScheduleType.TrainingMatch,
             TrainingScheduleType.WeightTraining
         };
+        public static TrainingScheduleType[] WeightTrainingAllWeek = new TrainingScheduleType[] {
+           TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
+            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
+            TrainingScheduleType.WeightTraining, TrainingScheduleType.TrainingMatch,
+            TrainingScheduleType.WeightTraining
+        };
+
 
         public static TrainingScheduleType[] SprintingWithTrainingMatch = new TrainingScheduleType[] {
            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fsm97Trainer
+namespace FSM97Lib
 {
     public enum PlayerPosition
     {
@@ -12,7 +12,6 @@ namespace Fsm97Trainer
         RWB, LWB, SW, DM,
         RM, LM, AM,
         RW,LW,
-        FR, FOR,SS
-
+        FR, FOR,SS,
     }
 }

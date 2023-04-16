@@ -130,5 +130,28 @@ namespace Fsm97Trainer.Properties {
                 this["MaxStrength"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::FSM97Lib.Formation SavedFormation {
+            get {
+                return ((global::FSM97Lib.Formation)(this["SavedFormation"]));
+            }
+            set {
+                this["SavedFormation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoPositionWithFormation {
+            get {
+                return ((bool)(this["AutoPositionWithFormation"]));
+            }
+            set {
+                this["AutoPositionWithFormation"] = value;
+            }
+        }
     }
 }

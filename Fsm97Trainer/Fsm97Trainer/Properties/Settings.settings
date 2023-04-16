@@ -29,5 +29,11 @@
     <Setting Name="MaxStrength" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="SavedFormation" Type="FSM97Lib.Formation" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="AutoPositionWithFormation" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

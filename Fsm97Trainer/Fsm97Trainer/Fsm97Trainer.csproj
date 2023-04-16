@@ -68,7 +68,6 @@
     <Compile Include="PlayerMap.cs" />
     <Compile Include="PlayerNode.cs" />
     <Compile Include="PlayerNodeList.cs" />
-    <Compile Include="PlayerPosition.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RotateMethod.cs" />
@@ -105,6 +104,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FSM97Lib\FSM97Lib.csproj">
+      <Project>{92c0ac2c-ec8a-443e-acbc-7fff26e98f9d}</Project>
+      <Name>FSM97Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

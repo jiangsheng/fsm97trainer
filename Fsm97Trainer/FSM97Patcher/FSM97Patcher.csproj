@@ -80,5 +80,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FSM97Lib\FSM97Lib.csproj">
+      <Project>{92c0ac2c-ec8a-443e-acbc-7fff26e98f9d}</Project>
+      <Name>FSM97Lib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

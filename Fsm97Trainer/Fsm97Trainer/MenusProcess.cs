@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FSM97Lib;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
@@ -16,6 +18,7 @@ namespace Fsm97Trainer
 {
     public class MenusProcess : IDisposable
     {
+        Random random = new Random();
         private bool disposedValue;
 
         protected virtual void Dispose(bool disposing)
@@ -54,6 +57,7 @@ namespace Fsm97Trainer
         public int DateAddress { get; set; }
         public int CurrentTeamIndexAddress { get; internal set; }
         public int TrainingDataAddress { get; internal set; }
+        public int TrainingEffectAddress { get; internal set; }
         public Encoding Encoding { get; private set; }
         Process Process { get; set; }
 
@@ -87,6 +91,7 @@ namespace Fsm97Trainer
                     DateAddress = 0x00562ED8;
                     CurrentTeamIndexAddress = 0x562a4c;
                     TrainingDataAddress = 0x562f50;
+                    TrainingEffectAddress= 0x004e38a0;
                     Encoding = Encoding.GetEncoding(936);
                     break;
                 case 1135104://English Ver
@@ -177,7 +182,11 @@ namespace Fsm97Trainer
             int bytesWritten = 0;
             if (offset == 0)
             {
-                NativeMethods.WriteProcessMemory(Process.Handle, new IntPtr(address), data, length, out bytesWritten);
+                if (!NativeMethods.WriteProcessMemory(Process.Handle, new IntPtr(address), data, length, out bytesWritten))
+                {
+                    var errorCode = Marshal.GetLastWin32Error();
+                }
+                
             }
             else
             {
@@ -232,7 +241,8 @@ namespace Fsm97Trainer
             bytes[0x75] = (byte)player.ContractWeeks;
             var salaryBytes = BitConverter.GetBytes(player.Salary);
             salaryBytes.CopyTo(bytes, 0x60);
-            WriteBytes(playerDataAddress + 0x2f, bytes, 0x2f, 0x4d - 0x2f + 1);
+            WriteBytes(playerDataAddress + 0x2f, bytes, 0x31, 0x31 - 0x2f + 1);
+            WriteBytes(playerDataAddress + 0x33, bytes, 0x33, 0x4d - 0x33 + 1);
             WriteByte(playerDataAddress + 0x75, (byte)player.ContractWeeks);
         }
         private void WritePlayerContractWeeks(int dataAddress, Player player)
@@ -585,111 +595,383 @@ namespace Fsm97Trainer
                 WritePlayer(playerNode.DataAddress, player);
             }
         }
-        public void RotatePlayer(RotateMethod rotateMethod)
+        public void RotatePlayer(RotateMethod rotateMethod, Formation targetFormation)
         {
-           
             var players = ReadPlayers(true);
-            if (players.Count > 0)
+            if (players.Count == 0)
             {
-                var team = players.First().Data.Team;
-                var gks = players.Where(p => p.Data.Position == 0);
-                var others = players.Where(p => p.Data.Position != 0);
+                Debug.WriteLine("Current team has no players");
+                return;
+            }
+            var leftoverPlayers = new PlayerNodeList();
+            leftoverPlayers.AddRange(players);
+
+            List<PlayerNode> normals = new List<PlayerNode>();
+            List<PlayerNode> subs = new List<PlayerNode>();
+            List<PlayerNode> rest = new List<PlayerNode>();
+
+            GetGKs(leftoverPlayers, rotateMethod, normals, subs);
+            GetNormals(leftoverPlayers, rotateMethod, normals, targetFormation);
+            GetSubs(leftoverPlayers, rotateMethod, normals, subs, targetFormation);
+            GetRest(leftoverPlayers, rotateMethod, rest, targetFormation);
+            FixPositionAndSaveChangesToGame(normals, subs, rest);
+        }
+
+        private void GetGKs(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod,
+            List<PlayerNode> normals, List<PlayerNode> subs)
+        {
+
+            IOrderedEnumerable<PlayerNode> gkQuery;
+            switch (rotateMethod)
+            {
+                case RotateMethod.Energy:
+                    gkQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
+                    p.Data.GetPositionRating((int)PlayerPosition.GK)).ThenBy(p => this.random.Next());
+                    break;
+                case RotateMethod.Statistics:
+                default:
+                    gkQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
+                    p.Data.GetPositionRating((int)PlayerPosition.GK)).ThenBy(p => this.random.Next());
+                    break;
+            }
+            var gks = gkQuery.Take(2).ToArray();
+            var mainGK = gks[0];
+            var backupGK = gks[1];
+
+            normals.Add(mainGK);
+            subs.Add(backupGK);
+            if (mainGK.Data.Position != (int)PlayerPosition.GK)
+            {
+                mainGK.Data.Position = (int)PlayerPosition.GK;
+                WritePlayerPosition(mainGK.DataAddress, mainGK.Data);
+            }
+            if (backupGK.Data.Position != (int)PlayerPosition.GK)
+            {
+                backupGK.Data.Position = (int)PlayerPosition.GK;
+                WritePlayerPosition(backupGK.DataAddress, backupGK.Data);
+            }
+
+            leftoverPlayers.Remove(mainGK);
+            leftoverPlayers.Remove(backupGK);
+        }
+
+        private void GetNormals(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> normals, Formation targetFormation)
+        {
+            if (targetFormation != null)
+            {
+                for (int position = (int)PlayerPosition.SS; position > 0; position--)//choose all position except gk which is chosen
+                {
+                    for (int requiredPlayersInPosition = targetFormation.PlayersInEachPosition[position];
+                        requiredPlayersInPosition > 0; requiredPlayersInPosition--)
+                    {
+                        IOrderedEnumerable<PlayerNode> bestFitsQuery;
+                        switch (rotateMethod)
+                        {
+                            case RotateMethod.Energy:
+                                bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
+                                p.Data.GetPositionRating(position)).ThenBy(p => this.random.Next());
+                                break;
+                            case RotateMethod.Statistics:
+                            default:
+                                bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
+                                p.Data.GetPositionRating(position)).ThenBy(p => this.random.Next());
+                                break;
+                        }
+                        var bestFit = bestFitsQuery.First();
+                        var targetPosition = position;
+                        if (bestFit.Data.Position != targetPosition)
+                        {
+                            bestFit.Data.Position = targetPosition;
+                            WritePlayerPosition(bestFit.DataAddress, bestFit.Data);
+                        }
+                        leftoverPlayers.Remove(bestFit);
+                        normals.Add(bestFit);
+                    }
+                }
+            }
+            else {
+                IOrderedEnumerable<PlayerNode> query;
                 switch (rotateMethod)
                 {
                     case RotateMethod.Energy:
-                        gks = gks.OrderByDescending(p => p.Data.Energy);
-                        others = others.OrderByDescending(p => p.Data.Energy);
+                        query = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null)).ThenBy(p => this.random.Next());
                         break;
                     case RotateMethod.Statistics:
-                        gks = gks.OrderByDescending(p => p.Data.Statistics);
-                        others = others.OrderByDescending(p => p.Data.Statistics);
+                    default:
+                        query = leftoverPlayers.OrderByDescending(p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null)).ThenBy(p => this.random.Next());
                         break;
                 }
-                List<PlayerNode> normals = new List<PlayerNode>();
-                List<PlayerNode> subs = new List<PlayerNode>();
-                List<PlayerNode> rest = new List<PlayerNode>();
-                var gkCount = gks.Count();
-                if (gkCount > 1)
+                var mainTeam = query.Take(10).ToArray();
+                bool lb = false;
+                bool lwb = false;
+                bool lm = false;
+                bool lw = false;
+                foreach (var mainTeamPlayer in mainTeam)
                 {
-                    normals.Add(gks.First());
-                    normals.AddRange(others.Take(10));
-                    subs.AddRange(gks.Skip(1).Take(1));
-                    subs.AddRange(others.Skip(10).Take(4));
-                    rest.AddRange(gks.Skip(2));
-                    rest.AddRange(others.Skip(14));
-                }
-                else if (gkCount == 1)
-                {
-                    normals.Add(gks.First());
-                    normals.AddRange(others.Take(10));
-                    subs.AddRange(others.Skip(10).Take(5));
-                    rest.AddRange(others.Skip(15));
-                }
-                else
-                {
-                    normals.AddRange(others.Take(11));
-                    subs.AddRange(others.Skip(11).Take(5));
-                    rest.AddRange(others.Skip(16));
-                }
-                var newPlayers = new LinkedList<PlayerNode>();
-                foreach (var playerNode in normals)
-                {
-                    var player = playerNode.Data;
-                    player.Status = 0;
-                    WritePlayerStatus(playerNode.DataAddress, player);
-                    newPlayers.AddLast(playerNode);
-                }
-                foreach (var playerNode in subs)
-                {
-                    var player = playerNode.Data;
-                    player.Status = 1;
-                    WritePlayerStatus(playerNode.DataAddress, player);
-                    WritePlayerPosition(playerNode.DataAddress, player);
-                    newPlayers.AddLast(playerNode);
-                }
-                foreach (var playerNode in rest)
-                {
-                    var player = playerNode.Data;
-                    player.Status = 2;
-                    WritePlayerStatus(playerNode.DataAddress, player);
-                    newPlayers.AddLast(playerNode);
-                }
-
-                if (newPlayers.Count > 0)
-                {
-                    var currentNode = newPlayers.First;
-                    ushort currentTeam = ReadByte(CurrentTeamIndexAddress);
-                    int teamDataAddress = TeamDataAddress + currentTeam * 0x140;
-                    WriteInt(teamDataAddress + 0x136, currentNode.Value.NodeAddress);
-                    while (currentNode != null)
+                    var targetPosition = mainTeamPlayer.Data.BestPosition;
+                    if (targetPosition == (int)PlayerPosition.GK)
+                        targetPosition = mainTeamPlayer.Data.GetBestPositionExceptGKInFormation(null);
+                    switch ((PlayerPosition)targetPosition)
                     {
-                        if (currentNode.Previous == null)
-                        {
-                            currentNode.Value.PreviousNode = 0;
-                        }
-                        else
-                            currentNode.Value.PreviousNode = currentNode.Previous.Value.NodeAddress;
-
-                        if (currentNode.Next == null)
-                        {
-                            currentNode.Value.NextNode = 0;
-                        }
-                        else
-                            currentNode.Value.NextNode = currentNode.Next.Value.NodeAddress;
-
-                        WriteInt(currentNode.Value.NodeAddress + 4, currentNode.Value.NextNode);
-                        WriteInt(currentNode.Value.NodeAddress + 8, currentNode.Value.PreviousNode);
-                        currentNode = currentNode.Next;
+                        case PlayerPosition.RB:
+                            if (lb)
+                            {
+                                targetPosition = (int)PlayerPosition.LB;
+                            }
+                            else
+                                targetPosition = (int)PlayerPosition.RB;
+                            lb = !lb; break;
+                        case PlayerPosition.RWB:
+                            if (lwb)
+                            {
+                                targetPosition = (int)PlayerPosition.LWB;
+                            }
+                            else
+                                targetPosition = (int)PlayerPosition.RWB;
+                            lwb = !lwb; break;
+                        case PlayerPosition.RM:
+                            if (lm)
+                            {
+                                targetPosition = (int)PlayerPosition.LM;
+                            }
+                            else
+                                targetPosition = (int)PlayerPosition.RM;
+                            lm = !lm; break;
+                        case PlayerPosition.RW:
+                            if (lw)
+                            {
+                                targetPosition = (int)PlayerPosition.LW;
+                            }
+                            else
+                                targetPosition = (int)PlayerPosition.RW;
+                            lw = !lw; break;
+                        default: break;
                     }
+                    if (mainTeamPlayer.Data.Position != targetPosition)
+                    {
+                        mainTeamPlayer.Data.Position = targetPosition;
+                        WritePlayerPosition(mainTeamPlayer.DataAddress, mainTeamPlayer.Data);
+                    }
+                    normals.Add(mainTeamPlayer);
+                    leftoverPlayers.Remove(mainTeamPlayer);
                 }
-                AutoPosition();
             }
-            else
+        }
+        private void GetSubs(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> normals, List<PlayerNode> subs, Formation targetFormation)
+        {
+            int subNeeded = 4;
+            bool hasFrontCourt = false;
+            bool hasWings = false;
+            bool hasBackCourt = false;
+            bool hasMiddleField = false;
+            foreach (var mainTeamPlayer in normals)
             {
-                Debug.WriteLine("Current team has no players");
+                var playerPosition = (PlayerPosition)mainTeamPlayer.Data.Position;
+                switch (playerPosition)
+                {
+                    case PlayerPosition.LB:
+                    case PlayerPosition.RB:
+                    case PlayerPosition.CD:
+                    case PlayerPosition.SW:
+                        hasBackCourt = true;
+                        break;
+                    case PlayerPosition.RM:
+                    case PlayerPosition.LM:
+                    case PlayerPosition.DM:
+                    case PlayerPosition.AM:
+                        hasMiddleField = true;
+                        break;
+                    case PlayerPosition.RWB:
+                    case PlayerPosition.LWB:
+                    case PlayerPosition.RW:
+                    case PlayerPosition.LW:
+                    case PlayerPosition.FR:
+                        hasWings = true;
+                        break;
+                    case PlayerPosition.SS:
+                    case PlayerPosition.FOR:
+                        hasFrontCourt = true;
+                        break;
+                }
+            }
+            if (hasFrontCourt)
+            {
+                PlayerPosition[] targetPositions = new PlayerPosition[] {
+                    PlayerPosition.SS,PlayerPosition.FOR,
+                };
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                subNeeded--;
+            }
+            if (hasWings)
+            {
+                PlayerPosition[] targetPositions = new PlayerPosition[] {
+                    PlayerPosition.RWB,PlayerPosition.LWB,
+                    PlayerPosition.RW,PlayerPosition.LW,
+                    PlayerPosition.FR,
+                };
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                subNeeded--;
+            }
+            if (hasMiddleField)
+            {
+                PlayerPosition[] targetPositions = new PlayerPosition[] {
+                    PlayerPosition.RM,PlayerPosition.LM,
+                    PlayerPosition.AM,PlayerPosition.DM,
+                };
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                subNeeded--;
+            }
+            if (hasBackCourt)
+            {
+                PlayerPosition[] targetPositions = new PlayerPosition[] {
+                    PlayerPosition.RB,PlayerPosition.LB,
+                    PlayerPosition.SW,PlayerPosition.CD,
+                };
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                subNeeded--;
+            }
+            if (subNeeded > 0)
+            {
+                IOrderedEnumerable<PlayerNode> subQuery;
+                switch (rotateMethod)
+                {
+                    case RotateMethod.Energy:
+                        subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
+                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation)).ThenBy(p => this.random.Next());
+                        break;
+                    case RotateMethod.Statistics:
+                    default:
+                        subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
+                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation)).ThenBy(p => this.random.Next());
+                        break;
+                }
+                var subRest = subQuery.Take(subNeeded).ToArray();
+                foreach (var subTeamPlayer in subRest)
+                {
+                    int targetPosition;
+                    if (targetFormation == null)
+                        targetPosition = subTeamPlayer.Data.BestPosition;
+                    else
+                        targetPosition = subTeamPlayer.Data.BestFitInFormation(targetFormation);
+
+                    if (targetPosition != subTeamPlayer.Data.Position)
+                    {
+                        subTeamPlayer.Data.Position = targetPosition;
+                        WritePlayerPosition(subTeamPlayer.DataAddress, subTeamPlayer.Data);
+                    }
+                    leftoverPlayers.Remove(subTeamPlayer);
+                    subs.Add(subTeamPlayer);
+                }
             }
         }
 
+        private void GetASub(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> subs, PlayerPosition[] targetPositions)
+        {
+            IOrderedEnumerable<PlayerNode> subQuery;
+
+            switch (rotateMethod)
+            {
+                case RotateMethod.Energy:
+                    subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
+                            p.Data.GetBestPositionRating(targetPositions)).ThenBy(p => this.random.Next());
+                    break;
+                case RotateMethod.Statistics:
+                default:
+                    subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
+                           p.Data.GetBestPositionRating(targetPositions)).ThenBy(p => this.random.Next());
+                    break;
+            }
+            var subTeamPlayer = subQuery.First();
+            var targetPosition = subTeamPlayer.Data.BestFitInPositions(targetPositions);
+            if (targetPosition != subTeamPlayer.Data.Position)
+            {
+                subTeamPlayer.Data.Position = targetPosition;
+                WritePlayerPosition(subTeamPlayer.DataAddress, subTeamPlayer.Data);
+            }
+            leftoverPlayers.Remove(subTeamPlayer);
+            subs.Add(subTeamPlayer);
+        }
+
+        private void GetRest(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> rest, Formation targetFormation)
+        {
+            foreach (var leftoverPlayer in leftoverPlayers)
+            {
+                int  targetPosition;
+                if(targetFormation==null)
+                    targetPosition = leftoverPlayer.Data.BestPosition;
+                else
+                    targetPosition = leftoverPlayer.Data.BestFitInFormation(targetFormation);             
+
+                if (targetPosition != leftoverPlayer.Data.Position)
+                {
+                    leftoverPlayer.Data.Position = targetPosition;
+                    WritePlayerPosition(leftoverPlayer.DataAddress, leftoverPlayer.Data);
+                }
+                rest.Add(leftoverPlayer);
+            }
+
+        }
+        private void FixPositionAndSaveChangesToGame(List<PlayerNode> normals, List<PlayerNode> subs, List<PlayerNode> rest)
+        {
+            var newPlayers = new LinkedList<PlayerNode>();
+            foreach (var playerNode in normals)
+            {
+                var player = playerNode.Data;
+                if (player.Status != 0)
+                {
+                    player.Status = 0;
+                    WritePlayerStatus(playerNode.DataAddress, player);
+                }
+                newPlayers.AddLast(playerNode);
+            }
+            foreach (var playerNode in subs)
+            {
+                var player = playerNode.Data;
+                if (player.Status != 1)
+                {
+                    player.Status = 1;
+                    WritePlayerStatus(playerNode.DataAddress, player);
+                }
+                newPlayers.AddLast(playerNode);
+            }
+            foreach (var playerNode in rest)
+            {
+                var player = playerNode.Data;
+                if (player.Status != 2)
+                {
+                    player.Status = 2;
+                    WritePlayerStatus(playerNode.DataAddress, player);
+                }
+                newPlayers.AddLast(playerNode);
+            }
+            if (newPlayers.Count > 0)
+            {
+                var currentNode = newPlayers.First;
+                ushort currentTeam = ReadByte(CurrentTeamIndexAddress);
+                int teamDataAddress = TeamDataAddress + currentTeam * 0x140;
+                WriteInt(teamDataAddress + 0x136, currentNode.Value.NodeAddress);
+                while (currentNode != null)
+                {
+                    if (currentNode.Previous == null)
+                    {
+                        currentNode.Value.PreviousNode = 0;
+                    }
+                    else
+                        currentNode.Value.PreviousNode = currentNode.Previous.Value.NodeAddress;
+
+                    if (currentNode.Next == null)
+                    {
+                        currentNode.Value.NextNode = 0;
+                    }
+                    else
+                        currentNode.Value.NextNode = currentNode.Next.Value.NodeAddress;
+
+                    WriteInt(currentNode.Value.NodeAddress + 4, currentNode.Value.NextNode);
+                    WriteInt(currentNode.Value.NodeAddress + 8, currentNode.Value.PreviousNode);
+                    currentNode = currentNode.Next;
+                }
+            }
+        }
 
         public void ImproveAllPlayersBy1()
         {
@@ -731,14 +1013,15 @@ namespace Fsm97Trainer
         }
 
 
-        internal void FastUpdate(bool autoTrain, bool convertToGK, bool autoResetStatus, bool maxEnergy, bool maxForm, bool maxMorale,bool maxPower, bool noAlternativeTraining)
+        internal void FastUpdate(bool autoTrain, bool convertToGK, bool autoResetStatus, bool maxEnergy, bool maxForm, bool maxMorale,bool maxPower, bool noAlternativeTraining,
+            TrainingEffectModifier trainingEffectModifier)
         {
             var playerNodes = ReadPlayers(true);
             foreach (var playerNode in playerNodes)
             {
                 if (autoTrain)
                 {
-                    var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data, autoResetStatus,maxEnergy, maxPower, noAlternativeTraining)
+                    var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data, autoResetStatus,maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier)
                         .Select(p => (byte)p).ToArray();
 
                     if (playerNode.Data.Fitness < 99)
@@ -793,9 +1076,9 @@ namespace Fsm97Trainer
         }
 
 
-        internal void SlowUpdate(bool autoRenewContracts,bool maxPower)
+        internal void SlowUpdate(bool autoRenewContracts,bool maxPower, 
+            TrainingEffectModifier trainingEffectModifier)
         {
-
             var playerNodes = ReadPlayers(true);
             foreach (var playerNode in playerNodes)
             {
@@ -843,56 +1126,115 @@ namespace Fsm97Trainer
             WriteInt(DateAddress, currentDate - daysToSubtract);
         }
 
-        internal void AutoPosition()
+        internal void AutoPosition(Formation targetFormation)
         {
             var playerNodes = ReadPlayers(true);
-            bool lb = false;
-            bool lwb = false;
-            bool lm = false;
-            bool lw = false;
-            foreach (var playerNode in playerNodes)
+            if (targetFormation == null)
             {
-                if (playerNode.Data.Position != playerNode.Data.BestPosition)
+                bool lb = false;
+                bool lwb = false;
+                bool lm = false;
+                bool lw = false;
+                foreach (var playerNode in playerNodes)
                 {
-                    playerNode.Data.Position = playerNode.Data.BestPosition;
+                    if (playerNode.Data.Position != playerNode.Data.BestPosition)
+                    {
+                        playerNode.Data.Position = playerNode.Data.BestPosition;
+                    }
+                    switch ((PlayerPosition)playerNode.Data.BestPosition)
+                    {
+                        case PlayerPosition.RB:
+                            if (lb)
+                            {
+                                playerNode.Data.Position = (int)PlayerPosition.LB;
+                            }
+                            else
+                                playerNode.Data.Position = (int)PlayerPosition.RB;
+                            lb = !lb; break;
+                        case PlayerPosition.RWB:
+                            if (lwb)
+                            {
+                                playerNode.Data.Position = (int)PlayerPosition.LWB;
+                            }
+                            else
+                                playerNode.Data.Position = (int)PlayerPosition.RWB;
+                            lwb = !lwb; break;
+                        case PlayerPosition.RM:
+                            if (lm)
+                            {
+                                playerNode.Data.Position = (int)PlayerPosition.LM;
+                            }
+                            else
+                                playerNode.Data.Position = (int)PlayerPosition.RM;
+                            lm = !lm; break;
+                        case PlayerPosition.RW:
+                            if (lw)
+                            {
+                                playerNode.Data.Position = (int)PlayerPosition.LW;
+                            }
+                            else
+                                playerNode.Data.Position = (int)PlayerPosition.RW;
+                            lw = !lw; break;
+                        default: break;
+                    }
+                    WritePlayerPosition(playerNode.DataAddress, playerNode.Data);
                 }
-                switch ((PlayerPosition)playerNode.Data.BestPosition)
+            }
+            else
+            {
+                if (playerNodes.Where(p=>p.Data.Status==0).Count() != 11)
                 {
-                    case PlayerPosition.RB:
-                        if (lb)
-                        {
-                            playerNode.Data.Position = (int)PlayerPosition.LB;
-                        }
-                        else
-                            playerNode.Data.Position = (int)PlayerPosition.RB;
-                        lb = !lb; break;
-                    case PlayerPosition.RWB:
-                        if (lwb)
-                        {
-                            playerNode.Data.Position = (int)PlayerPosition.LWB;
-                        }
-                        else
-                            playerNode.Data.Position = (int)PlayerPosition.RWB;
-                        lwb = !lwb; break;
-                    case PlayerPosition.RM:
-                        if (lm)
-                        {
-                            playerNode.Data.Position = (int)PlayerPosition.LM;
-                        }
-                        else
-                            playerNode.Data.Position = (int)PlayerPosition.RM;
-                        lm = !lm; break;
-                    case PlayerPosition.RW:
-                        if (lw)
-                        {
-                            playerNode.Data.Position = (int)PlayerPosition.LW;
-                        }
-                        else
-                            playerNode.Data.Position = (int)PlayerPosition.RW;
-                        lw = !lw; break;
-                    default: break;
+                    throw new InvalidOperationException("当前场上需要11名球员 (Auto Position to Formation requires 11 Players on the field");
                 }
-                WritePlayerPosition(playerNode.DataAddress, playerNode.Data);
+                var leftoverPlayers = new PlayerNodeList();
+                leftoverPlayers.AddRange(playerNodes.Where(p => p.Data.Status == 0));
+                for (int position = (int)PlayerPosition.SS; position >= 0; position--)
+                {
+                    for (int requiredPlayersInPosition = targetFormation.PlayersInEachPosition[position];
+                        requiredPlayersInPosition > 0; requiredPlayersInPosition--)
+                    {
+                        PlayerNode bestPlayerForPosition = null;
+                        double bestPlayerRatingForPosition = 0;
+                        foreach (var leftoverPlayer in leftoverPlayers)
+                        {
+                            double positionRating = leftoverPlayer.Data.GetPositionRatingDouble(position);
+                            if (positionRating > bestPlayerRatingForPosition)
+                            { 
+                                bestPlayerRatingForPosition = positionRating;
+                                bestPlayerForPosition= leftoverPlayer;
+                            }
+                        }
+                        if (bestPlayerForPosition.Data.Position != position)
+                        {
+                            bestPlayerForPosition.Data.Position = position;
+                            WritePlayerPosition(bestPlayerForPosition.DataAddress, bestPlayerForPosition.Data);
+                        }
+                        leftoverPlayers.Remove(bestPlayerForPosition);
+                    }
+                }
+            }
+        }
+
+        internal TrainingEffectModifier ReadTrainingEffectModifier()
+        {            
+            if (TrainingEffectAddress != 0)
+            {
+                var trainingEffectBytes = ReadBytes(TrainingEffectAddress, 4*27* ((int)TrainingScheduleType.TrainingMatch+1));
+                return TrainingScheduleEffect.DetectModifiers(trainingEffectBytes);
+            }
+            return new TrainingEffectModifier(); 
+        }
+
+        internal void GetCurrentFormation(Formation savedFormation)
+        {
+            var playerNodes = ReadPlayers(true);
+            for (int i = 0; i < savedFormation.PlayersInEachPosition.Length; i++)
+            {
+                savedFormation.PlayersInEachPosition[i] =
+                    playerNodes.Where(
+                        p => p.Data.Status == 0
+                        && p.Data.Position == i
+                        ).Count();
             }
         }
     }

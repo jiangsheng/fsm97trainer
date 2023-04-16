@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using FSM97Lib;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -45,24 +46,34 @@ namespace Fsm97Trainer
         public bool MaxPower { get; set; }
         public bool NoAlternativeTraining { get; set; }
         public bool ContractAutoRenew { get; set; }
+        public bool RemoveNegativeTraining { get; internal set; }
+        public bool TrainingEffectX2 { get; internal set; }
+        public bool ThrowingTrainThrowIn { get; internal set; }
+        public bool ShootingTrainGreed { get; internal set; }
+        public bool PassingTrainLeadership { get; internal set; }
+        public Formation SavedFormation { get; internal set; }
+        public bool AutoPositionWithFormation { get; internal set; }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
             checkBoxAutoTrain.Checked = this.AutoTrain;
-            checkBoxConvertToGK.Checked=this.ConvertToGK ;
+            checkBoxConvertToGK.Checked = this.ConvertToGK;
             checkBoxNoAlternativeTraining.Checked = this.NoAlternativeTraining;
 
             checkBoxNoAbsense.Checked = this.AutoResetStatus;
-            
+
             checkBoxMaxEnergy.Checked = this.MaxEnergy;
             checkBoxMaxForm.Checked = this.MaxForm;
             checkBoxMaxMorale.Checked = this.MaxMorale;
 
             checkBoxMaxStrength.Checked = this.MaxPower;
-            
+
             checkBoxContractAutoRenew.Checked = this.ContractAutoRenew;
+            checkBoxAutoPositionWithCurrentFormation.Checked = this.AutoPositionWithFormation;
+
             this.checkBoxFastTimer_CheckedChanged(sender, e);
             this.checkBoxSlowTimer_CheckedChanged(sender, e);
+            timerUpdateSlow_Tick(sender, e);
         }
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -71,14 +82,15 @@ namespace Fsm97Trainer
             this.NoAlternativeTraining = checkBoxNoAlternativeTraining.Checked;
 
             this.AutoResetStatus = checkBoxNoAbsense.Checked;
-            
+
             this.MaxEnergy = checkBoxMaxEnergy.Checked;
             this.MaxForm = checkBoxMaxForm.Checked;
             this.MaxMorale = checkBoxMaxMorale.Checked;
 
             this.MaxPower = checkBoxMaxStrength.Checked;
-            
+
             this.ContractAutoRenew = checkBoxContractAutoRenew.Checked;
+            this.AutoPositionWithFormation = checkBoxAutoPositionWithCurrentFormation.Checked;
         }
         private MenusProcess GetMenusProcess()
         {
@@ -91,7 +103,7 @@ namespace Fsm97Trainer
             {
                 try
                 {
-                   if(!MenusProcess.HasExited())
+                    if (!MenusProcess.HasExited())
                         return MenusProcess;
                     MenusProcess = new MenusProcess();
                     return MenusProcess;
@@ -99,6 +111,7 @@ namespace Fsm97Trainer
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex.Message);
+                    toolStripStatusLabel1.Text = ex.Message;
                     MenusProcess = new MenusProcess();
                     return MenusProcess;
                 }
@@ -117,6 +130,7 @@ namespace Fsm97Trainer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
             }
         }
 
@@ -158,6 +172,7 @@ namespace Fsm97Trainer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
             }
         }
         private void buttonPastePlayerData_Click(object sender, EventArgs e)
@@ -165,19 +180,20 @@ namespace Fsm97Trainer
             if (PlayerData == null)
             {
                 MessageBox.Show("请先复制数据！(Please copy player data first)");
+                return;
             }
 
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
                 menusProcess.LoadPlayerData(this.PlayerData);
+                MessageBox.Show("球员数据已粘贴(Player data pasted)");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
             }
-
-            MessageBox.Show("球员数据已粘贴(Player data pasted)");
         }
 
 
@@ -197,6 +213,7 @@ namespace Fsm97Trainer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
             }
         }
 
@@ -234,6 +251,7 @@ namespace Fsm97Trainer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
             }
         }
 
@@ -252,7 +270,7 @@ namespace Fsm97Trainer
 
         private void Rotate(RotateMethod rotateMethod)
         {
-           
+
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
@@ -262,18 +280,25 @@ namespace Fsm97Trainer
     + "Please switch to the training schedule page first. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
-                        menusProcess.RotatePlayer(rotateMethod);
-                        MessageBox.Show("球员已轮换(Player rotated)");
+                        if (checkBoxAutoPositionWithCurrentFormation.Checked && this.SavedFormation.IsValid())
+                        {
+                            menusProcess.RotatePlayer(rotateMethod, this.SavedFormation);
+                        }
+                        else
+                            menusProcess.RotatePlayer(rotateMethod, null);
+
+                        MessageBox.Show("球员已轮换(Players rotated)");
                     }
                 }
                 else
                 {
                     MessageBox.Show("游戏进程找不到(Cannot find game process)");
-                }                
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
             }
         }
 
@@ -289,6 +314,7 @@ namespace Fsm97Trainer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
             }
         }
 
@@ -320,15 +346,19 @@ namespace Fsm97Trainer
             bool maxForm = checkBoxMaxForm.Checked;
             bool maxMorale = checkBoxMaxMorale.Checked;
             bool maxPower = checkBoxMaxStrength.Checked;
-            bool noAlternativeTraining=checkBoxNoAlternativeTraining.Checked;
+            bool noAlternativeTraining = checkBoxNoAlternativeTraining.Checked;
+
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
-                menusProcess.FastUpdate(autoTrain, convertToGK, autoResetStatus, maxEnergy, maxForm, maxMorale, maxPower, noAlternativeTraining);
+                TrainingEffectModifier trainingEffectModifier = menusProcess.ReadTrainingEffectModifier();
+                menusProcess.FastUpdate(autoTrain, convertToGK, autoResetStatus, maxEnergy, maxForm, maxMorale, maxPower, noAlternativeTraining
+                    , trainingEffectModifier);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
             }
             inFastTimer = false;
         }
@@ -337,23 +367,26 @@ namespace Fsm97Trainer
         private void checkBoxSlowTimer_CheckedChanged(object sender, EventArgs e)
         {
             timerUpdateSlow.Enabled = this.checkBoxContractAutoRenew.Checked || checkBoxMaxStrength.Checked;
-
         }
         bool inSlowTimer = false;
         private void timerUpdateSlow_Tick(object sender, EventArgs e)
         {
             if (inSlowTimer) return;
             inSlowTimer = true;
-            var autoRenewContracts = checkBoxContractAutoRenew.Checked;
-            bool maxPower = checkBoxMaxStrength.Checked;
+            this.ContractAutoRenew = checkBoxContractAutoRenew.Checked;
+            this.MaxPower = checkBoxMaxStrength.Checked;
+
+
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
-                menusProcess.SlowUpdate(autoRenewContracts, maxPower);
+                TrainingEffectModifier trainingEffectModifier = menusProcess.ReadTrainingEffectModifier();
+                menusProcess.SlowUpdate(ContractAutoRenew, MaxPower, trainingEffectModifier);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
             }
             inSlowTimer = false;
         }
@@ -381,6 +414,7 @@ namespace Fsm97Trainer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
             }
         }
 
@@ -395,8 +429,12 @@ namespace Fsm97Trainer
     + "Please switch to the training schedule page first. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
-
-                        menusProcess.AutoPosition();
+                        if (checkBoxAutoPositionWithCurrentFormation.Checked && this.SavedFormation.IsValid())
+                        {
+                            menusProcess.AutoPosition(this.SavedFormation);
+                        }
+                        else
+                            menusProcess.AutoPosition(null);
                         MessageBox.Show("位置已重设 (Position Auto Reset)");
                     }
                 }
@@ -408,8 +446,39 @@ namespace Fsm97Trainer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
             }
         }
 
+        private void buttonSaveCurrentFormation_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MenusProcess menusProcess = GetMenusProcess();
+                if (!menusProcess.HasExited())
+                {
+                    Formation newFormation = new Formation();
+                    menusProcess.GetCurrentFormation(newFormation);
+                    if (newFormation.IsValid())
+                    {
+                        this.SavedFormation = newFormation;
+                        StringBuilder message = new StringBuilder();
+                        message.AppendFormat("阵容已保存 (Formation Saved):{0}",newFormation.GetFormationName());
+                        MessageBox.Show(message.ToString());
+                    }
+                    else
+                        MessageBox.Show("保存阵容需要场上有11名球员，包括一名守门员 (Saving formation requires 11 players on the field, including a GK.)");
+                }
+                else
+                {
+                    MessageBox.Show("游戏进程找不到(Cannot find game process)");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
+            }
+        }
     }
 }

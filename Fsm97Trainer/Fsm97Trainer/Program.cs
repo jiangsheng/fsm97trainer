@@ -28,7 +28,11 @@ namespace Fsm97Trainer
             mainForm.MaxForm=settings.MaxForm;
             mainForm.MaxMorale = settings.MaxMoral;
             mainForm.MaxPower = settings.MaxStrength;
-            mainForm.NoAlternativeTraining = settings.NoAlternativeTraining;            
+            mainForm.NoAlternativeTraining = settings.NoAlternativeTraining;
+            mainForm.SavedFormation = settings.SavedFormation;
+            if(mainForm.SavedFormation==null) 
+                mainForm.SavedFormation=new FSM97Lib.Formation();
+            mainForm.AutoPositionWithFormation = settings.AutoPositionWithFormation;
             Application.Run(mainForm);
             settings.AutoTrain = mainForm.AutoTrain;
             settings.ContractAutoRenew = mainForm.ContractAutoRenew;
@@ -40,6 +44,8 @@ namespace Fsm97Trainer
             settings.MaxStrength = mainForm.MaxPower;
             settings.AutoResetStatus = mainForm.AutoResetStatus;
             settings.NoAlternativeTraining = mainForm.NoAlternativeTraining;
+            settings.SavedFormation = mainForm.SavedFormation;
+            settings.AutoPositionWithFormation = mainForm.AutoPositionWithFormation;
             settings.Save();
         }
         public static void CopyProperties<T>(T source, T destination)
