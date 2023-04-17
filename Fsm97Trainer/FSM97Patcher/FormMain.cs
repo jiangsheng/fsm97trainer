@@ -196,5 +196,6 @@ namespace FSM97Patcher
             OnNewFileEntered();
 
         }
+
     }
 }

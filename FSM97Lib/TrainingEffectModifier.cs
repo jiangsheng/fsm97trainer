@@ -12,5 +12,9 @@ namespace FSM97Lib
         public bool ThrowingTrainThrowIn { get; set; }
         public bool ShootingTrainGreed { get; set; }
         public bool PassingTrainLeadership { get; set; }
+        public bool ImproveSpeed { get; set; }
+        public bool KickingImproveSpeed { get; internal set; }
+        public bool HandlingImproveAgility { get; internal set; }
+        public bool HeadingImproveDetermination { get; internal set; }
     }
 }

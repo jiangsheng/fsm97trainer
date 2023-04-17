@@ -23,6 +23,8 @@
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.buttonExportPlayerData = new System.Windows.Forms.Button();
             this.buttonImportPlayerData = new System.Windows.Forms.Button();
@@ -55,18 +57,17 @@
             this.tableLayoutPanelTrainingEffect = new System.Windows.Forms.TableLayoutPanel();
             this.timerUpdateFast = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateSlow = new System.Windows.Forms.Timer(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.buttonForceExit = new System.Windows.Forms.Button();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelMaxPlayerForm.SuspendLayout();
             this.tableLayoutPanelRotation.SuspendLayout();
             this.tableLayoutPanelAutoTrain.SuspendLayout();
             this.tableLayoutPanelTrainingEffect1.SuspendLayout();
             this.tableLayoutPanelImprovePlayers.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -125,6 +126,23 @@
             this.toolStripContainer1.TabIndex = 2;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 0);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1010, 22);
+            this.statusStrip1.TabIndex = 0;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(995, 17);
+            this.toolStripStatusLabel1.Spring = true;
+            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // tableLayoutPanelMain
             // 
             this.tableLayoutPanelMain.ColumnCount = 4;
@@ -150,6 +168,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelImprovePlayers, 2, 1);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelTrainingEffect2, 2, 3);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelTrainingEffect, 3, 3);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonForceExit, 2, 4);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
@@ -535,22 +554,18 @@
             this.timerUpdateSlow.Interval = 60000;
             this.timerUpdateSlow.Tick += new System.EventHandler(this.timerUpdateSlow_Tick);
             // 
-            // statusStrip1
+            // buttonForceExit
             // 
-            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 0);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1010, 22);
-            this.statusStrip1.TabIndex = 0;
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(964, 17);
-            this.toolStripStatusLabel1.Spring = true;
-            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonForceExit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonForceExit.Location = new System.Drawing.Point(507, 323);
+            this.buttonForceExit.Name = "buttonForceExit";
+            this.buttonForceExit.Size = new System.Drawing.Size(246, 75);
+            this.buttonForceExit.TabIndex = 30;
+            this.buttonForceExit.Text = "强行退出游戏(如出现40号球员bug时，会出现随机事件直到被解雇删档)\r\n(Force exit. E.g. when a player with number " +
+    "40 joined team random events will occur until you are fired and save file delete" +
+    "d )";
+            this.buttonForceExit.UseVisualStyleBackColor = true;
+            this.buttonForceExit.Click += new System.EventHandler(this.buttonForceExit_Click);
             // 
             // FormMain
             // 
@@ -567,6 +582,8 @@
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelMain.PerformLayout();
             this.tableLayoutPanelMaxPlayerForm.ResumeLayout(false);
@@ -576,8 +593,6 @@
             this.tableLayoutPanelAutoTrain.PerformLayout();
             this.tableLayoutPanelTrainingEffect1.ResumeLayout(false);
             this.tableLayoutPanelImprovePlayers.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -623,6 +638,7 @@
         private System.Windows.Forms.CheckBox checkBoxAutoPositionWithCurrentFormation;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Button buttonForceExit;
     }
 }
 

@@ -53,6 +53,13 @@ namespace Fsm97Trainer
             TrainingScheduleType.Throwing, TrainingScheduleType.Throwing,
             TrainingScheduleType.Throwing
         };
+        public static TrainingScheduleType[] GoalkeepingAllWeek = new TrainingScheduleType[] {
+           TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
+            TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
+            TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
+            TrainingScheduleType.GoalKeeping
+        };
+        
         public static TrainingScheduleType[] ImproveHeading = new TrainingScheduleType[] {
            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
             TrainingScheduleType.Heading, TrainingScheduleType.Heading,

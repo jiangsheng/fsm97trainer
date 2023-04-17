@@ -255,6 +255,32 @@ namespace FSM97Lib
                 resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + 19] = 0.04f;
                 resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 19] = 0.04f;
             }
+            if (trainingEffectModifier.ImproveSpeed)
+            {
+                resultInFloat[(int)TrainingScheduleType.Exercise* 27 + 0] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.Exercise * 27 + 2] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.Jogging * 27 + 0] = 0.06f;
+                resultInFloat[(int)TrainingScheduleType.Jogging * 27 + 2] = 0.02f;
+                resultInFloat[(int)TrainingScheduleType.Marking * 27 + 0] = 0.02f;
+                resultInFloat[(int)TrainingScheduleType.Marking * 27 + 2] = 0.06f;
+                resultInFloat[(int)TrainingScheduleType.ZonalDefence * 27 + 0] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.ZonalDefence * 27 + 2] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + 0] = 0.02f;
+                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + 2] = 0.06f;
+                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 0] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 2] = 0.04f;
+            }
+            if (trainingEffectModifier.KickingImproveSpeed) {
+                resultInFloat[(int)TrainingScheduleType.Kicking * 27 + 0] = 0.04f;
+            }
+            if (trainingEffectModifier.HandlingImproveAgility)
+            {
+                resultInFloat[(int)TrainingScheduleType.Handling* 27 + 1] = 0.04f;
+            }
+            if (trainingEffectModifier.HeadingImproveDetermination)
+            {
+                resultInFloat[(int)TrainingScheduleType.Heading* 27 + 22] = 0.04f;
+            }
             byte[] result = new byte[resultInFloat.Length * 4];
             Buffer.BlockCopy(resultInFloat, 0, result, 0, result.Length);
             return result;
@@ -273,7 +299,15 @@ namespace FSM97Lib
             if (trainingEffectFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 20] > 0)
                 result.PassingTrainLeadership = true;
             if (trainingEffectFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 23] > 0)
-                result.ShootingTrainGreed = true;
+                result.ShootingTrainGreed = true; 
+            if (trainingEffectFloat[(int)TrainingScheduleType.Exercise * 27 + 0] > 0)
+                result.ImproveSpeed = true;
+            if (trainingEffectFloat[(int)TrainingScheduleType.Kicking * 27 + 0] > 0)
+                result.KickingImproveSpeed = true;
+            if (trainingEffectFloat[(int)TrainingScheduleType.Handling * 27 + 1] > 0)
+                result.HandlingImproveAgility = true;
+            if (trainingEffectFloat[(int)TrainingScheduleType.Heading * 27 + 22] > 0)
+                result.HeadingImproveDetermination = true;
             return result;
         }
     }

@@ -463,7 +463,7 @@ namespace Fsm97Trainer
                     {
                         this.SavedFormation = newFormation;
                         StringBuilder message = new StringBuilder();
-                        message.AppendFormat("阵容已保存 (Formation Saved):{0}",newFormation.GetFormationName());
+                        message.AppendFormat("阵容已保存 (Formation Saved):{0}", newFormation.GetFormationName());
                         MessageBox.Show(message.ToString());
                     }
                     else
@@ -473,6 +473,24 @@ namespace Fsm97Trainer
                 {
                     MessageBox.Show("游戏进程找不到(Cannot find game process)");
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
+            }
+        }
+
+        private void buttonForceExit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MenusProcess menusProcess = GetMenusProcess();
+                if (!menusProcess.HasExited())
+                {
+                    menusProcess.Kill();
+                }
+                this.MenusProcess = null;
             }
             catch (Exception ex)
             {

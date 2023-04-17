@@ -1237,5 +1237,10 @@ namespace Fsm97Trainer
                         ).Count();
             }
         }
+
+        internal void Kill()
+        {
+            Process.Kill();
+        }
     }
 }
