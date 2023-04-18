@@ -173,8 +173,14 @@ namespace Fsm97Trainer
             TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
             TrainingScheduleType.TrainingMatch, TrainingScheduleType.TrainingMatch,
             TrainingScheduleType.TrainingMatch
+        }; 
+        public static TrainingScheduleType[] ShootingAllWeek = new TrainingScheduleType[] {
+           TrainingScheduleType.Shooting, TrainingScheduleType.Shooting,
+            TrainingScheduleType.Shooting, TrainingScheduleType.Shooting,
+            TrainingScheduleType.Shooting, TrainingScheduleType.Shooting,
+            TrainingScheduleType.Shooting
         };
-
+        
         public static TrainingScheduleType[] MaintainShape = new TrainingScheduleType[] {
            TrainingScheduleType.WeightTraining, TrainingScheduleType.Kicking,
             TrainingScheduleType.Sprinting, TrainingScheduleType.Handling,
