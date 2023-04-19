@@ -546,7 +546,7 @@
             // 
             // timerUpdateFast
             // 
-            this.timerUpdateFast.Interval = 1000;
+            this.timerUpdateFast.Interval = 3000;
             this.timerUpdateFast.Tick += new System.EventHandler(this.timerUpdateFast_Tick);
             // 
             // timerUpdateSlow

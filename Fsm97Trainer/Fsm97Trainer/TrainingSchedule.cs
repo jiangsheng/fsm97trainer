@@ -1123,7 +1123,7 @@ namespace Fsm97Trainer
         private static TrainingScheduleType[] ImproveDeterminationTo(Player player, int stageMinimum,
             TrainingEffectModifier trainingEffectModifier)
         {
-            if (player.Speed < stageMinimum)
+            if (player.Determination < stageMinimum)
             {
                 if (trainingEffectModifier.RemoveNegativeTraining)
                     return TrainingSchedulePreset.WeightTrainingAllWeek;
