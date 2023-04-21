@@ -12,7 +12,7 @@ namespace Fsm97Trainer
 
     public class TrainingSchedule
     {
-        static int[] stages = new int[] { 25, 40, 55, 70, 85, 99 };
+        static int[] stages = new int[] {24,29,34,39,44,49,54,59,64,69,74, 79, 84, 89, 94, 99 };
         public static TrainingScheduleType[] GetTrainingSchedule(Player player, bool autoResetStatus, bool maxEnergy, bool maxPower, bool noAlternativeTraining, TrainingEffectModifier trainingEffectModifier)
         {
             TrainingScheduleType[] schedule;
@@ -140,7 +140,7 @@ namespace Fsm97Trainer
                 || player.Determination < stage)
                 {
                     return GetLRBTrainingScheduleStage(player, maxPower, noAlternativeTraining
-                    , trainingEffectModifier, 70);
+                    , trainingEffectModifier, stage);
                 }
             }
             return GenericTraining(player, maxPower, noAlternativeTraining, trainingEffectModifier);
@@ -265,7 +265,8 @@ namespace Fsm97Trainer
             foreach (var stage in stages)
             {
                 if (player.Speed < stage || player.Agility < stage || player.Acceleration < stage || player.Passing < stage ||
-                player.Dribbling < stage || player.Awareness < stage || player.Flair < stage)
+                player.Dribbling < stage || player.TackleDetermination < stage ||
+                player.TackleSkill < stage || player.Awareness < stage || player.Flair < stage)
                 {
                     return GetLRWBTrainingScheduleStage(player, maxPower, noAlternativeTraining
                     , trainingEffectModifier, stage);
@@ -302,9 +303,9 @@ namespace Fsm97Trainer
             if (result != null) return result;
             result = ImproveDribbleTo(player, stageMinimum);
             if (result != null) return result;
-            result = ImproveTackleTo(player, stageMinimum, trainingEffectModifier);
-            if (result != null) return result;
             result = ImproveFlairTo(player, stageMinimum);
+            if (result != null) return result;
+            result = ImproveTackleTo(player, stageMinimum, trainingEffectModifier);
             if (result != null) return result;
             result = ImproveAwarenessTo(player, stageMinimum, maxPower, trainingEffectModifier);
             if (result != null) return result;
@@ -325,8 +326,9 @@ namespace Fsm97Trainer
             }
             foreach (var stage in stages)
             {
-                if (player.Speed < stage || player.Acceleration < stage || player.Passing < stage || player.Dribbling < stage ||
-               player.TackleDetermination < stage || player.TackleSkill < stage || player.Awareness < stage || player.Flair < stage)
+                if (player.Speed < stage || player.Acceleration < stage || player.Passing < stage ||
+                     player.Heading < stage || player.Dribbling < stage ||
+               player.TackleDetermination < stage || player.TackleSkill < stage || player.Awareness < stage)
                 {
                     return GetSWTrainingScheduleStage(player, maxPower, noAlternativeTraining
                     , trainingEffectModifier, stage);
@@ -342,15 +344,17 @@ namespace Fsm97Trainer
             TrainingScheduleType[] result;
             if (stageMinimum < 99)
             {
+                result = ImproveSpeedTo(player, stageMinimum, false, trainingEffectModifier);
+                if (result != null) return result;
                 result = ImproveAwarenessTo(player, stageMinimum, maxPower, trainingEffectModifier);
                 if (result != null) return result;
                 result = ImproveTackleTo(player, stageMinimum, trainingEffectModifier);
                 if (result != null) return result;
-                result = ImprovePassingTo(player, stageMinimum, noAlternativeTraining);
-                if (result != null) return result;
                 result = ImproveDribbleTo(player, stageMinimum);
+                if (result != null) return result; 
+                result = ImproveAccelerationTo(player, stageMinimum, true, trainingEffectModifier);
                 if (result != null) return result;
-                result = ImproveSpeedTo(player, stageMinimum, false, trainingEffectModifier);
+                result = ImprovePassingTo(player, stageMinimum, noAlternativeTraining);
                 if (result != null) return result;
             }
             if (!trainingEffectModifier.RemoveNegativeTraining && stageMinimum == 99)
@@ -394,7 +398,7 @@ namespace Fsm97Trainer
             }
             foreach (var stage in stages)
             {
-                if (player.Speed < stage || player.Passing < stage || player.Heading < stage || player.Dribbling < stage ||
+                if (player.Speed < stage || player.Passing < stage || player.Heading < stage ||
                player.TackleDetermination < stage || player.TackleSkill < stage || player.Awareness < stage)
                 {
                     return GetDMTrainingScheduleStage(player, maxPower, noAlternativeTraining
@@ -739,33 +743,55 @@ namespace Fsm97Trainer
             {
                 result = ImproveConsistencyTo(player, 99);
                 if (result != null) return result;
-                return TrainingSchedulePreset.MaintainShape;
+                return TrainingSchedulePreset.MaintainShape;               
             }
-            result = ImproveDeterminationTo(player, 99, trainingEffectModifier);
+            if (!trainingEffectModifier.RemoveNegativeTraining)
+            {
+                result = ImproveDeterminationTo(player, 99, trainingEffectModifier);
+                if (result != null) return result;
+            }
+            result = ImproveSpeedTo(player, 99, true, trainingEffectModifier);
             if (result != null) return result;
 
             result = ImproveAccelerationTo(player, 99, true, trainingEffectModifier);
             if (result != null) return result;
 
+            result = ImproveAgilityTo(player, 99);
+            if (result != null) return result;
+
             result = ImproveShootingTo(player, 99);
             if (result != null) return result;
+
             result = ImprovePassingTo(player, 99, noAlternativeTraining);
             if (result != null) return result;
-            result = ImproveAgilityTo(player, 99);
+
+            if (trainingEffectModifier.PassingTrainLeadership)
+            {
+                result = ImproveLeadershipTo(player, 99, noAlternativeTraining, trainingEffectModifier);
+                if (result != null) return result;
+            }
+
+            result = ImproveGreed(player, 99, trainingEffectModifier);
             if (result != null) return result;
 
             result = ImproveHeadingTo(player, 99, trainingEffectModifier);
             if (result != null) return result;
+
             result = ImproveControlTo(player, 99);
             if (result != null) return result;
+
             result = ImproveDribbleTo(player, 99);
             if (result != null) return result;
 
             result = ImproveCoolnessTo(player, 99);
             if (result != null) return result;
 
+            result = ImproveConsistencyTo(player, 99);
+            if (result != null) return result;
+
             result = ImproveFlairTo(player, 99);
             if (result != null) return result;
+
 
             result = ImproveAwarenessTo(player, 99, maxPower, trainingEffectModifier);
             if (result != null) return result;
@@ -773,8 +799,6 @@ namespace Fsm97Trainer
             result = ImproveTackleTo(player, 99, trainingEffectModifier);
             if (result != null) return result;
 
-            result = ImproveConsistencyTo(player, 99);
-            if (result != null) return result;
             result = ImproveDeterminationTo(player, 99, trainingEffectModifier);
             if (result != null) return result;
 
@@ -787,17 +811,12 @@ namespace Fsm97Trainer
             result = ImproveThrowingTo(player, 99);
             if (result != null) return result;
 
-            result = ImproveStrengthTo(player, 99, trainingEffectModifier);
-            if (result != null) return result;
-
-            result = ImproveLeadershipTo(player, 99, noAlternativeTraining, trainingEffectModifier);
-            if (result != null) return result;
-
             result = ImproveThrowInTo(player, 99, trainingEffectModifier);
             if (result != null) return result;
 
-            result = ImproveGreed(player, 99, trainingEffectModifier);
+            result = ImproveStrengthTo(player, 99, trainingEffectModifier);
             if (result != null) return result;
+
 
             return TrainingSchedulePreset.MaintainShape;
         }
@@ -1097,7 +1116,7 @@ namespace Fsm97Trainer
             if (player.ThrowIn < stageMinimum)
             {
                 if (trainingEffectModifier.ThrowingTrainThrowIn)
-                    return TrainingSchedulePreset.ImproveThrowing;
+                    return TrainingSchedulePreset.TrainingMatchAllWeek;
             }
             return null;
         }

@@ -39,9 +39,9 @@
             this.checkBoxTrainingMatchNongativeEffect = new System.Windows.Forms.CheckBox();
             this.checkBoxTrainingEffectX2 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.checkBoxPassingMatchImproveLeadership = new System.Windows.Forms.CheckBox();
             this.checkBoxThrowInImprovesThrowing = new System.Windows.Forms.CheckBox();
             this.checkBoxShootingTraingGreed = new System.Windows.Forms.CheckBox();
+            this.checkBoxPassingMatchImproveLeadership = new System.Windows.Forms.CheckBox();
             this.checkBoxImproveSpeed = new System.Windows.Forms.CheckBox();
             this.checkBoxKickingImprovesSpeed = new System.Windows.Forms.CheckBox();
             this.checkBoxHandlingImprovesAgility = new System.Windows.Forms.CheckBox();
@@ -194,19 +194,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1103, 344);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
-            // checkBoxPassingMatchImproveLeadership
-            // 
-            this.checkBoxPassingMatchImproveLeadership.Checked = true;
-            this.checkBoxPassingMatchImproveLeadership.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxPassingMatchImproveLeadership.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBoxPassingMatchImproveLeadership.Location = new System.Drawing.Point(737, 60);
-            this.checkBoxPassingMatchImproveLeadership.Name = "checkBoxPassingMatchImproveLeadership";
-            this.checkBoxPassingMatchImproveLeadership.Size = new System.Drawing.Size(363, 51);
-            this.checkBoxPassingMatchImproveLeadership.TabIndex = 12;
-            this.checkBoxPassingMatchImproveLeadership.Text = "传球、无人赛和比赛改善领导(Passing, 5 a side and training matches improves Leadership）";
-            this.checkBoxPassingMatchImproveLeadership.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBoxPassingMatchImproveLeadership.UseVisualStyleBackColor = true;
-            // 
             // checkBoxThrowInImprovesThrowing
             // 
             this.checkBoxThrowInImprovesThrowing.AutoSize = true;
@@ -233,6 +220,19 @@
             this.checkBoxShootingTraingGreed.Text = "射门、五人赛和比赛改善得分欲 (Shooting, 5 a side and training matches improves Greed)";
             this.checkBoxShootingTraingGreed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxShootingTraingGreed.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPassingMatchImproveLeadership
+            // 
+            this.checkBoxPassingMatchImproveLeadership.Checked = true;
+            this.checkBoxPassingMatchImproveLeadership.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxPassingMatchImproveLeadership.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBoxPassingMatchImproveLeadership.Location = new System.Drawing.Point(737, 60);
+            this.checkBoxPassingMatchImproveLeadership.Name = "checkBoxPassingMatchImproveLeadership";
+            this.checkBoxPassingMatchImproveLeadership.Size = new System.Drawing.Size(363, 51);
+            this.checkBoxPassingMatchImproveLeadership.TabIndex = 12;
+            this.checkBoxPassingMatchImproveLeadership.Text = "传球、无人赛和比赛改善领导(Passing, 5 a side and training matches improves Leadership）";
+            this.checkBoxPassingMatchImproveLeadership.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxPassingMatchImproveLeadership.UseVisualStyleBackColor = true;
             // 
             // checkBoxImproveSpeed
             // 

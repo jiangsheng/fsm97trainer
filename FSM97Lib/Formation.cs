@@ -7,13 +7,13 @@ namespace FSM97Lib
 {
     public class Formation
     {
-        public int[] PlayersInEachPosition { get; set; } = new int[(int)(PlayerPosition.SS)+1];
+        public int[] PlayersInEachPosition { get; set; } = new int[(int)(PlayerPosition.SS) + 1];
 
         public string GetFormationName()
         {
             if (PlayersInEachPosition[0] == 1)
             {
-                if(PlayersInEachPosition[(int)PlayerPosition.LB]==1
+                if (PlayersInEachPosition[(int)PlayerPosition.LB] == 1
                     && PlayersInEachPosition[(int)PlayerPosition.RB] == 1
                     && PlayersInEachPosition[(int)PlayerPosition.CD] == 2
                     && PlayersInEachPosition[(int)PlayerPosition.DM] == 2
@@ -37,7 +37,7 @@ namespace FSM97Lib
                   && PlayersInEachPosition[(int)PlayerPosition.LM] == 1
                   && PlayersInEachPosition[(int)PlayerPosition.RM] == 1
                   && PlayersInEachPosition[(int)PlayerPosition.AM] == 1
-                  && PlayersInEachPosition[(int)PlayerPosition.FOR] ==2)
+                  && PlayersInEachPosition[(int)PlayerPosition.FOR] == 2)
                     return "41212";
                 if (PlayersInEachPosition[(int)PlayerPosition.LWB] == 1
                   && PlayersInEachPosition[(int)PlayerPosition.RWB] == 1
@@ -48,7 +48,7 @@ namespace FSM97Lib
                     return "532";
                 if (PlayersInEachPosition[(int)PlayerPosition.LB] == 1
                 && PlayersInEachPosition[(int)PlayerPosition.RB] == 1
-                && PlayersInEachPosition[(int)PlayerPosition.CD] == 2                
+                && PlayersInEachPosition[(int)PlayerPosition.CD] == 2
                 && PlayersInEachPosition[(int)PlayerPosition.DM] == 3
                 && PlayersInEachPosition[(int)PlayerPosition.LW] == 1
                 && PlayersInEachPosition[(int)PlayerPosition.RW] == 1
@@ -64,7 +64,7 @@ namespace FSM97Lib
                 if (PlayersInEachPosition[(int)PlayerPosition.LB] == 1
             && PlayersInEachPosition[(int)PlayerPosition.RB] == 1
             && PlayersInEachPosition[(int)PlayerPosition.CD] == 2
-            && PlayersInEachPosition[(int)PlayerPosition.DM] ==1
+            && PlayersInEachPosition[(int)PlayerPosition.DM] == 1
             && PlayersInEachPosition[(int)PlayerPosition.LM] == 1
             && PlayersInEachPosition[(int)PlayerPosition.RM] == 1
             && PlayersInEachPosition[(int)PlayerPosition.FOR] == 3)
@@ -85,7 +85,7 @@ namespace FSM97Lib
           && PlayersInEachPosition[(int)PlayerPosition.RM] == 1
           && PlayersInEachPosition[(int)PlayerPosition.FOR] == 1)
                     return "4231";
-                if(PlayersInEachPosition[(int)PlayerPosition.LB] == 1
+                if (PlayersInEachPosition[(int)PlayerPosition.LB] == 1
           && PlayersInEachPosition[(int)PlayerPosition.RB] == 1
           && PlayersInEachPosition[(int)PlayerPosition.CD] == 2
           && PlayersInEachPosition[(int)PlayerPosition.DM] == 2
@@ -121,19 +121,19 @@ namespace FSM97Lib
         && PlayersInEachPosition[(int)PlayerPosition.LW] == 1
        && PlayersInEachPosition[(int)PlayerPosition.RW] == 1
        && PlayersInEachPosition[(int)PlayerPosition.FOR] == 1)
-                return "343"; 
+                return "343";
             if (PlayersInEachPosition[(int)PlayerPosition.CD] == 3
                   && PlayersInEachPosition[(int)PlayerPosition.LWB] == 1
                   && PlayersInEachPosition[(int)PlayerPosition.RWB] == 1
                   && PlayersInEachPosition[(int)PlayerPosition.DM] == 2
                   && PlayersInEachPosition[(int)PlayerPosition.AM] == 1
                   && PlayersInEachPosition[(int)PlayerPosition.FOR] == 2)
-                return "352"; 
+                return "352";
             if (PlayersInEachPosition[(int)PlayerPosition.CD] == 3
                   && PlayersInEachPosition[(int)PlayerPosition.DM] == 4
                   && PlayersInEachPosition[(int)PlayerPosition.AM] == 1
                   && PlayersInEachPosition[(int)PlayerPosition.FOR] == 2)
-                return "3412"; 
+                return "3412";
             if (PlayersInEachPosition[(int)PlayerPosition.CD] == 3
                 && PlayersInEachPosition[(int)PlayerPosition.LWB] == 1
                   && PlayersInEachPosition[(int)PlayerPosition.RWB] == 1
@@ -172,7 +172,7 @@ namespace FSM97Lib
             && PlayersInEachPosition[(int)PlayerPosition.FOR] == 3)
                 return "127";
             if (PlayersInEachPosition[(int)PlayerPosition.CD] == 2
-          && PlayersInEachPosition[(int)PlayerPosition.DM] ==3
+          && PlayersInEachPosition[(int)PlayerPosition.DM] == 3
           && PlayersInEachPosition[(int)PlayerPosition.LW] == 1
           && PlayersInEachPosition[(int)PlayerPosition.RW] == 1
           && PlayersInEachPosition[(int)PlayerPosition.FOR] == 3)
@@ -184,7 +184,7 @@ namespace FSM97Lib
         {
             StringBuilder sb = new StringBuilder();
             bool firstPosition = true;
-            for(int i=0;i<PlayersInEachPosition.Length;i++)
+            for (int i = 0; i < PlayersInEachPosition.Length; i++)
             {
                 for (int j = 0; j < PlayersInEachPosition[i]; j++)
                 {
@@ -210,7 +210,11 @@ namespace FSM97Lib
             {
                 totalPlayers += PlayersInEachPosition[i];
             }
-            return totalPlayers ==11 && PlayersInEachPosition[(int)PlayerPosition.GK]==1;
+            return totalPlayers == 11 && PlayersInEachPosition[(int)PlayerPosition.GK] == 1;
+        }
+        public override string ToString()
+        {
+            return GetFormationName();
         }
     }
 }

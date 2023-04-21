@@ -668,13 +668,16 @@ namespace Fsm97Trainer
                         switch (rotateMethod)
                         {
                             case RotateMethod.Energy:
-                                bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                                p.Data.GetPositionRating(position)).ThenBy(p => this.random.Next());
+                                bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetPositionRating(position))
+                                    .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(p.Data, position, targetFormation))
+                                    .ThenBy(p => this.random.Next());
                                 break;
                             case RotateMethod.Statistics:
                             default:
-                                bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                                p.Data.GetPositionRating(position)).ThenBy(p => this.random.Next());
+                                bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics + 
+                                    p.Data.GetPositionRating(position))
+                                    .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(p.Data, position, targetFormation))
+                                    .ThenBy(p => this.random.Next());
                                 break;
                         }
                         var bestFit = bestFitsQuery.First();
@@ -694,11 +697,15 @@ namespace Fsm97Trainer
                 switch (rotateMethod)
                 {
                     case RotateMethod.Energy:
-                        query = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null)).ThenBy(p => this.random.Next());
+                        query = leftoverPlayers.OrderByDescending(
+                            p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null))
+                            .ThenBy(p => this.random.Next());
                         break;
                     case RotateMethod.Statistics:
                     default:
-                        query = leftoverPlayers.OrderByDescending(p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null)).ThenBy(p => this.random.Next());
+                        query = leftoverPlayers.OrderByDescending(
+                            p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null)).
+                            ThenBy(p => this.random.Next());
                         break;
                 }
                 var mainTeam = query.Take(10).ToArray();
@@ -757,6 +764,8 @@ namespace Fsm97Trainer
                 }
             }
         }
+
+
         private void GetSubs(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> normals, List<PlayerNode> subs, Formation targetFormation)
         {
             int subNeeded = 4;

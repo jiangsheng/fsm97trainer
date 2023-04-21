@@ -43,7 +43,7 @@ namespace Fsm97Trainer
         public static TrainingScheduleType[] KickingAllWeek = new TrainingScheduleType[] {
            TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
             TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Kicking, TrainingScheduleType.Throwing,
+            TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
             TrainingScheduleType.Kicking
 
         };
@@ -163,7 +163,7 @@ namespace Fsm97Trainer
         public static TrainingScheduleType[] WeightTrainingAllWeek = new TrainingScheduleType[] {
            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
             TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining, TrainingScheduleType.TrainingMatch,
+            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
             TrainingScheduleType.WeightTraining
         };
 

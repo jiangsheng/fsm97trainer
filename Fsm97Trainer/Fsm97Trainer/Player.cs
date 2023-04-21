@@ -346,5 +346,24 @@ namespace Fsm97Trainer
             }
             return (int)bestPosition;
         }
+
+        internal double  GetAveragePositionRatingInFormationExceptTargetPositionAndGK(Player data, int position, Formation formation)
+        {
+            double sumPositionRating = 0;
+            int countPositions = 0;
+
+            for (int i = 1; i <= (int)PlayerPosition.SS; i++)
+            {
+                if (formation != null)
+                {
+                    if (formation.PlayersInEachPosition[i] == 0) continue;
+                }
+                
+                double testPositionRating = GetPositionRatingDouble(i);
+                sumPositionRating += testPositionRating;
+                countPositions++;
+            }
+            return sumPositionRating + countPositions;
+        }
     }
 }
