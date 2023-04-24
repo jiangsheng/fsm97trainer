@@ -9,7 +9,7 @@ Patch modifies the game's executable. Currently only supports the Chinese and En
 
 #### Changing bench size
 
-By default English leagues allows only 3 players on the bench. This creates a hassle to constantly adding/remove benches players for continental competitions where the bench size is 5. The patch set the bench size to 5 at all times.
+By default English leagues allows only 3 players on the bench. This creates a hassle to constantly add/remove benches players for continental competitions where the bench size is 5. The patch set the bench size to 5 at all times.
 
 #### Changing training effects
 
@@ -22,7 +22,7 @@ The 2X effect would double the training speed, letting you to max a player in 5-
 
 #### Scouting tools
 
-Exporting player data exports player data in csv format, you can then use your favorite csv tool (for example, Microsoft Excel) to sort and filter data. Attributes unable to be seen in the in-game transfer market, such as individual attributes in the speed/tackling/goalkeeping groups, best position and best position rating, would be seen in the csv file. The csv file also has the player's age, position, rating and nationality in case you want to purchase the player you want in game.
+Exporting player data exports player data in csv format, you can then use your favorite csv tool (for example, Microsoft Excel) to sort and filter data. Attributes unable to be seen in the in-game transfer market, such as individual attributes in the speed/tackling/goalkeeping groups, best position and best position rating (in case computer moved Ronaldo to CD), would be seen in the csv file. The csv file also has the player's age, position, rating and nationality in case you want to purchase the player you want in game.
 
 Importing player would allow you to import player data back after modifying in your favorite csv tool. This makes batch modifying possible.
 
@@ -30,7 +30,7 @@ Copying data would take a snapshot of the current player data and pasting would 
 
 #### Quality of life improvements
 
-No absense would make player available in the next game after an injury or red card. You still have to move the player back to rotation though. Auto rotation would help on that. It can rotate by energy (sometimes this makes an unused goalkeeper to play out of position) or by statistics. Max strength and Max energy makes game less interrupted by injury. Auro contract renewal disables the contract renewal reminders. Auto Train would adjust the player's training schedule automatically. It would train for another position if the current one is maxed out, unless you disable that. Converting to GK would be another option to minimize traing injury but players don't really like that and may threaten to retire and the club may threat to fire you (but never will). Due to the way training works a player could have best position changed (e.g. LRB and RWB could become LW and RW if you do sprint training which is also essential for wing backs) be trained and complain about it. Auto position would change every player to their best position. Well, sort of, sometimes you want a fixed formation instead of letting players choose their position freely. You can set your formation in game (you don't really need to care if you put a CD in a forward position), then click the Save Current Formation button and check Auto Position using Saved Formation checkbox. The next time you do auto positon or auto rotation, the saved formation would be used.
+No absense would make player available in the next game after an injury or red card. You still have to move the player back to rotation though. Auto rotation would help on that. It can rotate by energy (sometimes this makes an unused goalkeeper to play out of position) or by statistics. Max strength and Max energy makes game less interrupted by injury. Auro contract renewal disables the contract renewal reminders. Auto Train would adjust the player's training schedule automatically. It would train for another position if the current one is maxed out, unless you disable that. Converting to GK would be another option to minimize traing injury but players don't really like that and may threaten to retire and the club may threat to fire you (but never will). Due to the way training works a player could have best position changed (e.g. LRB and RWB could become LW and RW if you do sprint training which is also essential for wing backs) be trained and complain about it. Auto position would change every player to their best position. Well, sort of, sometimes you want a fixed formation instead of letting players choose their position freely. You can set your formation in game (you don't really need to care if you put a CD in a forward position), then click the Save Current Formation button and check the Auto Position using Saved Formation checkbox. The next time you do auto positon or auto rotation, the saved formation would be used.
 
 Note there is a possiblity you would lose your players at the beginning of a season when Auto Train or No Absense is enabled and a respawn joins your team. This is due to a race condition between the trainer and the game itself. Force exit the game and do not quit using in-game exit button in this case.
 
@@ -42,7 +42,7 @@ The computer does not train. This makes late game matchs a cake walk. If you wan
 
 The game has an year 2079 bug where all players would suddenly become age 90+ due to birth date being stored as a WORD and thus capped at 65535 days after December, 30, 1899. This would begin a 16 year dark period where every single player in the game would have a high chance to retire next season, starting from a club's main team until only 16 players left in the club. Computers would also lose the ability to purchase players off the transfer market during this period. After the 16 years, the game would be full of youth players and each year a smaller and smaller amount of players retire as respwns making their retirement possible. Around 2105, when all old players from the 16 years retired but no new player aged enough to retire, the game would freeze at the begining of the next season due to lack of respawns. 
 
-To fix this bug, Date reset would reset the date but keeping player ages intact. This should only be done in the offseason, though, as changing date in the middle of a season would disrupt competition schedule.
+To fix this bug, Date reset would reset the date to the start but keeping player ages intact. This should only be done in the offseason, though, as changing date in the middle of a season would disrupt competition schedule.
 
 The game has a buffer overrun bug at 40 players (39 players in the official 97/98 season patch). When your team becomes large, sometimes you would see a player with number 40 or 39 joins your team as the result of poorly planned player transfer or respawn. At this time, your game state becomes corrupted, random events will happen weekly until you are fired and game progress deleted shortly after.
 
