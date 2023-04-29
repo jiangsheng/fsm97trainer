@@ -333,7 +333,7 @@ namespace Fsm97Trainer
             DateTime birthday = new DateTime(1899, 12, 30).AddDays(player.BirthDateOffset);
             int years = currentDateTime.Year - birthday.Year;
             // Go back to the year in which the person was born in case of a leap year
-            if (birthday.Date > currentDateTime.AddYears(-years))
+            if (birthday.Date >= currentDateTime.AddYears(-years))
                 years--;
             player.Age = years % 256;
             if (currentDate < 6570)

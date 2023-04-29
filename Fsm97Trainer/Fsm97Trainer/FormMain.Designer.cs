@@ -55,9 +55,9 @@
             this.buttonImproveAllPlayersBy1 = new System.Windows.Forms.Button();
             this.tableLayoutPanelTrainingEffect2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelTrainingEffect = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonForceExit = new System.Windows.Forms.Button();
             this.timerUpdateFast = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateSlow = new System.Windows.Forms.Timer(this.components);
-            this.buttonForceExit = new System.Windows.Forms.Button();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -362,7 +362,8 @@
             this.buttonResetDate.Name = "buttonResetDate";
             this.buttonResetDate.Size = new System.Drawing.Size(248, 74);
             this.buttonResetDate.TabIndex = 23;
-            this.buttonResetDate.Text = "重设日期";
+            this.buttonResetDate.Text = "重设日期 (需要在休赛期，建议在2079年老人潮之前进行)\r\nReset Game time (Needs to be in offseason, better " +
+    "do it before the 2079 age bug)";
             this.buttonResetDate.UseVisualStyleBackColor = true;
             this.buttonResetDate.Click += new System.EventHandler(this.buttonResetDate_Click);
             // 
@@ -544,16 +545,6 @@
             this.tableLayoutPanelTrainingEffect.Size = new System.Drawing.Size(248, 74);
             this.tableLayoutPanelTrainingEffect.TabIndex = 29;
             // 
-            // timerUpdateFast
-            // 
-            this.timerUpdateFast.Interval = 3000;
-            this.timerUpdateFast.Tick += new System.EventHandler(this.timerUpdateFast_Tick);
-            // 
-            // timerUpdateSlow
-            // 
-            this.timerUpdateSlow.Interval = 60000;
-            this.timerUpdateSlow.Tick += new System.EventHandler(this.timerUpdateSlow_Tick);
-            // 
             // buttonForceExit
             // 
             this.buttonForceExit.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -566,6 +557,16 @@
     "d )";
             this.buttonForceExit.UseVisualStyleBackColor = true;
             this.buttonForceExit.Click += new System.EventHandler(this.buttonForceExit_Click);
+            // 
+            // timerUpdateFast
+            // 
+            this.timerUpdateFast.Interval = 3000;
+            this.timerUpdateFast.Tick += new System.EventHandler(this.timerUpdateFast_Tick);
+            // 
+            // timerUpdateSlow
+            // 
+            this.timerUpdateSlow.Interval = 60000;
+            this.timerUpdateSlow.Tick += new System.EventHandler(this.timerUpdateSlow_Tick);
             // 
             // FormMain
             // 
