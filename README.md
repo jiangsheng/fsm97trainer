@@ -26,13 +26,11 @@ Exporting player data exports player data in csv format, you can then use your f
 
 Importing player would allow you to import player data back after modifying in your favorite csv tool. This makes batch modifying possible.
 
-Copying data would take a snapshot of the current player data and pasting would restore the player data. This should only be used in offseason and at the beginning of the next season, as you don't want to lose your training progress. This is helpful when your favorite player is getting old and you want to transfer the training progress to a respawn, if any. 
+Copying data would take a snapshot of the current player data and pasting would restore the player data. Note this may cause you to lose your training progress. This can help you to reassign your player's numbers (automatic number assing sucks) or you want to transfer the training progress to a respawn when one of your favorite old player retires. 
 
 #### Quality of life improvements
 
 No absense would make player available in the next game after an injury or red card. You still have to move the player back to rotation though. Auto rotation would help on that. It can rotate by energy (sometimes this makes an unused goalkeeper to play out of position) or by statistics. Max strength and Max energy makes game less interrupted by injury. Auro contract renewal disables the contract renewal reminders. Auto Train would adjust the player's training schedule automatically. It would train for another position if the current one is maxed out, unless you disable that. Converting to GK would be another option to minimize traing injury but players don't really like that and may threaten to retire and the club may threat to fire you (but never will). Due to the way training works a player could have best position changed (e.g. LRB and RWB could become LW and RW if you do sprint training which is also essential for wing backs) be trained and complain about it. Auto position would change every player to their best position. Well, sort of, sometimes you want a fixed formation instead of letting players choose their position freely. You can set your formation in game (you don't really need to care if you put a CD in a forward position), then click the Save Current Formation button and check the Auto Position using Saved Formation checkbox. The next time you do auto positon or auto rotation, the saved formation would be used.
-
-Note there is a possiblity you would lose your players at the beginning of a season when Auto Train or No Absense is enabled and a respawn joins your team. This is due to a race condition between the trainer and the game itself. Force exit the game and do not quit using in-game exit button in this case.
 
 #### Improving the computer
 

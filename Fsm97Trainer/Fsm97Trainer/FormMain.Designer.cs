@@ -565,7 +565,7 @@
             // 
             // timerUpdateSlow
             // 
-            this.timerUpdateSlow.Interval = 60000;
+            this.timerUpdateSlow.Interval = 180000;
             this.timerUpdateSlow.Tick += new System.EventHandler(this.timerUpdateSlow_Tick);
             // 
             // FormMain

@@ -108,102 +108,15 @@ namespace Fsm97Trainer
                     throw new InvalidOperationException("不支持的游戏版本 Unsupported Game version");
             }
         }
-        private byte ReadByte(int address)
-        {
-            int bytesRead = 0;
-            byte[] resultBits = NativeMethods.ReadMemory(Process.Handle, new IntPtr(address), 1, out bytesRead);
-            if (bytesRead > 0)
-                return resultBits[0];
-            return 0;
-        }
-        private byte[] ReadBytes(int address, int count)
-        {
-            int bytesRead = 0;
-            byte[] resultBits = NativeMethods.ReadMemory(Process.Handle, new IntPtr(address), count, out bytesRead);
-            if (bytesRead == count)
-                return resultBits;
-            throw new InvalidOperationException();
-        }
-        Byte[] writeByteBffer = new Byte[1];
-        private void WriteByte(int address, byte value)
-        {
-            int bytesWritten = 0; writeByteBffer[0] = value;
-            NativeMethods.WriteProcessMemory(Process.Handle, new IntPtr(address), writeByteBffer, 1, out bytesWritten);
-        }
-        Byte[] intBuffer = new Byte[4];
-        internal int ReadInt(int address)
-        {
-            int bytesRead = 0;
-            NativeMethods.ReadProcessMemory(Process.Handle, new IntPtr(address), intBuffer, 4, out bytesRead);
-            if (bytesRead == 4)
-            {
-                return BitConverter.ToInt32(intBuffer, 0);
-            }
-            return 0;
-        }
-        private void WriteInt(int address, int value)
-        {
-            byte[] resultBits = BitConverter.GetBytes(value);
-            WriteBytes(address, resultBits, 0, 4);
-        }
-        private ushort  ReadUShort(int address)
-        {
-            int bytesRead = 0;
-            NativeMethods.ReadProcessMemory(Process.Handle, new IntPtr(address), intBuffer, 2, out bytesRead);
-            if (bytesRead == 2)
-            {
-                return BitConverter.ToUInt16(intBuffer, 0);
-            }
-            return 0;
-        }
-        private void WriteUShort(int address, ushort value)
-        {
-            byte[] resultBits = BitConverter.GetBytes(value);
-            WriteBytes(address, resultBits, 0, 2);
-        }
-        internal string ReadString(int address, Encoding encoding, int length)
-        {
-            int bytesRead = 0;
-            byte[] resultBits = NativeMethods.ReadMemory(Process.Handle, new IntPtr(address), length, out bytesRead);
-            if (bytesRead == length)
-            {
-                var stringRead = encoding.GetString(resultBits);
-                int index = stringRead.IndexOf('\0');
-                if (index < 0)
-                    return stringRead;
-                return stringRead.Substring(0, index);
-            }
-            return string.Empty;
-        }
-
-
-        private void WriteBytes(int address, byte[] data, int offset, uint length)
-        {
-            int bytesWritten = 0;
-            if (offset == 0)
-            {
-                if (!NativeMethods.WriteProcessMemory(Process.Handle, new IntPtr(address), data, length, out bytesWritten))
-                {
-                    var errorCode = Marshal.GetLastWin32Error();
-                }
-                
-            }
-            else
-            {
-                byte[] second = new byte[length];
-                Buffer.BlockCopy(data, offset, second, 0, (int)length);
-                NativeMethods.WriteProcessMemory(Process.Handle, new IntPtr(address), second, length, out bytesWritten);
-            }
-        }
 
         internal int ReadCurrentTeamIndex()
         {
-            return ReadByte(CurrentTeamIndexAddress);
+            return NativeMethods.ReadByte(Process,CurrentTeamIndexAddress);
         }
 
         private void WritePlayer(int playerDataAddress, Player player)
         {
-            byte[] bytes = ReadBytes(playerDataAddress, 0x76);
+            byte[] bytes = NativeMethods.ReadBytes(Process,playerDataAddress, 0x76);
             bytes[0x2f] = (byte)player.Nationality;
             bytes[0x30] = (byte)player.Position;
             bytes[0x31] = (byte)player.Status;
@@ -241,19 +154,19 @@ namespace Fsm97Trainer
             bytes[0x75] = (byte)player.ContractWeeks;
             var salaryBytes = BitConverter.GetBytes(player.Salary);
             salaryBytes.CopyTo(bytes, 0x60);
-            WriteBytes(playerDataAddress + 0x2f, bytes, 0x31, 0x31 - 0x2f + 1);
-            WriteBytes(playerDataAddress + 0x33, bytes, 0x33, 0x4d - 0x33 + 1);
-            WriteByte(playerDataAddress + 0x75, (byte)player.ContractWeeks);
+            NativeMethods.WriteBytes(Process,playerDataAddress + 0x2f, bytes, 0x2f, 0x31 - 0x2f + 1);
+            NativeMethods.WriteBytes(Process,playerDataAddress + 0x33, bytes, 0x33, 0x4d - 0x33 + 1);
+            NativeMethods.WriteByte(Process,playerDataAddress + 0x75, (byte)player.ContractWeeks);
         }
         private void WritePlayerContractWeeks(int dataAddress, Player player)
         {
-            WriteByte(dataAddress + 0x75, (byte)player.ContractWeeks);
+            NativeMethods.WriteByte(Process, dataAddress + 0x75, (byte)player.ContractWeeks);
         }
 
 
         private void WritePlayerPosition(int dataAddress, Player player)
         {
-            WriteByte(dataAddress + 0x30, (byte)player.Position);
+            NativeMethods.WriteByte(Process, dataAddress + 0x30, (byte)player.Position);
         }
         byte[] formMoralEnergyBuffer = new byte[3];
         private void WritePlayerFormMoralEnergy(int dataAddress, Player player)
@@ -261,32 +174,31 @@ namespace Fsm97Trainer
             formMoralEnergyBuffer[0] = (byte)player.Form;
             formMoralEnergyBuffer[1] = (byte)player.Moral;
             formMoralEnergyBuffer[2] = (byte)player.Energy;
-            WriteBytes(dataAddress + 0x4b, formMoralEnergyBuffer,0,3);
+            NativeMethods.WriteBytes(Process, dataAddress + 0x4b, formMoralEnergyBuffer,0,3);
         }
         private void WritePlayerStrengths(int dataAddress, Player player)
         {
             formMoralEnergyBuffer[0] = (byte)player.Stamina;
             formMoralEnergyBuffer[1] = (byte)player.Strength;
             formMoralEnergyBuffer[2] = (byte)player.Fitness;
-            WriteBytes(dataAddress + 0x36, formMoralEnergyBuffer, 0, 3);
+            NativeMethods.WriteBytes(Process, dataAddress + 0x36, formMoralEnergyBuffer, 0, 3);
         }
         private void WritePlayerStatus(int dataAddress, Player player)
         {
-            WriteByte(dataAddress + 0x31, (byte)player.Status);
+            NativeMethods.WriteByte(Process, dataAddress + 0x31, (byte)player.Status);
         }
         private void WritePlayerBirthDate(int dataAddress, Player player)
         {
-            WriteUShort(dataAddress + 0x52, player.BirthDateOffset);
+            NativeMethods.WriteUShort(Process, dataAddress + 0x52, player.BirthDateOffset);
         }
         private Player ReadPlayer(int playerDataAddress, Team team, Encoding encoding, int currentDate)
         {
             Player player = new Player();
 
-            player.FirstName = ReadString
-                        (playerDataAddress + 4, Encoding, 0x18);
-            player.LastName = ReadString
-                        (playerDataAddress + 0x1c, Encoding, 0x13);
-            byte[] bytes = ReadBytes(playerDataAddress, 0x76);
+            player.FirstName = NativeMethods.ReadString
+                        (Process,playerDataAddress + 4, Encoding, 0x18);
+            player.LastName = NativeMethods.ReadString(Process, playerDataAddress + 0x1c, Encoding, 0x13);
+            byte[] bytes = NativeMethods.ReadBytes(Process, playerDataAddress, 0x76);
             player.Nationality = bytes[0x2f];
             player.Position = bytes[0x30];
             player.Status = bytes[0x31];
@@ -328,7 +240,7 @@ namespace Fsm97Trainer
             player.PositionRating = player.GetPositionRating(player.Position);
             player.UpdateBestPosition();
 
-            player.BirthDateOffset= ReadUShort(playerDataAddress + 0x52);
+            player.BirthDateOffset= NativeMethods.ReadUShort(Process,playerDataAddress + 0x52);
             DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDate);
             DateTime birthday = new DateTime(1899, 12, 30).AddDays(player.BirthDateOffset);
             int years = currentDateTime.Year - birthday.Year;
@@ -349,22 +261,20 @@ namespace Fsm97Trainer
             PlayerNodeList playerNodes = new PlayerNodeList();
             List<Team> teams = new List<Team>();
 
-            ushort currentTeam = ReadByte(CurrentTeamIndexAddress);
-            int currentDate = ReadInt(DateAddress);
+            ushort currentTeam = NativeMethods.ReadByte(Process,CurrentTeamIndexAddress);
+            int currentDate = NativeMethods.ReadInt(Process,DateAddress);
             if (currentTeamOnly)
             {
                 Team team = new Team();
                 int teamDataAddress = TeamDataAddress + currentTeam * 0x140;
-                team.Name = ReadString
-                    (teamDataAddress, Encoding, 24);
-                team.FanGroupName = ReadString
-                    (teamDataAddress + 0x19, Encoding, 16);
-                team.Abbreviation = ReadString
-                    (teamDataAddress + 0x2b, Encoding, 3);
+                team.Name = NativeMethods.ReadString(Process, teamDataAddress, Encoding, 24);
+                team.FanGroupName = NativeMethods.ReadString
+                    (Process, teamDataAddress + 0x19, Encoding, 16);
+                team.Abbreviation = NativeMethods.ReadString(Process, teamDataAddress + 0x2b, Encoding, 3);
 
-                int teamPlayerAddress = ReadInt(teamDataAddress + 0x136);
+                int teamPlayerAddress = NativeMethods.ReadInt(Process, teamDataAddress + 0x136);
                 if (teamPlayerAddress == 0)
-                    teamPlayerAddress = ReadInt(teamDataAddress + 0x13a);
+                    teamPlayerAddress = NativeMethods.ReadInt(Process, teamDataAddress + 0x13a);
                 if (teamPlayerAddress != 0)
                 {
                     team.PlayerNodes = ReadPlayers(teamPlayerAddress, team, Encoding, currentDate);
@@ -378,18 +288,13 @@ namespace Fsm97Trainer
                 {
                     Team team = new Team();
                     int teamDataAddress = TeamDataAddress + i * 0x140;
-                    team.Name = ReadString
-                        (teamDataAddress, Encoding, 24);
-                    team.FanGroupName = ReadString
-                        (teamDataAddress + 0x19, Encoding, 16);
-                    team.Abbreviation = ReadString
-                        (teamDataAddress + 0x2b, Encoding, 3);
-                    team.ManagerFirstName = ReadString
-                        (teamDataAddress + 0x94, Encoding, 11);
-                    team.ManagerLastName = ReadString
-                        (teamDataAddress + 0x9f, Encoding, 11);
+                    team.Name = NativeMethods.ReadString(Process, teamDataAddress, Encoding, 24);
+                    team.FanGroupName = NativeMethods.ReadString(Process, teamDataAddress + 0x19, Encoding, 16);
+                    team.Abbreviation = NativeMethods.ReadString(Process, teamDataAddress + 0x2b, Encoding, 3);
+                    team.ManagerFirstName = NativeMethods.ReadString(Process, teamDataAddress + 0x94, Encoding, 11);
+                    team.ManagerLastName = NativeMethods.ReadString(Process, teamDataAddress + 0x9f, Encoding, 11);
 
-                    int teamPlayerAddress = ReadInt(teamDataAddress + 0x136);
+                    int teamPlayerAddress = NativeMethods.ReadInt(Process, teamDataAddress + 0x136);
                     if (teamPlayerAddress != 0)
                     {
                         team.PlayerNodes = ReadPlayers(teamPlayerAddress, team, Encoding, currentDate);
@@ -417,21 +322,21 @@ namespace Fsm97Trainer
         {
             PlayerNodeList result = new PlayerNodeList();
             if (nodeAddress == 0) return result;
-            int nextNodeAddress = ReadInt(nodeAddress + 4);
+            int nextNodeAddress = NativeMethods.ReadInt(Process, nodeAddress + 4);
             //nextNodeAddress =02982f0
             do
             {
                 var resultNode = new PlayerNode();
                 resultNode.NodeAddress = nodeAddress;
-                resultNode.DataAddress = ReadInt(nodeAddress);
+                resultNode.DataAddress = NativeMethods.ReadInt(Process, nodeAddress);
                 resultNode.NextNode = nextNodeAddress;//always memorySharp.ReadInt(nodeAddress + 4), false);
-                resultNode.PreviousNode = ReadInt(nodeAddress + 8);
+                resultNode.PreviousNode = NativeMethods.ReadInt(Process, nodeAddress + 8);
                 resultNode.Data = ReadPlayer(resultNode.DataAddress, team, encoding, currentDate);
                 result.Add(resultNode);
                 //move next
                 nodeAddress = nextNodeAddress;
                 if (nodeAddress != 0)
-                    nextNodeAddress = ReadInt(nodeAddress + 4);
+                    nextNodeAddress = NativeMethods.ReadInt(Process, nodeAddress + 4);
             } while (nodeAddress != 0);
             return result;
         }
@@ -450,19 +355,14 @@ namespace Fsm97Trainer
             {
                 Team team = new Team();
                 int teamDataAddress = TeamDataAddress + i * 0x140;
-                team.Name = ReadString
-                    (teamDataAddress, Encoding, 24);
-                team.FanGroupName = ReadString
-                    (teamDataAddress + 0x19, Encoding, 16);
-                team.Abbreviation = ReadString
-                    (teamDataAddress + 0x2b, Encoding, 3);
-                team.ManagerFirstName = ReadString
-                    (teamDataAddress + 0x94, Encoding, 11);
-                team.ManagerLastName = ReadString
-                    (teamDataAddress + 0xaf, Encoding, 11);
-                int currentDate = ReadInt(DateAddress);
-                int teamPlayerAddress = ReadInt(teamDataAddress + 0x136);
-                if (teamPlayerAddress == 0) teamPlayerAddress = ReadInt(teamDataAddress + 0x13a);
+                team.Name = NativeMethods.ReadString(Process, teamDataAddress, Encoding, 24);
+                team.FanGroupName = NativeMethods.ReadString(Process, teamDataAddress + 0x19, Encoding, 16);
+                team.Abbreviation = NativeMethods.ReadString(Process, teamDataAddress + 0x2b, Encoding, 3);
+                team.ManagerFirstName = NativeMethods.ReadString(Process, teamDataAddress + 0x94, Encoding, 11);
+                team.ManagerLastName = NativeMethods.ReadString(Process, teamDataAddress + 0xaf, Encoding, 11);
+                int currentDate = NativeMethods.ReadInt(Process, DateAddress);
+                int teamPlayerAddress = NativeMethods.ReadInt(Process, teamDataAddress + 0x136);
+                if (teamPlayerAddress == 0) teamPlayerAddress = NativeMethods.ReadInt(Process, teamDataAddress + 0x13a);
                 if (teamPlayerAddress != 0)
                 {
 
@@ -481,22 +381,22 @@ namespace Fsm97Trainer
         {
 
             //playerDataAddress =029b84b0
-            int nextNodeAddress = ReadInt(nodeAddress + 4);
+            int nextNodeAddress = NativeMethods.ReadInt(Process, nodeAddress + 4);
             //nextNodeAddress =02982f0
             do
             {
-                int playerDataAddress = ReadInt(nodeAddress);
+                int playerDataAddress = NativeMethods.ReadInt(Process, nodeAddress);
                 WritePlayerWithTask(playerDataAddress, team, encoding, currentDate, tasks);
                 nodeAddress = nextNodeAddress;
                 if (nodeAddress != 0)
-                    nextNodeAddress = ReadInt(nodeAddress + 4);
+                    nextNodeAddress = NativeMethods.ReadInt(Process, nodeAddress + 4);
             } while (nodeAddress != 0);
         }
         private void WritePlayerWithTask(int playerDataAddress, Team team, Encoding encoding,
             int currentDate,
             WritePlayerTaskCollectionWithIndex tasks)
         {
-            byte[] bytes = ReadBytes(playerDataAddress, 0x76);
+            byte[] bytes = NativeMethods.ReadBytes(Process, playerDataAddress, 0x76);
 
             Player player = ReadPlayer(playerDataAddress, team, encoding, currentDate);
             var taskList = tasks.LookupByName(player.LastName, player.FirstName);
@@ -559,62 +459,80 @@ namespace Fsm97Trainer
 
         public void BoostYouthPlayer(bool currentTeamOnly)
         {
-            var playerNodes = ReadPlayers(currentTeamOnly);
-            foreach (var playerNode in playerNodes)
+            try
             {
-                var player = playerNode.Data;
-                if (player.Age >= 20) continue;
-                if (player.ContractWeeks > 144 || player.ContractWeeks <= 96) continue;
-                player.Speed += 25; if (player.Speed > 99) player.Speed = 99;
-                player.Agility += 25; if (player.Agility > 99) player.Agility = 99;
-                player.Acceleration += 25; if (player.Acceleration > 99) player.Acceleration = 99;
-                player.Stamina += 25; if (player.Stamina > 99) player.Stamina = 99;
-                player.Strength += 25; if (player.Strength > 99) player.Strength = 99;
-                player.Fitness += 25; if (player.Fitness > 99) player.Fitness = 99;
-                player.Shooting += 25; if (player.Shooting > 99) player.Shooting = 99;
-                player.Passing += 25; if (player.Passing > 99) player.Passing = 99;
-                player.Heading += 25; if (player.Heading > 99) player.Heading = 99;
-                player.Control += 25; if (player.Control > 99) player.Control = 99;
-                player.Dribbling += 25; if (player.Dribbling > 99) player.Dribbling = 99;
-                player.TackleDetermination += 25; if (player.TackleDetermination > 99) player.TackleDetermination = 99;
-                player.TackleSkill += 25; if (player.TackleSkill > 99) player.TackleSkill = 99;
-                player.Coolness += 25; if (player.Coolness > 99) player.Coolness = 99;
-                player.Awareness += 25; if (player.Awareness > 99) player.Awareness = 99;
-                player.Flair += 25; if (player.Flair > 99) player.Flair = 99;
-                player.Kicking += 25; if (player.Kicking > 99) player.Kicking = 99;
-                player.Throwing += 25; if (player.Throwing > 99) player.Throwing = 99;
-                player.Handling += 25; if (player.Handling > 99) player.Handling = 99;
-                player.ThrowIn += 25; if (player.ThrowIn > 99) player.ThrowIn = 99;
-                player.Leadership += 25; if (player.Leadership > 99) player.Leadership = 99;
-                player.Consistency += 25; if (player.Consistency > 99) player.Consistency = 99;
-                player.Determination += 25; if (player.Determination > 99) player.Determination = 99;
-                player.Greed += 25; if (player.Greed > 99) player.Greed = 99;
-                player.PositionRating = player.GetPositionRating(player.Position);
-                player.UpdateBestPosition();
-                player.Position = player.BestPosition;
-                WritePlayer(playerNode.DataAddress, player);
+                NativeMethods.SuspendProcess(Process);
+
+                var playerNodes = ReadPlayers(currentTeamOnly);
+                foreach (var playerNode in playerNodes)
+                {
+                    var player = playerNode.Data;
+                    if (player.Age >= 20) continue;
+                    if (player.ContractWeeks > 144 || player.ContractWeeks <= 96) continue;
+                    player.Speed += 25; if (player.Speed > 99) player.Speed = 99;
+                    player.Agility += 25; if (player.Agility > 99) player.Agility = 99;
+                    player.Acceleration += 25; if (player.Acceleration > 99) player.Acceleration = 99;
+                    player.Stamina += 25; if (player.Stamina > 99) player.Stamina = 99;
+                    player.Strength += 25; if (player.Strength > 99) player.Strength = 99;
+                    player.Fitness += 25; if (player.Fitness > 99) player.Fitness = 99;
+                    player.Shooting += 25; if (player.Shooting > 99) player.Shooting = 99;
+                    player.Passing += 25; if (player.Passing > 99) player.Passing = 99;
+                    player.Heading += 25; if (player.Heading > 99) player.Heading = 99;
+                    player.Control += 25; if (player.Control > 99) player.Control = 99;
+                    player.Dribbling += 25; if (player.Dribbling > 99) player.Dribbling = 99;
+                    player.TackleDetermination += 25; if (player.TackleDetermination > 99) player.TackleDetermination = 99;
+                    player.TackleSkill += 25; if (player.TackleSkill > 99) player.TackleSkill = 99;
+                    player.Coolness += 25; if (player.Coolness > 99) player.Coolness = 99;
+                    player.Awareness += 25; if (player.Awareness > 99) player.Awareness = 99;
+                    player.Flair += 25; if (player.Flair > 99) player.Flair = 99;
+                    player.Kicking += 25; if (player.Kicking > 99) player.Kicking = 99;
+                    player.Throwing += 25; if (player.Throwing > 99) player.Throwing = 99;
+                    player.Handling += 25; if (player.Handling > 99) player.Handling = 99;
+                    player.ThrowIn += 25; if (player.ThrowIn > 99) player.ThrowIn = 99;
+                    player.Leadership += 25; if (player.Leadership > 99) player.Leadership = 99;
+                    player.Consistency += 25; if (player.Consistency > 99) player.Consistency = 99;
+                    player.Determination += 25; if (player.Determination > 99) player.Determination = 99;
+                    player.Greed += 25; if (player.Greed > 99) player.Greed = 99;
+                    player.PositionRating = player.GetPositionRating(player.Position);
+                    player.UpdateBestPosition();
+                    player.Position = player.BestPosition;
+                    WritePlayer(playerNode.DataAddress, player);
+                }
+            }
+            finally
+            {
+
+                NativeMethods.ResumeProcess(Process);
             }
         }
         public void RotatePlayer(RotateMethod rotateMethod, Formation targetFormation)
         {
-            var players = ReadPlayers(true);
-            if (players.Count == 0)
+            try
             {
-                Debug.WriteLine("Current team has no players");
-                return;
+                NativeMethods.SuspendProcess(Process);
+
+                var players = ReadPlayers(true);
+                if (players.Count == 0)
+                {
+                    Debug.WriteLine("Current team has no players");
+                    return;
+                }
+                var leftoverPlayers = new PlayerNodeList();
+                leftoverPlayers.AddRange(players);
+
+                List<PlayerNode> normals = new List<PlayerNode>();
+                List<PlayerNode> subs = new List<PlayerNode>();
+                List<PlayerNode> rest = new List<PlayerNode>();
+
+                GetGKs(leftoverPlayers, rotateMethod, normals, subs);
+                GetNormals(leftoverPlayers, rotateMethod, normals, targetFormation);
+                GetSubs(leftoverPlayers, rotateMethod, normals, subs, targetFormation);
+                GetRest(leftoverPlayers, rotateMethod, rest, targetFormation);
+                FixPositionAndSaveChangesToGame(normals, subs, rest);
             }
-            var leftoverPlayers = new PlayerNodeList();
-            leftoverPlayers.AddRange(players);
-
-            List<PlayerNode> normals = new List<PlayerNode>();
-            List<PlayerNode> subs = new List<PlayerNode>();
-            List<PlayerNode> rest = new List<PlayerNode>();
-
-            GetGKs(leftoverPlayers, rotateMethod, normals, subs);
-            GetNormals(leftoverPlayers, rotateMethod, normals, targetFormation);
-            GetSubs(leftoverPlayers, rotateMethod, normals, subs, targetFormation);
-            GetRest(leftoverPlayers, rotateMethod, rest, targetFormation);
-            FixPositionAndSaveChangesToGame(normals, subs, rest);
+            finally {
+                NativeMethods.ResumeProcess(Process);
+            }
         }
 
         private void GetGKs(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod,
@@ -956,9 +874,9 @@ namespace Fsm97Trainer
             if (newPlayers.Count > 0)
             {
                 var currentNode = newPlayers.First;
-                ushort currentTeam = ReadByte(CurrentTeamIndexAddress);
+                ushort currentTeam = NativeMethods.ReadByte(Process, CurrentTeamIndexAddress);
                 int teamDataAddress = TeamDataAddress + currentTeam * 0x140;
-                WriteInt(teamDataAddress + 0x136, currentNode.Value.NodeAddress);
+                NativeMethods.WriteInt(Process, teamDataAddress + 0x136, currentNode.Value.NodeAddress);
                 while (currentNode != null)
                 {
                     if (currentNode.Previous == null)
@@ -975,8 +893,8 @@ namespace Fsm97Trainer
                     else
                         currentNode.Value.NextNode = currentNode.Next.Value.NodeAddress;
 
-                    WriteInt(currentNode.Value.NodeAddress + 4, currentNode.Value.NextNode);
-                    WriteInt(currentNode.Value.NodeAddress + 8, currentNode.Value.PreviousNode);
+                    NativeMethods.WriteInt(Process, currentNode.Value.NodeAddress + 4, currentNode.Value.NextNode);
+                    NativeMethods.WriteInt(Process, currentNode.Value.NodeAddress + 8, currentNode.Value.PreviousNode);
                     currentNode = currentNode.Next;
                 }
             }
@@ -984,40 +902,47 @@ namespace Fsm97Trainer
 
         public void ImproveAllPlayersBy1()
         {
-            var playerNodes = ReadPlayers(false);
-            int increment = 1;
-            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
-                increment = 99;
-            foreach (var playerNode in playerNodes)
+            try
             {
-                var player = playerNode.Data;
-                player.Speed += increment; if (player.Speed > 99) player.Speed = 99;
-                player.Agility += increment; if (player.Agility > 99) player.Agility = 99;
-                player.Acceleration += increment; if (player.Acceleration > 99) player.Acceleration = 99;
-                player.Stamina += increment; if (player.Stamina > 99) player.Stamina = 99;
-                player.Strength += increment; if (player.Strength > 99) player.Strength = 99;
-                player.Fitness += increment; if (player.Fitness > 99) player.Fitness = 99;
-                player.Shooting += increment; if (player.Shooting > 99) player.Shooting = 99;
-                player.Passing += increment; if (player.Passing > 99) player.Passing = 99;
-                player.Heading += increment; if (player.Heading > 99) player.Heading = 99;
-                player.Control += increment; if (player.Control > 99) player.Control = 99;
-                player.Dribbling += increment; if (player.Dribbling > 99) player.Dribbling = 99;
-                player.TackleDetermination += increment; if (player.TackleDetermination > 99) player.TackleDetermination = 99;
-                player.TackleSkill += increment; if (player.TackleSkill > 99) player.TackleSkill = 99;
-                player.Coolness += increment; if (player.Coolness > 99) player.Coolness = 99;
-                player.Awareness += increment; if (player.Awareness > 99) player.Awareness = 99;
-                player.Flair += increment; if (player.Flair > 99) player.Flair = 99;
-                player.Kicking += increment; if (player.Kicking > 99) player.Kicking = 99;
-                player.Throwing += increment; if (player.Throwing > 99) player.Throwing = 99;
-                player.Handling += increment; if (player.Handling > 99) player.Handling = 99;
-                player.ThrowIn += increment; if (player.ThrowIn > 99) player.ThrowIn = 99;
-                player.Leadership += increment; if (player.Leadership > 99) player.Leadership = 99;
-                player.Consistency += increment; if (player.Consistency > 99) player.Consistency = 99;
-                player.Determination += increment; if (player.Determination > 99) player.Determination = 99;
-                player.Greed += increment; if (player.Greed > 99) player.Greed = 99;
-                player.UpdateBestPosition();
-                player.Position = player.BestPosition;
-                WritePlayer(playerNode.DataAddress, player);
+                NativeMethods.SuspendProcess(Process);
+                var playerNodes = ReadPlayers(false);
+                int increment = 1;
+                if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                    increment = 99;
+                foreach (var playerNode in playerNodes)
+                {
+                    var player = playerNode.Data;
+                    player.Speed += increment; if (player.Speed > 99) player.Speed = 99;
+                    player.Agility += increment; if (player.Agility > 99) player.Agility = 99;
+                    player.Acceleration += increment; if (player.Acceleration > 99) player.Acceleration = 99;
+                    player.Stamina += increment; if (player.Stamina > 99) player.Stamina = 99;
+                    player.Strength += increment; if (player.Strength > 99) player.Strength = 99;
+                    player.Fitness += increment; if (player.Fitness > 99) player.Fitness = 99;
+                    player.Shooting += increment; if (player.Shooting > 99) player.Shooting = 99;
+                    player.Passing += increment; if (player.Passing > 99) player.Passing = 99;
+                    player.Heading += increment; if (player.Heading > 99) player.Heading = 99;
+                    player.Control += increment; if (player.Control > 99) player.Control = 99;
+                    player.Dribbling += increment; if (player.Dribbling > 99) player.Dribbling = 99;
+                    player.TackleDetermination += increment; if (player.TackleDetermination > 99) player.TackleDetermination = 99;
+                    player.TackleSkill += increment; if (player.TackleSkill > 99) player.TackleSkill = 99;
+                    player.Coolness += increment; if (player.Coolness > 99) player.Coolness = 99;
+                    player.Awareness += increment; if (player.Awareness > 99) player.Awareness = 99;
+                    player.Flair += increment; if (player.Flair > 99) player.Flair = 99;
+                    player.Kicking += increment; if (player.Kicking > 99) player.Kicking = 99;
+                    player.Throwing += increment; if (player.Throwing > 99) player.Throwing = 99;
+                    player.Handling += increment; if (player.Handling > 99) player.Handling = 99;
+                    player.ThrowIn += increment; if (player.ThrowIn > 99) player.ThrowIn = 99;
+                    player.Leadership += increment; if (player.Leadership > 99) player.Leadership = 99;
+                    player.Consistency += increment; if (player.Consistency > 99) player.Consistency = 99;
+                    player.Determination += increment; if (player.Determination > 99) player.Determination = 99;
+                    player.Greed += increment; if (player.Greed > 99) player.Greed = 99;
+                    player.UpdateBestPosition();
+                    player.Position = player.BestPosition;
+                    WritePlayer(playerNode.DataAddress, player);
+                }
+            }
+            finally {
+                NativeMethods.ResumeProcess(Process);
             }
         }
 
@@ -1025,62 +950,69 @@ namespace Fsm97Trainer
         internal void FastUpdate(bool autoTrain, bool convertToGK, bool autoResetStatus, bool maxEnergy, bool maxForm, bool maxMorale,bool maxPower, bool noAlternativeTraining,
             TrainingEffectModifier trainingEffectModifier)
         {
-            var playerNodes = ReadPlayers(true);
-            foreach (var playerNode in playerNodes)
+            try
             {
-                if (autoTrain)
+                NativeMethods.SuspendProcess(Process);
+                var playerNodes = ReadPlayers(true);
+                foreach (var playerNode in playerNodes)
                 {
-                    var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data, autoResetStatus,maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier)
-                        .Select(p => (byte)p).ToArray();
+                    if (autoTrain)
+                    {
+                        var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data, autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier)
+                            .Select(p => (byte)p).ToArray();
 
-                    if (playerNode.Data.Fitness < 99)
-                    {
-                        if (playerNode.Data.Status != 0 && convertToGK)
+                        if (playerNode.Data.Fitness < 99)
                         {
-                            playerNode.Data.Position = (byte)PlayerPosition.GK;
-                            WritePlayerPosition(playerNode.DataAddress, playerNode.Data);
-                        }
-                    }
-                    else
-                    {
-                        if (playerNode.Data.Status != 0 && convertToGK)
-                        {
-                            if (playerNode.Data.Position == (byte)PlayerPosition.GK && playerNode.Data.BestPosition != (byte)PlayerPosition.GK)
+                            if (playerNode.Data.Status != 0 && convertToGK)
                             {
-                                playerNode.Data.Position = playerNode.Data.BestPosition;
+                                playerNode.Data.Position = (byte)PlayerPosition.GK;
                                 WritePlayerPosition(playerNode.DataAddress, playerNode.Data);
                             }
                         }
+                        else
+                        {
+                            if (playerNode.Data.Status != 0 && convertToGK)
+                            {
+                                if (playerNode.Data.Position == (byte)PlayerPosition.GK && playerNode.Data.BestPosition != (byte)PlayerPosition.GK)
+                                {
+                                    playerNode.Data.Position = playerNode.Data.BestPosition;
+                                    WritePlayerPosition(playerNode.DataAddress, playerNode.Data);
+                                }
+                            }
+                        }
+                        int playerScheduleAddress = TrainingDataAddress +
+                            (playerNode.Data.Number - 1) * 116;
+                        NativeMethods.WriteBytes(Process, playerScheduleAddress, playerSchedule, 0, 7);
                     }
-                    int playerScheduleAddress = TrainingDataAddress +
-                        (playerNode.Data.Number - 1) * 116;
-                    WriteBytes(playerScheduleAddress, playerSchedule,0,7);
+                    if (autoResetStatus)
+                    {
+                        if (playerNode.Data.Status > 2)
+                        {
+                            playerNode.Data.Status = 2;
+                            WritePlayerStatus(playerNode.DataAddress, playerNode.Data);
+                        }
+                    }
+                    if (maxEnergy || maxForm || maxMorale)
+                    {
+
+                        if (maxEnergy)
+                        {
+                            playerNode.Data.Energy = 99;
+                        }
+                        if (maxForm)
+                        {
+                            playerNode.Data.Form = 99;
+                        }
+                        if (maxMorale)
+                        {
+                            playerNode.Data.Moral = 99;
+                        }
+                        WritePlayerFormMoralEnergy(playerNode.DataAddress, playerNode.Data);
+                    }
                 }
-                if (autoResetStatus)
-                {
-                    if (playerNode.Data.Status > 2)
-                    {
-                        playerNode.Data.Status = 2;
-                        WritePlayerStatus(playerNode.DataAddress, playerNode.Data);
-                    }
-                }
-                if (maxEnergy || maxForm || maxMorale)
-                {
-                   
-                    if (maxEnergy)
-                    {
-                        playerNode.Data.Energy = 99;
-                    }
-                    if (maxForm)
-                    {
-                        playerNode.Data.Form = 99;
-                    }
-                    if (maxMorale)
-                    {
-                        playerNode.Data.Moral = 99;
-                    }
-                    WritePlayerFormMoralEnergy(playerNode.DataAddress, playerNode.Data);
-                }
+            }
+            finally {
+                NativeMethods.ResumeProcess(Process);
             }
         }
 
@@ -1088,24 +1020,31 @@ namespace Fsm97Trainer
         internal void SlowUpdate(bool autoRenewContracts,bool maxPower, 
             TrainingEffectModifier trainingEffectModifier)
         {
-            var playerNodes = ReadPlayers(true);
-            foreach (var playerNode in playerNodes)
+            try
             {
-                if (autoRenewContracts)
+                NativeMethods.SuspendProcess(Process);
+                var playerNodes = ReadPlayers(true);
+                foreach (var playerNode in playerNodes)
                 {
-                    if (playerNode.Data.ContractWeeks < 36)
+                    if (autoRenewContracts)
                     {
-                        playerNode.Data.ContractWeeks = 255;
-                        WritePlayerContractWeeks(playerNode.DataAddress, playerNode.Data);
+                        if (playerNode.Data.ContractWeeks < 144)
+                        {
+                            playerNode.Data.ContractWeeks = 255;
+                            WritePlayerContractWeeks(playerNode.DataAddress, playerNode.Data);
+                        }
+                    }
+                    if (maxPower)
+                    {
+                        playerNode.Data.Stamina = 99;
+                        playerNode.Data.Strength = 99;
+                        playerNode.Data.Fitness = 99;
+                        WritePlayerStrengths(playerNode.DataAddress, playerNode.Data);
                     }
                 }
-                if (maxPower)
-                {
-                    playerNode.Data.Stamina = 99;
-                    playerNode.Data.Strength = 99;
-                    playerNode.Data.Fitness = 99;
-                    WritePlayerStrengths(playerNode.DataAddress, playerNode.Data);
-                }
+            }
+            finally {
+                NativeMethods.SuspendProcess(Process);
             }
         }
 
@@ -1117,110 +1056,125 @@ namespace Fsm97Trainer
 
         internal void ResetDate()
         {
-            int currentDate = ReadInt(DateAddress);
-            DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDate);
-            if (currentDateTime.Month < 5 || currentDateTime.Month > 7)
+            try
             {
-                throw new InvalidOperationException("只能在休赛季修改日期 (Can only change date in offseason)");
+                NativeMethods.SuspendProcess(Process);
+                int currentDate = NativeMethods.ReadInt(Process, DateAddress);
+                DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDate);
+                if (currentDateTime.Month < 5 || currentDateTime.Month > 7)
+                {
+                    throw new InvalidOperationException("只能在休赛季修改日期 (Can only change date in offseason)");
+                }
+                DateTime resetDateTime = new DateTime(1997, currentDateTime.Month, currentDateTime.Day);
+                TimeSpan resetTimeSpan = currentDateTime - resetDateTime;
+                int daysToSubtract = resetTimeSpan.Days;
+                var playerList = this.ReadPlayers(false);
+                foreach (var playerNode in playerList)
+                {
+                    playerNode.Data.BirthDateOffset = (ushort)(playerNode.Data.BirthDateOffset - daysToSubtract);
+                    WritePlayerBirthDate(playerNode.DataAddress, playerNode.Data);
+                }
+                NativeMethods.WriteInt(Process, DateAddress, currentDate - daysToSubtract);
             }
-            DateTime resetDateTime = new DateTime(1997, currentDateTime.Month, currentDateTime.Day);
-            TimeSpan resetTimeSpan = currentDateTime - resetDateTime;
-            int daysToSubtract = resetTimeSpan.Days;
-            var playerList = this.ReadPlayers(false);
-            foreach (var playerNode in playerList)
-            {
-                playerNode.Data.BirthDateOffset =(ushort) (playerNode.Data.BirthDateOffset - daysToSubtract);
-                WritePlayerBirthDate(playerNode.DataAddress, playerNode.Data);
+            finally {
+                NativeMethods.ResumeProcess(Process);
             }
-            WriteInt(DateAddress, currentDate - daysToSubtract);
         }
 
         internal void AutoPosition(Formation targetFormation)
         {
-            var playerNodes = ReadPlayers(true);
-            if (targetFormation == null)
+            try
             {
-                bool lb = false;
-                bool lwb = false;
-                bool lm = false;
-                bool lw = false;
-                foreach (var playerNode in playerNodes)
+                NativeMethods.SuspendProcess(Process);
+
+                var playerNodes = ReadPlayers(true);
+                if (targetFormation == null)
                 {
-                    if (playerNode.Data.Position != playerNode.Data.BestPosition)
+                    bool lb = false;
+                    bool lwb = false;
+                    bool lm = false;
+                    bool lw = false;
+                    foreach (var playerNode in playerNodes)
                     {
-                        playerNode.Data.Position = playerNode.Data.BestPosition;
+                        if (playerNode.Data.Position != playerNode.Data.BestPosition)
+                        {
+                            playerNode.Data.Position = playerNode.Data.BestPosition;
+                        }
+                        switch ((PlayerPosition)playerNode.Data.BestPosition)
+                        {
+                            case PlayerPosition.RB:
+                                if (lb)
+                                {
+                                    playerNode.Data.Position = (int)PlayerPosition.LB;
+                                }
+                                else
+                                    playerNode.Data.Position = (int)PlayerPosition.RB;
+                                lb = !lb; break;
+                            case PlayerPosition.RWB:
+                                if (lwb)
+                                {
+                                    playerNode.Data.Position = (int)PlayerPosition.LWB;
+                                }
+                                else
+                                    playerNode.Data.Position = (int)PlayerPosition.RWB;
+                                lwb = !lwb; break;
+                            case PlayerPosition.RM:
+                                if (lm)
+                                {
+                                    playerNode.Data.Position = (int)PlayerPosition.LM;
+                                }
+                                else
+                                    playerNode.Data.Position = (int)PlayerPosition.RM;
+                                lm = !lm; break;
+                            case PlayerPosition.RW:
+                                if (lw)
+                                {
+                                    playerNode.Data.Position = (int)PlayerPosition.LW;
+                                }
+                                else
+                                    playerNode.Data.Position = (int)PlayerPosition.RW;
+                                lw = !lw; break;
+                            default: break;
+                        }
+                        WritePlayerPosition(playerNode.DataAddress, playerNode.Data);
                     }
-                    switch ((PlayerPosition)playerNode.Data.BestPosition)
+                }
+                else
+                {
+                    if (playerNodes.Where(p => p.Data.Status == 0).Count() != 11)
                     {
-                        case PlayerPosition.RB:
-                            if (lb)
-                            {
-                                playerNode.Data.Position = (int)PlayerPosition.LB;
-                            }
-                            else
-                                playerNode.Data.Position = (int)PlayerPosition.RB;
-                            lb = !lb; break;
-                        case PlayerPosition.RWB:
-                            if (lwb)
-                            {
-                                playerNode.Data.Position = (int)PlayerPosition.LWB;
-                            }
-                            else
-                                playerNode.Data.Position = (int)PlayerPosition.RWB;
-                            lwb = !lwb; break;
-                        case PlayerPosition.RM:
-                            if (lm)
-                            {
-                                playerNode.Data.Position = (int)PlayerPosition.LM;
-                            }
-                            else
-                                playerNode.Data.Position = (int)PlayerPosition.RM;
-                            lm = !lm; break;
-                        case PlayerPosition.RW:
-                            if (lw)
-                            {
-                                playerNode.Data.Position = (int)PlayerPosition.LW;
-                            }
-                            else
-                                playerNode.Data.Position = (int)PlayerPosition.RW;
-                            lw = !lw; break;
-                        default: break;
+                        throw new InvalidOperationException("当前场上需要11名球员 (Auto Position to Formation requires 11 Players on the field");
                     }
-                    WritePlayerPosition(playerNode.DataAddress, playerNode.Data);
+                    var leftoverPlayers = new PlayerNodeList();
+                    leftoverPlayers.AddRange(playerNodes.Where(p => p.Data.Status == 0));
+                    for (int position = (int)PlayerPosition.SS; position >= 0; position--)
+                    {
+                        for (int requiredPlayersInPosition = targetFormation.PlayersInEachPosition[position];
+                            requiredPlayersInPosition > 0; requiredPlayersInPosition--)
+                        {
+                            PlayerNode bestPlayerForPosition = null;
+                            double bestPlayerRatingForPosition = 0;
+                            foreach (var leftoverPlayer in leftoverPlayers)
+                            {
+                                double positionRating = leftoverPlayer.Data.GetPositionRatingDouble(position);
+                                if (positionRating > bestPlayerRatingForPosition)
+                                {
+                                    bestPlayerRatingForPosition = positionRating;
+                                    bestPlayerForPosition = leftoverPlayer;
+                                }
+                            }
+                            if (bestPlayerForPosition.Data.Position != position)
+                            {
+                                bestPlayerForPosition.Data.Position = position;
+                                WritePlayerPosition(bestPlayerForPosition.DataAddress, bestPlayerForPosition.Data);
+                            }
+                            leftoverPlayers.Remove(bestPlayerForPosition);
+                        }
+                    }
                 }
             }
-            else
-            {
-                if (playerNodes.Where(p=>p.Data.Status==0).Count() != 11)
-                {
-                    throw new InvalidOperationException("当前场上需要11名球员 (Auto Position to Formation requires 11 Players on the field");
-                }
-                var leftoverPlayers = new PlayerNodeList();
-                leftoverPlayers.AddRange(playerNodes.Where(p => p.Data.Status == 0));
-                for (int position = (int)PlayerPosition.SS; position >= 0; position--)
-                {
-                    for (int requiredPlayersInPosition = targetFormation.PlayersInEachPosition[position];
-                        requiredPlayersInPosition > 0; requiredPlayersInPosition--)
-                    {
-                        PlayerNode bestPlayerForPosition = null;
-                        double bestPlayerRatingForPosition = 0;
-                        foreach (var leftoverPlayer in leftoverPlayers)
-                        {
-                            double positionRating = leftoverPlayer.Data.GetPositionRatingDouble(position);
-                            if (positionRating > bestPlayerRatingForPosition)
-                            { 
-                                bestPlayerRatingForPosition = positionRating;
-                                bestPlayerForPosition= leftoverPlayer;
-                            }
-                        }
-                        if (bestPlayerForPosition.Data.Position != position)
-                        {
-                            bestPlayerForPosition.Data.Position = position;
-                            WritePlayerPosition(bestPlayerForPosition.DataAddress, bestPlayerForPosition.Data);
-                        }
-                        leftoverPlayers.Remove(bestPlayerForPosition);
-                    }
-                }
+            finally {
+                NativeMethods.ResumeProcess(Process);
             }
         }
 
@@ -1228,7 +1182,7 @@ namespace Fsm97Trainer
         {            
             if (TrainingEffectAddress != 0)
             {
-                var trainingEffectBytes = ReadBytes(TrainingEffectAddress, 4*27* ((int)TrainingScheduleType.TrainingMatch+1));
+                var trainingEffectBytes = NativeMethods.ReadBytes(Process, TrainingEffectAddress, 4 * 27 * ((int)TrainingScheduleType.TrainingMatch + 1));
                 return TrainingScheduleEffect.DetectModifiers(trainingEffectBytes);
             }
             return new TrainingEffectModifier(); 
