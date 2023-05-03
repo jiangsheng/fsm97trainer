@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using FSM97Lib;
+using OpenCCNET;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -70,7 +71,7 @@ namespace Fsm97Trainer
 
             checkBoxContractAutoRenew.Checked = this.ContractAutoRenew;
             checkBoxAutoPositionWithCurrentFormation.Checked = this.AutoPositionWithFormation;
-
+            ZhConverter.Initialize();
             this.checkBoxFastTimer_CheckedChanged(sender, e);
             this.checkBoxSlowTimer_CheckedChanged(sender, e);
             timerUpdateSlow_Tick(sender, e);
@@ -395,6 +396,15 @@ namespace Fsm97Trainer
         {
             try
             {
+                string targetYearText = textBoxResetDateYear.Text;
+                uint targetYear = 0;
+                if (!uint.TryParse(targetYearText, out targetYear)
+                    || targetYear<1900
+                    || targetYear >2078)
+                {
+                    MessageBox.Show("请输入1901-2078之间的整数 (Please enter an integer between 1901 and 2078");
+                    return;
+                }
                 MenusProcess menusProcess = GetMenusProcess();
                 if (!menusProcess.HasExited())
                 {
@@ -402,7 +412,7 @@ namespace Fsm97Trainer
     + "To avoid age bug after 2079 you should reset date before 2079. In addition, resetting date would disrupt game scheduling, you should only do it in offseason. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
-                        menusProcess.ResetDate();
+                        menusProcess.ResetDate(targetYear);
                         MessageBox.Show("游戏日期已重设 (Game Date Reset)");
                     }
                 }
@@ -491,6 +501,33 @@ namespace Fsm97Trainer
                     menusProcess.Kill();
                 }
                 this.MenusProcess = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
+            }
+        }
+
+        private void buttonUpdateNewSpawn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MenusProcess menusProcess = GetMenusProcess();
+                if (!menusProcess.HasExited())
+                {
+                    var result = MessageBox.Show("只能在新赛季开始时进行。继续？\r\n"
+    + "Can only be done at the beginning of the season. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        menusProcess.UpdatePlayerNames();
+                        MessageBox.Show("球员名字已更新 (Player Names Updated)");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("游戏进程找不到(Cannot find game process)");
+                }
             }
             catch (Exception ex)
             {

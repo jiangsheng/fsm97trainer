@@ -128,7 +128,17 @@ namespace Fsm97Trainer
             return string.Empty;
         }
 
-
+        internal static void WriteString(Process process, string value, int address, Encoding encoding, int bytes)
+        {
+            var stringBytes = encoding.GetBytes(value);
+            var bytesToWrite = stringBytes;
+            if (stringBytes.Length> bytes)
+            {
+                stringBytes=new byte[bytes];
+                Buffer.BlockCopy(stringBytes, 0, stringBytes, 0, bytes);
+            }
+            WriteBytes(process, address, stringBytes, 0, (uint)bytes);
+        }
         public static void WriteBytes(Process process, int address, byte[] data, int offset, uint length)
         {
             int bytesWritten = 0;

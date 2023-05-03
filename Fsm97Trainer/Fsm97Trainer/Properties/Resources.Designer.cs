@@ -59,5 +59,14 @@ namespace Fsm97Trainer.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&amp;query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0A%0D%0ASELECT+%3Fplayer%2C+%3Fname+WHERE+%7B%0D%0A%3Fplayer+dbo%3AwikiPageID+%3Fnumber%3B%0D%0Ardf%3Atype+dbo%3ASoccerPlayer+%3B%0D%0A+++++++ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GetPlayerByYearQueryUrl {
+            get {
+                return ResourceManager.GetString("GetPlayerByYearQueryUrl", resourceCulture);
+            }
+        }
     }
 }

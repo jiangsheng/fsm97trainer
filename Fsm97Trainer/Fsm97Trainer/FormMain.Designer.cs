@@ -53,11 +53,12 @@
             this.tableLayoutPanelImprovePlayers = new System.Windows.Forms.TableLayoutPanel();
             this.buttonBoostYouthPlayer = new System.Windows.Forms.Button();
             this.buttonImproveAllPlayersBy1 = new System.Windows.Forms.Button();
-            this.tableLayoutPanelTrainingEffect2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanelTrainingEffect = new System.Windows.Forms.TableLayoutPanel();
             this.buttonForceExit = new System.Windows.Forms.Button();
+            this.buttonUpdateNewSpawn = new System.Windows.Forms.Button();
             this.timerUpdateFast = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateSlow = new System.Windows.Forms.Timer(this.components);
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxResetDateYear = new System.Windows.Forms.TextBox();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -68,6 +69,7 @@
             this.tableLayoutPanelAutoTrain.SuspendLayout();
             this.tableLayoutPanelTrainingEffect1.SuspendLayout();
             this.tableLayoutPanelImprovePlayers.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -160,15 +162,14 @@
             this.tableLayoutPanelMain.Controls.Add(this.checkBoxMaxStrength, 2, 2);
             this.tableLayoutPanelMain.Controls.Add(this.buttonAutoPosition, 0, 1);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelRotation, 1, 1);
-            this.tableLayoutPanelMain.Controls.Add(this.buttonResetDate, 3, 1);
             this.tableLayoutPanelMain.Controls.Add(this.checkBoxContractAutoRenew, 3, 2);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelAutoTrain, 0, 3);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelTrainingEffect1, 1, 3);
             this.tableLayoutPanelMain.Controls.Add(this.label3, 3, 4);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelImprovePlayers, 2, 1);
-            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelTrainingEffect2, 2, 3);
-            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelTrainingEffect, 3, 3);
             this.tableLayoutPanelMain.Controls.Add(this.buttonForceExit, 2, 4);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonUpdateNewSpawn, 2, 3);
+            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanel1, 3, 1);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
@@ -358,12 +359,11 @@
             // buttonResetDate
             // 
             this.buttonResetDate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonResetDate.Location = new System.Drawing.Point(759, 83);
+            this.buttonResetDate.Location = new System.Drawing.Point(3, 3);
             this.buttonResetDate.Name = "buttonResetDate";
-            this.buttonResetDate.Size = new System.Drawing.Size(248, 74);
+            this.buttonResetDate.Size = new System.Drawing.Size(242, 31);
             this.buttonResetDate.TabIndex = 23;
-            this.buttonResetDate.Text = "重设日期 (需要在休赛期，建议在2079年老人潮之前进行)\r\nReset Game time (Needs to be in offseason, better " +
-    "do it before the 2079 age bug)";
+            this.buttonResetDate.Text = "重设日期至 (Reset Date to)";
             this.buttonResetDate.UseVisualStyleBackColor = true;
             this.buttonResetDate.Click += new System.EventHandler(this.buttonResetDate_Click);
             // 
@@ -518,33 +518,6 @@
             this.buttonImproveAllPlayersBy1.UseVisualStyleBackColor = true;
             this.buttonImproveAllPlayersBy1.Click += new System.EventHandler(this.buttonImproveAllPlayersBy1_Click);
             // 
-            // tableLayoutPanelTrainingEffect2
-            // 
-            this.tableLayoutPanelTrainingEffect2.ColumnCount = 1;
-            this.tableLayoutPanelTrainingEffect2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelTrainingEffect2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelTrainingEffect2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelTrainingEffect2.Location = new System.Drawing.Point(507, 243);
-            this.tableLayoutPanelTrainingEffect2.Name = "tableLayoutPanelTrainingEffect2";
-            this.tableLayoutPanelTrainingEffect2.RowCount = 2;
-            this.tableLayoutPanelTrainingEffect2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelTrainingEffect2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelTrainingEffect2.Size = new System.Drawing.Size(246, 74);
-            this.tableLayoutPanelTrainingEffect2.TabIndex = 28;
-            // 
-            // tableLayoutPanelTrainingEffect
-            // 
-            this.tableLayoutPanelTrainingEffect.ColumnCount = 1;
-            this.tableLayoutPanelTrainingEffect.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelTrainingEffect.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelTrainingEffect.Location = new System.Drawing.Point(759, 243);
-            this.tableLayoutPanelTrainingEffect.Name = "tableLayoutPanelTrainingEffect";
-            this.tableLayoutPanelTrainingEffect.RowCount = 2;
-            this.tableLayoutPanelTrainingEffect.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelTrainingEffect.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelTrainingEffect.Size = new System.Drawing.Size(248, 74);
-            this.tableLayoutPanelTrainingEffect.TabIndex = 29;
-            // 
             // buttonForceExit
             // 
             this.buttonForceExit.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -558,6 +531,17 @@
             this.buttonForceExit.UseVisualStyleBackColor = true;
             this.buttonForceExit.Click += new System.EventHandler(this.buttonForceExit_Click);
             // 
+            // buttonUpdateNewSpawn
+            // 
+            this.buttonUpdateNewSpawn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonUpdateNewSpawn.Location = new System.Drawing.Point(507, 243);
+            this.buttonUpdateNewSpawn.Name = "buttonUpdateNewSpawn";
+            this.buttonUpdateNewSpawn.Size = new System.Drawing.Size(246, 74);
+            this.buttonUpdateNewSpawn.TabIndex = 31;
+            this.buttonUpdateNewSpawn.Text = "在线更新重生球员名字(Update Respawn Player Names Online)";
+            this.buttonUpdateNewSpawn.UseVisualStyleBackColor = true;
+            this.buttonUpdateNewSpawn.Click += new System.EventHandler(this.buttonUpdateNewSpawn_Click);
+            // 
             // timerUpdateFast
             // 
             this.timerUpdateFast.Interval = 3000;
@@ -567,6 +551,30 @@
             // 
             this.timerUpdateSlow.Interval = 180000;
             this.timerUpdateSlow.Tick += new System.EventHandler(this.timerUpdateSlow_Tick);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.buttonResetDate, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxResetDateYear, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(759, 83);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(248, 74);
+            this.tableLayoutPanel1.TabIndex = 32;
+            // 
+            // textBoxResetDateYear
+            // 
+            this.textBoxResetDateYear.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxResetDateYear.Location = new System.Drawing.Point(3, 40);
+            this.textBoxResetDateYear.Name = "textBoxResetDateYear";
+            this.textBoxResetDateYear.Size = new System.Drawing.Size(242, 20);
+            this.textBoxResetDateYear.TabIndex = 24;
+            this.textBoxResetDateYear.Text = "1996";
             // 
             // FormMain
             // 
@@ -594,6 +602,8 @@
             this.tableLayoutPanelAutoTrain.PerformLayout();
             this.tableLayoutPanelTrainingEffect1.ResumeLayout(false);
             this.tableLayoutPanelImprovePlayers.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -632,14 +642,15 @@
         private System.Windows.Forms.ToolStripContentPanel ContentPanel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelImprovePlayers;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelTrainingEffect2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelTrainingEffect;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelTrainingEffect1;
         private System.Windows.Forms.Button buttonSaveCurrentFormation;
         private System.Windows.Forms.CheckBox checkBoxAutoPositionWithCurrentFormation;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Button buttonForceExit;
+        private System.Windows.Forms.Button buttonUpdateNewSpawn;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TextBox textBoxResetDateYear;
     }
 }
 

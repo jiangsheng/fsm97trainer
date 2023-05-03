@@ -1,4 +1,8 @@
 ﻿using FSM97Lib;
+using NameParser;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using OpenCCNET;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,11 +13,12 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
-
+using Diacritics.Extensions;
 namespace Fsm97Trainer
 {
     public class MenusProcess : IDisposable
@@ -1054,7 +1059,7 @@ namespace Fsm97Trainer
             return Process.HasExited;
         }
 
-        internal void ResetDate()
+        internal void ResetDate(uint targetYear)
         {
             try
             {
@@ -1065,7 +1070,7 @@ namespace Fsm97Trainer
                 {
                     throw new InvalidOperationException("只能在休赛季修改日期 (Can only change date in offseason)");
                 }
-                DateTime resetDateTime = new DateTime(1997, currentDateTime.Month, currentDateTime.Day);
+                DateTime resetDateTime = new DateTime((int)targetYear, currentDateTime.Month, currentDateTime.Day);
                 TimeSpan resetTimeSpan = currentDateTime - resetDateTime;
                 int daysToSubtract = resetTimeSpan.Days;
                 var playerList = this.ReadPlayers(false);
@@ -1204,6 +1209,144 @@ namespace Fsm97Trainer
         internal void Kill()
         {
             Process.Kill();
+        }
+        internal void UpdatePlayerNames()
+        {
+            try
+            {
+                NativeMethods.SuspendProcess(Process);
+
+                var playerNodes = ReadPlayers(false);
+                Dictionary<string, Dictionary<string, Player>> playerDictionary = new Dictionary<string, Dictionary<string, Player>>();
+                foreach (var item in playerNodes)
+                {
+                    if (!playerDictionary.ContainsKey(item.Data.LastName))
+                    {
+                        playerDictionary.Add(item.Data.LastName, new Dictionary<string, Player>());
+                    }
+                    if (!playerDictionary[item.Data.LastName].ContainsKey(item.Data.FirstName))
+                    {
+                        playerDictionary[item.Data.LastName].Add(item.Data.FirstName, item.Data);
+                    }
+                }
+                var newSpawns = playerNodes.Where(p => p.Data.Age < 20 && p.Data.ContractWeeks == 144).ToList();
+                if (newSpawns.Count() == 0)
+                {
+                    throw new InvalidOperationException("没找到重生球员，此功能必须在新赛季初执行 （Cannot find new spawn, this feature can only be run at the beginning of the season");
+                }
+                List<HumanName> newNames = GetNewPlayerNames();
+                foreach (var item in newNames)
+                {
+                    if (newSpawns.Count == 0) break;
+                    if (playerDictionary.ContainsKey(item.Last))
+                    {
+                        if (playerDictionary[item.Last].ContainsKey(item.First))
+                            continue;
+                    }
+
+                    var newSpawn = newSpawns.First();
+                    newSpawn.Data.FirstName = item.First;
+                    newSpawn.Data.LastName = item.Last;
+                    WritePlayerNames(newSpawn);
+                    if (!playerDictionary.ContainsKey(item.Last))
+                    {
+                        playerDictionary.Add(item.Last, new Dictionary<string, Player>());
+                    }
+                    if (!playerDictionary[item.Last].ContainsKey(item.First))
+                    {
+                        playerDictionary[item.Last].Add(item.First, newSpawn.Data);
+                    }
+                    newSpawns.Remove(newSpawn);
+                }
+            }
+            finally
+            {
+                NativeMethods.ResumeProcess(Process);
+            }
+        }
+
+        private void WritePlayerNames(PlayerNode playerNode)
+        {
+            NativeMethods.WriteString(Process, playerNode.Data.LastName,playerNode.DataAddress + 0x1c, Encoding, 0x13);
+            NativeMethods.WriteString(Process, playerNode.Data.FirstName, playerNode.DataAddress + 0x4, Encoding, 0x18);
+        }
+
+        private List<HumanName> GetNewPlayerNames()
+        {
+            List<HumanName> result = new List<HumanName>();
+            using (WebClient client = new WebClient())
+            {
+                int currentDateInt = NativeMethods.ReadInt(Process, DateAddress);
+                DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDateInt);
+                var toYear = currentDateTime.AddYears(-17).Year;
+                var fromYear = currentDateTime.AddYears(-17).Year;
+                var language = "en";
+                switch (Encoding.CodePage)
+                {
+                    case 936:
+                        language = "zh";
+                        break;
+                    case 437:
+                    default:
+                        language = "en";
+                        break;
+                }
+                /*PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?player, ?name WHERE {
+?player dbo:wikiPageID ?number;
+rdf:type dbo:SoccerPlayer ;
+           dbo:birthDate ?birthdate ;
+           rdfs:label ?name 
+ FILTER ((lang(?name)="zh")&&?birthdate>= "19700101"^^xsd:date && ?birthdate<= "19701231"^^xsd:date ) . 
+} 
+ORDER BY (?number)*/
+                var url = string.Format(Properties.Resources.GetPlayerByYearQueryUrl, fromYear, toYear, language);
+                string json = client.DownloadString(url);
+                var queryResult = JObject.Parse(json);
+                List<QueryUpdatePlayerNameResult> downloadedNames = queryResult.SelectToken("results").SelectToken("bindings")
+                    .Select(jt => jt.ToObject<QueryUpdatePlayerNameResult>()).ToList();
+                if (downloadedNames.Count == 0)
+                {
+                    url = string.Format(Properties.Resources.GetPlayerByYearQueryUrl, "1960", toYear, language);
+                    json = client.DownloadString(url);
+                    queryResult = JObject.Parse(json);
+                    downloadedNames = queryResult.SelectToken("results").SelectToken("bindings")
+                        .Select(jt => jt.ToObject<QueryUpdatePlayerNameResult>()).ToList();
+                }
+                foreach (var item in downloadedNames)
+                {
+                    var pageUrl = item.Player.Value.Replace("http://dbpedia.org/resource/", string.Empty);
+                    var fullName = item.Name.Value;
+                    fullName = ZhConverter.HantToHans(fullName);
+                    if (fullName.Contains("("))
+                    {
+                        fullName = fullName.Substring(0, fullName.IndexOf("(")).Trim();
+                    }
+                    if (fullName.Contains("("))
+                    {
+                        fullName = fullName.Substring(0, fullName.IndexOf("(")).Trim();
+                    }
+                    fullName = fullName.Replace("·", " ");
+                    HumanName humanName = new HumanName(fullName);
+                    if (string.IsNullOrWhiteSpace(humanName.Last))
+                    {
+                        fullName = string.Format("{0} {1}", pageUrl.Substring(0, 1), fullName);
+                        humanName = new HumanName(fullName);
+                    }
+                    else {
+                        var pageUrlParts = pageUrl.Split('_');
+                        var firstName = pageUrlParts.First().RemoveDiacritics();
+                        fullName = string.Format("{0} {1}", firstName, fullName);
+                        humanName = new HumanName(fullName);
+                    }
+                    result.Add(humanName);
+                }
+            }
+            return result;
         }
     }
 }

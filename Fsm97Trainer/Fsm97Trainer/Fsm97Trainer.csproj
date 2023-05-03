@@ -38,6 +38,9 @@
     <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
       <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net40\CsvHelper.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -70,6 +73,7 @@
     <Compile Include="PlayerNodeList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryUpdatePlayerNameResult.cs" />
     <Compile Include="RotateMethod.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="TrainingSchedule.cs" />
@@ -106,6 +110,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Diacritics.NET\Diacritics\Diacritics.csproj">
+      <Project>{c24ddb9b-b0e6-4da4-9b61-eb8f94ca1323}</Project>
+      <Name>Diacritics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\NameParserSharp\NameParser\NameParser\NameParser.csproj">
+      <Project>{d7d43fac-7a56-4adb-882f-c6dd6ffecea4}</Project>
+      <Name>NameParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\OpenCC.NET\OpenCCNET.csproj">
+      <Project>{5bf51327-c5ce-4d60-ba2c-df946dff4ff0}</Project>
+      <Name>OpenCCNET</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\FSM97Lib\FSM97Lib.csproj">
       <Project>{92c0ac2c-ec8a-443e-acbc-7fff26e98f9d}</Project>
       <Name>FSM97Lib</Name>
