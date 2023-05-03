@@ -36,6 +36,14 @@ No absense would make player available in the next game after an injury or red c
 
 The computer does not train. This makes late game matchs a cake walk. If you want some challenges you can improve computer player attributes. The Boost Youth Player feature would increase the attributes of all respawn players (age <20 and contract weeks between 96 and 144) by 25. The Improve All Players feature would increase the attributes of all players by 1. You can use it to compensate the attribute cap on respawn players and lack of training for computer players. 
 
+#### Updating Player Names Online
+
+When an old player retires a new player would be respawn with the same last name. This makes the player data gradually obselete. 
+
+The Updating Respawn Names Online feature (should only be run at the starting of a new season) would query Wikipedia for players born 17 years ago (if not found, then players born since 1960). Due to the limitation of data format, female players would also be available. 
+
+Together with the reset date feature (should only be run in the offseason) you can choose to go back to a few decades before the game officially started and have fitting player names from that era. 
+
 #### Game bugs
 
 The game has an year 2079 bug where all players would suddenly become age 90+ due to birth date being stored as a WORD and thus capped at 65535 days after December, 30, 1899. This would begin a 16 year dark period where every single player in the game would have a high chance to retire next season, starting from a club's main team until only 16 players left in the club. Computers would also lose the ability to purchase players off the transfer market during this period. After the 16 years, the game would be full of youth players and each year a smaller and smaller amount of players retire as respwns making their retirement possible. Around 2105, when all old players from the 16 years retired but no new player aged enough to retire, the game would freeze at the begining of the next season due to lack of respawns. 
