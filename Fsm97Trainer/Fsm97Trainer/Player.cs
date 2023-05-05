@@ -1,9 +1,10 @@
 ﻿using FSM97Lib;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Fsm97Trainer
 {
-    public class Player
+    public class Player:IObjectWithPersonName
     {
         public int Speed { get; set; }
         public int Agility { get; set; }
@@ -128,6 +129,35 @@ namespace Fsm97Trainer
             result = fromPlayer.Consistency - toPlayer.Consistency; if (result != 0) return result;
             result = fromPlayer.Determination - toPlayer.Determination; if (result != 0) return result;
             result = fromPlayer.Greed - toPlayer.Greed; return result;
+        }
+        internal static int CompareAttributesApproximately(Player fromPlayer, Player toPlayer)
+        {
+            var result = fromPlayer.Speed - toPlayer.Speed; if (result >1||result<-1) return result;
+            result = fromPlayer.Agility - toPlayer.Agility; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Acceleration - toPlayer.Acceleration; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Stamina - toPlayer.Stamina; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Strength - toPlayer.Strength; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Fitness - toPlayer.Fitness; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Shooting - toPlayer.Shooting; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Passing - toPlayer.Passing; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Heading - toPlayer.Heading; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Control - toPlayer.Control; if (result > 1 || result < -1   ) return result;
+            result = fromPlayer.Dribbling - toPlayer.Dribbling; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Coolness - toPlayer.Coolness; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Awareness - toPlayer.Awareness; if (result > 1 || result < -1) return result;
+            result = fromPlayer.TackleDetermination - toPlayer.TackleDetermination; if (result > 1 || result < -1) return result;
+            result = fromPlayer.TackleSkill - toPlayer.TackleSkill; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Flair - toPlayer.Flair; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Kicking - toPlayer.Kicking; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Throwing - toPlayer.Throwing; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Handling - toPlayer.Handling; if (result > 1 || result < -1) return result;
+            result = fromPlayer.ThrowIn - toPlayer.ThrowIn; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Leadership - toPlayer.Leadership; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Consistency - toPlayer.Consistency; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Determination - toPlayer.Determination; if (result > 1 || result < -1) return result;
+            result = fromPlayer.Greed - toPlayer.Greed; if (result > 1 || result < -1) return result;
+            return 0;
+
         }
         public void UpdateBestPosition()
         {

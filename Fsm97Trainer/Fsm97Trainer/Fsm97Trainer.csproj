@@ -63,11 +63,12 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="IDivisionFactor.cs" />
+    <Compile Include="IObjectWithPersonName.cs" />
     <Compile Include="MenusProcess.cs" />
     <Compile Include="NamesakePlayers.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="PlayerCollectionWithIndex.cs" />
+    <Compile Include="ObjectWithNameCollectionWithIndex.cs" />
     <Compile Include="PlayerMap.cs" />
     <Compile Include="PlayerNode.cs" />
     <Compile Include="PlayerNodeList.cs" />
@@ -78,9 +79,6 @@
     <Compile Include="Team.cs" />
     <Compile Include="TrainingSchedule.cs" />
     <Compile Include="TrainingSchedulePreset.cs" />
-    <Compile Include="WritePlayerTask.cs" />
-    <Compile Include="WritePlayerTaskAction.cs" />
-    <Compile Include="WritePlayerTaskCollectionWithIndex.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>

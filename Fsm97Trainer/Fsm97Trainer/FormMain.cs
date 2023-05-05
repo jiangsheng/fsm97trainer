@@ -37,7 +37,7 @@ namespace Fsm97Trainer
         }
 
         MenusProcess MenusProcess { get; set; }
-        public List<Player> PlayerData { get; set; }
+        public LinkedList<Player> PlayerData { get; set; }
         public bool AutoTrain { get; set; }
         public bool MaxEnergy { get; set; }
         public bool ConvertToGK { get; set; }
@@ -135,7 +135,7 @@ namespace Fsm97Trainer
             }
         }
 
-        private static void SaveToCsv(List<PlayerNode> players)
+        private static void SaveToCsv(LinkedList<PlayerNode> playerNodes)
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
@@ -151,7 +151,11 @@ namespace Fsm97Trainer
                     using (var csv = new CsvWriter(writer, config))
                     {
                         csv.Configuration.RegisterClassMap<PlayerMap>();
-                        csv.WriteRecords(players.Select(n => n.Data).ToList());
+                        csv.WriteHeader<Player>();
+                        foreach (var playerNode in playerNodes)
+                        {
+                            csv.WriteRecord<Player>(playerNode.Data);
+                        }
                     }
                     ProcessStartInfo psi = new ProcessStartInfo();
                     psi.UseShellExecute = true;
@@ -167,7 +171,9 @@ namespace Fsm97Trainer
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
-                this.PlayerData = menusProcess.ReadPlayers(false).Select(n => n.Data).ToList();
+                this.PlayerData = new LinkedList<Player>();
+                foreach (var playerNode in menusProcess.ReadPlayers(false))
+                    this.PlayerData.AddLast(playerNode.Data);
                 MessageBox.Show("球员数据已复制(Player data copied)");
             }
             catch (Exception ex)
@@ -218,8 +224,9 @@ namespace Fsm97Trainer
             }
         }
 
-        private List<Player> LoadFromCsv()
+        private LinkedList<Player> LoadFromCsv()
         {
+            var result = new LinkedList<Player>();
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
                 ofd.FileName = "players.csv";
@@ -234,10 +241,14 @@ namespace Fsm97Trainer
                     using (var csv = new CsvReader(reader, config))
                     {
                         csv.Configuration.RegisterClassMap<PlayerMap>();
-                        return csv.GetRecords<Player>().ToList();
+                        csv.ReadHeader();
+                        foreach (var record in csv.GetRecords<Player>())
+                        {
+                            result.AddLast(record);
+                        } 
                     }
                 }
-                return new List<Player>();
+                return result;
             }
         }
 
@@ -513,6 +524,7 @@ namespace Fsm97Trainer
         {
             try
             {
+                var respawnCategory = comboBoxRespawnCategory.Text;           
                 MenusProcess menusProcess = GetMenusProcess();
                 if (!menusProcess.HasExited())
                 {
@@ -520,7 +532,7 @@ namespace Fsm97Trainer
     + "Can only be done at the beginning of the season. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
-                        menusProcess.UpdatePlayerNames();
+                        menusProcess.UpdatePlayerNames(respawnCategory);
                         MessageBox.Show("球员名字已更新 (Player Names Updated)");
                     }
                 }

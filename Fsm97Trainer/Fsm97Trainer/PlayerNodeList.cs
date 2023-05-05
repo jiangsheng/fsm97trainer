@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Fsm97Trainer
 {
-    public class PlayerNodeList : List<PlayerNode>
+    public class PlayerNodeList : LinkedList<PlayerNode>
     {
 
     }

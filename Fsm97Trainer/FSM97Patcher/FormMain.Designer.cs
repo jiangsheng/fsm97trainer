@@ -46,6 +46,7 @@
             this.checkBoxKickingImprovesSpeed = new System.Windows.Forms.CheckBox();
             this.checkBoxHandlingImprovesAgility = new System.Windows.Forms.CheckBox();
             this.checkBoxHeadingImprovesDetermination = new System.Windows.Forms.CheckBox();
+            this.buttonShowTrainingEffects = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -181,6 +182,7 @@
             this.tableLayoutPanel1.Controls.Add(this.checkBoxKickingImprovesSpeed, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxHandlingImprovesAgility, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxHeadingImprovesDetermination, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.buttonShowTrainingEffects, 1, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -285,6 +287,17 @@
             this.checkBoxHeadingImprovesDetermination.Text = "头球改善判断(Heading improves Determination)";
             this.checkBoxHeadingImprovesDetermination.UseVisualStyleBackColor = true;
             // 
+            // buttonShowTrainingEffects
+            // 
+            this.buttonShowTrainingEffects.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonShowTrainingEffects.Location = new System.Drawing.Point(370, 231);
+            this.buttonShowTrainingEffects.Name = "buttonShowTrainingEffects";
+            this.buttonShowTrainingEffects.Size = new System.Drawing.Size(361, 51);
+            this.buttonShowTrainingEffects.TabIndex = 18;
+            this.buttonShowTrainingEffects.Text = "显示训练效果(Show Training  Effects)";
+            this.buttonShowTrainingEffects.UseVisualStyleBackColor = true;
+            this.buttonShowTrainingEffects.Click += new System.EventHandler(this.buttonShowTrainingEffects_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -321,6 +334,7 @@
         private System.Windows.Forms.CheckBox checkBoxKickingImprovesSpeed;
         private System.Windows.Forms.CheckBox checkBoxHandlingImprovesAgility;
         private System.Windows.Forms.CheckBox checkBoxHeadingImprovesDetermination;
+        private System.Windows.Forms.Button buttonShowTrainingEffects;
     }
 }
 
