@@ -1318,9 +1318,9 @@ namespace Fsm97Trainer
     SELECT ?player, ?name WHERE {
     ?player dbo:wikiPageID ?number;
     rdf:type dbo:SoccerPlayer ;
-               dbo:birthDate ?birthdate ;
+               dbo:birthDate|dbp:birthDate ?birthdate ;
                rdfs:label ?name 
-     FILTER ((lang(?name)="zh")&&?birthdate>= "19700101"^^xsd:date && ?birthdate<= "19701231"^^xsd:date ) . 
+     FILTER ((lang(?name)="zh")&&?birthdate>= "1970-01-01"^^xsd:date && ?birthdate<= "1970-12-31"^^xsd:date ) . 
     } 
     ORDER BY (?number)*/
                     url = string.Format(Properties.Resources.GetPlayerByYearQueryUrl, fromYear, toYear, language);
@@ -1335,8 +1335,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 SELECT DISTINCT ?player , ?name
 WHERE {?player dbo:wikiPageID ?number; rdf:type dbo:SoccerPlayer ;
-dbo:birthDate ?birthdate ;rdfs:label ?name ;dcterms:subject ?category
-FILTER ((lang(?name)="zh")&&?birthdate>= "19600101"^^xsd:date && ?birthdate<= "19971231"^^xsd:date && ?category =<http://dbpedia.org/resource/Category:A.C._Milan_players> ). 
+dbo:birthDate|dbp:birthDate ?birthdate ;rdfs:label ?name ;dcterms:subject ?category
+FILTER ((lang(?name)="zh")&&?birthdate>= "1960-01-01"^^xsd:date && ?birthdate<= "1997-12-31"^^xsd:date && ?category =<http://dbpedia.org/resource/Category:A.C._Milan_players> ). 
 } 
 ORDER BY (?number)
                      */

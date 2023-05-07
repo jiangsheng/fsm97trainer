@@ -26,63 +26,63 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonExportPlayerData = new System.Windows.Forms.Button();
-            this.buttonImportPlayerData = new System.Windows.Forms.Button();
-            this.buttonCopyPlayerData = new System.Windows.Forms.Button();
-            this.buttonPastePlayerData = new System.Windows.Forms.Button();
-            this.checkBoxNoAbsense = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanelMaxPlayerForm = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxMaxForm = new System.Windows.Forms.CheckBox();
             this.checkBoxMaxMorale = new System.Windows.Forms.CheckBox();
             this.checkBoxMaxEnergy = new System.Windows.Forms.CheckBox();
-            this.checkBoxMaxStrength = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanelRotation = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonRotateByEnergy = new System.Windows.Forms.Button();
-            this.buttonRotateByStatistics = new System.Windows.Forms.Button();
-            this.checkBoxContractAutoRenew = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanelAutoTrain = new System.Windows.Forms.TableLayoutPanel();
-            this.checkBoxAutoTrain = new System.Windows.Forms.CheckBox();
-            this.checkBoxConvertToGK = new System.Windows.Forms.CheckBox();
-            this.checkBoxNoAlternativeTraining = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanelFormation = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonSaveCurrentFormation = new System.Windows.Forms.Button();
-            this.checkBoxAutoPositionWithCurrentFormation = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanelImprovePlayers = new System.Windows.Forms.TableLayoutPanel();
             this.buttonBoostYouthPlayer = new System.Windows.Forms.Button();
             this.buttonImproveAllPlayersBy1 = new System.Windows.Forms.Button();
-            this.buttonForceExit = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonResetDate = new System.Windows.Forms.Button();
             this.textBoxResetDateYear = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanelImportExport = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonImportPlayerData = new System.Windows.Forms.Button();
+            this.buttonExportPlayerData = new System.Windows.Forms.Button();
+            this.tableLayoutPanelCopyPaste = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonPastePlayerData = new System.Windows.Forms.Button();
+            this.buttonCopyPlayerData = new System.Windows.Forms.Button();
+            this.tableLayoutPanelRotation = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonRotateByEnergy = new System.Windows.Forms.Button();
+            this.buttonRotateByStatistics = new System.Windows.Forms.Button();
             this.tableLayoutPanelUpdateRrespawnNameOnline = new System.Windows.Forms.TableLayoutPanel();
             this.buttonUpdateNewSpawn = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxRespawnCategory = new System.Windows.Forms.ComboBox();
+            this.buttonAutoPosition = new System.Windows.Forms.Button();
+            this.tableLayoutPanelFormation = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonSaveCurrentFormation = new System.Windows.Forms.Button();
+            this.checkBoxAutoPositionWithCurrentFormation = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBoxNoAbsense = new System.Windows.Forms.CheckBox();
+            this.checkBoxContractAutoRenew = new System.Windows.Forms.CheckBox();
+            this.checkBoxMaxStrength = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanelAutoTrain = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBoxAutoTrain = new System.Windows.Forms.CheckBox();
+            this.checkBoxConvertToGK = new System.Windows.Forms.CheckBox();
+            this.checkBoxNoAlternativeTraining = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonForceExit = new System.Windows.Forms.Button();
             this.timerUpdateFast = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateSlow = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.comboBoxRespawnCategory = new System.Windows.Forms.ComboBox();
-            this.tableLayoutPanelImportExport = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanelCopyPaste = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonAutoPosition = new System.Windows.Forms.Button();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelMaxPlayerForm.SuspendLayout();
-            this.tableLayoutPanelRotation.SuspendLayout();
-            this.tableLayoutPanelAutoTrain.SuspendLayout();
-            this.tableLayoutPanelFormation.SuspendLayout();
             this.tableLayoutPanelImprovePlayers.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanelUpdateRrespawnNameOnline.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanelImportExport.SuspendLayout();
             this.tableLayoutPanelCopyPaste.SuspendLayout();
+            this.tableLayoutPanelRotation.SuspendLayout();
+            this.tableLayoutPanelUpdateRrespawnNameOnline.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanelFormation.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanelAutoTrain.SuspendLayout();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -190,62 +190,6 @@
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(1100, 461);
             this.tableLayoutPanelMain.TabIndex = 9;
             // 
-            // buttonExportPlayerData
-            // 
-            this.buttonExportPlayerData.Location = new System.Drawing.Point(3, 3);
-            this.buttonExportPlayerData.Name = "buttonExportPlayerData";
-            this.buttonExportPlayerData.Size = new System.Drawing.Size(263, 48);
-            this.buttonExportPlayerData.TabIndex = 9;
-            this.buttonExportPlayerData.Text = "导出球员数据(Export Player Data)";
-            this.buttonExportPlayerData.UseVisualStyleBackColor = true;
-            this.buttonExportPlayerData.Click += new System.EventHandler(this.buttonExportPlayerData_Click);
-            // 
-            // buttonImportPlayerData
-            // 
-            this.buttonImportPlayerData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonImportPlayerData.Location = new System.Drawing.Point(3, 57);
-            this.buttonImportPlayerData.Name = "buttonImportPlayerData";
-            this.buttonImportPlayerData.Size = new System.Drawing.Size(263, 49);
-            this.buttonImportPlayerData.TabIndex = 10;
-            this.buttonImportPlayerData.Text = "导入球员数据(Import player data)";
-            this.buttonImportPlayerData.UseVisualStyleBackColor = true;
-            this.buttonImportPlayerData.Click += new System.EventHandler(this.buttonImportPlayerData_Click);
-            // 
-            // buttonCopyPlayerData
-            // 
-            this.buttonCopyPlayerData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCopyPlayerData.Location = new System.Drawing.Point(3, 3);
-            this.buttonCopyPlayerData.Name = "buttonCopyPlayerData";
-            this.buttonCopyPlayerData.Size = new System.Drawing.Size(263, 48);
-            this.buttonCopyPlayerData.TabIndex = 11;
-            this.buttonCopyPlayerData.Text = "复制球员数据（Copy Player Data）";
-            this.buttonCopyPlayerData.UseVisualStyleBackColor = true;
-            this.buttonCopyPlayerData.Click += new System.EventHandler(this.buttonCopyPlayerData_Click);
-            // 
-            // buttonPastePlayerData
-            // 
-            this.buttonPastePlayerData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonPastePlayerData.Location = new System.Drawing.Point(3, 57);
-            this.buttonPastePlayerData.Name = "buttonPastePlayerData";
-            this.buttonPastePlayerData.Size = new System.Drawing.Size(263, 49);
-            this.buttonPastePlayerData.TabIndex = 12;
-            this.buttonPastePlayerData.Text = "粘贴球员数据(Paste Player Data)";
-            this.buttonPastePlayerData.UseVisualStyleBackColor = true;
-            this.buttonPastePlayerData.Click += new System.EventHandler(this.buttonPastePlayerData_Click);
-            // 
-            // checkBoxNoAbsense
-            // 
-            this.checkBoxNoAbsense.AutoSize = true;
-            this.checkBoxNoAbsense.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBoxNoAbsense.Location = new System.Drawing.Point(3, 3);
-            this.checkBoxNoAbsense.Name = "checkBoxNoAbsense";
-            this.checkBoxNoAbsense.Size = new System.Drawing.Size(263, 30);
-            this.checkBoxNoAbsense.TabIndex = 19;
-            this.checkBoxNoAbsense.Text = "球员总是可用(No Absense)";
-            this.checkBoxNoAbsense.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBoxNoAbsense.UseVisualStyleBackColor = true;
-            this.checkBoxNoAbsense.CheckedChanged += new System.EventHandler(this.checkBoxFastTimer_CheckedChanged);
-            // 
             // tableLayoutPanelMaxPlayerForm
             // 
             this.tableLayoutPanelMaxPlayerForm.ColumnCount = 1;
@@ -302,18 +246,150 @@
             this.checkBoxMaxEnergy.UseVisualStyleBackColor = true;
             this.checkBoxMaxEnergy.CheckedChanged += new System.EventHandler(this.checkBoxFastTimer_CheckedChanged);
             // 
-            // checkBoxMaxStrength
+            // tableLayoutPanelImprovePlayers
             // 
-            this.checkBoxMaxStrength.AutoSize = true;
-            this.checkBoxMaxStrength.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBoxMaxStrength.Location = new System.Drawing.Point(3, 39);
-            this.checkBoxMaxStrength.Name = "checkBoxMaxStrength";
-            this.checkBoxMaxStrength.Size = new System.Drawing.Size(263, 30);
-            this.checkBoxMaxStrength.TabIndex = 22;
-            this.checkBoxMaxStrength.Text = "力量最大(Max Strength)";
-            this.checkBoxMaxStrength.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBoxMaxStrength.UseVisualStyleBackColor = true;
-            this.checkBoxMaxStrength.CheckedChanged += new System.EventHandler(this.checkBoxSlowTimer_CheckedChanged);
+            this.tableLayoutPanelImprovePlayers.ColumnCount = 1;
+            this.tableLayoutPanelImprovePlayers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelImprovePlayers.Controls.Add(this.buttonBoostYouthPlayer, 0, 0);
+            this.tableLayoutPanelImprovePlayers.Controls.Add(this.buttonImproveAllPlayersBy1, 0, 1);
+            this.tableLayoutPanelImprovePlayers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelImprovePlayers.Location = new System.Drawing.Point(553, 118);
+            this.tableLayoutPanelImprovePlayers.Name = "tableLayoutPanelImprovePlayers";
+            this.tableLayoutPanelImprovePlayers.RowCount = 2;
+            this.tableLayoutPanelImprovePlayers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelImprovePlayers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelImprovePlayers.Size = new System.Drawing.Size(269, 109);
+            this.tableLayoutPanelImprovePlayers.TabIndex = 27;
+            // 
+            // buttonBoostYouthPlayer
+            // 
+            this.buttonBoostYouthPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonBoostYouthPlayer.Location = new System.Drawing.Point(3, 3);
+            this.buttonBoostYouthPlayer.Name = "buttonBoostYouthPlayer";
+            this.buttonBoostYouthPlayer.Size = new System.Drawing.Size(263, 48);
+            this.buttonBoostYouthPlayer.TabIndex = 13;
+            this.buttonBoostYouthPlayer.Text = "改善新人数据（Boost Youth Players）";
+            this.buttonBoostYouthPlayer.UseVisualStyleBackColor = true;
+            this.buttonBoostYouthPlayer.Click += new System.EventHandler(this.buttonBoostYouthPlayer_Click);
+            // 
+            // buttonImproveAllPlayersBy1
+            // 
+            this.buttonImproveAllPlayersBy1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonImproveAllPlayersBy1.Location = new System.Drawing.Point(3, 57);
+            this.buttonImproveAllPlayersBy1.Name = "buttonImproveAllPlayersBy1";
+            this.buttonImproveAllPlayersBy1.Size = new System.Drawing.Size(263, 49);
+            this.buttonImproveAllPlayersBy1.TabIndex = 16;
+            this.buttonImproveAllPlayersBy1.Text = "所有球员数据+1(Improve All Players by 1)";
+            this.buttonImproveAllPlayersBy1.UseVisualStyleBackColor = true;
+            this.buttonImproveAllPlayersBy1.Click += new System.EventHandler(this.buttonImproveAllPlayersBy1_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.buttonResetDate, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxResetDateYear, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(828, 118);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(269, 109);
+            this.tableLayoutPanel1.TabIndex = 32;
+            // 
+            // buttonResetDate
+            // 
+            this.buttonResetDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonResetDate.Location = new System.Drawing.Point(3, 3);
+            this.buttonResetDate.Name = "buttonResetDate";
+            this.buttonResetDate.Size = new System.Drawing.Size(263, 48);
+            this.buttonResetDate.TabIndex = 23;
+            this.buttonResetDate.Text = "重设日期至 (Reset Date to)";
+            this.buttonResetDate.UseVisualStyleBackColor = true;
+            this.buttonResetDate.Click += new System.EventHandler(this.buttonResetDate_Click);
+            // 
+            // textBoxResetDateYear
+            // 
+            this.textBoxResetDateYear.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxResetDateYear.Location = new System.Drawing.Point(3, 57);
+            this.textBoxResetDateYear.Name = "textBoxResetDateYear";
+            this.textBoxResetDateYear.Size = new System.Drawing.Size(263, 20);
+            this.textBoxResetDateYear.TabIndex = 24;
+            this.textBoxResetDateYear.Text = "1996";
+            // 
+            // tableLayoutPanelImportExport
+            // 
+            this.tableLayoutPanelImportExport.ColumnCount = 1;
+            this.tableLayoutPanelImportExport.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelImportExport.Controls.Add(this.buttonImportPlayerData, 0, 1);
+            this.tableLayoutPanelImportExport.Controls.Add(this.buttonExportPlayerData, 0, 0);
+            this.tableLayoutPanelImportExport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelImportExport.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanelImportExport.Name = "tableLayoutPanelImportExport";
+            this.tableLayoutPanelImportExport.RowCount = 2;
+            this.tableLayoutPanelImportExport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelImportExport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelImportExport.Size = new System.Drawing.Size(269, 109);
+            this.tableLayoutPanelImportExport.TabIndex = 34;
+            // 
+            // buttonImportPlayerData
+            // 
+            this.buttonImportPlayerData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonImportPlayerData.Location = new System.Drawing.Point(3, 57);
+            this.buttonImportPlayerData.Name = "buttonImportPlayerData";
+            this.buttonImportPlayerData.Size = new System.Drawing.Size(263, 49);
+            this.buttonImportPlayerData.TabIndex = 10;
+            this.buttonImportPlayerData.Text = "导入球员数据(Import player data)";
+            this.buttonImportPlayerData.UseVisualStyleBackColor = true;
+            this.buttonImportPlayerData.Click += new System.EventHandler(this.buttonImportPlayerData_Click);
+            // 
+            // buttonExportPlayerData
+            // 
+            this.buttonExportPlayerData.Location = new System.Drawing.Point(3, 3);
+            this.buttonExportPlayerData.Name = "buttonExportPlayerData";
+            this.buttonExportPlayerData.Size = new System.Drawing.Size(263, 48);
+            this.buttonExportPlayerData.TabIndex = 9;
+            this.buttonExportPlayerData.Text = "导出球员数据(Export Player Data)";
+            this.buttonExportPlayerData.UseVisualStyleBackColor = true;
+            this.buttonExportPlayerData.Click += new System.EventHandler(this.buttonExportPlayerData_Click);
+            // 
+            // tableLayoutPanelCopyPaste
+            // 
+            this.tableLayoutPanelCopyPaste.ColumnCount = 1;
+            this.tableLayoutPanelCopyPaste.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelCopyPaste.Controls.Add(this.buttonPastePlayerData, 0, 1);
+            this.tableLayoutPanelCopyPaste.Controls.Add(this.buttonCopyPlayerData, 0, 0);
+            this.tableLayoutPanelCopyPaste.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelCopyPaste.Location = new System.Drawing.Point(278, 3);
+            this.tableLayoutPanelCopyPaste.Name = "tableLayoutPanelCopyPaste";
+            this.tableLayoutPanelCopyPaste.RowCount = 2;
+            this.tableLayoutPanelCopyPaste.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelCopyPaste.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelCopyPaste.Size = new System.Drawing.Size(269, 109);
+            this.tableLayoutPanelCopyPaste.TabIndex = 35;
+            // 
+            // buttonPastePlayerData
+            // 
+            this.buttonPastePlayerData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonPastePlayerData.Location = new System.Drawing.Point(3, 57);
+            this.buttonPastePlayerData.Name = "buttonPastePlayerData";
+            this.buttonPastePlayerData.Size = new System.Drawing.Size(263, 49);
+            this.buttonPastePlayerData.TabIndex = 12;
+            this.buttonPastePlayerData.Text = "粘贴球员数据(Paste Player Data)";
+            this.buttonPastePlayerData.UseVisualStyleBackColor = true;
+            this.buttonPastePlayerData.Click += new System.EventHandler(this.buttonPastePlayerData_Click);
+            // 
+            // buttonCopyPlayerData
+            // 
+            this.buttonCopyPlayerData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonCopyPlayerData.Location = new System.Drawing.Point(3, 3);
+            this.buttonCopyPlayerData.Name = "buttonCopyPlayerData";
+            this.buttonCopyPlayerData.Size = new System.Drawing.Size(263, 48);
+            this.buttonCopyPlayerData.TabIndex = 11;
+            this.buttonCopyPlayerData.Text = "复制球员数据（Copy Player Data）";
+            this.buttonCopyPlayerData.UseVisualStyleBackColor = true;
+            this.buttonCopyPlayerData.Click += new System.EventHandler(this.buttonCopyPlayerData_Click);
             // 
             // tableLayoutPanelRotation
             // 
@@ -352,6 +428,184 @@
             this.buttonRotateByStatistics.UseVisualStyleBackColor = true;
             this.buttonRotateByStatistics.Click += new System.EventHandler(this.buttonRotateByStatistics_Click);
             // 
+            // tableLayoutPanelUpdateRrespawnNameOnline
+            // 
+            this.tableLayoutPanelUpdateRrespawnNameOnline.ColumnCount = 1;
+            this.tableLayoutPanelUpdateRrespawnNameOnline.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelUpdateRrespawnNameOnline.Controls.Add(this.buttonUpdateNewSpawn, 0, 0);
+            this.tableLayoutPanelUpdateRrespawnNameOnline.Controls.Add(this.tableLayoutPanel3, 0, 1);
+            this.tableLayoutPanelUpdateRrespawnNameOnline.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelUpdateRrespawnNameOnline.Location = new System.Drawing.Point(828, 3);
+            this.tableLayoutPanelUpdateRrespawnNameOnline.Name = "tableLayoutPanelUpdateRrespawnNameOnline";
+            this.tableLayoutPanelUpdateRrespawnNameOnline.RowCount = 2;
+            this.tableLayoutPanelUpdateRrespawnNameOnline.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelUpdateRrespawnNameOnline.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelUpdateRrespawnNameOnline.Size = new System.Drawing.Size(269, 109);
+            this.tableLayoutPanelUpdateRrespawnNameOnline.TabIndex = 33;
+            // 
+            // buttonUpdateNewSpawn
+            // 
+            this.buttonUpdateNewSpawn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonUpdateNewSpawn.Location = new System.Drawing.Point(3, 3);
+            this.buttonUpdateNewSpawn.Name = "buttonUpdateNewSpawn";
+            this.buttonUpdateNewSpawn.Size = new System.Drawing.Size(263, 48);
+            this.buttonUpdateNewSpawn.TabIndex = 31;
+            this.buttonUpdateNewSpawn.Text = "在线更新重生球员名(Update Respawn Player Names Online)";
+            this.toolTip1.SetToolTip(this.buttonUpdateNewSpawn, "可以执行多次，每次不同类别 (Can be executed multiple times with different categories)");
+            this.buttonUpdateNewSpawn.UseVisualStyleBackColor = true;
+            this.buttonUpdateNewSpawn.Click += new System.EventHandler(this.buttonUpdateNewSpawn_Click);
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.05755F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.94244F));
+            this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.comboBoxRespawnCategory, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 57);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(263, 49);
+            this.tableLayoutPanel3.TabIndex = 32;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 26);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "分类地址(Category)\r\n";
+            // 
+            // comboBoxRespawnCategory
+            // 
+            this.comboBoxRespawnCategory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxRespawnCategory.FormattingEnabled = true;
+            this.comboBoxRespawnCategory.Items.AddRange(new object[] {
+            "FIFA_World_Cup-winning_players",
+            "FIFA_World_Player_of_the_Year_winners",
+            "UEFA_Europa_League_winning_players",
+            "FIFA_100",
+            "FIFA_Century_Club",
+            "FIFA_Women\'s_Century_Club",
+            "Ballon_d\'Or_winners",
+            "Real_Madrid_CF_players",
+            "A.C._Milan_players",
+            "Inter_Milan_players",
+            "Juventus_F.C._players",
+            "ACF_Fiorentina_players",
+            "Chelsea_F.C._players",
+            "Arsenal_F.C._players",
+            "Manchester_City_F.C._players",
+            "Manchester_United_F.C._players",
+            "Newcastle_United_F.C._players",
+            "Tottenham_Hotspur_F.C._players",
+            "FC_Bayern_Munich_footballers",
+            "AFC_Ajax_players",
+            "England_international_footballers",
+            "France_international_footballers",
+            "Italy_international_footballers",
+            "Spain_international_footballers",
+            "Brazil_international_footballers",
+            "Netherlands_international_footballers",
+            "Argentina_international_footballers",
+            "Portugal_international_footballers",
+            "China_international_footballers",
+            "FC_Barcelona_players",
+            "Chinese_women\'s_footballers",
+            "Chinese_footballers",
+            "Premier_League_players",
+            "Serie_A_players",
+            "Association_football_midfielders",
+            "Association_football_forwards",
+            "Association_football_defenders",
+            "Olympic_medalists_in_football"});
+            this.comboBoxRespawnCategory.Location = new System.Drawing.Point(76, 3);
+            this.comboBoxRespawnCategory.Name = "comboBoxRespawnCategory";
+            this.comboBoxRespawnCategory.Size = new System.Drawing.Size(184, 21);
+            this.comboBoxRespawnCategory.TabIndex = 2;
+            // 
+            // buttonAutoPosition
+            // 
+            this.buttonAutoPosition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonAutoPosition.Location = new System.Drawing.Point(278, 118);
+            this.buttonAutoPosition.Name = "buttonAutoPosition";
+            this.buttonAutoPosition.Size = new System.Drawing.Size(269, 109);
+            this.buttonAutoPosition.TabIndex = 24;
+            this.buttonAutoPosition.Text = "自适应位置(Auto Position)";
+            this.buttonAutoPosition.UseVisualStyleBackColor = true;
+            this.buttonAutoPosition.Click += new System.EventHandler(this.buttonAutoPosition_Click);
+            // 
+            // tableLayoutPanelFormation
+            // 
+            this.tableLayoutPanelFormation.ColumnCount = 1;
+            this.tableLayoutPanelFormation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelFormation.Controls.Add(this.buttonSaveCurrentFormation, 0, 0);
+            this.tableLayoutPanelFormation.Controls.Add(this.checkBoxAutoPositionWithCurrentFormation, 0, 1);
+            this.tableLayoutPanelFormation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelFormation.Location = new System.Drawing.Point(3, 118);
+            this.tableLayoutPanelFormation.Name = "tableLayoutPanelFormation";
+            this.tableLayoutPanelFormation.RowCount = 2;
+            this.tableLayoutPanelFormation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelFormation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelFormation.Size = new System.Drawing.Size(269, 109);
+            this.tableLayoutPanelFormation.TabIndex = 26;
+            // 
+            // buttonSaveCurrentFormation
+            // 
+            this.buttonSaveCurrentFormation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonSaveCurrentFormation.Location = new System.Drawing.Point(3, 3);
+            this.buttonSaveCurrentFormation.Name = "buttonSaveCurrentFormation";
+            this.buttonSaveCurrentFormation.Size = new System.Drawing.Size(263, 48);
+            this.buttonSaveCurrentFormation.TabIndex = 0;
+            this.buttonSaveCurrentFormation.Text = "保存当前阵型 (Save Current Formation)";
+            this.buttonSaveCurrentFormation.UseVisualStyleBackColor = true;
+            this.buttonSaveCurrentFormation.Click += new System.EventHandler(this.buttonSaveCurrentFormation_Click);
+            // 
+            // checkBoxAutoPositionWithCurrentFormation
+            // 
+            this.checkBoxAutoPositionWithCurrentFormation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBoxAutoPositionWithCurrentFormation.Location = new System.Drawing.Point(3, 57);
+            this.checkBoxAutoPositionWithCurrentFormation.Name = "checkBoxAutoPositionWithCurrentFormation";
+            this.checkBoxAutoPositionWithCurrentFormation.Size = new System.Drawing.Size(263, 49);
+            this.checkBoxAutoPositionWithCurrentFormation.TabIndex = 1;
+            this.checkBoxAutoPositionWithCurrentFormation.Text = "自适应位置使用当前保存阵型 (Auto Position using Saved Formation)";
+            this.checkBoxAutoPositionWithCurrentFormation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxAutoPositionWithCurrentFormation.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxNoAbsense, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxContractAutoRenew, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxMaxStrength, 0, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 233);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(269, 109);
+            this.tableLayoutPanel2.TabIndex = 36;
+            // 
+            // checkBoxNoAbsense
+            // 
+            this.checkBoxNoAbsense.AutoSize = true;
+            this.checkBoxNoAbsense.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBoxNoAbsense.Location = new System.Drawing.Point(3, 3);
+            this.checkBoxNoAbsense.Name = "checkBoxNoAbsense";
+            this.checkBoxNoAbsense.Size = new System.Drawing.Size(263, 30);
+            this.checkBoxNoAbsense.TabIndex = 19;
+            this.checkBoxNoAbsense.Text = "球员总是可用(No Absense)";
+            this.checkBoxNoAbsense.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxNoAbsense.UseVisualStyleBackColor = true;
+            this.checkBoxNoAbsense.CheckedChanged += new System.EventHandler(this.checkBoxFastTimer_CheckedChanged);
+            // 
             // checkBoxContractAutoRenew
             // 
             this.checkBoxContractAutoRenew.AutoSize = true;
@@ -364,6 +618,19 @@
             this.checkBoxContractAutoRenew.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxContractAutoRenew.UseVisualStyleBackColor = true;
             this.checkBoxContractAutoRenew.CheckedChanged += new System.EventHandler(this.checkBoxSlowTimer_CheckedChanged);
+            // 
+            // checkBoxMaxStrength
+            // 
+            this.checkBoxMaxStrength.AutoSize = true;
+            this.checkBoxMaxStrength.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBoxMaxStrength.Location = new System.Drawing.Point(3, 39);
+            this.checkBoxMaxStrength.Name = "checkBoxMaxStrength";
+            this.checkBoxMaxStrength.Size = new System.Drawing.Size(263, 30);
+            this.checkBoxMaxStrength.TabIndex = 22;
+            this.checkBoxMaxStrength.Text = "力量最大(Max Strength)";
+            this.checkBoxMaxStrength.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxMaxStrength.UseVisualStyleBackColor = true;
+            this.checkBoxMaxStrength.CheckedChanged += new System.EventHandler(this.checkBoxSlowTimer_CheckedChanged);
             // 
             // tableLayoutPanelAutoTrain
             // 
@@ -419,43 +686,6 @@
             this.checkBoxNoAlternativeTraining.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxNoAlternativeTraining.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanelFormation
-            // 
-            this.tableLayoutPanelFormation.ColumnCount = 1;
-            this.tableLayoutPanelFormation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelFormation.Controls.Add(this.buttonSaveCurrentFormation, 0, 0);
-            this.tableLayoutPanelFormation.Controls.Add(this.checkBoxAutoPositionWithCurrentFormation, 0, 1);
-            this.tableLayoutPanelFormation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelFormation.Location = new System.Drawing.Point(3, 118);
-            this.tableLayoutPanelFormation.Name = "tableLayoutPanelFormation";
-            this.tableLayoutPanelFormation.RowCount = 2;
-            this.tableLayoutPanelFormation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelFormation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelFormation.Size = new System.Drawing.Size(269, 109);
-            this.tableLayoutPanelFormation.TabIndex = 26;
-            // 
-            // buttonSaveCurrentFormation
-            // 
-            this.buttonSaveCurrentFormation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonSaveCurrentFormation.Location = new System.Drawing.Point(3, 3);
-            this.buttonSaveCurrentFormation.Name = "buttonSaveCurrentFormation";
-            this.buttonSaveCurrentFormation.Size = new System.Drawing.Size(263, 48);
-            this.buttonSaveCurrentFormation.TabIndex = 0;
-            this.buttonSaveCurrentFormation.Text = "保存当前阵型 (Save Current Formation)";
-            this.buttonSaveCurrentFormation.UseVisualStyleBackColor = true;
-            this.buttonSaveCurrentFormation.Click += new System.EventHandler(this.buttonSaveCurrentFormation_Click);
-            // 
-            // checkBoxAutoPositionWithCurrentFormation
-            // 
-            this.checkBoxAutoPositionWithCurrentFormation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBoxAutoPositionWithCurrentFormation.Location = new System.Drawing.Point(3, 57);
-            this.checkBoxAutoPositionWithCurrentFormation.Name = "checkBoxAutoPositionWithCurrentFormation";
-            this.checkBoxAutoPositionWithCurrentFormation.Size = new System.Drawing.Size(263, 49);
-            this.checkBoxAutoPositionWithCurrentFormation.TabIndex = 1;
-            this.checkBoxAutoPositionWithCurrentFormation.Text = "自适应位置使用当前保存阵型 (Auto Position using Saved Formation)";
-            this.checkBoxAutoPositionWithCurrentFormation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBoxAutoPositionWithCurrentFormation.UseVisualStyleBackColor = true;
-            // 
             // label3
             // 
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -465,43 +695,6 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "@2022 Sheng Jiang @jiangsheng";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tableLayoutPanelImprovePlayers
-            // 
-            this.tableLayoutPanelImprovePlayers.ColumnCount = 1;
-            this.tableLayoutPanelImprovePlayers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelImprovePlayers.Controls.Add(this.buttonBoostYouthPlayer, 0, 0);
-            this.tableLayoutPanelImprovePlayers.Controls.Add(this.buttonImproveAllPlayersBy1, 0, 1);
-            this.tableLayoutPanelImprovePlayers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelImprovePlayers.Location = new System.Drawing.Point(553, 118);
-            this.tableLayoutPanelImprovePlayers.Name = "tableLayoutPanelImprovePlayers";
-            this.tableLayoutPanelImprovePlayers.RowCount = 2;
-            this.tableLayoutPanelImprovePlayers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelImprovePlayers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelImprovePlayers.Size = new System.Drawing.Size(269, 109);
-            this.tableLayoutPanelImprovePlayers.TabIndex = 27;
-            // 
-            // buttonBoostYouthPlayer
-            // 
-            this.buttonBoostYouthPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonBoostYouthPlayer.Location = new System.Drawing.Point(3, 3);
-            this.buttonBoostYouthPlayer.Name = "buttonBoostYouthPlayer";
-            this.buttonBoostYouthPlayer.Size = new System.Drawing.Size(263, 48);
-            this.buttonBoostYouthPlayer.TabIndex = 13;
-            this.buttonBoostYouthPlayer.Text = "改善新人数据（Boost Youth Players）";
-            this.buttonBoostYouthPlayer.UseVisualStyleBackColor = true;
-            this.buttonBoostYouthPlayer.Click += new System.EventHandler(this.buttonBoostYouthPlayer_Click);
-            // 
-            // buttonImproveAllPlayersBy1
-            // 
-            this.buttonImproveAllPlayersBy1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonImproveAllPlayersBy1.Location = new System.Drawing.Point(3, 57);
-            this.buttonImproveAllPlayersBy1.Name = "buttonImproveAllPlayersBy1";
-            this.buttonImproveAllPlayersBy1.Size = new System.Drawing.Size(263, 49);
-            this.buttonImproveAllPlayersBy1.TabIndex = 16;
-            this.buttonImproveAllPlayersBy1.Text = "所有球员数据+1(Improve All Players by 1)";
-            this.buttonImproveAllPlayersBy1.UseVisualStyleBackColor = true;
-            this.buttonImproveAllPlayersBy1.Click += new System.EventHandler(this.buttonImproveAllPlayersBy1_Click);
             // 
             // buttonForceExit
             // 
@@ -516,92 +709,6 @@
             this.buttonForceExit.UseVisualStyleBackColor = true;
             this.buttonForceExit.Click += new System.EventHandler(this.buttonForceExit_Click);
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.buttonResetDate, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxResetDateYear, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(828, 118);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(269, 109);
-            this.tableLayoutPanel1.TabIndex = 32;
-            // 
-            // buttonResetDate
-            // 
-            this.buttonResetDate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonResetDate.Location = new System.Drawing.Point(3, 3);
-            this.buttonResetDate.Name = "buttonResetDate";
-            this.buttonResetDate.Size = new System.Drawing.Size(263, 48);
-            this.buttonResetDate.TabIndex = 23;
-            this.buttonResetDate.Text = "重设日期至 (Reset Date to)";
-            this.buttonResetDate.UseVisualStyleBackColor = true;
-            this.buttonResetDate.Click += new System.EventHandler(this.buttonResetDate_Click);
-            // 
-            // textBoxResetDateYear
-            // 
-            this.textBoxResetDateYear.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxResetDateYear.Location = new System.Drawing.Point(3, 57);
-            this.textBoxResetDateYear.Name = "textBoxResetDateYear";
-            this.textBoxResetDateYear.Size = new System.Drawing.Size(263, 20);
-            this.textBoxResetDateYear.TabIndex = 24;
-            this.textBoxResetDateYear.Text = "1996";
-            // 
-            // tableLayoutPanelUpdateRrespawnNameOnline
-            // 
-            this.tableLayoutPanelUpdateRrespawnNameOnline.ColumnCount = 1;
-            this.tableLayoutPanelUpdateRrespawnNameOnline.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelUpdateRrespawnNameOnline.Controls.Add(this.buttonUpdateNewSpawn, 0, 0);
-            this.tableLayoutPanelUpdateRrespawnNameOnline.Controls.Add(this.tableLayoutPanel3, 0, 1);
-            this.tableLayoutPanelUpdateRrespawnNameOnline.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelUpdateRrespawnNameOnline.Location = new System.Drawing.Point(828, 3);
-            this.tableLayoutPanelUpdateRrespawnNameOnline.Name = "tableLayoutPanelUpdateRrespawnNameOnline";
-            this.tableLayoutPanelUpdateRrespawnNameOnline.RowCount = 2;
-            this.tableLayoutPanelUpdateRrespawnNameOnline.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelUpdateRrespawnNameOnline.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelUpdateRrespawnNameOnline.Size = new System.Drawing.Size(269, 109);
-            this.tableLayoutPanelUpdateRrespawnNameOnline.TabIndex = 33;
-            // 
-            // buttonUpdateNewSpawn
-            // 
-            this.buttonUpdateNewSpawn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonUpdateNewSpawn.Location = new System.Drawing.Point(3, 3);
-            this.buttonUpdateNewSpawn.Name = "buttonUpdateNewSpawn";
-            this.buttonUpdateNewSpawn.Size = new System.Drawing.Size(263, 48);
-            this.buttonUpdateNewSpawn.TabIndex = 31;
-            this.buttonUpdateNewSpawn.Text = "在线更新重生球员名(Update Respawn Player Names Online)";
-            this.toolTip1.SetToolTip(this.buttonUpdateNewSpawn, "可以执行多次，每次不同类别 (Can be executed multiple times with different categories)");
-            this.buttonUpdateNewSpawn.UseVisualStyleBackColor = true;
-            this.buttonUpdateNewSpawn.Click += new System.EventHandler(this.buttonUpdateNewSpawn_Click);
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.05755F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.94244F));
-            this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.comboBoxRespawnCategory, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 57);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(263, 49);
-            this.tableLayoutPanel3.TabIndex = 32;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 26);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "分类地址(Category)\r\n";
-            // 
             // timerUpdateFast
             // 
             this.timerUpdateFast.Interval = 3000;
@@ -611,110 +718,6 @@
             // 
             this.timerUpdateSlow.Interval = 180000;
             this.timerUpdateSlow.Tick += new System.EventHandler(this.timerUpdateSlow_Tick);
-            // 
-            // comboBoxRespawnCategory
-            // 
-            this.comboBoxRespawnCategory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBoxRespawnCategory.FormattingEnabled = true;
-            this.comboBoxRespawnCategory.Items.AddRange(new object[] {
-            "FIFA_World_Cup-winning_players",
-            "FIFA_World_Player_of_the_Year_winners",
-            "UEFA_Europa_League_winning_players",
-            "FIFA_100",
-            "FIFA_Century_Club",
-            "FIFA_Women\'s_Century_Club",
-            "Ballon_d\'Or_winners",
-            "Real_Madrid_CF_players",
-            "A.C._Milan_players",
-            "Inter_Milan_players",
-            "Juventus_F.C._players",
-            "ACF_Fiorentina_players",
-            "Chelsea_F.C._players",
-            "Arsenal_F.C._players",
-            "Manchester_City_F.C._players",
-            "Newcastle_United_F.C._players",
-            "FC_Bayern_Munich_footballers",
-            "AFC_Ajax_players",
-            "England_international_footballers",
-            "France_international_footballers",
-            "Italy_international_footballers",
-            "Spain_international_footballers",
-            "Brazil_international_footballers",
-            "Netherlands_international_footballers",
-            "Argentina_international_footballers",
-            "Portugal_international_footballers",
-            "China_international_footballers",
-            "FC_Barcelona_players",
-            "Chinese_women\'s_footballers",
-            "Premier_League_players",
-            "Serie_A_players",
-            "Association_football_midfielders",
-            "Association_football_forwards",
-            "Association_football_defenders",
-            "Olympic_medalists_in_football"});
-            this.comboBoxRespawnCategory.Location = new System.Drawing.Point(76, 3);
-            this.comboBoxRespawnCategory.Name = "comboBoxRespawnCategory";
-            this.comboBoxRespawnCategory.Size = new System.Drawing.Size(184, 21);
-            this.comboBoxRespawnCategory.TabIndex = 2;
-            // 
-            // tableLayoutPanelImportExport
-            // 
-            this.tableLayoutPanelImportExport.ColumnCount = 1;
-            this.tableLayoutPanelImportExport.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelImportExport.Controls.Add(this.buttonImportPlayerData, 0, 1);
-            this.tableLayoutPanelImportExport.Controls.Add(this.buttonExportPlayerData, 0, 0);
-            this.tableLayoutPanelImportExport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelImportExport.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanelImportExport.Name = "tableLayoutPanelImportExport";
-            this.tableLayoutPanelImportExport.RowCount = 2;
-            this.tableLayoutPanelImportExport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelImportExport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelImportExport.Size = new System.Drawing.Size(269, 109);
-            this.tableLayoutPanelImportExport.TabIndex = 34;
-            // 
-            // tableLayoutPanelCopyPaste
-            // 
-            this.tableLayoutPanelCopyPaste.ColumnCount = 1;
-            this.tableLayoutPanelCopyPaste.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelCopyPaste.Controls.Add(this.buttonPastePlayerData, 0, 1);
-            this.tableLayoutPanelCopyPaste.Controls.Add(this.buttonCopyPlayerData, 0, 0);
-            this.tableLayoutPanelCopyPaste.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelCopyPaste.Location = new System.Drawing.Point(278, 3);
-            this.tableLayoutPanelCopyPaste.Name = "tableLayoutPanelCopyPaste";
-            this.tableLayoutPanelCopyPaste.RowCount = 2;
-            this.tableLayoutPanelCopyPaste.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelCopyPaste.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelCopyPaste.Size = new System.Drawing.Size(269, 109);
-            this.tableLayoutPanelCopyPaste.TabIndex = 35;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.checkBoxNoAbsense, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.checkBoxContractAutoRenew, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.checkBoxMaxStrength, 0, 1);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 233);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(269, 109);
-            this.tableLayoutPanel2.TabIndex = 36;
-            // 
-            // buttonAutoPosition
-            // 
-            this.buttonAutoPosition.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonAutoPosition.Location = new System.Drawing.Point(278, 118);
-            this.buttonAutoPosition.Name = "buttonAutoPosition";
-            this.buttonAutoPosition.Size = new System.Drawing.Size(269, 109);
-            this.buttonAutoPosition.TabIndex = 24;
-            this.buttonAutoPosition.Text = "自适应位置(Auto Position)";
-            this.buttonAutoPosition.UseVisualStyleBackColor = true;
-            this.buttonAutoPosition.Click += new System.EventHandler(this.buttonAutoPosition_Click);
             // 
             // FormMain
             // 
@@ -736,20 +739,20 @@
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelMaxPlayerForm.ResumeLayout(false);
             this.tableLayoutPanelMaxPlayerForm.PerformLayout();
-            this.tableLayoutPanelRotation.ResumeLayout(false);
-            this.tableLayoutPanelAutoTrain.ResumeLayout(false);
-            this.tableLayoutPanelAutoTrain.PerformLayout();
-            this.tableLayoutPanelFormation.ResumeLayout(false);
             this.tableLayoutPanelImprovePlayers.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanelImportExport.ResumeLayout(false);
+            this.tableLayoutPanelCopyPaste.ResumeLayout(false);
+            this.tableLayoutPanelRotation.ResumeLayout(false);
             this.tableLayoutPanelUpdateRrespawnNameOnline.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanelImportExport.ResumeLayout(false);
-            this.tableLayoutPanelCopyPaste.ResumeLayout(false);
+            this.tableLayoutPanelFormation.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanelAutoTrain.ResumeLayout(false);
+            this.tableLayoutPanelAutoTrain.PerformLayout();
             this.ResumeLayout(false);
 
         }

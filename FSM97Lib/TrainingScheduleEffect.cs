@@ -9,7 +9,7 @@ namespace FSM97Lib
     {
         public static float[] None = new float[] {
             0,0,0,//0-2 Speed Agility Acceleration
-            0,0,0,//3-5 Starma Strength Fitness
+            0,0,0,//3-5 Stamina Strength Fitness
             0,0,0,0,0,//6-10 Shooting Passing Heading Control Dribbling
             0,0,//11 12 Cool Awareness
             0,0,0,//13-15 marking tackling Flair
@@ -19,7 +19,7 @@ namespace FSM97Lib
         };
         public static float[] Shooting = new float[] {
             0,0,0,//Speed Agility Acceleration
-            -0.02f,0,0,//Starma Strength Fitness
+            -0.02f,0,0,//Stamina Strength Fitness
             0.04f,0,0,0,0,//Shooting Passing Heading Control Dribbling 
             0.02f,0,//11 12 Cool Awareness
             0,0,0,//13-15 marking tackling Flair
@@ -29,7 +29,7 @@ namespace FSM97Lib
         };
         public static float[] Passing = new float[] {
             0,0,0,//Speed Agility Acceleration
-            0,0,0,//Starma Strength Fitness
+            0,0,0,//Stamina Strength Fitness
             0,0.04f,0,0,0,//Shooting Passing Heading Control Dribbling 
             0.02f,0,//11 12 Cool Awareness
             -0.005f,-0.005f,0,//13-15 marking tackling Flair
@@ -39,7 +39,7 @@ namespace FSM97Lib
         };
         public static float[] Heading = new float[] {
             0,0,-0.01f,//Speed Agility Acceleration
-            0,-0.01f,0,//Starma Strength Fitness
+            0,-0.01f,0,//Stamina Strength Fitness
             0,0,0.04f,0,0,//Shooting Passing Heading Control Dribbling 
             0,0,//11 12 Cool Awareness
             0,0,0,//13-15 marking tackling Flair
@@ -49,7 +49,7 @@ namespace FSM97Lib
         };
         public static float[] Sprinting = new float[] {
             0.04f,0.02f,0.04f,//Speed Agility Acceleration
-            0.02f,0,0.03f,//Starma Strength Fitness
+            0.02f,0,0.03f,//Stamina Strength Fitness
              -0.005f, -0.005f, -0.005f, -0.005f, -0.005f,//Shooting Passing Heading Control Dribbling 
             0,0,//11 12 Cool Awareness
              -0.005f, -0.005f,0,//13-15 marking tackling Flair
@@ -59,7 +59,7 @@ namespace FSM97Lib
         };
         public static float[] Jogging = new float[] {
             0,0,0,//Speed Agility Acceleration
-            0.04f,0,0.02f,//Starma Strength Fitness
+            0.04f,0,0.02f,//Stamina Strength Fitness
              -0.005f, -0.005f, -0.005f, -0.005f, -0.005f,//Shooting Passing Heading Control Dribbling 
             0,0,//11 12 Cool Awareness
              -0.005f, -0.005f,0,//13-15 marking tackling Flair
@@ -69,7 +69,7 @@ namespace FSM97Lib
         };
         public static float[] Control = new float[] {
             0,0,0,//Speed Agility Acceleration
-            0,0,0,//Starma Strength Fitness
+            0,0,0,//Stamina Strength Fitness
             0,0,0,0.04f,0.03f,//Shooting Passing Heading Control Dribbling 
             0.04f,0.01f,//11 12 Cool Awareness
             0,0,0.02f,//13-15 marking tackling Flair
@@ -79,7 +79,7 @@ namespace FSM97Lib
         };
         public static float[] Exercise = new float[] {
             0,0.04f,0,//Speed Agility Acceleration
-            0.02f,0.02f,0,//Starma Strength Fitness
+            0.02f,0.02f,0,//Stamina Strength Fitness
             0,0,0,0,0,//Shooting Passing Heading Control Dribbling 
             0,0,//Cool Awareness
             -0.003f,-0.003f,0,//marking tackling Flair
@@ -88,7 +88,7 @@ namespace FSM97Lib
             0,0,-1f//form moral energy
         }; public static float[] WeightTraining = new float[] {
             -0.01f,0,0,//Speed Agility Acceleration
-            0,0.05f,0.02f,//Starma Strength Fitness
+            0,0.05f,0.02f,//Stamina Strength Fitness
             -0.005f, -0.005f, -0.005f, -0.005f, -0.005f,//Shooting Passing Heading Control Dribbling 
             0,0,//Cool Awareness
             -0.005f,-0.005f,0,//marking tackling Flair
@@ -98,7 +98,7 @@ namespace FSM97Lib
         };
         public static float[] ZonalDefence = new float[] {
             0,0,0,//Speed Agility Acceleration
-            -0.005f,-0.005f,-0.005f,//Starma Strength Fitness
+            -0.005f,-0.005f,-0.005f,//Stamina Strength Fitness
             0,0,0,0,0,//Shooting Passing Heading Control Dribbling
             0,0.04f,//Cool Awareness
             0,0,0,//marking tackling Flair
@@ -108,7 +108,7 @@ namespace FSM97Lib
         };
         public static float[] Marking = new float[] {
             0,0,0,//Speed Agility Acceleration
-            0,0,0,//Starma Strength Fitness
+            0,0,0,//Stamina Strength Fitness
             -0.005f,-0.005f,-0.005f,-0.005f,-0.005f,//Shooting Passing Heading Control Dribbling
             0,0.02f,//Cool Awareness
             0.04f,0.02f,0,///marking tackling Flair 
@@ -118,7 +118,7 @@ namespace FSM97Lib
         };
         public static float[] Tackling = new float[] {
             0,0,0,//Speed Agility Acceleration
-            0,0,0,//Starma Strength Fitness
+            0,0,0,//Stamina Strength Fitness
             -0.005f,-0.005f,-0.005f,-0.005f,-0.005f,//Shooting Passing Heading Control Dribbling
             0,0.02f,//Cool Awareness
             0.02f,0.04f,0,///marking tackling Flair 
@@ -128,7 +128,7 @@ namespace FSM97Lib
         };
         public static float[] Physiotherapist = new float[] {
             -0.005f,-0.005f,-0.005f,//Speed Agility Acceleration
-            0,0,0,//Starma Strength Fitness
+            0,0,0,//Stamina Strength Fitness
             -0.005f,-0.005f,-0.005f,-0.005f,-0.005f,//Shooting Passing Heading Control Dribbling
             0,0,//Cool Awareness
             -0.005f,-0.005f,0,//marking tackling Flair
@@ -138,7 +138,7 @@ namespace FSM97Lib
         };
         public static float[] Handling = new float[] {
             0,0,0,//Speed Agility Acceleration
-            0,0,0,//Starma Strength Fitness
+            0,0,0,//Stamina Strength Fitness
             0,0,0,0,0,//Shooting Passing Heading Control Dribbling
             0,0,//Cool Awareness
             0,0,0,//marking tackling Flair
@@ -149,7 +149,7 @@ namespace FSM97Lib
 
         public static float[] GoalKeeping = new float[] {
             0,0.04f,0,//Speed Agility Acceleration
-            0,0,0,//Starma Strength Fitness
+            0,0,0,//Stamina Strength Fitness
             0,0,0,0,0,//Shooting Passing Heading Control Dribbling
             0,0.03f,//Cool Awareness
             0,0,0,//marking tackling Flair
@@ -159,7 +159,7 @@ namespace FSM97Lib
         };
         public static float[] Kicking = new float[] {
            0, -0.01f,0,//Speed Agility Acceleration
-            0,0,0,//Starma Strength Fitness
+            0,0,0,//Stamina Strength Fitness
             0,0,0,0,0,//Shooting Passing Heading Control Dribbling
             0,0,//Cool Awareness
             0,0,0,//marking tackling Flair
@@ -169,7 +169,7 @@ namespace FSM97Lib
         };
         public static float[] Throwing = new float[] {
            0, 0,0,//Speed Agility Acceleration
-            0,0,0,//Starma Strength Fitness
+            0,0,0,//Stamina Strength Fitness
             0,0,0,0,0,//Shooting Passing Heading Control Dribbling
             0,0,//Cool Awareness
             0,0,0,//marking tackling Flair
@@ -179,7 +179,7 @@ namespace FSM97Lib
         };
         public static float[] FiveASide = new float[] {
             0,0.02f,0,//Speed Agility Acceleration
-            0.02f,0,0.03f,//Starma Strength Fitness
+            0.02f,0,0.03f,//Stamina Strength Fitness
             0.02f,0.04f,0.01f,0.04f,0.01f,//Shooting Passing Heading Control Dribbling
             0,0.02f,//Cool Awareness
             0.01f,0.03f,0.04f,//marking tackling Flair
@@ -189,7 +189,7 @@ namespace FSM97Lib
         };
         public static float[] TrainingMatch = new float[] {
             0,0.02f,0,//Speed Agility Acceleration
-            0.04f,-0.02f,0.02f,//Starma Strength Fitness
+            0.04f,-0.02f,0.02f,//Stamina Strength Fitness
             0.04f,0.04f,0.02f,0.02f,0.01f,//Shooting Passing Heading Control Dribbling
             0.02f,0.03f,//Cool Awareness
             0.02f,0.02f,0.03f,//marking tackling Flair
@@ -248,6 +248,11 @@ namespace FSM97Lib
                 resultInFloat[(int)TrainingScheduleType.Passing * 27 + 20] = 0.08f;
                 resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + 20] = 0.04f;
                 resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 20] = 0.05f;
+                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + 10] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 10] = 0.05f;
+                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + 21] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 21] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.Control * 27 + 10] = 0.32f;
             }
             if (trainingEffectModifier.ThrowingTrainThrowIn)
             {
@@ -262,8 +267,13 @@ namespace FSM97Lib
                 resultInFloat[(int)TrainingScheduleType.Jogging * 27 + 0] = 0.06f;
                 resultInFloat[(int)TrainingScheduleType.Jogging * 27 + 2] = 0.02f;
                 resultInFloat[(int)TrainingScheduleType.Marking * 27 + 0] = 0.02f;
+                resultInFloat[(int)TrainingScheduleType.Marking * 27 + 1] = 0.04f;
                 resultInFloat[(int)TrainingScheduleType.Marking * 27 + 2] = 0.06f;
+                resultInFloat[(int)TrainingScheduleType.Tackling * 27 + 0] = 0.06f;
+                resultInFloat[(int)TrainingScheduleType.Tackling * 27 + 1] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.Tackling * 27 + 2] = 0.02f;
                 resultInFloat[(int)TrainingScheduleType.ZonalDefence * 27 + 0] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.ZonalDefence * 27 + 1] = 0.04f;
                 resultInFloat[(int)TrainingScheduleType.ZonalDefence * 27 + 2] = 0.04f;
                 resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + 0] = 0.02f;
                 resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + 2] = 0.06f;
@@ -272,14 +282,20 @@ namespace FSM97Lib
             }
             if (trainingEffectModifier.KickingImproveSpeed) {
                 resultInFloat[(int)TrainingScheduleType.Kicking * 27 + 0] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.Kicking * 27 + 6] = 0.04f;
             }
             if (trainingEffectModifier.HandlingImproveAgility)
             {
+                resultInFloat[(int)TrainingScheduleType.Handling * 27 + 0] = 0.02f;
                 resultInFloat[(int)TrainingScheduleType.Handling* 27 + 1] = 0.04f;
+                resultInFloat[(int)TrainingScheduleType.Handling * 27 + 2] = 0.06f;
             }
             if (trainingEffectModifier.HeadingImproveDetermination)
             {
+                resultInFloat[(int)TrainingScheduleType.Heading * 27 + 8] = 0.32f;
                 resultInFloat[(int)TrainingScheduleType.Heading* 27 + 22] = 0.08f;
+                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + 22] = 0.06f;
+                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 22] = 0.04f;
             }
             byte[] result = new byte[resultInFloat.Length * 4];
             Buffer.BlockCopy(resultInFloat, 0, result, 0, result.Length);
