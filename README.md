@@ -1,6 +1,24 @@
 # fsm97trainer
 Patch and trainer for EA's FIFA Soccer Manager (1997). 
 
+## Requirements
+
+Requires .Net 4 (included in Windows 10).  
+
+.Net 4.8 Recommended (https://dotnet.microsoft.com/zh-cn/download/dotnet-framework/thank-you/net48-web-installer)
+
+For Windows XP users .Net 4.0 can be downloaded from https://www.microsoft.com/en-us/download/details.aspx?id=17851 
+
+## How to install
+
+Unzip the files to anywhere. 
+
+## Patching the executable
+
+Run the patcher, enter the path to the menus.exe in game folder, or click the browse button to select the file. Choose the traning effects you want. Then click Patch.
+
+To remove the patch, enter the path to menus.exe, then click Unpatch. 
+
 ## Features
 
 ### Patcher

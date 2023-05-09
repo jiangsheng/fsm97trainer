@@ -473,13 +473,22 @@ namespace Fsm97Trainer
             try
             {
                 NativeMethods.SuspendProcess(Process);
-
+                int currentDate = NativeMethods.ReadInt(Process, DateAddress);
+                DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDate);
+                if (currentDateTime.Month < 5 || currentDateTime.Month > 7)
+                {
+                    throw new InvalidOperationException("只能在赛季初修改年轻球员数据 (Can only change youth player data at the beginning of the season)");
+                }
                 var playerNodes = ReadPlayers(currentTeamOnly);
-                foreach (var playerNode in playerNodes)
+                var youthPlayerNodes = playerNodes.Where(p => p.Data.Age < 20 && p.Data.ContractWeeks == 144 || p.Data.ContractWeeks == 143)
+                    .ToList();
+                if (youthPlayerNodes.Count == 0)
+                {
+                    throw new InvalidOperationException("未找到匹配的年轻球员。注意只能在赛季初修改年轻球员数据 (Youth player not found. Note can only change youth player data at the beginning of the season)");
+                }
+                foreach (var playerNode in youthPlayerNodes)
                 {
                     var player = playerNode.Data;
-                    if (player.Age >= 20) continue;
-                    if (player.ContractWeeks > 144 || player.ContractWeeks < 143) continue;
                     player.Speed += 25; if (player.Speed > 99) player.Speed = 99;
                     player.Agility += 25; if (player.Agility > 99) player.Agility = 99;
                     player.Acceleration += 25; if (player.Acceleration > 99) player.Acceleration = 99;
