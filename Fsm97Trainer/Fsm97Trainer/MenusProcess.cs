@@ -479,7 +479,7 @@ namespace Fsm97Trainer
                 {
                     var player = playerNode.Data;
                     if (player.Age >= 20) continue;
-                    if (player.ContractWeeks > 144 || player.ContractWeeks <= 96) continue;
+                    if (player.ContractWeeks > 144 || player.ContractWeeks < 143) continue;
                     player.Speed += 25; if (player.Speed > 99) player.Speed = 99;
                     player.Agility += 25; if (player.Agility > 99) player.Agility = 99;
                     player.Acceleration += 25; if (player.Acceleration > 99) player.Acceleration = 99;

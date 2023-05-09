@@ -252,7 +252,7 @@ namespace FSM97Lib
                 resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 10] = 0.05f;
                 resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + 21] = 0.04f;
                 resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 21] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.Control * 27 + 10] = 0.32f;
+                resultInFloat[(int)TrainingScheduleType.Control * 27 + 10] = 0.16f;
             }
             if (trainingEffectModifier.ThrowingTrainThrowIn)
             {
@@ -292,7 +292,7 @@ namespace FSM97Lib
             }
             if (trainingEffectModifier.HeadingImproveDetermination)
             {
-                resultInFloat[(int)TrainingScheduleType.Heading * 27 + 8] = 0.32f;
+                resultInFloat[(int)TrainingScheduleType.Heading * 27 + 8] = 0.16f;
                 resultInFloat[(int)TrainingScheduleType.Heading* 27 + 22] = 0.08f;
                 resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + 22] = 0.06f;
                 resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + 22] = 0.04f;

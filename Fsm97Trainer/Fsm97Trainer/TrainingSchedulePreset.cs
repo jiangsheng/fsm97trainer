@@ -101,7 +101,7 @@ namespace Fsm97Trainer
            TrainingScheduleType.Marking, TrainingScheduleType.Marking,
             TrainingScheduleType.Marking, TrainingScheduleType.Marking,
             TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.TrainingMatch
+            TrainingScheduleType.Marking
         };
         public static TrainingScheduleType[] ImproveTacklingSkillAllWeek = new TrainingScheduleType[] {
            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
