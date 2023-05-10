@@ -502,7 +502,7 @@ namespace Fsm97Trainer
                 {
                     result = ImprovePassingTo(player, stageMinimum, noAlternativeTraining);
                     if (result != null) return result;
-                    result = ImproveTackleSkillTo(player, stageMinimum , trainingEffectModifier);
+                    result = ImproveTackleSkillTo(player, stageMinimum, trainingEffectModifier);
                     if (result != null) return result;
 
                 }
@@ -510,9 +510,15 @@ namespace Fsm97Trainer
                 {
                     result = ImproveTackleSkillTo(player, stageMinimum, trainingEffectModifier);
                     if (result != null) return result;
-                    result = ImprovePassingTo(player, stageMinimum , noAlternativeTraining);
+                    result = ImprovePassingTo(player, stageMinimum, noAlternativeTraining);
                     if (result != null) return result;
                 }
+            }
+            else {
+                result = ImprovePassingTo(player, stageMinimum, noAlternativeTraining);
+                if (result != null) return result;
+                result = ImproveTackleSkillTo(player, stageMinimum, trainingEffectModifier);
+                if (result != null) return result;
             }
             result = ImproveControlTo(player, stageMinimum);
             if (result != null) return result;

@@ -65,7 +65,6 @@
     <Compile Include="IDivisionFactor.cs" />
     <Compile Include="IObjectWithPersonName.cs" />
     <Compile Include="MenusProcess.cs" />
-    <Compile Include="NamesakePlayers.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="ObjectWithNameCollectionWithIndex.cs" />

@@ -131,7 +131,8 @@ namespace FSM97Patcher
                         //004A89DC - A3 E8465800 - mov[MENUS.EXE + 1846E8],eax 
                         detectAddress1 = 0xa7dd3;
                         detectAddress2 = 0xa7ddc;
-                        detectAddressPatch = 0xa7dd7;
+                        detectAddressPatch = 0xa7dd7; 
+                        trainingEffectAddress = 0xe0000;
                         detect1 = new byte[] { 0xfc, 0xff, 0x8b, 0x10 };
                         detect2 = new byte[] { 0xa3, 0xe8, 0x46, 0x58 };
                         break;
@@ -204,91 +205,81 @@ namespace FSM97Patcher
             OnNewFileEntered();
 
         }
-
+        string[] headerEn = new string[] {
+            "200 Times","Speed","Agility","Acceleration","Stamina","Strength","Fitness","Shooting","Passing","Heading","Control","Dribbling",
+            "Coolness","Awareness","TackleDetermination","TackleSkill","Flair","Kicking","Throwing","Handling",
+            "ThrowIn","Leadership","Consistency","Determination","Greed","Form","Morale","Energy"
+        };
+        string[] headerZh = new string[] {
+            "200次","速度","敏捷","加速","耐力","力量","健康","射门","传球","头球","控球","盘带",
+            "冷静","意识","盯人","铲球","才华","踢球","掷球","救球",
+            "边线球","领导","稳定","逆风","贪婪","状态","士气","体力"
+        };
         private void buttonShowTrainingEffects_Click(object sender, EventArgs e)
         {
             try
             {
+                string[] headers;
                 FileInfo fi = new FileInfo(textBox1.Text);
                 switch (fi.Length)
                 {
                     case 1378816:
                         trainingEffectAddress = 0xe2aa0;
-                        var fileBytes = File.ReadAllBytes(textBox1.Text);
-                        float[] trainingEffectFloat = new float[27 * 19];
-                        Buffer.BlockCopy(fileBytes, trainingEffectAddress, trainingEffectFloat, 0, trainingEffectFloat.Length*4);
-                        if (fileBytes.Length < trainingEffectAddress)
-                        {
-                            MessageBox.Show("不支持的游戏版本 (Unsupported Game Version)");
-                            return;
-                        }
-                        using (SaveFileDialog sfd = new SaveFileDialog())
-                        {
-                            sfd.FileName = "trainingEffects.csv";
-                            sfd.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
-                            sfd.Title = "选择训练效果数据保存路径(Select player data export location)";
-                            if (sfd.ShowDialog() == DialogResult.OK)
-                            {
-                                CsvConfiguration config = new CsvConfiguration();
-                                config.Encoding = Encoding.UTF8;
-                                config.CultureInfo = new CultureInfo("zh-hans");
-                                using (var writer = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
-                                using (var csv = new CsvWriter(writer, config))
-                                {
-                                    csv.WriteField("200次");
-                                    csv.WriteField("速度");
-                                    csv.WriteField("敏捷");
-                                    csv.WriteField("加速");
-                                    csv.WriteField("耐力");
-                                    csv.WriteField("力量");
-                                    csv.WriteField("健康");
-                                    csv.WriteField("射门");
-                                    csv.WriteField("传球");
-                                    csv.WriteField("头球");
-                                    csv.WriteField("控球");
-                                    csv.WriteField("盘带");
-                                    csv.WriteField("冷静");
-                                    csv.WriteField("意识");
-                                    csv.WriteField("盯人");
-                                    csv.WriteField("铲球");
-                                    csv.WriteField("才华");
-                                    csv.WriteField("踢球");
-                                    csv.WriteField("掷球");
-                                    csv.WriteField("救球");
-                                    csv.WriteField("边线球");
-                                    csv.WriteField("领导");
-                                    csv.WriteField("稳定");
-                                    csv.WriteField("逆风");
-                                    csv.WriteField("贪婪");
-                                    csv.WriteField("状态");
-                                    csv.WriteField("士气");
-                                    csv.WriteField("体力");
-                                    csv.NextRecord();
-                                    for (int i = 0; i < (int)TrainingScheduleType.TrainingMatch + 1; i++)
-                                    {
-                                        csv.WriteField(Enum.GetName(typeof(TrainingScheduleType), i));
-                                        for (int j = 0; j < 27; j++)
-                                        {
-                                            var fieldValue = trainingEffectFloat[i * 27 + j] * 200;
-                                            if (fieldValue == 0)
-                                                csv.WriteField(string.Empty);
-                                            else
-                                                csv.WriteField(fieldValue);
-                                        }
-                                        csv.NextRecord();
-                                    }
-                                }
-                                ProcessStartInfo psi = new ProcessStartInfo();
-                                psi.UseShellExecute = true;
-                                psi.FileName = sfd.FileName;
-                                Process.Start(psi);
-                            }
-                        }
+                        headers = headerZh;
                         break;
+                    case 1135104:
+                        headers = headerEn;
+                        trainingEffectAddress = 0xe0000; break;
                     default:
                         MessageBox.Show("不支持的游戏版本 (Unsupported Game Version)");
                         return;
                 }
+                var fileBytes = File.ReadAllBytes(textBox1.Text);
+                float[] trainingEffectFloat = new float[27 * 19];
+                Buffer.BlockCopy(fileBytes, trainingEffectAddress, trainingEffectFloat, 0, trainingEffectFloat.Length*4);
+                if (fileBytes.Length < trainingEffectAddress)
+                {
+                    MessageBox.Show("不支持的游戏版本 (Unsupported Game Version)");
+                    return;
+                }
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.FileName = "trainingEffects.csv";
+                    sfd.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+                    sfd.Title = "选择训练效果数据保存路径(Select player data export location)";
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        CsvConfiguration config = new CsvConfiguration();
+                        config.Encoding = Encoding.UTF8;
+                        config.CultureInfo = new CultureInfo("zh-hans");
+                        using (var writer = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
+                        using (var csv = new CsvWriter(writer, config))
+                        {
+                            foreach (var item in headers)
+                            {
+                                csv.WriteField(item);
+                            }
+                            csv.NextRecord();
+                            for (int i = 0; i < (int)TrainingScheduleType.TrainingMatch + 1; i++)
+                            {
+                                csv.WriteField(Enum.GetName(typeof(TrainingScheduleType), i));
+                                for (int j = 0; j < 27; j++)
+                                {
+                                    var fieldValue = trainingEffectFloat[i * 27 + j] * 200;
+                                    if (fieldValue == 0)
+                                        csv.WriteField(string.Empty);
+                                    else
+                                        csv.WriteField(fieldValue);
+                                }
+                                csv.NextRecord();
+                            }
+                        }
+                        ProcessStartInfo psi = new ProcessStartInfo();
+                        psi.UseShellExecute = true;
+                        psi.FileName = sfd.FileName;
+                        Process.Start(psi);
+                    }
+                }  
             }
             catch (Exception ex)
             {

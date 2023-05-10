@@ -21,6 +21,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using Diacritics.Extensions;
 using System.CodeDom;
 using System.Windows.Forms.VisualStyles;
+using System.Security.Cryptography;
 
 namespace Fsm97Trainer
 {
@@ -70,6 +71,17 @@ namespace Fsm97Trainer
         Process Process { get; set; }
 
 
+        static string CalculateMD5(string filename)
+        {
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(filename))
+                {
+                    var hash = md5.ComputeHash(stream);
+                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                }
+            }
+        }
 
         public MenusProcess()
         {
@@ -93,13 +105,25 @@ namespace Fsm97Trainer
             switch (fi.Length)
             {
                 case 1378816:
-                    //menusProcess.SubCountAddress = 0x614610;
-                    //menusProcess.DivisionFactorAddress = 0x4f3a60;
-                    TeamDataAddress = 0x00547102;
-                    DateAddress = 0x00562ED8;
-                    CurrentTeamIndexAddress = 0x562a4c;
-                    TrainingDataAddress = 0x562f50;
-                    TrainingEffectAddress= 0x004e38a0;
+                    var md5 = CalculateMD5(fi.FullName);
+                    switch (md5) {
+                        case "a1e5fe2e30a34a1dbc783aa0e88aafec":
+                            TeamDataAddress = 0x00547102;
+                            DateAddress = 0x00562ED8;
+                            CurrentTeamIndexAddress = 0x562a4c;
+                            TrainingDataAddress = 0x562f50;
+                            TrainingEffectAddress = 0x004e38a0;
+                            break;
+                        default:
+                            //menusProcess.SubCountAddress = 0x614610;
+                            //menusProcess.DivisionFactorAddress = 0x4f3a60;
+                            TeamDataAddress = 0x00547102;
+                            DateAddress = 0x00562ED8;
+                            CurrentTeamIndexAddress = 0x562a4c;
+                            TrainingDataAddress = 0x562f50;
+                            TrainingEffectAddress = 0x004e38a0;
+                        break;
+                    }
                     Encoding = Encoding.GetEncoding(936);
                     break;
                 case 1135104://English Ver
@@ -110,6 +134,7 @@ namespace Fsm97Trainer
                     TeamDataAddress = 0x00588D12;
                     CurrentTeamIndexAddress = 0x5a465c;
                     TrainingDataAddress = 0x5a4b60;
+                    TrainingEffectAddress = 0x004e1000;
                     break;
                 default:
                     Process.Dispose();
@@ -340,7 +365,6 @@ namespace Fsm97Trainer
             PlayerNodeList result = new PlayerNodeList();
             if (nodeAddress == 0) return result;
             int nextNodeAddress = NativeMethods.ReadInt(Process, nodeAddress + 4);
-            //nextNodeAddress =02982f0
             do
             {
                 var resultNode = new PlayerNode();

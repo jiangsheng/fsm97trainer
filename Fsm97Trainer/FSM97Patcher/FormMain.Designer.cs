@@ -111,7 +111,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(361, 57);
             this.label2.TabIndex = 5;
-            this.label2.Text = "游戏版本";
+            this.label2.Text = "游戏版本(Game Version)";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelGameVersion

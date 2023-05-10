@@ -256,9 +256,14 @@ namespace Fsm97Trainer
         {
             try
             {
-                MenusProcess menusProcess = GetMenusProcess();
-                menusProcess.BoostYouthPlayer(false);
-                MessageBox.Show("年轻球员数据已增益(Youth Player data boosted)");
+                var result = MessageBox.Show("只能在新赛季开始时进行。继续？\r\n"
+    + "Can only be done at the beginning of the season. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    MenusProcess menusProcess = GetMenusProcess();
+                    menusProcess.BoostYouthPlayer(false);
+                    MessageBox.Show("年轻球员数据已增益(Youth Player data boosted)");
+                }
             }
             catch (Exception ex)
             {
