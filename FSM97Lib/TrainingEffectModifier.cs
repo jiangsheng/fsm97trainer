@@ -16,5 +16,6 @@ namespace FSM97Lib
         public bool KickingImproveSpeed { get; set; }
         public bool HandlingImproveAgility { get; set; }
         public bool HeadingImproveDetermination { get; set; }
+        public float[] RawData { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace FSM97Lib
 {
     public class Formation
     {
-        public int[] PlayersInEachPosition { get; set; } = new int[(int)(PlayerPosition.SS) + 1];
+        public int[] PlayersInEachPosition { get; set; } = new int[(int)(PlayerPosition.Count) ];
 
         public string GetFormationName()
         {
@@ -177,6 +177,8 @@ namespace FSM97Lib
           && PlayersInEachPosition[(int)PlayerPosition.RW] == 1
           && PlayersInEachPosition[(int)PlayerPosition.FOR] == 3)
                 return "235";
+            if ( PlayersInEachPosition[(int)PlayerPosition.FOR] == 10)
+                return "0010";
             return GenericFormationName();
         }
 

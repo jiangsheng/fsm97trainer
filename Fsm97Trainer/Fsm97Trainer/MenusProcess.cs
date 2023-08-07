@@ -83,6 +83,7 @@ namespace Fsm97Trainer
             }
         }
 
+        TrainingEffectModifier trainingEffectModifier; 
         public MenusProcess()
         {
             Process[] processes = Process.GetProcessesByName("MENUS");
@@ -125,6 +126,7 @@ namespace Fsm97Trainer
                         break;
                     }
                     Encoding = Encoding.GetEncoding(936);
+                    trainingEffectModifier = ReadTrainingEffectModifier();
                     break;
                 case 1135104://English Ver
                              //menusProcess.SubCountAddress = 0x5846e8;
@@ -135,6 +137,7 @@ namespace Fsm97Trainer
                     CurrentTeamIndexAddress = 0x5a465c;
                     TrainingDataAddress = 0x5a4b60;
                     TrainingEffectAddress = 0x004e1000;
+                    trainingEffectModifier = ReadTrainingEffectModifier();
                     break;
                 default:
                     Process.Dispose();
@@ -156,30 +159,7 @@ namespace Fsm97Trainer
             bytes[0x30] = (byte)player.Position;
             bytes[0x31] = (byte)player.Status;
             bytes[0x32] = (byte)player.Number;
-            bytes[0x33] = (byte)player.Speed;
-            bytes[0x34] = (byte)player.Agility;
-            bytes[0x35] = (byte)player.Acceleration;
-            bytes[0x36] = (byte)player.Stamina;
-            bytes[0x37] = (byte)player.Strength;
-            bytes[0x38] = (byte)player.Fitness;
-            bytes[0x39] = (byte)player.Shooting;
-            bytes[0x3A] = (byte)player.Passing;
-            bytes[0x3B] = (byte)player.Heading;
-            bytes[0x3C] = (byte)player.Control;
-            bytes[0x3d] = (byte)player.Dribbling;
-            bytes[0x3e] = (byte)player.Coolness;
-            bytes[0x3f] = (byte)player.Awareness;
-            bytes[0x40] = (byte)player.TackleDetermination;
-            bytes[0x41] = (byte)player.TackleSkill;
-            bytes[0x42] = (byte)player.Flair;
-            bytes[0x43] = (byte)player.Kicking;
-            bytes[0x44] = (byte)player.Throwing;
-            bytes[0x45] = (byte)player.Handling;
-            bytes[0x46] = (byte)player.ThrowIn;
-            bytes[0x47] = (byte)player.Leadership;
-            bytes[0x48] = (byte)player.Consistency;
-            bytes[0x49] = (byte)player.Determination;
-            bytes[0x4a] = (byte)player.Greed;
+            Buffer.BlockCopy(player.Attributes, 0, bytes,0x33, (int)PlayerAttribute.Count);
             bytes[0x4b] = (byte)player.Form;
             bytes[0x4c] = (byte)player.Moral;
             bytes[0x4d] = (byte)player.Energy;
@@ -238,30 +218,8 @@ namespace Fsm97Trainer
             player.Position = bytes[0x30];
             player.Status = bytes[0x31];
             player.Number = bytes[0x32];
-            player.Speed = bytes[0x33];
-            player.Agility = bytes[0x34];
-            player.Acceleration = bytes[0x35];
-            player.Stamina = bytes[0x36];
-            player.Strength = bytes[0x37];
-            player.Fitness = bytes[0x38];
-            player.Shooting = bytes[0x39];
-            player.Passing = bytes[0x3A];
-            player.Heading = bytes[0x3B];
-            player.Control = bytes[0x3C];
-            player.Dribbling = bytes[0x3d];
-            player.Coolness = bytes[0x3e];
-            player.Awareness = bytes[0x3f];
-            player.TackleDetermination = bytes[0x40];
-            player.TackleSkill = bytes[0x41];
-            player.Flair = bytes[0x42];
-            player.Kicking = bytes[0x43];
-            player.Throwing = bytes[0x44];
-            player.Handling = bytes[0x45];
-            player.ThrowIn = bytes[0x46];
-            player.Leadership = bytes[0x47];
-            player.Consistency = bytes[0x48];
-            player.Determination = bytes[0x49];
-            player.Greed = bytes[0x4a];
+
+            Buffer.BlockCopy(bytes, 0x33, player.Attributes, 0, (int)PlayerAttribute.Count);
             player.Form = bytes[0x4b];
             player.Moral = bytes[0x4c];
             player.Energy = bytes[0x4d];
@@ -272,7 +230,7 @@ namespace Fsm97Trainer
             player.MVP = bytes[0x74];
             player.ContractWeeks = bytes[0x75];
             player.Team = team;
-            player.PositionRating = player.GetPositionRating(player.Position);
+            player.PositionRating = (int)PositionRatings.GetPositionRatingDouble(player.Position,player.Attributes);
             player.UpdateBestPosition();
 
             player.BirthDateOffset= NativeMethods.ReadUShort(Process,playerDataAddress + 0x52);
@@ -537,7 +495,7 @@ namespace Fsm97Trainer
                     player.Consistency += 25; if (player.Consistency > 99) player.Consistency = 99;
                     player.Determination += 25; if (player.Determination > 99) player.Determination = 99;
                     player.Greed += 25; if (player.Greed > 99) player.Greed = 99;
-                    player.PositionRating = player.GetPositionRating(player.Position);
+                    player.PositionRating =(int) PositionRatings.GetPositionRatingDouble(player.Position,player.Attributes);
                     player.UpdateBestPosition();
                     player.Position = player.BestPosition;
                     WritePlayer(playerNode);
@@ -624,7 +582,7 @@ namespace Fsm97Trainer
         {
             if (targetFormation != null)
             {
-                for (int position = (int)PlayerPosition.SS; position > 0; position--)//choose all position except gk which is chosen
+                for (int position = (int)PlayerPosition.Count-1; position > 0; position--)//choose all position except gk which is chosen
                 {
                     for (int requiredPlayersInPosition = targetFormation.PlayersInEachPosition[position];
                         requiredPlayersInPosition > 0; requiredPlayersInPosition--)
@@ -994,8 +952,9 @@ namespace Fsm97Trainer
         }
 
 
-        internal void FastUpdate(bool autoTrain, bool convertToGK, bool autoResetStatus, bool maxEnergy, bool maxForm, bool maxMorale,bool maxPower, bool noAlternativeTraining,
-            TrainingEffectModifier trainingEffectModifier)
+        internal void FastUpdate(bool autoTrain, bool convertToGK, bool autoResetStatus, 
+            bool maxEnergy, bool maxForm, bool maxMorale,bool maxPower, bool noAlternativeTraining
+             )
         {
             try
             {
@@ -1064,8 +1023,7 @@ namespace Fsm97Trainer
         }
 
 
-        internal void SlowUpdate(bool autoRenewContracts,bool maxPower, 
-            TrainingEffectModifier trainingEffectModifier)
+        internal void SlowUpdate(bool autoRenewContracts,bool maxPower)
         {
             try
             {
@@ -1198,7 +1156,7 @@ namespace Fsm97Trainer
                     {
                         leftoverPlayers.AddLast(player);
                     }
-                    for (int position = (int)PlayerPosition.SS; position >= 0; position--)
+                    for (int position = (int)PlayerPosition.Count-1; position >= 0; position--)
                     {
                         for (int requiredPlayersInPosition = targetFormation.PlayersInEachPosition[position];
                             requiredPlayersInPosition > 0; requiredPlayersInPosition--)

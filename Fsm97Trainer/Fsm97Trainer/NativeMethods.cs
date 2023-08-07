@@ -134,10 +134,10 @@ namespace Fsm97Trainer
             var bytesToWrite = stringBytes;
             if (stringBytes.Length> bytes)
             {
-                stringBytes=new byte[bytes];
-                Buffer.BlockCopy(stringBytes, 0, stringBytes, 0, bytes);
+                bytesToWrite = new byte[bytes];
+                Buffer.BlockCopy(stringBytes, 0, bytesToWrite, 0, bytes);
             }
-            WriteBytes(process, address, stringBytes, 0, (uint)bytes);
+            WriteBytes(process, address, bytesToWrite, 0, (uint)bytes);
         }
         public static void WriteBytes(Process process, int address, byte[] data, int offset, uint length)
         {

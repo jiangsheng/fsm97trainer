@@ -187,5 +187,11 @@ namespace Fsm97Trainer
             TrainingScheduleType.TrainingMatch, TrainingScheduleType.Throwing,
             TrainingScheduleType.Control
         };
+        public static TrainingScheduleType[] None = new TrainingScheduleType[] {
+           TrainingScheduleType.None, TrainingScheduleType.None,
+            TrainingScheduleType.None, TrainingScheduleType.None,
+            TrainingScheduleType.None, TrainingScheduleType.None,
+            TrainingScheduleType.None
+        };
     }
 }

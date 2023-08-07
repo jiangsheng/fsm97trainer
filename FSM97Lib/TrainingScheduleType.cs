@@ -21,5 +21,6 @@
         Throwing,
         FiveASide,
         TrainingMatch
+            ,Count
     }
 }

@@ -1,35 +1,133 @@
 ﻿using FSM97Lib;
 using System;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Fsm97Trainer
 {
-    public class Player:IObjectWithPersonName
+    public class Player : IObjectWithPersonName
     {
-        public int Speed { get; set; }
-        public int Agility { get; set; }
-        public int Acceleration { get; set; }
-        public int Stamina { get; set; }
-        public int Strength { get; set; }
-        public int Fitness { get; set; }
-        public int Shooting { get; set; }
-        public int Passing { get; set; }
-        public int Heading { get; set; }
-        public int Control { get; set; }
-        public int Dribbling { get; set; }
-        public int TackleDetermination { get; set; }
-        public int TackleSkill { get; set; }
-        public int Coolness { get; set; }
-        public int Awareness { get; set; }
-        public int Flair { get; set; }
-        public int Kicking { get; set; }
-        public int Throwing { get; set; }
-        public int Handling { get; set; }
-        public int ThrowIn { get; set; }
-        public int Leadership { get; set; }
-        public int Consistency { get; set; }
-        public int Determination { get; set; }
-        public int Greed { get; set; }
+
+        public int Speed
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Speed]; }
+            set { attributes[(int)PlayerAttribute.Speed] = (byte)value; }
+        }
+        public int Agility
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Agility]; }
+            set { attributes[(int)PlayerAttribute.Agility] = (byte)value; }
+        }
+        public int Acceleration
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Acceleration]; }
+            set { attributes[(int)PlayerAttribute.Acceleration] = (byte)value; }
+        }
+        public int Stamina
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Stamina]; }
+            set { attributes[(int)PlayerAttribute.Stamina] = (byte)value; }
+        }
+        public int Strength
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Strength]; }
+            set { attributes[(int)PlayerAttribute.Strength] = (byte)value; }
+        }
+        public int Fitness
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Fitness]; }
+            set { attributes[(int)PlayerAttribute.Fitness] = (byte)value; }
+        }
+        public int Shooting
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Shooting]; }
+            set { attributes[(int)PlayerAttribute.Shooting] = (byte)value; }
+        }
+        public int Passing
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Passing]; }
+            set { attributes[(int)PlayerAttribute.Passing] = (byte)value; }
+        }
+        public int Heading
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Heading]; }
+            set { attributes[(int)PlayerAttribute.Heading] = (byte)value; }
+        }
+        public int Control
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Control]; }
+            set { attributes[(int)PlayerAttribute.Control] = (byte)value; }
+        }
+        public int Dribbling
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Dribbling]; }
+            set { attributes[(int)PlayerAttribute.Dribbling] = (byte)value; }
+        }
+        public int TackleDetermination
+        {
+            get { return (int)attributes[(int)PlayerAttribute.TackleDetermination]; }
+            set { attributes[(int)PlayerAttribute.TackleDetermination] = (byte)value; }
+        }
+        public int TackleSkill
+        {
+            get { return (int)attributes[(int)PlayerAttribute.TackleSkill]; }
+            set { attributes[(int)PlayerAttribute.TackleSkill] = (byte)value; }
+        }
+        public int Coolness
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Coolness]; }
+            set { attributes[(int)PlayerAttribute.Coolness] = (byte)value; }
+        }
+        public int Awareness
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Awareness]; }
+            set { attributes[(int)PlayerAttribute.Awareness] = (byte)value; }
+        }
+        public int Flair
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Flair]; }
+            set { attributes[(int)PlayerAttribute.Flair] = (byte)value; }
+        }
+        public int Kicking
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Kicking]; }
+            set { attributes[(int)PlayerAttribute.Kicking] = (byte)value; }
+        }
+        public int Throwing
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Throwing]; }
+            set { attributes[(int)PlayerAttribute.Throwing] = (byte)value; }
+        }
+        public int Handling
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Handling]; }
+            set { attributes[(int)PlayerAttribute.Handling] = (byte)value; }
+        }
+        public int ThrowIn
+        {
+            get { return (int)attributes[(int)PlayerAttribute.ThrowIn]; }
+            set { attributes[(int)PlayerAttribute.ThrowIn] = (byte)value; }
+        }
+        public int Leadership
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Leadership]; }
+            set { attributes[(int)PlayerAttribute.Leadership] = (byte)value; }
+        }
+        public int Consistency
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Consistency]; }
+            set { attributes[(int)PlayerAttribute.Consistency] = (byte)value; }
+        }
+        public int Determination
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Determination]; }
+            set { attributes[(int)PlayerAttribute.Determination] = (byte)value; }
+        }
+        public int Greed
+        {
+            get { return (int)attributes[(int)PlayerAttribute.Greed]; }
+            set { attributes[(int)PlayerAttribute.Greed] = (byte)value; }
+        }
         int position;
         public int Position
         {
@@ -40,11 +138,11 @@ namespace Fsm97Trainer
             set
             {
                 position = value;
-                PositionName = GetPositionName(position);
+                positionName = GetPositionName(position);
                 PositionRating = GetPositionRating(Position);
             }
         }
-        public string PositionName { get; set; }
+        public string PositionName { get => positionName; }
         public int PositionRating { get; set; }
         public int BestPosition { get; set; }
         public string BestPositionName { get; set; }
@@ -81,9 +179,13 @@ namespace Fsm97Trainer
         {
             get
             {
-                return (Speed + Agility + Acceleration + Stamina + Strength + Fitness + Shooting + Passing + Heading + Control
-                    + Dribbling + TackleDetermination + TackleSkill + Coolness + Awareness + Flair + Kicking + Throwing + Handling
-                    + ThrowIn + Leadership + Consistency + Determination + Greed+ Form+ Moral+ Energy) / 24 ;
+                int sum = 0;
+                for (int i = 0; i < (int)PlayerAttribute.Count; i++)
+                {
+                    sum += Attributes[i];
+                }
+                sum += Form + Moral + Energy;
+                return sum / 24;
             }
         }
         Team team;
@@ -97,65 +199,35 @@ namespace Fsm97Trainer
                 TeamAbbrivation = team.Abbreviation;
             }
         }
+        byte[] attributes = new byte[(int)PlayerAttribute.Count];
+        private string positionName;
+
+        public byte[] Attributes
+        {
+            get
+            {
+                return attributes;
+            }
+        }
+
         public override string ToString()
         {
             return String.Format("{0}, {1}: age {2}, position {3}, rating {4},Throwin {5}, Lead {6}, Greed {7}", LastName, FirstName,
-                Age,PositionName,PositionRating,                
+                Age, positionName, PositionRating,
                 ThrowIn, Leadership, Greed);
         }
-        internal static int CompareAttributes(Player fromPlayer, Player toPlayer)
+        internal static bool CompareAttributes(Player fromPlayer, Player toPlayer)
         {
-            var result = fromPlayer.Speed - toPlayer.Speed; if (result != 0) return result;
-            result = fromPlayer.Agility - toPlayer.Agility; if (result != 0) return result;
-            result = fromPlayer.Acceleration - toPlayer.Acceleration; if (result != 0) return result;
-            result = fromPlayer.Stamina - toPlayer.Stamina; if (result != 0) return result;
-            result = fromPlayer.Strength - toPlayer.Strength; if (result != 0) return result;
-            result = fromPlayer.Fitness - toPlayer.Fitness; if (result != 0) return result;
-            result = fromPlayer.Shooting - toPlayer.Shooting; if (result != 0) return result;
-            result = fromPlayer.Passing - toPlayer.Passing; if (result != 0) return result;
-            result = fromPlayer.Heading - toPlayer.Heading; if (result != 0) return result;
-            result = fromPlayer.Control - toPlayer.Control; if (result != 0) return result;
-            result = fromPlayer.Dribbling - toPlayer.Dribbling; if (result != 0) return result;
-            result = fromPlayer.Coolness - toPlayer.Coolness; if (result != 0) return result;
-            result = fromPlayer.Awareness - toPlayer.Awareness; if (result != 0) return result;
-            result = fromPlayer.TackleDetermination - toPlayer.TackleDetermination; if (result != 0) return result;
-            result = fromPlayer.TackleSkill - toPlayer.TackleSkill; if (result != 0) return result;
-            result = fromPlayer.Flair - toPlayer.Flair; if (result != 0) return result;
-            result = fromPlayer.Kicking - toPlayer.Kicking; if (result != 0) return result;
-            result = fromPlayer.Throwing - toPlayer.Throwing; if (result != 0) return result;
-            result = fromPlayer.Handling - toPlayer.Handling; if (result != 0) return result;
-            result = fromPlayer.ThrowIn - toPlayer.ThrowIn; if (result != 0) return result;
-            result = fromPlayer.Leadership - toPlayer.Leadership; if (result != 0) return result;
-            result = fromPlayer.Consistency - toPlayer.Consistency; if (result != 0) return result;
-            result = fromPlayer.Determination - toPlayer.Determination; if (result != 0) return result;
-            result = fromPlayer.Greed - toPlayer.Greed; return result;
+            return fromPlayer.Attributes.SequenceEqual(toPlayer.Attributes);    
         }
         internal static int CompareAttributesApproximately(Player fromPlayer, Player toPlayer)
         {
-            var result = fromPlayer.Speed - toPlayer.Speed; if (result >1||result<-1) return result;
-            result = fromPlayer.Agility - toPlayer.Agility; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Acceleration - toPlayer.Acceleration; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Stamina - toPlayer.Stamina; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Strength - toPlayer.Strength; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Fitness - toPlayer.Fitness; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Shooting - toPlayer.Shooting; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Passing - toPlayer.Passing; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Heading - toPlayer.Heading; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Control - toPlayer.Control; if (result > 1 || result < -1   ) return result;
-            result = fromPlayer.Dribbling - toPlayer.Dribbling; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Coolness - toPlayer.Coolness; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Awareness - toPlayer.Awareness; if (result > 1 || result < -1) return result;
-            result = fromPlayer.TackleDetermination - toPlayer.TackleDetermination; if (result > 1 || result < -1) return result;
-            result = fromPlayer.TackleSkill - toPlayer.TackleSkill; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Flair - toPlayer.Flair; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Kicking - toPlayer.Kicking; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Throwing - toPlayer.Throwing; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Handling - toPlayer.Handling; if (result > 1 || result < -1) return result;
-            result = fromPlayer.ThrowIn - toPlayer.ThrowIn; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Leadership - toPlayer.Leadership; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Consistency - toPlayer.Consistency; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Determination - toPlayer.Determination; if (result > 1 || result < -1) return result;
-            result = fromPlayer.Greed - toPlayer.Greed; if (result > 1 || result < -1) return result;
+            for (int i = 0; i < (int)PlayerAttribute.Count; i++)
+            {
+                var result = fromPlayer.Attributes[i] - toPlayer.Attributes[i]; 
+                if (result > 1 || result < -1) return result;
+
+            }
             return 0;
 
         }
@@ -163,9 +235,9 @@ namespace Fsm97Trainer
         {
             int bestPosition = 0;
             double bestPositionRating = 0;
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < (int)PlayerPosition.Count; i++)
             {
-                double testPositionRating = GetPositionRatingDouble(i);
+                double testPositionRating = PositionRatings.GetPositionRatingDouble(i,attributes);
                 if (bestPositionRating < testPositionRating)
                 {
                     bestPosition = i;
@@ -174,7 +246,7 @@ namespace Fsm97Trainer
             }
             BestPosition = bestPosition;
             BestPositionName = GetPositionName(bestPosition);
-            BestPositionRating = (int) bestPositionRating;
+            BestPositionRating = (int)bestPositionRating;
         }
 
         //see country,.txt for coutries
@@ -193,8 +265,12 @@ namespace Fsm97Trainer
                 default: return "OTH";
             }
         }
+        
         public double GetPositionRatingDouble(int position)
         {
+            return PositionRatings.GetPositionRatingDouble
+                (position, this.attributes);
+            /*
             double playerRating = 0;
             switch ((PlayerPosition)position)
             {
@@ -275,14 +351,14 @@ namespace Fsm97Trainer
                         +Coolness * 2 + Awareness * 3 + Flair * 10;
                     break;
             }
-            return playerRating / 100;
+            return playerRating / 100;*/
         }
-
+      
 
         public int GetPositionRating(int position)
         {
             return (int)GetPositionRatingDouble(position);
-        }
+        }  
         public string GetPositionName(int position)
         {
             return Enum.GetName(typeof(PlayerPosition), position);
@@ -291,7 +367,7 @@ namespace Fsm97Trainer
         internal int BestFitInFormation(Formation targetFormation)
         {
             double bestPositionRating = 0;
-            int bestPosition=0;
+            int bestPosition = 0;
             for (int i = 0; i < targetFormation.PlayersInEachPosition.Length; i++)
             {
                 if (targetFormation.PlayersInEachPosition[i] > 0)
@@ -310,7 +386,7 @@ namespace Fsm97Trainer
         {
             double bestPositionRating = 0;
             int bestPosition = 0;
-            for (int i = 1; i <=(int) PlayerPosition.SS; i++)
+            for (int i = 1; i < (int)PlayerPosition.Count; i++)
             {
                 if (formation != null)
                 {
@@ -329,7 +405,7 @@ namespace Fsm97Trainer
         {
             double bestPositionRating = 0;
             int bestPosition = 0;
-            for (int i = 1; i <=(int)PlayerPosition.SS; i++)
+            for (int i = 1; i < (int)PlayerPosition.Count; i++)
             {
                 if (formation != null)
                 {
@@ -377,18 +453,18 @@ namespace Fsm97Trainer
             return (int)bestPosition;
         }
 
-        internal double  GetAveragePositionRatingInFormationExceptTargetPositionAndGK(Player data, int position, Formation formation)
+        internal double GetAveragePositionRatingInFormationExceptTargetPositionAndGK(Player data, int position, Formation formation)
         {
             double sumPositionRating = 0;
             int countPositions = 0;
 
-            for (int i = 1; i <= (int)PlayerPosition.SS; i++)
+            for (int i = 1; i < (int)PlayerPosition.Count; i++)
             {
                 if (formation != null)
                 {
                     if (formation.PlayersInEachPosition[i] == 0) continue;
                 }
-                
+
                 double testPositionRating = GetPositionRatingDouble(i);
                 sumPositionRating += testPositionRating;
                 countPositions++;

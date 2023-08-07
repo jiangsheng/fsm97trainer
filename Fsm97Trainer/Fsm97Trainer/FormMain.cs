@@ -368,9 +368,8 @@ namespace Fsm97Trainer
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
-                TrainingEffectModifier trainingEffectModifier = menusProcess.ReadTrainingEffectModifier();
                 menusProcess.FastUpdate(autoTrain, convertToGK, autoResetStatus, maxEnergy, maxForm, maxMorale, maxPower, noAlternativeTraining
-                    , trainingEffectModifier);
+                    );
             }
             catch (Exception ex)
             {
@@ -397,8 +396,7 @@ namespace Fsm97Trainer
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
-                TrainingEffectModifier trainingEffectModifier = menusProcess.ReadTrainingEffectModifier();
-                menusProcess.SlowUpdate(ContractAutoRenew, MaxPower, trainingEffectModifier);
+                menusProcess.SlowUpdate(ContractAutoRenew, MaxPower);
             }
             catch (Exception ex)
             {

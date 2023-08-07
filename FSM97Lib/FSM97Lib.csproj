@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Formation.cs" />
+    <Compile Include="PlayerAttribute.cs" />
     <Compile Include="PlayerPosition.cs" />
+    <Compile Include="PositionRatings.cs" />
     <Compile Include="TrainingEffectModifier.cs" />
     <Compile Include="TrainingScheduleEffect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

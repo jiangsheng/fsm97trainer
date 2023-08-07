@@ -13,7 +13,7 @@ namespace Fsm97Trainer
             AutoMap();
             Map(m => m.Team).Ignore();
             Map(m => m.BirthDateOffset).Ignore();
-            
+            Map(m => m.Attributes).Ignore();
         }
 
     }

@@ -12,6 +12,6 @@ namespace FSM97Lib
         RWB, LWB, SW, DM,
         RM, LM, AM,
         RW,LW,
-        FR, FOR,SS,
+        FR, FOR,SS,Count
     }
 }
