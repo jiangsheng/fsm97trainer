@@ -1262,6 +1262,7 @@ namespace Fsm97Trainer
             List<HumanName> result = new List<HumanName>();
             using (WebClient client = new WebClient())
             {
+                client.Headers.Add("Referer", "https://dbpedia.org/sparql");
                 int currentDateInt = NativeMethods.ReadInt(Process, DateAddress);
                 DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDateInt);
                 var toYear = currentDateTime.AddYears(-17).Year;
