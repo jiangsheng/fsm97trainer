@@ -582,112 +582,91 @@ namespace Fsm97Trainer
         {
             if (targetFormation != null)
             {
-                for (int position = (int)PlayerPosition.Count-1; position > 0; position--)//choose all position except gk which is chosen
-                {
-                    for (int requiredPlayersInPosition = targetFormation.PlayersInEachPosition[position];
-                        requiredPlayersInPosition > 0; requiredPlayersInPosition--)
-                    {
-                        IOrderedEnumerable<PlayerNode> bestFitsQuery;
-                        switch (rotateMethod)
-                        {
-                            case RotateMethod.Energy:
-                                bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetPositionRating(position))
-                                    .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(p.Data, position, targetFormation))
-                                    .ThenBy(p => this.random.Next());
-                                break;
-                            case RotateMethod.Statistics:
-                            default:
-                                bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics + 
-                                    p.Data.GetPositionRating(position))
-                                    .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(p.Data, position, targetFormation))
-                                    .ThenBy(p => this.random.Next());
-                                break;
-                        }
-                        var bestFit = bestFitsQuery.First();
-                        var targetPosition = position;
-                        if (bestFit.Data.Position != targetPosition)
-                        {
-                            bestFit.Data.Position = targetPosition;
-                            WritePlayerPosition(bestFit);
-                        }
-                        leftoverPlayers.Remove(bestFit);
-                        normals.Add(bestFit);
-                    }
-                }
+                GetNormalsByFormation(leftoverPlayers, rotateMethod, normals, targetFormation);
             }
-            else {
-                IOrderedEnumerable<PlayerNode> query;
-                switch (rotateMethod)
-                {
-                    case RotateMethod.Energy:
-                        query = leftoverPlayers.OrderByDescending(
-                            p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null))
-                            .ThenBy(p => this.random.Next());
-                        break;
-                    case RotateMethod.Statistics:
-                    default:
-                        query = leftoverPlayers.OrderByDescending(
-                            p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null)).
-                            ThenBy(p => this.random.Next());
-                        break;
-                }
-                var mainTeam = query.Take(10).ToArray();
-                bool lb = false;
-                bool lwb = false;
-                bool lm = false;
-                bool lw = false;
-                foreach (var mainTeamPlayer in mainTeam)
-                {
-                    var targetPosition = mainTeamPlayer.Data.BestPosition;
-                    if (targetPosition == (int)PlayerPosition.GK)
-                        targetPosition = mainTeamPlayer.Data.GetBestPositionExceptGKInFormation(null);
-                    switch ((PlayerPosition)targetPosition)
-                    {
-                        case PlayerPosition.RB:
-                            if (lb)
-                            {
-                                targetPosition = (int)PlayerPosition.LB;
-                            }
-                            else
-                                targetPosition = (int)PlayerPosition.RB;
-                            lb = !lb; break;
-                        case PlayerPosition.RWB:
-                            if (lwb)
-                            {
-                                targetPosition = (int)PlayerPosition.LWB;
-                            }
-                            else
-                                targetPosition = (int)PlayerPosition.RWB;
-                            lwb = !lwb; break;
-                        case PlayerPosition.RM:
-                            if (lm)
-                            {
-                                targetPosition = (int)PlayerPosition.LM;
-                            }
-                            else
-                                targetPosition = (int)PlayerPosition.RM;
-                            lm = !lm; break;
-                        case PlayerPosition.RW:
-                            if (lw)
-                            {
-                                targetPosition = (int)PlayerPosition.LW;
-                            }
-                            else
-                                targetPosition = (int)PlayerPosition.RW;
-                            lw = !lw; break;
-                        default: break;
-                    }
-                    if (mainTeamPlayer.Data.Position != targetPosition)
-                    {
-                        mainTeamPlayer.Data.Position = targetPosition;
-                        WritePlayerPosition(mainTeamPlayer);
-                    }
-                    normals.Add(mainTeamPlayer);
-                    leftoverPlayers.Remove(mainTeamPlayer);
-                }
+            else
+            {
+                GetNormalsByPlayerPreference(leftoverPlayers, rotateMethod, normals);
             }
         }
 
+        private void GetNormalsByPlayerPreference(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> normals)
+        {
+            IOrderedEnumerable<PlayerNode> query;
+            switch (rotateMethod)
+            {
+                case RotateMethod.Energy:
+                    query = leftoverPlayers.OrderByDescending(
+                        p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null))
+                        .ThenBy(p => this.random.Next());
+                    break;
+                case RotateMethod.Statistics:
+                default:
+                    query = leftoverPlayers.OrderByDescending(
+                        p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null)).
+                        ThenBy(p => this.random.Next());
+                    break;
+            }
+            //worst player get prefered position first
+            //better players are versatle.
+            var mainTeam = query.Take(10).OrderBy(p => p.Data.BestPositionRating).ToArray();
+            int[] positionLimit = new int[] {
+                0,//GK
+                1,1,3,//RB, LB, CD,
+        1,1,1,3,//RWB, LWB, SW, DM,
+        1,1,2,//RM, LM, AM,
+        1,1,//RW,LW,
+        1,10,1//FR, FOR,SS,Count
+            };          
+            foreach (var mainTeamPlayer in mainTeam)
+            {
+                var targetPosition = mainTeamPlayer.Data.GetBestPositionWithinLimit(positionLimit);
+                if (mainTeamPlayer.Data.Position != targetPosition)
+                {
+                    mainTeamPlayer.Data.Position = targetPosition;
+                    WritePlayerPosition(mainTeamPlayer);
+                }
+                normals.Add(mainTeamPlayer);
+                leftoverPlayers.Remove(mainTeamPlayer);
+                positionLimit[targetPosition] = positionLimit[targetPosition] - 1;                
+            }
+        }
+
+        private void GetNormalsByFormation(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> normals, Formation targetFormation)
+        {
+            for (int position = (int)PlayerPosition.Count - 1; position > 0; position--)//choose all position except gk which is chosen
+            {
+                for (int requiredPlayersInPosition = targetFormation.PlayersInEachPosition[position];
+                    requiredPlayersInPosition > 0; requiredPlayersInPosition--)
+                {
+                    IOrderedEnumerable<PlayerNode> bestFitsQuery;
+                    switch (rotateMethod)
+                    {
+                        case RotateMethod.Energy:
+                            bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetPositionRating(position))
+                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(p.Data, position, targetFormation))
+                                .ThenBy(p => this.random.Next());
+                            break;
+                        case RotateMethod.Statistics:
+                        default:
+                            bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
+                                p.Data.GetPositionRating(position))
+                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(p.Data, position, targetFormation))
+                                .ThenBy(p => this.random.Next());
+                            break;
+                    }
+                    var bestFit = bestFitsQuery.First();
+                    var targetPosition = position;
+                    if (bestFit.Data.Position != targetPosition)
+                    {
+                        bestFit.Data.Position = targetPosition;
+                        WritePlayerPosition(bestFit);
+                    }
+                    leftoverPlayers.Remove(bestFit);
+                    normals.Add(bestFit);
+                }
+            }
+        }
 
         private void GetSubs(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> normals, List<PlayerNode> subs, Formation targetFormation)
         {

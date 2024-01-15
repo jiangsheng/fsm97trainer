@@ -471,5 +471,23 @@ namespace Fsm97Trainer
             }
             return sumPositionRating + countPositions;
         }
+
+        internal int GetBestPositionWithinLimit(int[] positionLimit)
+        {
+            double bestPositionRating = 0;
+            PlayerPosition bestPosition = 0;
+            for (int targetPosition = 0; targetPosition < (int) PlayerPosition.Count; targetPosition++)
+            {
+                var targetPositionQuota = positionLimit[targetPosition];
+                if (targetPositionQuota == 0) continue;
+                double testPositionRating = GetPositionRatingDouble(targetPosition);
+                if (bestPositionRating < testPositionRating)
+                {
+                    bestPosition = (PlayerPosition)targetPosition;
+                    bestPositionRating = testPositionRating;
+                }
+            }
+            return (int)bestPosition;
+        }
     }
 }
