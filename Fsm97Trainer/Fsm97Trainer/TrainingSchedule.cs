@@ -17,15 +17,20 @@ namespace Fsm97Trainer
             bool maxPower,  bool noAlternativeTraining,TrainingEffectModifier trainingEffectModifier)
         {
             TrainingScheduleType[] schedule;
+            //if doing GK training, train for the real position
             if (player.Fitness < 99 && player.Position == (byte)PlayerPosition.GK && player.BestPosition != (byte)PlayerPosition.GK)
             {
-                schedule = (TrainingScheduleType[])GetTrainingSchedule(player, (PlayerPosition)player.BestPosition,maxPower, noAlternativeTraining, trainingEffectModifier).Clone();
+                schedule = (TrainingScheduleType[])GetTrainingSchedule(
+                    player, (PlayerPosition)player.BestPosition,maxPower, noAlternativeTraining, 
+                    trainingEffectModifier).Clone();
             }
             else
-                schedule = (TrainingScheduleType[])GetTrainingSchedule(player, (PlayerPosition)player.Position,maxPower, noAlternativeTraining,trainingEffectModifier).Clone();
-
+                schedule = (TrainingScheduleType[])GetTrainingSchedule(player, 
+                    (PlayerPosition)player.Position,maxPower, noAlternativeTraining,trainingEffectModifier).Clone();
+           
             if (!autoResetStatus && !maxEnergy && !trainingEffectModifier.RemoveNegativeTraining)
-            {
+            { 
+                //for main team 3 rests a day except GK before full fitness
                 if (player.Status == 0 && player.Position != (byte)PlayerPosition.GK && player.Fitness < 99)
                 {
                     schedule[1] = schedule[3] = schedule[5] = TrainingScheduleType.Physiotherapist;
@@ -876,13 +881,15 @@ namespace Fsm97Trainer
 
         }
 
-        private static TrainingScheduleType[] ImproveSpeedTo(Player player, int stageMinimum, bool trainHeading, TrainingEffectModifier trainingEffectModifier)
+        private static TrainingScheduleType[] ImproveSpeedTo(Player player,
+            int stageMinimum, bool trainHeading, TrainingEffectModifier trainingEffectModifier)
         {
             if (player.Speed < stageMinimum)
             {
                 if (trainingEffectModifier.RemoveNegativeTraining)
                     return TrainingSchedulePreset.SprintingAllWeek;
-                if (player.Heading < stageMinimum)
+                if (player.Heading < stageMinimum && 
+                    PositionRatings.Ratings[(int)player.Position][(int)PlayerAttribute.Heading]>0) 
                     return TrainingSchedulePreset.SprintingWithHeading;
                 return TrainingSchedulePreset.SprintingAllWeek;
             }

@@ -643,15 +643,17 @@ namespace Fsm97Trainer
                     switch (rotateMethod)
                     {
                         case RotateMethod.Energy:
-                            bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetPositionRating(position))
-                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(p.Data, position, targetFormation))
+                            bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetPositionRatingDouble(position)*2)
+                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(
+                                    p.Data, position, targetFormation))
                                 .ThenBy(p => this.random.Next());
                             break;
                         case RotateMethod.Statistics:
                         default:
                             bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                                p.Data.GetPositionRating(position))
-                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(p.Data, position, targetFormation))
+                                p.Data.GetPositionRatingDouble(position)*2)
+                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(
+                                    p.Data, position, targetFormation))
                                 .ThenBy(p => this.random.Next());
                             break;
                     }
@@ -784,12 +786,12 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                            p.Data.GetBestPositionRating(targetPositions)).ThenBy(p => this.random.Next());
+                            p.Data.GetBestPositionRating(targetPositions)*2).ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                           p.Data.GetBestPositionRating(targetPositions)).ThenBy(p => this.random.Next());
+                           p.Data.GetBestPositionRating(targetPositions)*2).ThenBy(p => this.random.Next());
                     break;
             }
             var subTeamPlayer = subQuery.First();
@@ -943,7 +945,8 @@ namespace Fsm97Trainer
                 {
                     if (autoTrain)
                     {
-                        var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data, autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier)
+                        var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data, 
+                            autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier)
                             .Select(p => (byte)p).ToArray();
 
                         if (playerNode.Data.Fitness < 99)
