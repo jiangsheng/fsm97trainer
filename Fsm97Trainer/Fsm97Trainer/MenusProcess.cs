@@ -549,12 +549,12 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     gkQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                    p.Data.GetPositionRating((int)PlayerPosition.GK)).ThenBy(p => this.random.Next());
+                    p.Data.GetPositionRating((int)PlayerPosition.GK)*2).ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     gkQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                    p.Data.GetPositionRating((int)PlayerPosition.GK)).ThenBy(p => this.random.Next());
+                    p.Data.GetPositionRating((int)PlayerPosition.GK)*2).ThenBy(p => this.random.Next());
                     break;
             }
             var gks = gkQuery.Take(2).ToArray();
@@ -597,13 +597,13 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     query = leftoverPlayers.OrderByDescending(
-                        p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null))
+                        p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null)*2)
                         .ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     query = leftoverPlayers.OrderByDescending(
-                        p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null)).
+                        p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null)*2).
                         ThenBy(p => this.random.Next());
                     break;
             }
@@ -750,12 +750,12 @@ namespace Fsm97Trainer
                 {
                     case RotateMethod.Energy:
                         subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation)).ThenBy(p => this.random.Next());
+                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation)*2).ThenBy(p => this.random.Next());
                         break;
                     case RotateMethod.Statistics:
                     default:
                         subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation)).ThenBy(p => this.random.Next());
+                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation)*2).ThenBy(p => this.random.Next());
                         break;
                 }
                 var subRest = subQuery.Take(subNeeded).ToArray();
