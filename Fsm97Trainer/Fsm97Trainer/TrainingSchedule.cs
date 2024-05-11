@@ -245,6 +245,7 @@ namespace Fsm97Trainer
             result = ImprovePassingTo(player, stageMinimum);
             if (result != null) return result;
 
+
             result = ImproveHeadingTo(player, stageMinimum, trainingEffectModifier);
             if (result != null) return result;
 
@@ -258,6 +259,9 @@ namespace Fsm97Trainer
             if (result != null) return result;
 
             result = ImproveCoolnessTo(player, stageMinimum);
+            if (result != null) return result;
+
+            result = ImproveAwarenessTo(player, stageMinimum, maxPower, trainingEffectModifier);
             if (result != null) return result;
 
             result = ImproveSpeedTo(player, stageMinimum, true, trainingEffectModifier);
