@@ -27,7 +27,10 @@ namespace FSM97Patcher
         }
         int detectAddressPatch = 0;
         int trainingEffectAddress = 0;
+        //move eax, 5
         byte[] patched = new byte[] { 0xb8, 0x5, 0x0, 0x0, 0x0 };
+        //move ecx,eax
+        //call dword ptr [edx+40]
         byte[] unpatched = new byte[] { 0x8b, 0xc8, 0xff, 0x52, 0x40 };
         private void buttonBrowse_Click(object sender, EventArgs e)
         {
@@ -125,7 +128,7 @@ namespace FSM97Patcher
                         gameVersion = "中文版 (Chinese Ver)";
                         break;
                     case 1135104:
-                        gameVersion = "英文版 (English Ver)";
+                        gameVersion = "西欧语言版 (West Europe languages Ver) 97/98 Offical Patch";
                         //004A89D7 - 8B C8  -mov ecx,eax
                         //004A89D9 - FF 52 40 - call dword ptr[edx + 40]
                         //004A89DC - A3 E8465800 - mov[MENUS.EXE + 1846E8],eax 
@@ -135,6 +138,18 @@ namespace FSM97Patcher
                         trainingEffectAddress = 0xe0000;
                         detect1 = new byte[] { 0xfc, 0xff, 0x8b, 0x10 };
                         detect2 = new byte[] { 0xa3, 0xe8, 0x46, 0x58 };
+                        break;
+                    case 1129472:
+                        gameVersion = "西欧语言版 (West Europe languages Ver) RTM";
+                        //00450325 - 8B C8  -mov ecx,eax
+                        //00450327 - FF 52 40 - call dword ptr[edx + 40]
+                        //00450329 - A3 70815200 - mov[MENUS.EXE + 128170],eax 
+                        detectAddress1 = 0x4f723;
+                        detectAddress2 = 0x4f72c;
+                        detectAddressPatch = 0x4f727;
+                        trainingEffectAddress = 0xdf9f8;
+                        detect1 = new byte[] { 0xfe, 0xff, 0x8b, 0x10 };
+                        detect2 = new byte[] { 0xa3, 0x70, 0x81, 0x52 };
                         break;
                     default:
                         gameVersion = null;
@@ -230,6 +245,9 @@ namespace FSM97Patcher
                     case 1135104:
                         headers = headerEn;
                         trainingEffectAddress = 0xe0000; break;
+                    case  1129472:
+                        headers = headerEn;
+                        trainingEffectAddress = 0xdf9f8; break;
                     default:
                         MessageBox.Show("不支持的游戏版本 (Unsupported Game Version)");
                         return;

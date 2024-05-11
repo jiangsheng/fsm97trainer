@@ -287,7 +287,7 @@ namespace Fsm97Trainer
 
         private void Rotate(RotateMethod rotateMethod)
         {
-
+            bool convertToGK = checkBoxConvertToGK.Checked;
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
@@ -299,10 +299,10 @@ namespace Fsm97Trainer
                     {
                         if (checkBoxAutoPositionWithCurrentFormation.Checked && this.SavedFormation.IsValid())
                         {
-                            menusProcess.RotatePlayer(rotateMethod, this.SavedFormation);
+                            menusProcess.RotatePlayer(rotateMethod, this.SavedFormation, convertToGK);
                         }
                         else
-                            menusProcess.RotatePlayer(rotateMethod, null);
+                            menusProcess.RotatePlayer(rotateMethod, null, convertToGK);
 
                         MessageBox.Show("球员已轮换(Players rotated)");
                     }

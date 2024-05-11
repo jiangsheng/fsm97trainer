@@ -70,19 +70,6 @@ namespace Fsm97Trainer
         public Encoding Encoding { get; private set; }
         Process Process { get; set; }
 
-
-        static string CalculateMD5(string filename)
-        {
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = File.OpenRead(filename))
-                {
-                    var hash = md5.ComputeHash(stream);
-                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-                }
-            }
-        }
-
         TrainingEffectModifier trainingEffectModifier; 
         public MenusProcess()
         {
@@ -105,38 +92,37 @@ namespace Fsm97Trainer
             FileInfo fi = new FileInfo(gameExeFilePath);
             switch (fi.Length)
             {
-                case 1378816:
-                    var md5 = CalculateMD5(fi.FullName);
-                    switch (md5) {
-                        case "a1e5fe2e30a34a1dbc783aa0e88aafec":
-                            TeamDataAddress = 0x00547102;
-                            DateAddress = 0x00562ED8;
-                            CurrentTeamIndexAddress = 0x562a4c;
-                            TrainingDataAddress = 0x562f50;
-                            TrainingEffectAddress = 0x004e38a0;
-                            break;
-                        default:
-                            //menusProcess.SubCountAddress = 0x614610;
-                            //menusProcess.DivisionFactorAddress = 0x4f3a60;
-                            TeamDataAddress = 0x00547102;
-                            DateAddress = 0x00562ED8;
-                            CurrentTeamIndexAddress = 0x562a4c;
-                            TrainingDataAddress = 0x562f50;
-                            TrainingEffectAddress = 0x004e38a0;
-                        break;
-                    }
+                case 1378816:                  
+                    //menusProcess.SubCountAddress = 0x614610;
+                    //menusProcess.DivisionFactorAddress = 0x4f3a60;
+                    TeamDataAddress = 0x547102;
+                    DateAddress = 0x562ED8;
+                    CurrentTeamIndexAddress = 0x562a4c;
+                    TrainingDataAddress = 0x562f50;
+                    TrainingEffectAddress = 0x4e38a0;
                     Encoding = Encoding.GetEncoding(936);
                     trainingEffectModifier = ReadTrainingEffectModifier();
                     break;
-                case 1135104://English Ver
+                case 1135104://English Ver 97/98 patch
                              //menusProcess.SubCountAddress = 0x5846e8;
                              //menusProcess.DivisionFactorAddress = 0x4f5178;
                     Encoding = Encoding.GetEncoding(437);
-                    DateAddress = 0x005A4ae8;
-                    TeamDataAddress = 0x00588D12;
+                    DateAddress = 0x5A4ae8;
+                    TeamDataAddress = 0x588D12;
                     CurrentTeamIndexAddress = 0x5a465c;
                     TrainingDataAddress = 0x5a4b60;
-                    TrainingEffectAddress = 0x004e1000;
+                    TrainingEffectAddress = 0x4e1000;
+                    trainingEffectModifier = ReadTrainingEffectModifier();
+                    break;
+                case 1129472://English RTM
+                             //menusProcess.SubCountAddress = 0x5846e8;
+                             //menusProcess.DivisionFactorAddress = 0x4f5178;
+                    Encoding = Encoding.GetEncoding(437);
+                    DateAddress = 0x547b50;
+                    TeamDataAddress = 0x52bd7a;
+                    CurrentTeamIndexAddress = 0x5476C4;
+                    TrainingDataAddress = 0x547BC8;
+                    TrainingEffectAddress = 0x4E0DF8;
                     trainingEffectModifier = ReadTrainingEffectModifier();
                     break;
                 default:
@@ -507,7 +493,7 @@ namespace Fsm97Trainer
                 NativeMethods.ResumeProcess(Process);
             }
         }
-        public void RotatePlayer(RotateMethod rotateMethod, Formation targetFormation)
+        public void RotatePlayer(RotateMethod rotateMethod, Formation targetFormation,bool convertToGk)
         {
             try
             {
@@ -531,8 +517,8 @@ namespace Fsm97Trainer
 
                 GetGKs(leftoverPlayers, rotateMethod, normals, subs);
                 GetNormals(leftoverPlayers, rotateMethod, normals, targetFormation);
-                GetSubs(leftoverPlayers, rotateMethod, normals, subs, targetFormation);
-                GetRest(leftoverPlayers, rotateMethod, rest, targetFormation);
+                GetSubs(leftoverPlayers, rotateMethod, normals, subs, targetFormation, convertToGk);
+                GetRest(leftoverPlayers, rotateMethod, rest, targetFormation, convertToGk);
                 FixPositionAndSaveChangesToGame(normals, subs, rest);
             }
             finally {
@@ -670,7 +656,8 @@ namespace Fsm97Trainer
             }
         }
 
-        private void GetSubs(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> normals, List<PlayerNode> subs, Formation targetFormation)
+        private void GetSubs(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, 
+            List<PlayerNode> normals, List<PlayerNode> subs, Formation targetFormation,bool convertToGk)
         {
             int subNeeded = 4;
             bool hasFrontCourt = false;
@@ -712,7 +699,7 @@ namespace Fsm97Trainer
                 PlayerPosition[] targetPositions = new PlayerPosition[] {
                     PlayerPosition.SS,PlayerPosition.FOR,
                 };
-                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions, convertToGk);
                 subNeeded--;
             }
             if (hasWings)
@@ -722,7 +709,7 @@ namespace Fsm97Trainer
                     PlayerPosition.RW,PlayerPosition.LW,
                     PlayerPosition.FR,
                 };
-                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions, convertToGk);
                 subNeeded--;
             }
             if (hasMiddleField)
@@ -731,7 +718,7 @@ namespace Fsm97Trainer
                     PlayerPosition.RM,PlayerPosition.LM,
                     PlayerPosition.AM,PlayerPosition.DM,
                 };
-                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions, convertToGk);
                 subNeeded--;
             }
             if (hasBackCourt)
@@ -740,7 +727,7 @@ namespace Fsm97Trainer
                     PlayerPosition.RB,PlayerPosition.LB,
                     PlayerPosition.SW,PlayerPosition.CD,
                 };
-                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions, convertToGk);
                 subNeeded--;
             }
             if (subNeeded > 0)
@@ -766,6 +753,8 @@ namespace Fsm97Trainer
                         targetPosition = subTeamPlayer.Data.BestPosition;
                     else
                         targetPosition = subTeamPlayer.Data.BestFitInFormation(targetFormation);
+                    if (convertToGk)
+                        targetPosition = (int)PlayerPosition.GK;
 
                     if (targetPosition != subTeamPlayer.Data.Position)
                     {
@@ -778,7 +767,7 @@ namespace Fsm97Trainer
             }
         }
 
-        private void GetASub(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> subs, PlayerPosition[] targetPositions)
+        private void GetASub(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> subs, PlayerPosition[] targetPositions,bool convertToGk)
         {
             IOrderedEnumerable<PlayerNode> subQuery;
 
@@ -796,6 +785,8 @@ namespace Fsm97Trainer
             }
             var subTeamPlayer = subQuery.First();
             var targetPosition = subTeamPlayer.Data.BestFitInPositions(targetPositions);
+            if (convertToGk)
+                targetPosition = (int)PlayerPosition.GK;
             if (targetPosition != subTeamPlayer.Data.Position)
             {
                 subTeamPlayer.Data.Position = targetPosition;
@@ -805,7 +796,8 @@ namespace Fsm97Trainer
             subs.Add(subTeamPlayer);
         }
 
-        private void GetRest(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> rest, Formation targetFormation)
+        private void GetRest(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> rest, Formation targetFormation,
+            bool convertToGk)
         {
             foreach (var leftoverPlayer in leftoverPlayers)
             {
@@ -813,8 +805,9 @@ namespace Fsm97Trainer
                 if(targetFormation==null)
                     targetPosition = leftoverPlayer.Data.BestPosition;
                 else
-                    targetPosition = leftoverPlayer.Data.BestFitInFormation(targetFormation);             
-
+                    targetPosition = leftoverPlayer.Data.BestFitInFormation(targetFormation);
+                if (convertToGk)
+                    targetPosition = (int)PlayerPosition.GK;
                 if (targetPosition != leftoverPlayer.Data.Position)
                 {
                     leftoverPlayer.Data.Position = targetPosition;

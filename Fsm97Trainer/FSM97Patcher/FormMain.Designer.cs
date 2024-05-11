@@ -28,12 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelSelectExecutable = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.buttonPatch = new System.Windows.Forms.Button();
             this.buttonUnpatch = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.labelGameVersion = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBoxTrainingMatchNongativeEffect = new System.Windows.Forms.CheckBox();
@@ -50,15 +49,15 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // labelSelectExecutable
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(361, 57);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "选择游戏执行文件(Select Game Exe File)";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelSelectExecutable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelSelectExecutable.Location = new System.Drawing.Point(3, 0);
+            this.labelSelectExecutable.Name = "labelSelectExecutable";
+            this.labelSelectExecutable.Size = new System.Drawing.Size(361, 57);
+            this.labelSelectExecutable.TabIndex = 0;
+            this.labelSelectExecutable.Text = "选择游戏执行文件(Select Game Exe File)";
+            this.labelSelectExecutable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBox1
             // 
@@ -104,23 +103,16 @@
             this.buttonUnpatch.UseVisualStyleBackColor = true;
             this.buttonUnpatch.Click += new System.EventHandler(this.buttonUnpatch_Click);
             // 
-            // label2
-            // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 228);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(361, 57);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "游戏版本(Game Version)";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // labelGameVersion
             // 
             this.labelGameVersion.AutoSize = true;
-            this.labelGameVersion.Location = new System.Drawing.Point(230, 37);
+            this.labelGameVersion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelGameVersion.Location = new System.Drawing.Point(3, 228);
             this.labelGameVersion.Name = "labelGameVersion";
-            this.labelGameVersion.Size = new System.Drawing.Size(0, 13);
+            this.labelGameVersion.Size = new System.Drawing.Size(361, 57);
             this.labelGameVersion.TabIndex = 6;
+            this.labelGameVersion.Text = "Game Version";
+            this.labelGameVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -166,9 +158,10 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel1.Controls.Add(this.labelGameVersion, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.buttonBrowse, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelSelectExecutable, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxThrowInImprovesThrowing, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxShootingTraingGreed, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxPassingMatchImproveLeadership, 2, 1);
@@ -178,7 +171,6 @@
             this.tableLayoutPanel1.Controls.Add(this.label3, 2, 5);
             this.tableLayoutPanel1.Controls.Add(this.buttonPatch, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.buttonUnpatch, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxKickingImprovesSpeed, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxHandlingImprovesAgility, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxHeadingImprovesDetermination, 2, 3);
@@ -304,24 +296,21 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 344);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.labelGameVersion);
             this.Name = "FormMain";
             this.Text = "FSM97 补丁 (FSM97 patch)";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelSelectExecutable;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button buttonBrowse;
         private System.Windows.Forms.Button buttonPatch;
         private System.Windows.Forms.Button buttonUnpatch;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelGameVersion;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBoxTrainingMatchNongativeEffect;
