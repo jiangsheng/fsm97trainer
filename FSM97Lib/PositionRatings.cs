@@ -124,7 +124,7 @@ namespace FSM97Lib
             frRatings[(int)PlayerAttribute.Passing] = 14;
             frRatings[(int)PlayerAttribute.Heading] = 1;
             frRatings[(int)PlayerAttribute.Control] = 10;
-            frRatings[(int)PlayerAttribute.Dribbling] = 7;
+            frRatings[(int)PlayerAttribute.Dribbling] = 27;
             frRatings[(int)PlayerAttribute.Awareness] = 12;
             frRatings[(int)PlayerAttribute.Flair] = 10;
             ratings[(int)PlayerPosition.FR] = frRatings;
