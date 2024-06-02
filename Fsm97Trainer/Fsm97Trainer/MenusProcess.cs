@@ -22,6 +22,7 @@ using Diacritics.Extensions;
 using System.CodeDom;
 using System.Windows.Forms.VisualStyles;
 using System.Security.Cryptography;
+using System.Xml.Linq;
 
 namespace Fsm97Trainer
 {
@@ -67,10 +68,13 @@ namespace Fsm97Trainer
         public int CurrentTeamIndexAddress { get; internal set; }
         public int TrainingDataAddress { get; internal set; }
         public int TrainingEffectAddress { get; internal set; }
+
+        public int AssetAddress { get; internal set; }
+
         public Encoding Encoding { get; private set; }
         Process Process { get; set; }
 
-        TrainingEffectModifier trainingEffectModifier; 
+        TrainingEffectModifier trainingEffectModifier;
         public MenusProcess()
         {
             Process[] processes = Process.GetProcessesByName("MENUS");
@@ -92,7 +96,7 @@ namespace Fsm97Trainer
             FileInfo fi = new FileInfo(gameExeFilePath);
             switch (fi.Length)
             {
-                case 1378816:                  
+                case 1378816:
                     //menusProcess.SubCountAddress = 0x614610;
                     //menusProcess.DivisionFactorAddress = 0x4f3a60;
                     TeamDataAddress = 0x547102;
@@ -100,6 +104,7 @@ namespace Fsm97Trainer
                     CurrentTeamIndexAddress = 0x562a4c;
                     TrainingDataAddress = 0x562f50;
                     TrainingEffectAddress = 0x4e38a0;
+                    AssetAddress = 0x58a549;
                     Encoding = Encoding.GetEncoding(936);
                     trainingEffectModifier = ReadTrainingEffectModifier();
                     break;
@@ -109,6 +114,7 @@ namespace Fsm97Trainer
                     Encoding = Encoding.GetEncoding(437);
                     DateAddress = 0x5A4ae8;
                     TeamDataAddress = 0x588D12;
+                    AssetAddress = 0x523f01;
                     CurrentTeamIndexAddress = 0x5a465c;
                     TrainingDataAddress = 0x5a4b60;
                     TrainingEffectAddress = 0x4e1000;
@@ -123,6 +129,7 @@ namespace Fsm97Trainer
                     CurrentTeamIndexAddress = 0x5476C4;
                     TrainingDataAddress = 0x547BC8;
                     TrainingEffectAddress = 0x4E0DF8;
+                    AssetAddress = 0x577df9;
                     trainingEffectModifier = ReadTrainingEffectModifier();
                     break;
                 default:
@@ -133,19 +140,19 @@ namespace Fsm97Trainer
 
         internal int ReadCurrentTeamIndex()
         {
-            return NativeMethods.ReadByte(Process,CurrentTeamIndexAddress);
+            return NativeMethods.ReadByte(Process, CurrentTeamIndexAddress);
         }
 
         private void WritePlayer(PlayerNode playerNode)
         {
             int playerDataAddress = playerNode.DataAddress;
             Player player = playerNode.Data;
-            byte[] bytes = NativeMethods.ReadBytes(Process,playerDataAddress, 0x76);
+            byte[] bytes = NativeMethods.ReadBytes(Process, playerDataAddress, 0x76);
             bytes[0x2f] = (byte)player.Nationality;
             bytes[0x30] = (byte)player.Position;
             bytes[0x31] = (byte)player.Status;
             bytes[0x32] = (byte)player.Number;
-            Buffer.BlockCopy(player.Attributes, 0, bytes,0x33, (int)PlayerAttribute.Count);
+            Buffer.BlockCopy(player.Attributes, 0, bytes, 0x33, (int)PlayerAttribute.Count);
             bytes[0x4b] = (byte)player.Form;
             bytes[0x4c] = (byte)player.Moral;
             bytes[0x4d] = (byte)player.Energy;
@@ -155,9 +162,9 @@ namespace Fsm97Trainer
             bytes[0x75] = (byte)player.ContractWeeks;
             var salaryBytes = BitConverter.GetBytes(player.Salary);
             salaryBytes.CopyTo(bytes, 0x60);
-            NativeMethods.WriteBytes(Process,playerDataAddress + 0x2f, bytes, 0x2f, 0x31 - 0x2f + 1);
-            NativeMethods.WriteBytes(Process,playerDataAddress + 0x33, bytes, 0x33, 0x4d - 0x33 + 1);
-            NativeMethods.WriteByte(Process,playerDataAddress + 0x75, (byte)player.ContractWeeks);
+            NativeMethods.WriteBytes(Process, playerDataAddress + 0x2f, bytes, 0x2f, 0x31 - 0x2f + 1);
+            NativeMethods.WriteBytes(Process, playerDataAddress + 0x33, bytes, 0x33, 0x4d - 0x33 + 1);
+            NativeMethods.WriteByte(Process, playerDataAddress + 0x75, (byte)player.ContractWeeks);
         }
         private void WritePlayerContractWeeks(PlayerNode playerNode)
         {
@@ -175,7 +182,7 @@ namespace Fsm97Trainer
             formMoralEnergyBuffer[0] = (byte)playerNode.Data.Form;
             formMoralEnergyBuffer[1] = (byte)playerNode.Data.Moral;
             formMoralEnergyBuffer[2] = (byte)playerNode.Data.Energy;
-            NativeMethods.WriteBytes(Process, playerNode.DataAddress + 0x4b, formMoralEnergyBuffer,0,3);
+            NativeMethods.WriteBytes(Process, playerNode.DataAddress + 0x4b, formMoralEnergyBuffer, 0, 3);
         }
         private void WritePlayerStrengths(PlayerNode playerNode)
         {
@@ -197,7 +204,7 @@ namespace Fsm97Trainer
             Player player = new Player();
 
             player.FirstName = NativeMethods.ReadString
-                        (Process,playerDataAddress + 4, Encoding, 0x18);
+                        (Process, playerDataAddress + 4, Encoding, 0x18);
             player.LastName = NativeMethods.ReadString(Process, playerDataAddress + 0x1c, Encoding, 0x13);
             byte[] bytes = NativeMethods.ReadBytes(Process, playerDataAddress, 0x76);
             player.Nationality = bytes[0x2f];
@@ -216,10 +223,10 @@ namespace Fsm97Trainer
             player.MVP = bytes[0x74];
             player.ContractWeeks = bytes[0x75];
             player.Team = team;
-            player.PositionRating = (int)PositionRatings.GetPositionRatingDouble(player.Position,player.Attributes);
+            player.PositionRating = (int)PositionRatings.GetPositionRatingDouble(player.Position, player.Attributes);
             player.UpdateBestPosition();
 
-            player.BirthDateOffset= NativeMethods.ReadUShort(Process,playerDataAddress + 0x52);
+            player.BirthDateOffset = NativeMethods.ReadUShort(Process, playerDataAddress + 0x52);
             DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDate);
             DateTime birthday = new DateTime(1899, 12, 30).AddDays(player.BirthDateOffset);
             int years = currentDateTime.Year - birthday.Year;
@@ -240,8 +247,8 @@ namespace Fsm97Trainer
             PlayerNodeList playerNodes = new PlayerNodeList();
             List<Team> teams = new List<Team>();
 
-            ushort currentTeam = NativeMethods.ReadByte(Process,CurrentTeamIndexAddress);
-            int currentDate = NativeMethods.ReadInt(Process,DateAddress);
+            ushort currentTeam = NativeMethods.ReadByte(Process, CurrentTeamIndexAddress);
+            int currentDate = NativeMethods.ReadInt(Process, DateAddress);
             if (currentTeamOnly)
             {
                 Team team = new Team();
@@ -261,7 +268,7 @@ namespace Fsm97Trainer
                     {
                         playerNodes.AddLast(playerNode);
                     }
-                    
+
                     //Debug.WriteLine(String.Format("{0} has {1} players", team.Name, team.PlayerNodes.Count));
                 }
             }
@@ -296,7 +303,7 @@ namespace Fsm97Trainer
                     }
                     else
                     {
-                        Debug.WriteLine(String.Format("{0} ({1}) has no players", team.Name,team.Abbreviation));
+                        Debug.WriteLine(String.Format("{0} ({1}) has no players", team.Name, team.Abbreviation));
                     }
                 }
             }
@@ -361,16 +368,16 @@ namespace Fsm97Trainer
             }
             var retiredPlayerLastNames = retiredPlayerIndex.Keys;
             LinkedList<PlayerNode> unmatchedPlayerNodes = new LinkedList<PlayerNode>();
-            LinkedList<Player> unmatchedPlayers= new LinkedList<Player>();
+            LinkedList<Player> unmatchedPlayers = new LinkedList<Player>();
             foreach (var retiredPlayerLastName in retiredPlayerLastNames)
             {
                 var retiredPlayersWithSameLastName = retiredPlayerIndex.LookupByLastName(retiredPlayerLastName);
                 var respawnPlayersWithSameLastName = respawnPlayerNodes.LookupByLastName(retiredPlayerLastName);
-                while(retiredPlayersWithSameLastName.Count>0 && respawnPlayersWithSameLastName.Count>0)
+                while (retiredPlayersWithSameLastName.Count > 0 && respawnPlayersWithSameLastName.Count > 0)
                 {
                     var from = respawnPlayersWithSameLastName.First.Value;
                     var to = retiredPlayersWithSameLastName.First.Value;
-                    WritePlayerWithData(from,to);
+                    WritePlayerWithData(from, to);
                     Debug.WriteLine(String.Format("Matched {0} with {1}", from.Data, to));
                     respawnPlayersWithSameLastName.Remove(from);
                     retiredPlayersWithSameLastName.Remove(to);
@@ -392,7 +399,7 @@ namespace Fsm97Trainer
             {
                 unmatchedPlayerNodes.AddLast(playerNode);
             }
-            
+
             while (unmatchedPlayerNodes.Count > 0 && unmatchedPlayers.Count > 0)
             {
                 var from = unmatchedPlayerNodes.First.Value;
@@ -481,7 +488,7 @@ namespace Fsm97Trainer
                     player.Consistency += 25; if (player.Consistency > 99) player.Consistency = 99;
                     player.Determination += 25; if (player.Determination > 99) player.Determination = 99;
                     player.Greed += 25; if (player.Greed > 99) player.Greed = 99;
-                    player.PositionRating =(int) PositionRatings.GetPositionRatingDouble(player.Position,player.Attributes);
+                    player.PositionRating = (int)PositionRatings.GetPositionRatingDouble(player.Position, player.Attributes);
                     player.UpdateBestPosition();
                     player.Position = player.BestPosition;
                     WritePlayer(playerNode);
@@ -493,7 +500,7 @@ namespace Fsm97Trainer
                 NativeMethods.ResumeProcess(Process);
             }
         }
-        public void RotatePlayer(RotateMethod rotateMethod, Formation targetFormation,bool convertToGk)
+        public void RotatePlayer(RotateMethod rotateMethod, Formation targetFormation, bool convertToGk)
         {
             try
             {
@@ -521,7 +528,8 @@ namespace Fsm97Trainer
                 GetRest(leftoverPlayers, rotateMethod, rest, targetFormation, convertToGk);
                 FixPositionAndSaveChangesToGame(normals, subs, rest);
             }
-            finally {
+            finally
+            {
                 NativeMethods.ResumeProcess(Process);
             }
         }
@@ -535,12 +543,12 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     gkQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                    p.Data.GetPositionRating((int)PlayerPosition.GK)*2).ThenBy(p => this.random.Next());
+                    p.Data.GetPositionRating((int)PlayerPosition.GK) * 2).ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     gkQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                    p.Data.GetPositionRating((int)PlayerPosition.GK)*2).ThenBy(p => this.random.Next());
+                    p.Data.GetPositionRating((int)PlayerPosition.GK) * 2).ThenBy(p => this.random.Next());
                     break;
             }
             var gks = gkQuery.Take(2).ToArray();
@@ -583,13 +591,13 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     query = leftoverPlayers.OrderByDescending(
-                        p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null)*2)
+                        p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null) * 2)
                         .ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     query = leftoverPlayers.OrderByDescending(
-                        p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null)*2).
+                        p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null) * 2).
                         ThenBy(p => this.random.Next());
                     break;
             }
@@ -603,7 +611,7 @@ namespace Fsm97Trainer
         1,1,2,//RM, LM, AM,
         1,1,//RW,LW,
         1,10,1//FR, FOR,SS,Count
-            };          
+            };
             foreach (var mainTeamPlayer in mainTeam)
             {
                 var targetPosition = mainTeamPlayer.Data.GetBestPositionWithinLimit(positionLimit);
@@ -614,7 +622,7 @@ namespace Fsm97Trainer
                 }
                 normals.Add(mainTeamPlayer);
                 leftoverPlayers.Remove(mainTeamPlayer);
-                positionLimit[targetPosition] = positionLimit[targetPosition] - 1;                
+                positionLimit[targetPosition] = positionLimit[targetPosition] - 1;
             }
         }
 
@@ -629,7 +637,7 @@ namespace Fsm97Trainer
                     switch (rotateMethod)
                     {
                         case RotateMethod.Energy:
-                            bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetPositionRatingDouble(position)*2)
+                            bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetPositionRatingDouble(position) * 2)
                                 .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(
                                     p.Data, position, targetFormation))
                                 .ThenBy(p => this.random.Next());
@@ -637,7 +645,7 @@ namespace Fsm97Trainer
                         case RotateMethod.Statistics:
                         default:
                             bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                                p.Data.GetPositionRatingDouble(position)*2)
+                                p.Data.GetPositionRatingDouble(position) * 2)
                                 .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(
                                     p.Data, position, targetFormation))
                                 .ThenBy(p => this.random.Next());
@@ -656,8 +664,8 @@ namespace Fsm97Trainer
             }
         }
 
-        private void GetSubs(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, 
-            List<PlayerNode> normals, List<PlayerNode> subs, Formation targetFormation,bool convertToGk)
+        private void GetSubs(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod,
+            List<PlayerNode> normals, List<PlayerNode> subs, Formation targetFormation, bool convertToGk)
         {
             int subNeeded = 4;
             bool hasFrontCourt = false;
@@ -737,12 +745,12 @@ namespace Fsm97Trainer
                 {
                     case RotateMethod.Energy:
                         subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation)*2).ThenBy(p => this.random.Next());
+                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation) * 2).ThenBy(p => this.random.Next());
                         break;
                     case RotateMethod.Statistics:
                     default:
                         subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation)*2).ThenBy(p => this.random.Next());
+                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation) * 2).ThenBy(p => this.random.Next());
                         break;
                 }
                 var subRest = subQuery.Take(subNeeded).ToArray();
@@ -767,7 +775,7 @@ namespace Fsm97Trainer
             }
         }
 
-        private void GetASub(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> subs, PlayerPosition[] targetPositions,bool convertToGk)
+        private void GetASub(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> subs, PlayerPosition[] targetPositions, bool convertToGk)
         {
             IOrderedEnumerable<PlayerNode> subQuery;
 
@@ -775,12 +783,12 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                            p.Data.GetBestPositionRating(targetPositions)*2).ThenBy(p => this.random.Next());
+                            p.Data.GetBestPositionRating(targetPositions) * 2).ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                           p.Data.GetBestPositionRating(targetPositions)*2).ThenBy(p => this.random.Next());
+                           p.Data.GetBestPositionRating(targetPositions) * 2).ThenBy(p => this.random.Next());
                     break;
             }
             var subTeamPlayer = subQuery.First();
@@ -801,8 +809,8 @@ namespace Fsm97Trainer
         {
             foreach (var leftoverPlayer in leftoverPlayers)
             {
-                int  targetPosition;
-                if(targetFormation==null)
+                int targetPosition;
+                if (targetFormation == null)
                     targetPosition = leftoverPlayer.Data.BestPosition;
                 else
                     targetPosition = leftoverPlayer.Data.BestFitInFormation(targetFormation);
@@ -920,14 +928,15 @@ namespace Fsm97Trainer
                     WritePlayer(playerNode);
                 }
             }
-            finally {
+            finally
+            {
                 NativeMethods.ResumeProcess(Process);
             }
         }
 
 
-        internal void FastUpdate(bool autoTrain, bool convertToGK, bool autoResetStatus, 
-            bool maxEnergy, bool maxForm, bool maxMorale,bool maxPower, bool noAlternativeTraining
+        internal void FastUpdate(bool autoTrain, bool convertToGK, bool autoResetStatus,
+            bool maxEnergy, bool maxForm, bool maxMorale, bool maxPower, bool noAlternativeTraining
              )
         {
             try
@@ -938,7 +947,7 @@ namespace Fsm97Trainer
                 {
                     if (autoTrain)
                     {
-                        var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data, 
+                        var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data,
                             autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier)
                             .Select(p => (byte)p).ToArray();
 
@@ -992,13 +1001,14 @@ namespace Fsm97Trainer
                     }
                 }
             }
-            finally {
+            finally
+            {
                 NativeMethods.ResumeProcess(Process);
             }
         }
 
 
-        internal void SlowUpdate(bool autoRenewContracts,bool maxPower)
+        internal void SlowUpdate(bool autoRenewContracts, bool maxPower)
         {
             try
             {
@@ -1023,7 +1033,8 @@ namespace Fsm97Trainer
                     }
                 }
             }
-            finally {
+            finally
+            {
                 NativeMethods.SuspendProcess(Process);
             }
         }
@@ -1056,7 +1067,8 @@ namespace Fsm97Trainer
                 }
                 NativeMethods.WriteInt(Process, DateAddress, currentDate - daysToSubtract);
             }
-            finally {
+            finally
+            {
                 NativeMethods.ResumeProcess(Process);
             }
         }
@@ -1131,7 +1143,7 @@ namespace Fsm97Trainer
                     {
                         leftoverPlayers.AddLast(player);
                     }
-                    for (int position = (int)PlayerPosition.Count-1; position >= 0; position--)
+                    for (int position = (int)PlayerPosition.Count - 1; position >= 0; position--)
                     {
                         for (int requiredPlayersInPosition = targetFormation.PlayersInEachPosition[position];
                             requiredPlayersInPosition > 0; requiredPlayersInPosition--)
@@ -1157,19 +1169,20 @@ namespace Fsm97Trainer
                     }
                 }
             }
-            finally {
+            finally
+            {
                 NativeMethods.ResumeProcess(Process);
             }
         }
 
         internal TrainingEffectModifier ReadTrainingEffectModifier()
-        {            
+        {
             if (TrainingEffectAddress != 0)
             {
                 var trainingEffectBytes = NativeMethods.ReadBytes(Process, TrainingEffectAddress, 4 * 27 * ((int)TrainingScheduleType.TrainingMatch + 1));
                 return TrainingScheduleEffect.DetectModifiers(trainingEffectBytes);
             }
-            return new TrainingEffectModifier(); 
+            return new TrainingEffectModifier();
         }
 
         internal void GetCurrentFormation(Formation savedFormation)
@@ -1209,7 +1222,7 @@ namespace Fsm97Trainer
                     }
                 }
                 var newSpawns = playerNodes.Where(p => p.Data.Age < 20 && p.Data.ContractWeeks == 144)
-                    .OrderByDescending(p=>p.Data.Statistics).ToList();
+                    .OrderByDescending(p => p.Data.Statistics).ToList();
                 if (newSpawns.Count() == 0)
                 {
                     throw new InvalidOperationException("没找到重生球员，此功能必须在新赛季初执行 （Cannot find new spawn, this feature can only be run at the beginning of the season");
@@ -1249,7 +1262,7 @@ namespace Fsm97Trainer
 
         private void WritePlayerNames(PlayerNode playerNode)
         {
-            NativeMethods.WriteString(Process, playerNode.Data.LastName,playerNode.DataAddress + 0x1c, Encoding, 0x13);
+            NativeMethods.WriteString(Process, playerNode.Data.LastName, playerNode.DataAddress + 0x1c, Encoding, 0x13);
             NativeMethods.WriteString(Process, playerNode.Data.FirstName, playerNode.DataAddress + 0x4, Encoding, 0x18);
         }
 
@@ -1342,7 +1355,8 @@ ORDER BY (?number)
                         fullName = string.Format("{0} {1}", pageUrl.Substring(0, 1), fullName);
                         humanName = new HumanName(fullName);
                     }
-                    else {
+                    else
+                    {
                         var pageUrlParts = pageUrl.Split('_');
                         var firstName = pageUrlParts.First().RemoveDiacritics();
                         fullName = string.Format("{0} {1}", firstName, fullName);
@@ -1352,6 +1366,28 @@ ORDER BY (?number)
                 }
             }
             return result;
+        }
+
+        internal void PurchaseAllLand()
+        {
+            if (AssetAddress == 0)
+            {
+                throw new InvalidOperationException("不支持的游戏版本 (Unsupported Game Version)!");
+            }
+            try
+            {
+                NativeMethods.SuspendProcess(Process);
+                byte[] bytes = Enumerable.Repeat((byte)1, 21).ToArray();
+                for (int i = 0; i < 22; i++)
+                {
+                    NativeMethods.WriteBytes(Process, AssetAddress + i * 40, bytes, 0, 21);
+                }
+
+            }
+            finally
+            {
+                NativeMethods.ResumeProcess(Process);
+            }
         }
     }
 }

@@ -67,6 +67,7 @@
             this.timerUpdateFast = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateSlow = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonLandPurchase = new System.Windows.Forms.Button();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -179,6 +180,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelAutoTrain, 2, 2);
             this.tableLayoutPanelMain.Controls.Add(this.label3, 3, 3);
             this.tableLayoutPanelMain.Controls.Add(this.buttonForceExit, 2, 3);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonLandPurchase, 1, 3);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
@@ -719,6 +721,17 @@
             this.timerUpdateSlow.Interval = 180000;
             this.timerUpdateSlow.Tick += new System.EventHandler(this.timerUpdateSlow_Tick);
             // 
+            // buttonLandPurchase
+            // 
+            this.buttonLandPurchase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonLandPurchase.Location = new System.Drawing.Point(278, 348);
+            this.buttonLandPurchase.Name = "buttonLandPurchase";
+            this.buttonLandPurchase.Size = new System.Drawing.Size(269, 110);
+            this.buttonLandPurchase.TabIndex = 37;
+            this.buttonLandPurchase.Text = "购买所有土地 (Purchase all land)";
+            this.buttonLandPurchase.UseVisualStyleBackColor = true;
+            this.buttonLandPurchase.Click += new System.EventHandler(this.buttonLandPurchase_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -808,6 +821,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelCopyPaste;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button buttonAutoPosition;
+        private System.Windows.Forms.Button buttonLandPurchase;
     }
 }
 

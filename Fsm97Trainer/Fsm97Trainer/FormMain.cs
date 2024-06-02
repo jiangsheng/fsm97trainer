@@ -550,5 +550,28 @@ namespace Fsm97Trainer
                 toolStripStatusLabel1.Text = ex.Message;
             }
         }
+
+        private void buttonLandPurchase_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var respawnCategory = comboBoxRespawnCategory.Text;
+                MenusProcess menusProcess = GetMenusProcess();
+                if (!menusProcess.HasExited())
+                {  
+                    menusProcess.PurchaseAllLand();
+                    MessageBox.Show("土地已经购买 (Land Purchased)!)");
+                }
+                else
+                {
+                    MessageBox.Show("游戏进程找不到(Cannot find game process)");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
+            }
+        }
     }
 }
