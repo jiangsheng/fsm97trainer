@@ -72,6 +72,8 @@ The Updating Respawn Names Online feature (should only run at the starting of a 
 
 Combined with the reset date feature (should only be run in the offseason) you can choose to go back to a few decades before the game officially starts and have corresponding player names from that era. 
 
+Not the server only support TLS2 at the moment, on operation systems before Windows 10, updates and registery changes are required. 
+
 #### Game bugs
 
 The game has an year 2079 bug where all players would suddenly become age 90+ due to birth date being stored as a WORD and thus capped at 65535 days after December, 30, 1899. This would begin a 16 year dark period where every single player in the game would have a high chance to retire next season, starting from a club's main team until only 16 players left in the club. Computers would also lose the ability to purchase players off the transfer market during this period. After the 16 years, the game would be full of youth players again and each year a smaller and smaller amount of players retire as respwns making their retirement possible. Around 2105, when all old players from the dark period retired but no new player aged enough to retire, the game would freeze at the begining of the season due to lack of respawns. 
