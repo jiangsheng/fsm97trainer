@@ -11,6 +11,8 @@ Requires .Net 4 (included in Windows 10).
 
 For Windows XP users .Net 4.0 can be downloaded from https://www.microsoft.com/en-us/download/details.aspx?id=17851 
 
+For updating player names online, the program needs to talk to the server via TLS 1.2. This means for Windows 7 or lower, servicer packs (e.g. Windows 7 SP1) and updates need to be installed to 1) enable TLS 1.2 and 2) set TLS 1.2 as default (e.g. by installing KB3140245). Windows 8.1 or higher support TLS 1.2 natively.
+
 ## How to install
 
 Unzip the files to anywhere. 
@@ -72,7 +74,7 @@ The Updating Respawn Names Online feature (should only run at the starting of a 
 
 Combined with the reset date feature (should only be run in the offseason) you can choose to go back to a few decades before the game officially starts and have corresponding player names from that era. 
 
-Not the server only support TLS2 at the moment, on operation systems before Windows 10, updates and registery changes are required. 
+
 
 #### Game bugs
 
