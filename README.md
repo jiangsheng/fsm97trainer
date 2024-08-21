@@ -1,5 +1,5 @@
 # fsm97trainer
-Patch and trainer for EA's FIFA Soccer Manager (1997). 
+Patch and trainer for EA's FIFA Soccer Manager (1997) or FSM97. 
 ## Download
 The latest release can be downloaded at https://github.com/jiangsheng/fsm97trainer/releases
 
