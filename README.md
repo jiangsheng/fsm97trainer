@@ -1,5 +1,5 @@
 # fsm97trainer
-Patch and trainer for EA's FIFA Soccer Manager (1997). 
+Patch and trainer for EA's FIFA Soccer Manager (1997) or FSM97. 
 ## Download
 The latest release can be downloaded at https://github.com/jiangsheng/fsm97trainer/releases
 
@@ -10,6 +10,8 @@ Requires .Net 4 (included in Windows 10).
 .Net 4.8 Recommended (https://dotnet.microsoft.com/zh-cn/download/dotnet-framework/thank-you/net48-web-installer)
 
 For Windows XP users .Net 4.0 can be downloaded from https://www.microsoft.com/en-us/download/details.aspx?id=17851 
+
+For updating player names online, the program needs to talk to the server via TLS 1.2. This means for Windows 7 or lower, servicer packs (e.g. Windows 7 SP1) and updates need to be installed to 1) enable TLS 1.2 and 2) set TLS 1.2 as default (e.g. by installing KB3140245). Windows 8.1 or higher support TLS 1.2 natively.
 
 ## How to install
 
@@ -71,6 +73,8 @@ When an old player retires a new player would be respawn with the same last name
 The Updating Respawn Names Online feature (should only run at the starting of a new season) would query Wikipedia data dump for players born 17 years ago (if not found, then players born since 1960). Due to the limitation of data format, female players would also be included. 
 
 Combined with the reset date feature (should only be run in the offseason) you can choose to go back to a few decades before the game officially starts and have corresponding player names from that era. 
+
+
 
 #### Game bugs
 

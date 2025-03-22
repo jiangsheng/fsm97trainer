@@ -13,6 +13,11 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using Diacritics.Extensions;
+using System.CodeDom;
+using System.Windows.Forms.VisualStyles;
+using System.Security.Cryptography;
 
 namespace Fsm97Trainer
 {
@@ -58,6 +63,9 @@ namespace Fsm97Trainer
         public int CurrentTeamIndexAddress { get; internal set; }
         public int TrainingDataAddress { get; internal set; }
         public int TrainingEffectAddress { get; internal set; }
+
+        public int AssetAddress { get; internal set; }
+
         public Encoding Encoding { get; private set; }
         Process Process { get; set; }
 
@@ -74,7 +82,7 @@ namespace Fsm97Trainer
             }
         }
 
-        TrainingEffectModifier trainingEffectModifier;
+        TrainingEffectModifier trainingEffectModifier; 
         public MenusProcess()
         {
             Process[] processes = Process.GetProcessesByName("MENUS");
@@ -97,38 +105,39 @@ namespace Fsm97Trainer
             switch (fi.Length)
             {
                 case 1378816:
-                    var md5 = CalculateMD5(fi.FullName);
-                    switch (md5)
-                    {
-                        case "a1e5fe2e30a34a1dbc783aa0e88aafec":
-                            TeamDataAddress = 0x00547102;
-                            DateAddress = 0x00562ED8;
-                            CurrentTeamIndexAddress = 0x562a4c;
-                            TrainingDataAddress = 0x562f50;
-                            TrainingEffectAddress = 0x004e38a0;
-                            break;
-                        default:
-                            //menusProcess.SubCountAddress = 0x614610;
-                            //menusProcess.DivisionFactorAddress = 0x4f3a60;
-                            TeamDataAddress = 0x00547102;
-                            DateAddress = 0x00562ED8;
-                            CurrentTeamIndexAddress = 0x562a4c;
-                            TrainingDataAddress = 0x562f50;
-                            TrainingEffectAddress = 0x004e38a0;
-                            break;
-                    }
+                    //menusProcess.SubCountAddress = 0x614610;
+                    //menusProcess.DivisionFactorAddress = 0x4f3a60;
+                    TeamDataAddress = 0x547102;
+                    DateAddress = 0x562ED8;
+                    CurrentTeamIndexAddress = 0x562a4c;
+                    TrainingDataAddress = 0x562f50;
+                    TrainingEffectAddress = 0x4e38a0;
+                    AssetAddress = 0x58a549;
                     Encoding = Encoding.GetEncoding(936);
                     trainingEffectModifier = ReadTrainingEffectModifier();
                     break;
-                case 1135104://English Ver
+                case 1135104://English Ver 97/98 patch
                              //menusProcess.SubCountAddress = 0x5846e8;
                              //menusProcess.DivisionFactorAddress = 0x4f5178;
                     Encoding = Encoding.GetEncoding(437);
-                    DateAddress = 0x005A4ae8;
-                    TeamDataAddress = 0x00588D12;
+                    DateAddress = 0x5A4ae8;
+                    TeamDataAddress = 0x588D12;
+                    AssetAddress = 0x523f01;
                     CurrentTeamIndexAddress = 0x5a465c;
                     TrainingDataAddress = 0x5a4b60;
-                    TrainingEffectAddress = 0x004e1000;
+                    TrainingEffectAddress = 0x4e1000;
+                    trainingEffectModifier = ReadTrainingEffectModifier();
+                    break;
+                case 1129472://English RTM
+                             //menusProcess.SubCountAddress = 0x5846e8;
+                             //menusProcess.DivisionFactorAddress = 0x4f5178;
+                    Encoding = Encoding.GetEncoding(437);
+                    DateAddress = 0x547b50;
+                    TeamDataAddress = 0x52bd7a;
+                    CurrentTeamIndexAddress = 0x5476C4;
+                    TrainingDataAddress = 0x547BC8;
+                    TrainingEffectAddress = 0x4E0DF8;
+                    AssetAddress = 0x577df9;
                     trainingEffectModifier = ReadTrainingEffectModifier();
                     break;
                 default:
@@ -501,7 +510,7 @@ namespace Fsm97Trainer
                 NativeMethods.ResumeProcess(Process);
             }
         }
-        public void RotatePlayer(RotateMethod rotateMethod, Formation targetFormation)
+        public void RotatePlayer(RotateMethod rotateMethod, Formation targetFormation, bool convertToGk)
         {
             try
             {
@@ -525,8 +534,8 @@ namespace Fsm97Trainer
 
                 GetGKs(leftoverPlayers, rotateMethod, normals, subs);
                 GetNormals(leftoverPlayers, rotateMethod, normals, targetFormation);
-                GetSubs(leftoverPlayers, rotateMethod, normals, subs, targetFormation);
-                GetRest(leftoverPlayers, rotateMethod, rest, targetFormation);
+                GetSubs(leftoverPlayers, rotateMethod, normals, subs, targetFormation, convertToGk);
+                GetRest(leftoverPlayers, rotateMethod, rest, targetFormation, convertToGk);
                 FixPositionAndSaveChangesToGame(normals, subs, rest);
             }
             finally
@@ -544,12 +553,12 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     gkQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                    p.Data.GetPositionRating((int)PlayerPosition.GK)).ThenBy(p => this.random.Next());
+                    p.Data.GetPositionRating((int)PlayerPosition.GK) * 2).ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     gkQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                    p.Data.GetPositionRating((int)PlayerPosition.GK)).ThenBy(p => this.random.Next());
+                    p.Data.GetPositionRating((int)PlayerPosition.GK) * 2).ThenBy(p => this.random.Next());
                     break;
             }
             var gks = gkQuery.Take(2).ToArray();
@@ -592,13 +601,13 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     query = leftoverPlayers.OrderByDescending(
-                        p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null))
+                        p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null) * 2)
                         .ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     query = leftoverPlayers.OrderByDescending(
-                        p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null)).
+                        p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null) * 2).
                         ThenBy(p => this.random.Next());
                     break;
             }
@@ -638,15 +647,17 @@ namespace Fsm97Trainer
                     switch (rotateMethod)
                     {
                         case RotateMethod.Energy:
-                            bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetPositionRating(position))
-                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(p.Data, position, targetFormation))
+                            bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetPositionRatingDouble(position) * 2)
+                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(
+                                    p.Data, position, targetFormation))
                                 .ThenBy(p => this.random.Next());
                             break;
                         case RotateMethod.Statistics:
                         default:
                             bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                                p.Data.GetPositionRating(position))
-                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(p.Data, position, targetFormation))
+                                p.Data.GetPositionRatingDouble(position) * 2)
+                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(
+                                    p.Data, position, targetFormation))
                                 .ThenBy(p => this.random.Next());
                             break;
                     }
@@ -663,7 +674,8 @@ namespace Fsm97Trainer
             }
         }
 
-        private void GetSubs(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> normals, List<PlayerNode> subs, Formation targetFormation)
+        private void GetSubs(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod,
+            List<PlayerNode> normals, List<PlayerNode> subs, Formation targetFormation, bool convertToGk)
         {
             int subNeeded = 4;
             bool hasFrontCourt = false;
@@ -705,7 +717,7 @@ namespace Fsm97Trainer
                 PlayerPosition[] targetPositions = new PlayerPosition[] {
                     PlayerPosition.SS,PlayerPosition.FOR,
                 };
-                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions, convertToGk);
                 subNeeded--;
             }
             if (hasWings)
@@ -715,7 +727,7 @@ namespace Fsm97Trainer
                     PlayerPosition.RW,PlayerPosition.LW,
                     PlayerPosition.FR,
                 };
-                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions, convertToGk);
                 subNeeded--;
             }
             if (hasMiddleField)
@@ -724,7 +736,7 @@ namespace Fsm97Trainer
                     PlayerPosition.RM,PlayerPosition.LM,
                     PlayerPosition.AM,PlayerPosition.DM,
                 };
-                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions, convertToGk);
                 subNeeded--;
             }
             if (hasBackCourt)
@@ -733,7 +745,7 @@ namespace Fsm97Trainer
                     PlayerPosition.RB,PlayerPosition.LB,
                     PlayerPosition.SW,PlayerPosition.CD,
                 };
-                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions);
+                GetASub(leftoverPlayers, rotateMethod, subs, targetPositions, convertToGk);
                 subNeeded--;
             }
             if (subNeeded > 0)
@@ -743,12 +755,12 @@ namespace Fsm97Trainer
                 {
                     case RotateMethod.Energy:
                         subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation)).ThenBy(p => this.random.Next());
+                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation) * 2).ThenBy(p => this.random.Next());
                         break;
                     case RotateMethod.Statistics:
                     default:
                         subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation)).ThenBy(p => this.random.Next());
+                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation) * 2).ThenBy(p => this.random.Next());
                         break;
                 }
                 var subRest = subQuery.Take(subNeeded).ToArray();
@@ -759,6 +771,8 @@ namespace Fsm97Trainer
                         targetPosition = subTeamPlayer.Data.BestPosition;
                     else
                         targetPosition = subTeamPlayer.Data.BestFitInFormation(targetFormation);
+                    if (convertToGk)
+                        targetPosition = (int)PlayerPosition.GK;
 
                     if (targetPosition != subTeamPlayer.Data.Position)
                     {
@@ -771,7 +785,7 @@ namespace Fsm97Trainer
             }
         }
 
-        private void GetASub(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> subs, PlayerPosition[] targetPositions)
+        private void GetASub(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> subs, PlayerPosition[] targetPositions, bool convertToGk)
         {
             IOrderedEnumerable<PlayerNode> subQuery;
 
@@ -779,16 +793,18 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                            p.Data.GetBestPositionRating(targetPositions)).ThenBy(p => this.random.Next());
+                            p.Data.GetBestPositionRating(targetPositions) * 2).ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                           p.Data.GetBestPositionRating(targetPositions)).ThenBy(p => this.random.Next());
+                           p.Data.GetBestPositionRating(targetPositions) * 2).ThenBy(p => this.random.Next());
                     break;
             }
             var subTeamPlayer = subQuery.First();
             var targetPosition = subTeamPlayer.Data.BestFitInPositions(targetPositions);
+            if (convertToGk)
+                targetPosition = (int)PlayerPosition.GK;
             if (targetPosition != subTeamPlayer.Data.Position)
             {
                 subTeamPlayer.Data.Position = targetPosition;
@@ -798,7 +814,8 @@ namespace Fsm97Trainer
             subs.Add(subTeamPlayer);
         }
 
-        private void GetRest(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> rest, Formation targetFormation)
+        private void GetRest(PlayerNodeList leftoverPlayers, RotateMethod rotateMethod, List<PlayerNode> rest, Formation targetFormation,
+            bool convertToGk)
         {
             foreach (var leftoverPlayer in leftoverPlayers)
             {
@@ -807,7 +824,8 @@ namespace Fsm97Trainer
                     targetPosition = leftoverPlayer.Data.BestPosition;
                 else
                     targetPosition = leftoverPlayer.Data.BestFitInFormation(targetFormation);
-
+                if (convertToGk)
+                    targetPosition = (int)PlayerPosition.GK;
                 if (targetPosition != leftoverPlayer.Data.Position)
                 {
                     leftoverPlayer.Data.Position = targetPosition;
@@ -939,7 +957,8 @@ namespace Fsm97Trainer
                 {
                     if (autoTrain)
                     {
-                        var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data, autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier)
+                        var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data,
+                            autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier)
                             .Select(p => (byte)p).ToArray();
 
                         if (playerNode.Data.Fitness < 99)
@@ -1358,6 +1377,28 @@ ORDER BY (?number)
                 }
             }
             return result;
+        }
+
+        internal void PurchaseAllLand()
+        {
+            if (AssetAddress == 0)
+            {
+                throw new InvalidOperationException("不支持的游戏版本 (Unsupported Game Version)!");
+            }
+            try
+            {
+                NativeMethods.SuspendProcess(Process);
+                byte[] bytes = Enumerable.Repeat((byte)1, 21).ToArray();
+                for (int i = 0; i < 22; i++)
+                {
+                    NativeMethods.WriteBytes(Process, AssetAddress + i * 40, bytes, 0, 21);
+                }
+
+            }
+            finally
+            {
+                NativeMethods.ResumeProcess(Process);
+            }
         }
     }
 }

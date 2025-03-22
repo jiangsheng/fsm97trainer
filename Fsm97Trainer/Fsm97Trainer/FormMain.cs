@@ -271,7 +271,7 @@ namespace Fsm97Trainer
 
         private void Rotate(RotateMethod rotateMethod)
         {
-
+            bool convertToGK = checkBoxConvertToGK.Checked;
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
@@ -283,10 +283,10 @@ namespace Fsm97Trainer
                     {
                         if (checkBoxAutoPositionWithCurrentFormation.Checked && this.SavedFormation.IsValid())
                         {
-                            menusProcess.RotatePlayer(rotateMethod, this.SavedFormation);
+                            menusProcess.RotatePlayer(rotateMethod, this.SavedFormation, convertToGK);
                         }
                         else
-                            menusProcess.RotatePlayer(rotateMethod, null);
+                            menusProcess.RotatePlayer(rotateMethod, null, convertToGK);
 
                         MessageBox.Show(Strings.PlayersRotated);
                     }
@@ -520,6 +520,29 @@ namespace Fsm97Trainer
                         menusProcess.UpdatePlayerNames(respawnCategory);
                         MessageBox.Show(Strings.PlayerNamesUpdated);
                     }
+                }
+                else
+                {
+                    MessageBox.Show(Strings.PlayerNamesUpdated);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                toolStripStatusLabel1.Text = ex.Message;
+            }
+        }
+
+        private void buttonLandPurchase_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var respawnCategory = comboBoxRespawnCategory.Text;
+                MenusProcess menusProcess = GetMenusProcess();
+                if (!menusProcess.HasExited())
+                {  
+                    menusProcess.PurchaseAllLand();
+                    MessageBox.Show("土地已经购买 (Land Purchased)!)");
                 }
                 else
                 {
