@@ -124,7 +124,7 @@ namespace FSM97Patcher
                         gameVersion = Strings.ChineseVersion;
                         break;
                     case 1135104:
-                        gameVersion = "英文版 (English Ver)";
+                        gameVersion = Strings.EnglishOrGlobalVersionWith9798Patch;
                         //004A89D7 - 8B C8  -mov ecx,eax
                         //004A89D9 - FF 52 40 - call dword ptr[edx + 40]
                         //004A89DC - A3 E8465800 - mov[MENUS.EXE + 1846E8],eax 
@@ -136,7 +136,7 @@ namespace FSM97Patcher
                         detect2 = new byte[] { 0xa3, 0xe8, 0x46, 0x58 };
                         break;
                     case 1129472:
-                        gameVersion = "西欧语言版 (West Europe languages Ver) RTM";
+                        gameVersion = Strings.EnglishOrGlobalVersion;
                         //00450325 - 8B C8  -mov ecx,eax
                         //00450327 - FF 52 40 - call dword ptr[edx + 40]
                         //00450329 - A3 70815200 - mov[MENUS.EXE + 128170],eax 

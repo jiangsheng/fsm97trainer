@@ -542,7 +542,7 @@ namespace Fsm97Trainer
                 if (!menusProcess.HasExited())
                 {  
                     menusProcess.PurchaseAllLand();
-                    MessageBox.Show("土地已经购买 (Land Purchased)!)");
+                    MessageBox.Show(Strings.LandPurchased);
                 }
                 else
                 {

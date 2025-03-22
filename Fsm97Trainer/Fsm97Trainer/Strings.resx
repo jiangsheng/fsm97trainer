@@ -147,6 +147,9 @@
   <data name="InvalidFormationForSaving" xml:space="preserve">
     <value>Saving formation requires 11 players on the field, including a GK.</value>
   </data>
+  <data name="LandPurchased" xml:space="preserve">
+    <value>Land Purchased。</value>
+  </data>
   <data name="MultipleGameProcessFound" xml:space="preserve">
     <value>More than one menus.exe process found.</value>
   </data>

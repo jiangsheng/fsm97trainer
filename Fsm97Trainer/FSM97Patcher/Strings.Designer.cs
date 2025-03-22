@@ -88,6 +88,15 @@ namespace FSM97Patcher {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English or Global version with 97/98 season Patch.
+        /// </summary>
+        internal static string EnglishOrGlobalVersionWith9798Patch {
+            get {
+                return ResourceManager.GetString("EnglishOrGlobalVersionWith9798Patch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Original version.
         /// </summary>
         internal static string OriginalVersion {

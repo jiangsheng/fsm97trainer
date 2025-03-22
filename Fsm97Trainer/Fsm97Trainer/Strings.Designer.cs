@@ -151,6 +151,15 @@ namespace Fsm97Trainer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Land Purchased。.
+        /// </summary>
+        internal static string LandPurchased {
+            get {
+                return ResourceManager.GetString("LandPurchased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More than one menus.exe process found..
         /// </summary>
         internal static string MultipleGameProcessFound {

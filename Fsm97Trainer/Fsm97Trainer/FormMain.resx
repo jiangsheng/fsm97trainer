@@ -117,353 +117,731 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>305, 17</value>
-  </metadata>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="statusStrip1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="toolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1054, 17</value>
-  </data>
-  <data name="toolStripStatusLabel1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1100, 22</value>
+  <data name="comboBoxLanguage.Items1" xml:space="preserve">
+    <value>Simplified Chinese （简体中文）</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="statusStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="buttonExportPlayerData.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
-  <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
-    <value>statusStrip1</value>
+  <data name="checkBoxConvertToGK.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;statusStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="checkBoxNoAlternativeTraining.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 75</value>
   </data>
-  <data name="&gt;&gt;statusStrip1.Parent" xml:space="preserve">
-    <value>toolStripContainer1.BottomToolStripPanel</value>
+  <data name="&gt;&gt;checkBoxConvertToGK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;checkBoxAutoTrain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.BottomToolStripPanel.Name" xml:space="preserve">
-    <value>toolStripContainer1.BottomToolStripPanel</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.BottomToolStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.BottomToolStripPanel.Parent" xml:space="preserve">
+  <data name="toolStripContainer1.Text" xml:space="preserve">
     <value>toolStripContainer1</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.BottomToolStripPanel.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="toolStripContainer1.ContentPanel.AutoScroll" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="tableLayoutPanelMain.ColumnCount" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="tableLayoutPanelMaxPlayerForm.ColumnCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="checkBoxMaxForm.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxMaxForm.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="checkBoxMaxForm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="buttonRotateByEnergy.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
   </data>
-  <data name="checkBoxMaxForm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 30</value>
+  <data name="&gt;&gt;buttonCopyPlayerData.Parent" xml:space="preserve">
+    <value>tableLayoutPanelCopyPaste</value>
   </data>
-  <data name="checkBoxMaxForm.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
+  <data name="comboBoxRespawnCategory.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="checkBoxMaxForm.Text" xml:space="preserve">
-    <value>Max Form</value>
+  <data name="&gt;&gt;buttonExportPlayerData.Name" xml:space="preserve">
+    <value>buttonExportPlayerData</value>
   </data>
-  <data name="checkBoxMaxForm.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+  <data name="checkBoxAutoPositionWithCurrentFormation.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;checkBoxMaxForm.Name" xml:space="preserve">
-    <value>checkBoxMaxForm</value>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBoxMaxForm.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="TopToolStripPanel.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;checkBoxMaxForm.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMaxPlayerForm</value>
+  <data name="&gt;&gt;checkBoxContractAutoRenew.Name" xml:space="preserve">
+    <value>checkBoxContractAutoRenew</value>
   </data>
-  <data name="&gt;&gt;checkBoxMaxForm.ZOrder" xml:space="preserve">
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1100, 508</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoTrain.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="checkBoxMaxMorale.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxMaxMorale.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="checkBoxMaxMorale.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 39</value>
-  </data>
-  <data name="checkBoxMaxMorale.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 30</value>
-  </data>
-  <data name="checkBoxMaxMorale.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="checkBoxMaxMorale.Text" xml:space="preserve">
-    <value>Max Morale</value>
-  </data>
-  <data name="checkBoxMaxMorale.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxMorale.Name" xml:space="preserve">
-    <value>checkBoxMaxMorale</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxMorale.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxMorale.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMaxPlayerForm</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxMorale.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="buttonSaveCurrentFormation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 48</value>
   </data>
   <data name="checkBoxMaxEnergy.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBoxMaxEnergy.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="buttonUpdateNewSpawn.ToolTip" xml:space="preserve">
+    <value>Can be executed multiple times with different categories</value>
   </data>
-  <data name="checkBoxMaxEnergy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 75</value>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
   </data>
-  <data name="checkBoxMaxEnergy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 31</value>
-  </data>
-  <data name="checkBoxMaxEnergy.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="checkBoxMaxEnergy.Text" xml:space="preserve">
-    <value>Max Energy</value>
-  </data>
-  <data name="checkBoxMaxEnergy.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxEnergy.Name" xml:space="preserve">
-    <value>checkBoxMaxEnergy</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxEnergy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxEnergy.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMaxPlayerForm</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxEnergy.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tableLayoutPanelMaxPlayerForm.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanelMaxPlayerForm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>278, 233</value>
-  </data>
-  <data name="tableLayoutPanelMaxPlayerForm.RowCount" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="tableLayoutPanelMaxPlayerForm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 109</value>
-  </data>
-  <data name="tableLayoutPanelMaxPlayerForm.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelMaxPlayerForm.Name" xml:space="preserve">
-    <value>tableLayoutPanelMaxPlayerForm</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelMaxPlayerForm.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelMaxPlayerForm.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelMaxPlayerForm.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tableLayoutPanelMaxPlayerForm.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="checkBoxMaxForm" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxMaxMorale" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxMaxEnergy" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0" /&gt;&lt;Rows Styles="Percent,33.33333,Percent,33.33333,Percent,33.33333" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="tableLayoutPanelImprovePlayers.ColumnCount" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;comboBoxRespawnCategory.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="buttonBoostYouthPlayer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="buttonUpdateNewSpawn.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="tableLayoutPanelMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1100, 461</value>
+  </data>
+  <data name="labelCopyRight.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 116</value>
+  </data>
+  <data name="&gt;&gt;labelCategory.Parent" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="checkBoxMaxStrength.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tableLayoutPanel3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
-  </data>
-  <data name="buttonBoostYouthPlayer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="buttonBoostYouthPlayer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 48</value>
-  </data>
-  <data name="buttonBoostYouthPlayer.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
   </data>
   <data name="buttonBoostYouthPlayer.Text" xml:space="preserve">
     <value>Boost Youth Players</value>
   </data>
-  <data name="&gt;&gt;buttonBoostYouthPlayer.Name" xml:space="preserve">
-    <value>buttonBoostYouthPlayer</value>
+  <data name="&gt;&gt;toolStripContainer1.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonBoostYouthPlayer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="checkBoxAutoTrain.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;buttonBoostYouthPlayer.Parent" xml:space="preserve">
-    <value>tableLayoutPanelImprovePlayers</value>
-  </data>
-  <data name="&gt;&gt;buttonBoostYouthPlayer.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonImproveAllPlayersBy1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="buttonImproveAllPlayersBy1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 57</value>
-  </data>
-  <data name="buttonImproveAllPlayersBy1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 49</value>
-  </data>
-  <data name="buttonImproveAllPlayersBy1.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="buttonImproveAllPlayersBy1.Text" xml:space="preserve">
-    <value>Improve All Players by 1</value>
-  </data>
-  <data name="&gt;&gt;buttonImproveAllPlayersBy1.Name" xml:space="preserve">
-    <value>buttonImproveAllPlayersBy1</value>
-  </data>
-  <data name="&gt;&gt;buttonImproveAllPlayersBy1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="checkBoxNoAbsense.Text" xml:space="preserve">
+    <value>No Absense from Red Card etc</value>
   </data>
   <data name="&gt;&gt;buttonImproveAllPlayersBy1.Parent" xml:space="preserve">
     <value>tableLayoutPanelImprovePlayers</value>
   </data>
-  <data name="&gt;&gt;buttonImproveAllPlayersBy1.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="checkBoxAutoTrain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="tableLayoutPanelImprovePlayers.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="checkBoxContractAutoRenew.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 75</value>
+  </data>
+  <data name="buttonImportPlayerData.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="tableLayoutPanelImprovePlayers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>553, 118</value>
-  </data>
-  <data name="tableLayoutPanelImprovePlayers.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tableLayoutPanelImprovePlayers.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tableLayoutPanelAutoTrain.Size" type="System.Drawing.Size, System.Drawing">
     <value>269, 109</value>
   </data>
-  <data name="tableLayoutPanelImprovePlayers.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
+  <data name="&gt;&gt;checkBoxContractAutoRenew.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanelImprovePlayers.Name" xml:space="preserve">
-    <value>tableLayoutPanelImprovePlayers</value>
+  <data name="&gt;&gt;checkBoxMaxEnergy.Name" xml:space="preserve">
+    <value>checkBoxMaxEnergy</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanelImprovePlayers.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;checkBoxConvertToGK.Parent" xml:space="preserve">
+    <value>tableLayoutPanelAutoTrain</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanelImprovePlayers.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
+  <data name="buttonImproveAllPlayersBy1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;tableLayoutPanelImprovePlayers.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="buttonRotateByEnergy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Parent" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="checkBoxConvertToGK.ToolTip" xml:space="preserve">
+    <value>This helps to prevent injury.</value>
+  </data>
+  <data name="buttonImproveAllPlayersBy1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items37" xml:space="preserve">
+    <value>Olympic_medalists_in_football</value>
+  </data>
+  <data name="&gt;&gt;labelCopyRight.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxMorale.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items34" xml:space="preserve">
+    <value>Association_football_midfielders</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items33" xml:space="preserve">
+    <value>Serie_A_players</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items32" xml:space="preserve">
+    <value>Premier_League_players</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items31" xml:space="preserve">
+    <value>Chinese_footballers</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items30" xml:space="preserve">
+    <value>Chinese_women's_footballers</value>
+  </data>
+  <data name="checkBoxNoAlternativeTraining.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items22" xml:space="preserve">
+    <value>Italy_international_footballers</value>
   </data>
   <data name="tableLayoutPanelImprovePlayers.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonBoostYouthPlayer" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonImproveAllPlayersBy1" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonResetDate.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="buttonResetDate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="tableLayoutPanelRotation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 109</value>
   </data>
   <data name="buttonResetDate.Size" type="System.Drawing.Size, System.Drawing">
     <value>263, 48</value>
   </data>
-  <data name="buttonResetDate.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
+  <data name="&gt;&gt;buttonCopyPlayerData.Name" xml:space="preserve">
+    <value>buttonCopyPlayerData</value>
   </data>
-  <data name="buttonResetDate.Text" xml:space="preserve">
-    <value>Reset Date to</value>
+  <data name="&gt;&gt;checkBoxAutoTrain.Name" xml:space="preserve">
+    <value>checkBoxAutoTrain</value>
   </data>
-  <data name="&gt;&gt;buttonResetDate.Name" xml:space="preserve">
-    <value>buttonResetDate</value>
+  <data name="&gt;&gt;buttonBoostYouthPlayer.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanelCopyPaste.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 109</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items15" xml:space="preserve">
+    <value>Manchester_United_F.C._players</value>
+  </data>
+  <data name="&gt;&gt;buttonExportPlayerData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoPositionWithCurrentFormation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateNewSpawn.Name" xml:space="preserve">
+    <value>buttonUpdateNewSpawn</value>
+  </data>
+  <data name="tableLayoutPanelMaxPlayerForm.ColumnCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items6" xml:space="preserve">
+    <value>Ballon_d'Or_winners</value>
+  </data>
+  <data name="&gt;&gt;BottomToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonLandPurchase.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanelMaxPlayerForm.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanelFormation.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonSaveCurrentFormation" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxAutoPositionWithCurrentFormation" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Parent" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelFormation.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="toolStripContainer1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tableLayoutPanelUpdateRrespawnNameOnline.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;buttonImportPlayerData.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxMorale.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanelImportExport.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;timerUpdateFast.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelImportExport.Name" xml:space="preserve">
+    <value>tableLayoutPanelImportExport</value>
+  </data>
+  <data name="tableLayoutPanelMain.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="buttonPastePlayerData.Text" xml:space="preserve">
+    <value>Paste Player Data</value>
+  </data>
+  <data name="tableLayoutPanelAutoTrain.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;buttonImproveAllPlayersBy1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="checkBoxMaxStrength.Text" xml:space="preserve">
+    <value>Max Strength</value>
+  </data>
+  <data name="tableLayoutPanelFormation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 109</value>
+  </data>
+  <data name="textBoxResetDateYear.Text" xml:space="preserve">
+    <value>1996</value>
+  </data>
+  <data name="comboBoxLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAlternativeTraining.Name" xml:space="preserve">
+    <value>checkBoxNoAlternativeTraining</value>
+  </data>
+  <data name="buttonUpdateNewSpawn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 48</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelAutoTrain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSaveCurrentFormation.Parent" xml:space="preserve">
+    <value>tableLayoutPanelFormation</value>
+  </data>
+  <data name="checkBoxMaxEnergy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 31</value>
+  </data>
+  <data name="buttonCopyPlayerData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 48</value>
+  </data>
+  <data name="tableLayoutPanelMain.ColumnCount" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="openFileDialog1.Title" xml:space="preserve">
+    <value>Select player data export location</value>
+  </data>
+  <data name="buttonLandPurchase.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxStrength.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="checkBoxNoAlternativeTraining.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 31</value>
+  </data>
+  <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonResetDate" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxResetDateYear" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="checkBoxMaxStrength.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="textBoxResetDateYear.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;buttonLandPurchase.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonRotateByEnergy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonResetDate.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonResetDate.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
+  <data name="&gt;&gt;tableLayoutPanel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonResetDate.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;ContentPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripContentPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="textBoxResetDateYear.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="toolStripContainer1.ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1100, 461</value>
+  </data>
+  <data name="checkBoxMaxEnergy.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="textBoxResetDateYear.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 57</value>
   </data>
-  <data name="textBoxResetDateYear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 20</value>
+  <data name="buttonPastePlayerData.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="buttonUpdateNewSpawn.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="buttonLandPurchase.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxForm.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelCopyPaste.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="checkBoxContractAutoRenew.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxAutoPositionWithCurrentFormation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxNoAbsense.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelImportExport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAbsense.Name" xml:space="preserve">
+    <value>checkBoxNoAbsense</value>
+  </data>
+  <data name="tableLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 233</value>
+  </data>
+  <data name="buttonExportPlayerData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 48</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelUpdateRrespawnNameOnline.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="tableLayoutPanelMaxPlayerForm.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 109</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items9" xml:space="preserve">
+    <value>Inter_Milan_players</value>
+  </data>
+  <data name="&gt;&gt;buttonAutoPosition.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.Name" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="checkBoxAutoPositionWithCurrentFormation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 49</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelImportExport.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="RightToolStripPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="checkBoxNoAbsense.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="checkBoxNoAbsense" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxContractAutoRenew" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxMaxStrength" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,Absolute,20" /&gt;&lt;Rows Styles="Percent,33.33333,Percent,33.33333,Percent,33.33333" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="TopToolStripPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items2" xml:space="preserve">
+    <value>UEFA_Europa_League_winning_players</value>
+  </data>
+  <data name="buttonImproveAllPlayersBy1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 49</value>
+  </data>
+  <data name="&gt;&gt;buttonBoostYouthPlayer.Parent" xml:space="preserve">
+    <value>tableLayoutPanelImprovePlayers</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelAutoTrain.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>76, 3</value>
+  </data>
+  <data name="&gt;&gt;buttonResetDate.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="buttonSaveCurrentFormation.Text" xml:space="preserve">
+    <value>Save Current Formation</value>
+  </data>
+  <data name="tableLayoutPanel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 57</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.Name" xml:space="preserve">
+    <value>comboBoxLanguage</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelRotation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripContainer1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="RightToolStripPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="buttonLandPurchase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>278, 348</value>
+  </data>
+  <data name="checkBoxMaxForm.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 30</value>
+  </data>
+  <data name="buttonImportPlayerData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 57</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelImprovePlayers.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxStrength.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Name" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="BottomToolStripPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="buttonResetDate.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tableLayoutPanel2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;openFileDialog1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBoxNoAlternativeTraining.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoPositionWithCurrentFormation.Parent" xml:space="preserve">
+    <value>tableLayoutPanelFormation</value>
+  </data>
+  <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 109</value>
+  </data>
+  <data name="buttonCopyPlayerData.Text" xml:space="preserve">
+    <value>Copy Player Data</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelRotation.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="labelCopyRight.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="buttonRotateByEnergy.Text" xml:space="preserve">
+    <value>Rotate by Energy</value>
+  </data>
+  <data name="buttonImportPlayerData.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelImprovePlayers.Name" xml:space="preserve">
+    <value>tableLayoutPanelImprovePlayers</value>
+  </data>
+  <data name="&gt;&gt;checkBoxContractAutoRenew.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.BottomToolStripPanel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="textBoxResetDateYear.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanelUpdateRrespawnNameOnline.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 110</value>
+  </data>
+  <data name="checkBoxNoAlternativeTraining.Text" xml:space="preserve">
+    <value>Current position training only</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxForm.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMaxPlayerForm</value>
+  </data>
+  <data name="&gt;&gt;buttonExportPlayerData.Parent" xml:space="preserve">
+    <value>tableLayoutPanelImportExport</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="buttonBoostYouthPlayer.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonSaveCurrentFormation.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelCopyRight.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="tableLayoutPanelRotation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>553, 3</value>
   </data>
   <data name="textBoxResetDateYear.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
   </data>
-  <data name="textBoxResetDateYear.Text" xml:space="preserve">
-    <value>1996</value>
+  <data name="&gt;&gt;comboBoxRespawnCategory.Parent" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
   </data>
-  <data name="&gt;&gt;textBoxResetDateYear.Name" xml:space="preserve">
-    <value>textBoxResetDateYear</value>
+  <data name="checkBoxContractAutoRenew.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;textBoxResetDateYear.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="checkBoxMaxForm.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="textBoxResetDateYear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 20</value>
+  </data>
+  <data name="&gt;&gt;labelCategory.Name" xml:space="preserve">
+    <value>labelCategory</value>
+  </data>
+  <data name="tableLayoutPanelCopyPaste.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonPastePlayerData" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonCopyPlayerData" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="buttonImportPlayerData.Text" xml:space="preserve">
+    <value>Import player data</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelCopyPaste.Name" xml:space="preserve">
+    <value>tableLayoutPanelCopyPaste</value>
+  </data>
+  <data name="checkBoxMaxForm.Text" xml:space="preserve">
+    <value>Max Form</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAlternativeTraining.Parent" xml:space="preserve">
+    <value>tableLayoutPanelAutoTrain</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxEnergy.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelFormation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelCopyRight.Location" type="System.Drawing.Point, System.Drawing">
+    <value>828, 345</value>
+  </data>
+  <data name="tableLayoutPanelCopyPaste.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxContractAutoRenew.Text" xml:space="preserve">
+    <value>Contract Auto-renew</value>
+  </data>
+  <data name="tableLayoutPanelImprovePlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>553, 118</value>
+  </data>
+  <data name="&gt;&gt;buttonBoostYouthPlayer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonRotateByStatistics.Text" xml:space="preserve">
+    <value>Rotate By Statistics</value>
+  </data>
+  <data name="buttonAutoPosition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>278, 118</value>
+  </data>
+  <data name="checkBoxMaxStrength.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 39</value>
+  </data>
+  <data name="statusStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxStrength.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBoxConvertToGK.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelMaxPlayerForm.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonBoostYouthPlayer.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="saveFileDialog1.Title" xml:space="preserve">
+    <value>Select player data export location</value>
+  </data>
+  <data name="&gt;&gt;buttonImportPlayerData.Parent" xml:space="preserve">
+    <value>tableLayoutPanelImportExport</value>
+  </data>
+  <data name="&gt;&gt;labelCopyRight.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="&gt;&gt;buttonExportPlayerData.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanelMain.RowCount" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items14" xml:space="preserve">
+    <value>Manchester_City_F.C._players</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items13" xml:space="preserve">
+    <value>Arsenal_F.C._players</value>
+  </data>
+  <data name="buttonExportPlayerData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items11" xml:space="preserve">
+    <value>ACF_Fiorentina_players</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items10" xml:space="preserve">
+    <value>Juventus_F.C._players</value>
+  </data>
+  <data name="tableLayoutPanelMaxPlayerForm.RowCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="checkBoxMaxEnergy.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAbsense.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="TopToolStripPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 0</value>
   </data>
   <data name="&gt;&gt;textBoxResetDateYear.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;textBoxResetDateYear.ZOrder" xml:space="preserve">
+  <data name="labelCategory.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelCategory.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="tableLayoutPanelFormation.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonPastePlayerData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 57</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items3" xml:space="preserve">
+    <value>FIFA_100</value>
+  </data>
+  <data name="buttonBoostYouthPlayer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>828, 118</value>
+  <data name="checkBoxNoAlternativeTraining.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
+  <data name="tableLayoutPanelUpdateRrespawnNameOnline.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 109</value>
+  <data name="tableLayoutPanel3.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
+  <data name="tableLayoutPanelFormation.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
+  <data name="tableLayoutPanelFormation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxMaxMorale.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 30</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelImprovePlayers.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanelAutoTrain.RowCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="buttonAutoPosition.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -471,1034 +849,374 @@
   <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
     <value>tableLayoutPanelMain</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="tableLayoutPanelAutoTrain.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonResetDate" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxResetDateYear" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  <data name="checkBoxMaxEnergy.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="tableLayoutPanelImportExport.ColumnCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonImportPlayerData.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="buttonImportPlayerData.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 57</value>
-  </data>
-  <data name="buttonImportPlayerData.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 49</value>
-  </data>
-  <data name="buttonImportPlayerData.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonImportPlayerData.Text" xml:space="preserve">
-    <value>Import player data</value>
-  </data>
-  <data name="&gt;&gt;buttonImportPlayerData.Name" xml:space="preserve">
-    <value>buttonImportPlayerData</value>
-  </data>
-  <data name="&gt;&gt;buttonImportPlayerData.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonImportPlayerData.Parent" xml:space="preserve">
-    <value>tableLayoutPanelImportExport</value>
-  </data>
-  <data name="&gt;&gt;buttonImportPlayerData.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonExportPlayerData.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="buttonExportPlayerData.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 48</value>
-  </data>
-  <data name="buttonExportPlayerData.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="buttonExportPlayerData.Text" xml:space="preserve">
-    <value>Export Player Data</value>
-  </data>
-  <data name="&gt;&gt;buttonExportPlayerData.Name" xml:space="preserve">
-    <value>buttonExportPlayerData</value>
-  </data>
-  <data name="&gt;&gt;buttonExportPlayerData.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonExportPlayerData.Parent" xml:space="preserve">
-    <value>tableLayoutPanelImportExport</value>
-  </data>
-  <data name="&gt;&gt;buttonExportPlayerData.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tableLayoutPanelImportExport.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanelImportExport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="tableLayoutPanelImportExport.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tableLayoutPanelImportExport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 109</value>
-  </data>
-  <data name="tableLayoutPanelImportExport.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelImportExport.Name" xml:space="preserve">
-    <value>tableLayoutPanelImportExport</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelImportExport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelImportExport.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelImportExport.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tableLayoutPanelImportExport.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonImportPlayerData" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonExportPlayerData" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="tableLayoutPanelCopyPaste.ColumnCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonPastePlayerData.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="buttonPastePlayerData.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 57</value>
-  </data>
-  <data name="buttonPastePlayerData.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 49</value>
-  </data>
-  <data name="buttonPastePlayerData.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="buttonPastePlayerData.Text" xml:space="preserve">
-    <value>Paste Player Data</value>
-  </data>
-  <data name="&gt;&gt;buttonPastePlayerData.Name" xml:space="preserve">
-    <value>buttonPastePlayerData</value>
-  </data>
-  <data name="&gt;&gt;buttonPastePlayerData.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonPastePlayerData.Parent" xml:space="preserve">
-    <value>tableLayoutPanelCopyPaste</value>
-  </data>
-  <data name="&gt;&gt;buttonPastePlayerData.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonCopyPlayerData.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="buttonCopyPlayerData.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="buttonCopyPlayerData.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 48</value>
-  </data>
-  <data name="buttonCopyPlayerData.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="buttonCopyPlayerData.Text" xml:space="preserve">
-    <value>Copy Player Data</value>
-  </data>
-  <data name="&gt;&gt;buttonCopyPlayerData.Name" xml:space="preserve">
-    <value>buttonCopyPlayerData</value>
-  </data>
-  <data name="&gt;&gt;buttonCopyPlayerData.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCopyPlayerData.Parent" xml:space="preserve">
-    <value>tableLayoutPanelCopyPaste</value>
-  </data>
-  <data name="&gt;&gt;buttonCopyPlayerData.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tableLayoutPanelCopyPaste.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanelCopyPaste.Location" type="System.Drawing.Point, System.Drawing">
-    <value>278, 3</value>
-  </data>
-  <data name="tableLayoutPanelCopyPaste.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tableLayoutPanelCopyPaste.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 109</value>
-  </data>
-  <data name="tableLayoutPanelCopyPaste.TabIndex" type="System.Int32, mscorlib">
-    <value>35</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelCopyPaste.Name" xml:space="preserve">
-    <value>tableLayoutPanelCopyPaste</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelCopyPaste.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelCopyPaste.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
+  <data name="statusStrip1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="&gt;&gt;tableLayoutPanelCopyPaste.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="tableLayoutPanelCopyPaste.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonPastePlayerData" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonCopyPlayerData" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  <data name="&gt;&gt;RightToolStripPanel.Name" xml:space="preserve">
+    <value>RightToolStripPanel</value>
   </data>
-  <data name="tableLayoutPanelRotation.ColumnCount" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="RightToolStripPanel.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="buttonRotateByEnergy.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonResetDate.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="buttonRotateByEnergy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 48</value>
-  </data>
-  <data name="buttonRotateByEnergy.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="buttonRotateByEnergy.Text" xml:space="preserve">
-    <value>Rotate by Energy</value>
-  </data>
-  <data name="&gt;&gt;buttonRotateByEnergy.Name" xml:space="preserve">
-    <value>buttonRotateByEnergy</value>
-  </data>
-  <data name="&gt;&gt;buttonRotateByEnergy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonRotateByEnergy.Parent" xml:space="preserve">
-    <value>tableLayoutPanelRotation</value>
-  </data>
-  <data name="&gt;&gt;buttonRotateByEnergy.ZOrder" xml:space="preserve">
+  <data name="checkBoxAutoTrain.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="buttonRotateByStatistics.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="checkBoxContractAutoRenew.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="buttonRotateByStatistics.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 57</value>
+  <data name="&gt;&gt;textBoxResetDateYear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="buttonRotateByStatistics.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 49</value>
+  <data name="&gt;&gt;TopToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="buttonRotateByStatistics.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="buttonRotateByStatistics.Text" xml:space="preserve">
-    <value>Rotate By Statistics</value>
-  </data>
-  <data name="&gt;&gt;buttonRotateByStatistics.Name" xml:space="preserve">
-    <value>buttonRotateByStatistics</value>
-  </data>
-  <data name="&gt;&gt;buttonRotateByStatistics.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonRotateByStatistics.Parent" xml:space="preserve">
-    <value>tableLayoutPanelRotation</value>
-  </data>
-  <data name="&gt;&gt;buttonRotateByStatistics.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tableLayoutPanelRotation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanelRotation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>553, 3</value>
-  </data>
-  <data name="tableLayoutPanelRotation.RowCount" type="System.Int32, mscorlib">
+  <data name="tableLayoutPanelFormation.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
-  </data>
-  <data name="tableLayoutPanelRotation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 109</value>
-  </data>
-  <data name="tableLayoutPanelRotation.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelRotation.Name" xml:space="preserve">
-    <value>tableLayoutPanelRotation</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelRotation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelRotation.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelRotation.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="tableLayoutPanelRotation.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonRotateByEnergy" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonRotateByStatistics" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="tableLayoutPanelUpdateRrespawnNameOnline.ColumnCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonUpdateNewSpawn.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="buttonUpdateNewSpawn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="buttonUpdateNewSpawn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 48</value>
-  </data>
-  <data name="buttonUpdateNewSpawn.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="buttonUpdateNewSpawn.Text" xml:space="preserve">
-    <value>Update Respawn Player Names Online</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>421, 17</value>
-  </metadata>
-  <data name="buttonUpdateNewSpawn.ToolTip" xml:space="preserve">
-    <value>Can be executed multiple times with different categories</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdateNewSpawn.Name" xml:space="preserve">
-    <value>buttonUpdateNewSpawn</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdateNewSpawn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdateNewSpawn.Parent" xml:space="preserve">
-    <value>tableLayoutPanelUpdateRrespawnNameOnline</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdateNewSpawn.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tableLayoutPanel3.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="labelCategory.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
-  </data>
-  <data name="labelCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 13</value>
-  </data>
-  <data name="labelCategory.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="labelCategory.Text" xml:space="preserve">
-    <value>Category:</value>
-  </data>
-  <data name="&gt;&gt;labelCategory.Name" xml:space="preserve">
-    <value>labelCategory</value>
-  </data>
-  <data name="&gt;&gt;labelCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCategory.Parent" xml:space="preserve">
-    <value>tableLayoutPanel3</value>
-  </data>
-  <data name="&gt;&gt;labelCategory.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items" xml:space="preserve">
-    <value>FIFA_World_Cup-winning_players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items1" xml:space="preserve">
-    <value>FIFA_World_Player_of_the_Year_winners</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items2" xml:space="preserve">
-    <value>UEFA_Europa_League_winning_players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items3" xml:space="preserve">
-    <value>FIFA_100</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items4" xml:space="preserve">
-    <value>FIFA_Century_Club</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items5" xml:space="preserve">
-    <value>FIFA_Women's_Century_Club</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items6" xml:space="preserve">
-    <value>Ballon_d'Or_winners</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items7" xml:space="preserve">
-    <value>Real_Madrid_CF_players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items8" xml:space="preserve">
-    <value>A.C._Milan_players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items9" xml:space="preserve">
-    <value>Inter_Milan_players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items10" xml:space="preserve">
-    <value>Juventus_F.C._players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items11" xml:space="preserve">
-    <value>ACF_Fiorentina_players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items12" xml:space="preserve">
-    <value>Chelsea_F.C._players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items13" xml:space="preserve">
-    <value>Arsenal_F.C._players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items14" xml:space="preserve">
-    <value>Manchester_City_F.C._players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items15" xml:space="preserve">
-    <value>Manchester_United_F.C._players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items16" xml:space="preserve">
-    <value>Newcastle_United_F.C._players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items17" xml:space="preserve">
-    <value>Tottenham_Hotspur_F.C._players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items18" xml:space="preserve">
-    <value>FC_Bayern_Munich_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items19" xml:space="preserve">
-    <value>AFC_Ajax_players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items20" xml:space="preserve">
-    <value>England_international_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items21" xml:space="preserve">
-    <value>France_international_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items22" xml:space="preserve">
-    <value>Italy_international_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items23" xml:space="preserve">
-    <value>Spain_international_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items24" xml:space="preserve">
-    <value>Brazil_international_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items25" xml:space="preserve">
-    <value>Netherlands_international_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items26" xml:space="preserve">
-    <value>Argentina_international_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items27" xml:space="preserve">
-    <value>Portugal_international_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items28" xml:space="preserve">
-    <value>China_international_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items29" xml:space="preserve">
-    <value>FC_Barcelona_players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items30" xml:space="preserve">
-    <value>Chinese_women's_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items31" xml:space="preserve">
-    <value>Chinese_footballers</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items32" xml:space="preserve">
-    <value>Premier_League_players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items33" xml:space="preserve">
-    <value>Serie_A_players</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items34" xml:space="preserve">
-    <value>Association_football_midfielders</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items35" xml:space="preserve">
-    <value>Association_football_forwards</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items36" xml:space="preserve">
-    <value>Association_football_defenders</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Items37" xml:space="preserve">
-    <value>Olympic_medalists_in_football</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>76, 3</value>
-  </data>
-  <data name="comboBoxRespawnCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 21</value>
-  </data>
-  <data name="comboBoxRespawnCategory.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;comboBoxRespawnCategory.Name" xml:space="preserve">
-    <value>comboBoxRespawnCategory</value>
-  </data>
-  <data name="&gt;&gt;comboBoxRespawnCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxRespawnCategory.Parent" xml:space="preserve">
-    <value>tableLayoutPanel3</value>
-  </data>
-  <data name="&gt;&gt;comboBoxRespawnCategory.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tableLayoutPanel3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 57</value>
-  </data>
-  <data name="tableLayoutPanel3.RowCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 49</value>
-  </data>
-  <data name="tableLayoutPanel3.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel3.Name" xml:space="preserve">
-    <value>tableLayoutPanel3</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel3.Parent" xml:space="preserve">
-    <value>tableLayoutPanelUpdateRrespawnNameOnline</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelCategory" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxRespawnCategory" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,28.05755,Percent,71.94244" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="tableLayoutPanelUpdateRrespawnNameOnline.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanelUpdateRrespawnNameOnline.Location" type="System.Drawing.Point, System.Drawing">
-    <value>828, 3</value>
-  </data>
-  <data name="tableLayoutPanelUpdateRrespawnNameOnline.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tableLayoutPanelUpdateRrespawnNameOnline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 109</value>
-  </data>
-  <data name="tableLayoutPanelUpdateRrespawnNameOnline.TabIndex" type="System.Int32, mscorlib">
-    <value>36</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelUpdateRrespawnNameOnline.Name" xml:space="preserve">
-    <value>tableLayoutPanelUpdateRrespawnNameOnline</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelUpdateRrespawnNameOnline.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelUpdateRrespawnNameOnline.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelUpdateRrespawnNameOnline.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="tableLayoutPanelUpdateRrespawnNameOnline.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonUpdateNewSpawn" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel3" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="buttonAutoPosition.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="buttonAutoPosition.Location" type="System.Drawing.Point, System.Drawing">
-    <value>278, 118</value>
-  </data>
-  <data name="buttonAutoPosition.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 109</value>
-  </data>
-  <data name="buttonAutoPosition.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="buttonAutoPosition.Text" xml:space="preserve">
-    <value>Auto Position Change</value>
-  </data>
-  <data name="&gt;&gt;buttonAutoPosition.Name" xml:space="preserve">
-    <value>buttonAutoPosition</value>
-  </data>
-  <data name="&gt;&gt;buttonAutoPosition.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAutoPosition.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
-  </data>
-  <data name="&gt;&gt;buttonAutoPosition.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="tableLayoutPanelFormation.ColumnCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonSaveCurrentFormation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="buttonSaveCurrentFormation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="buttonSaveCurrentFormation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 48</value>
-  </data>
-  <data name="buttonSaveCurrentFormation.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonSaveCurrentFormation.Text" xml:space="preserve">
-    <value>Save Current Formation</value>
-  </data>
-  <data name="&gt;&gt;buttonSaveCurrentFormation.Name" xml:space="preserve">
-    <value>buttonSaveCurrentFormation</value>
   </data>
   <data name="&gt;&gt;buttonSaveCurrentFormation.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonSaveCurrentFormation.Parent" xml:space="preserve">
-    <value>tableLayoutPanelFormation</value>
+  <data name="&gt;&gt;timerUpdateFast.Name" xml:space="preserve">
+    <value>timerUpdateFast</value>
   </data>
-  <data name="&gt;&gt;buttonSaveCurrentFormation.ZOrder" xml:space="preserve">
+  <data name="buttonBoostYouthPlayer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 48</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items36" xml:space="preserve">
+    <value>Association_football_defenders</value>
+  </data>
+  <data name="&gt;&gt;buttonRotateByStatistics.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonCopyPlayerData.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="checkBoxAutoPositionWithCurrentFormation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="comboBoxRespawnCategory.Items12" xml:space="preserve">
+    <value>Chelsea_F.C._players</value>
+  </data>
+  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 109</value>
+  </data>
+  <data name="buttonSaveCurrentFormation.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelCopyPaste.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="saveFileDialog1.Filter" xml:space="preserve">
+    <value>csv files (*.csv)|*.csv|All files (*.*)|*.*</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.Name" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.BottomToolStripPanel.Name" xml:space="preserve">
+    <value>toolStripContainer1.BottomToolStripPanel</value>
+  </data>
+  <data name="tableLayoutPanelImportExport.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="checkBoxAutoPositionWithCurrentFormation.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 57</value>
   </data>
-  <data name="checkBoxAutoPositionWithCurrentFormation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 49</value>
+  <data name="checkBoxNoAbsense.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
   </data>
   <data name="checkBoxAutoPositionWithCurrentFormation.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="checkBoxAutoPositionWithCurrentFormation.Text" xml:space="preserve">
-    <value>Auto Roster with Saved Formation</value>
+  <data name="tableLayoutPanelMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="checkBoxAutoPositionWithCurrentFormation.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+  <data name="labelCategory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 13</value>
   </data>
-  <data name="&gt;&gt;checkBoxAutoPositionWithCurrentFormation.Name" xml:space="preserve">
-    <value>checkBoxAutoPositionWithCurrentFormation</value>
+  <data name="&gt;&gt;tableLayoutPanelMaxPlayerForm.Name" xml:space="preserve">
+    <value>tableLayoutPanelMaxPlayerForm</value>
   </data>
-  <data name="&gt;&gt;checkBoxAutoPositionWithCurrentFormation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tableLayoutPanelMaxPlayerForm.Location" type="System.Drawing.Point, System.Drawing">
+    <value>278, 233</value>
   </data>
-  <data name="&gt;&gt;checkBoxAutoPositionWithCurrentFormation.Parent" xml:space="preserve">
-    <value>tableLayoutPanelFormation</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPositionWithCurrentFormation.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tableLayoutPanelFormation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanelFormation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 118</value>
-  </data>
-  <data name="tableLayoutPanelFormation.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tableLayoutPanelFormation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 109</value>
-  </data>
-  <data name="tableLayoutPanelFormation.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelFormation.Name" xml:space="preserve">
-    <value>tableLayoutPanelFormation</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelFormation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelFormation.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelFormation.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="tableLayoutPanelFormation.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonSaveCurrentFormation" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxAutoPositionWithCurrentFormation" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="tableLayoutPanel2.ColumnCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="checkBoxNoAbsense.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxNoAbsense.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="checkBoxNoAbsense.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="checkBoxNoAbsense.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 30</value>
-  </data>
-  <data name="checkBoxNoAbsense.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="checkBoxNoAbsense.Text" xml:space="preserve">
-    <value>No Absense from Red Card etc</value>
-  </data>
-  <data name="checkBoxNoAbsense.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;checkBoxNoAbsense.Name" xml:space="preserve">
-    <value>checkBoxNoAbsense</value>
-  </data>
-  <data name="&gt;&gt;checkBoxNoAbsense.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxNoAbsense.Parent" xml:space="preserve">
-    <value>tableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;checkBoxNoAbsense.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="checkBoxContractAutoRenew.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxContractAutoRenew.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="checkBoxContractAutoRenew.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 75</value>
-  </data>
-  <data name="checkBoxContractAutoRenew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 31</value>
-  </data>
-  <data name="checkBoxContractAutoRenew.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="checkBoxContractAutoRenew.Text" xml:space="preserve">
-    <value>Contract Auto-renew</value>
-  </data>
-  <data name="checkBoxContractAutoRenew.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContractAutoRenew.Name" xml:space="preserve">
-    <value>checkBoxContractAutoRenew</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContractAutoRenew.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContractAutoRenew.Parent" xml:space="preserve">
-    <value>tableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContractAutoRenew.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="checkBoxMaxStrength.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxMaxStrength.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="checkBoxMaxStrength.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 39</value>
-  </data>
-  <data name="checkBoxMaxStrength.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 30</value>
-  </data>
-  <data name="checkBoxMaxStrength.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="checkBoxMaxStrength.Text" xml:space="preserve">
-    <value>Max Strength</value>
-  </data>
-  <data name="checkBoxMaxStrength.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxStrength.Name" xml:space="preserve">
-    <value>checkBoxMaxStrength</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxStrength.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxStrength.Parent" xml:space="preserve">
-    <value>tableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMaxStrength.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tableLayoutPanel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 233</value>
-  </data>
-  <data name="tableLayoutPanel2.RowCount" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 109</value>
-  </data>
-  <data name="tableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
-    <value>36</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel2.Name" xml:space="preserve">
-    <value>tableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel2.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel2.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="tableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="checkBoxNoAbsense" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxContractAutoRenew" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxMaxStrength" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,Absolute,20" /&gt;&lt;Rows Styles="Percent,33.33333,Percent,33.33333,Percent,33.33333" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="tableLayoutPanelAutoTrain.ColumnCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="checkBoxAutoTrain.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxAutoTrain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="checkBoxAutoTrain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="checkBoxAutoTrain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 30</value>
-  </data>
-  <data name="checkBoxAutoTrain.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxAutoTrain.Text" xml:space="preserve">
-    <value>Auto Training Schedule</value>
-  </data>
-  <data name="checkBoxAutoTrain.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoTrain.Name" xml:space="preserve">
-    <value>checkBoxAutoTrain</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoTrain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoTrain.Parent" xml:space="preserve">
-    <value>tableLayoutPanelAutoTrain</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoTrain.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="checkBoxConvertToGK.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxConvertToGK.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="checkBoxConvertToGK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 39</value>
-  </data>
-  <data name="checkBoxConvertToGK.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 30</value>
-  </data>
-  <data name="checkBoxConvertToGK.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="checkBoxConvertToGK.Text" xml:space="preserve">
-    <value>Convert backups to GK</value>
-  </data>
-  <data name="checkBoxConvertToGK.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="checkBoxConvertToGK.ToolTip" xml:space="preserve">
-    <value>This helps to prevent injury.</value>
-  </data>
-  <data name="&gt;&gt;checkBoxConvertToGK.Name" xml:space="preserve">
-    <value>checkBoxConvertToGK</value>
-  </data>
-  <data name="&gt;&gt;checkBoxConvertToGK.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxConvertToGK.Parent" xml:space="preserve">
-    <value>tableLayoutPanelAutoTrain</value>
-  </data>
-  <data name="&gt;&gt;checkBoxConvertToGK.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="checkBoxNoAlternativeTraining.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="checkBoxNoAlternativeTraining.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 75</value>
-  </data>
-  <data name="checkBoxNoAlternativeTraining.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 31</value>
-  </data>
-  <data name="checkBoxNoAlternativeTraining.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="checkBoxNoAlternativeTraining.Text" xml:space="preserve">
-    <value>Current position training only</value>
-  </data>
-  <data name="checkBoxNoAlternativeTraining.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;checkBoxNoAlternativeTraining.Name" xml:space="preserve">
-    <value>checkBoxNoAlternativeTraining</value>
-  </data>
-  <data name="&gt;&gt;checkBoxNoAlternativeTraining.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxNoAlternativeTraining.Parent" xml:space="preserve">
-    <value>tableLayoutPanelAutoTrain</value>
-  </data>
-  <data name="&gt;&gt;checkBoxNoAlternativeTraining.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tableLayoutPanelAutoTrain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanelAutoTrain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>553, 233</value>
-  </data>
-  <data name="tableLayoutPanelAutoTrain.RowCount" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="tableLayoutPanelAutoTrain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 109</value>
-  </data>
-  <data name="tableLayoutPanelAutoTrain.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelAutoTrain.Name" xml:space="preserve">
-    <value>tableLayoutPanelAutoTrain</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelAutoTrain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelAutoTrain.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelAutoTrain.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="tableLayoutPanelAutoTrain.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="checkBoxAutoTrain" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxConvertToGK" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxNoAlternativeTraining" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,33.33333,Percent,33.33333,Percent,33.33333" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="labelCopyRight.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="labelCopyRight.Location" type="System.Drawing.Point, System.Drawing">
-    <value>828, 345</value>
-  </data>
-  <data name="labelCopyRight.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 116</value>
-  </data>
-  <data name="labelCopyRight.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="labelCopyRight.Text" xml:space="preserve">
-    <value>@2022-2025 Sheng Jiang @jiangsheng</value>
-  </data>
-  <data name="labelCopyRight.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+  <data name="&gt;&gt;toolStripContainer1.BottomToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelCopyRight.Name" xml:space="preserve">
     <value>labelCopyRight</value>
   </data>
-  <data name="&gt;&gt;labelCopyRight.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="checkBoxConvertToGK.Text" xml:space="preserve">
+    <value>Convert backups to GK</value>
   </data>
-  <data name="&gt;&gt;labelCopyRight.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
+  <data name="tableLayoutPanel3.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelImprovePlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;TopToolStripPanel.Name" xml:space="preserve">
+    <value>TopToolStripPanel</value>
+  </data>
+  <data name="checkBoxAutoTrain.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="&gt;&gt;labelCopyRight.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="buttonForceExit.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;buttonLandPurchase.ZOrder" xml:space="preserve">
+    <value>14</value>
   </data>
-  <data name="buttonForceExit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>553, 348</value>
-  </data>
-  <data name="buttonForceExit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 110</value>
-  </data>
-  <data name="buttonForceExit.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="buttonForceExit.Text" xml:space="preserve">
-    <value>Force exit. </value>
-  </data>
-  <data name="buttonForceExit.ToolTip" xml:space="preserve">
-    <value>E.g. when a player with number 40 joined team random events will occur until you are fired and save file deleted </value>
-  </data>
-  <data name="&gt;&gt;buttonForceExit.Name" xml:space="preserve">
-    <value>buttonForceExit</value>
-  </data>
-  <data name="&gt;&gt;buttonForceExit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonForceExit.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
-  </data>
-  <data name="&gt;&gt;buttonForceExit.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="comboBoxLanguage.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="comboBoxLanguage.Items" xml:space="preserve">
-    <value>English （英语）</value>
-  </data>
-  <data name="comboBoxLanguage.Items1" xml:space="preserve">
-    <value>Simplified Chinese （简体中文）</value>
-  </data>
-  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 348</value>
-  </data>
-  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 110</value>
-  </data>
-  <data name="comboBoxLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.Name" xml:space="preserve">
-    <value>comboBoxLanguage</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.Parent" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="tableLayoutPanelMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanelMain.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="LeftToolStripPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="tableLayoutPanelMain.RowCount" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="toolStripContainer1.ContentPanel.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="tableLayoutPanelMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1100, 461</value>
+  <data name="&gt;&gt;tableLayoutPanelRotation.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
-  <data name="tableLayoutPanelMain.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="tableLayoutPanelImportExport.ColumnCount" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanelMain.Name" xml:space="preserve">
-    <value>tableLayoutPanelMain</value>
+  <data name="tableLayoutPanelUpdateRrespawnNameOnline.Location" type="System.Drawing.Point, System.Drawing">
+    <value>828, 3</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanelMain.Type" xml:space="preserve">
+  <data name="checkBoxMaxForm.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoTrain.Parent" xml:space="preserve">
+    <value>tableLayoutPanelAutoTrain</value>
+  </data>
+  <data name="buttonCopyPlayerData.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;checkBoxConvertToGK.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelUpdateRrespawnNameOnline.Name" xml:space="preserve">
+    <value>tableLayoutPanelUpdateRrespawnNameOnline</value>
+  </data>
+  <data name="tableLayoutPanel3.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="tableLayoutPanelImportExport.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Type" xml:space="preserve">
     <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 49</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAlternativeTraining.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripContainer1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="buttonRotateByStatistics.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 49</value>
+  </data>
+  <data name="buttonResetDate.Text" xml:space="preserve">
+    <value>Reset Date to</value>
+  </data>
+  <data name="&gt;&gt;buttonAutoPosition.Name" xml:space="preserve">
+    <value>buttonAutoPosition</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanelMain.Parent" xml:space="preserve">
     <value>toolStripContainer1.ContentPanel</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanelMain.ZOrder" xml:space="preserve">
+  <data name="buttonRotateByEnergy.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;buttonForceExit.Name" xml:space="preserve">
+    <value>buttonForceExit</value>
+  </data>
+  <data name="buttonSaveCurrentFormation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items4" xml:space="preserve">
+    <value>FIFA_Century_Club</value>
+  </data>
+  <data name="buttonExportPlayerData.Text" xml:space="preserve">
+    <value>Export Player Data</value>
+  </data>
+  <data name="tableLayoutPanelRotation.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="buttonAutoPosition.Text" xml:space="preserve">
+    <value>Auto Position Change</value>
+  </data>
+  <data name="&gt;&gt;buttonForceExit.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="&gt;&gt;checkBoxConvertToGK.Name" xml:space="preserve">
+    <value>checkBoxConvertToGK</value>
+  </data>
+  <data name="tableLayoutPanelAutoTrain.ColumnCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;labelCategory.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="tableLayoutPanelMain.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="tableLayoutPanelMaxPlayerForm" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelImprovePlayers" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel1" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelImportExport" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelCopyPaste" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelRotation" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelUpdateRrespawnNameOnline" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="buttonAutoPosition" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelFormation" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel2" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelAutoTrain" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="labelCopyRight" Row="3" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="buttonForceExit" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxLanguage" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,25,Percent,25,Percent,25,Percent,25,Absolute,20" /&gt;&lt;Rows Styles="Percent,20,Percent,20,Percent,20,Percent,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="toolStripContainer1.ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1100, 461</value>
+  <data name="tableLayoutPanelMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;LeftToolStripPanel.Name" xml:space="preserve">
+    <value>LeftToolStripPanel</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items35" xml:space="preserve">
+    <value>Association_football_forwards</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Parent" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>FSM97 Trainer</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items18" xml:space="preserve">
+    <value>FC_Bayern_Munich_footballers</value>
+  </data>
+  <data name="toolStripContainer1.TopToolStripPanel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;ContentPanel.Name" xml:space="preserve">
+    <value>ContentPanel</value>
+  </data>
+  <data name="checkBoxMaxStrength.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="buttonLandPurchase.Text" xml:space="preserve">
+    <value>Purchase all land</value>
+  </data>
+  <data name="tableLayoutPanelRotation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;buttonRotateByStatistics.Parent" xml:space="preserve">
+    <value>tableLayoutPanelRotation</value>
+  </data>
+  <data name="tableLayoutPanelImprovePlayers.ColumnCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="checkBoxMaxMorale.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 39</value>
+  </data>
+  <data name="tableLayoutPanelImportExport.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonImportPlayerData" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonExportPlayerData" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="labelCategory.Text" xml:space="preserve">
+    <value>Category:</value>
+  </data>
+  <data name="statusStrip1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="comboBoxLanguage.Items" xml:space="preserve">
+    <value>English （英语）</value>
+  </data>
+  <data name="toolStripContainer1.BottomToolStripPanel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tableLayoutPanelCopyPaste.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items19" xml:space="preserve">
+    <value>AFC_Ajax_players</value>
+  </data>
+  <data name="&gt;&gt;buttonRotateByStatistics.Name" xml:space="preserve">
+    <value>buttonRotateByStatistics</value>
+  </data>
+  <data name="checkBoxConvertToGK.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 39</value>
+  </data>
+  <data name="buttonExportPlayerData.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxAutoTrain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxForm.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonResetDate.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxMorale.Name" xml:space="preserve">
+    <value>checkBoxMaxMorale</value>
+  </data>
+  <data name="buttonForceExit.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="buttonLandPurchase.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 110</value>
+  </data>
+  <data name="&gt;&gt;buttonPastePlayerData.Parent" xml:space="preserve">
+    <value>tableLayoutPanelCopyPaste</value>
+  </data>
+  <data name="buttonPastePlayerData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 49</value>
+  </data>
+  <data name="checkBoxMaxForm.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="tableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelCategory" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxRespawnCategory" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,28.05755,Percent,71.94244" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateNewSpawn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCopyPlayerData.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="BottomToolStripPanel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxRespawnCategory.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="buttonRotateByStatistics.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="labelCopyRight.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanel2.ColumnCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelMain.Name" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxEnergy.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMaxPlayerForm</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.ContentPanel.Name" xml:space="preserve">
     <value>toolStripContainer1.ContentPanel</value>
@@ -1506,211 +1224,676 @@
   <data name="&gt;&gt;toolStripContainer1.ContentPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripContentPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.ContentPanel.Parent" xml:space="preserve">
-    <value>toolStripContainer1</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.ContentPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="toolStripContainer1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="checkBoxMaxMorale.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Name" xml:space="preserve">
-    <value>toolStripContainer1.LeftToolStripPanel</value>
+  <data name="comboBoxRespawnCategory.Items27" xml:space="preserve">
+    <value>Portugal_international_footballers</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="comboBoxRespawnCategory.Items26" xml:space="preserve">
+    <value>Argentina_international_footballers</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Parent" xml:space="preserve">
-    <value>toolStripContainer1</value>
+  <data name="&gt;&gt;buttonLandPurchase.Name" xml:space="preserve">
+    <value>buttonLandPurchase</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.ZOrder" xml:space="preserve">
+  <data name="comboBoxRespawnCategory.Items24" xml:space="preserve">
+    <value>Brazil_international_footballers</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items23" xml:space="preserve">
+    <value>Spain_international_footballers</value>
+  </data>
+  <data name="tableLayoutPanelUpdateRrespawnNameOnline.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="toolStripContainer1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="comboBoxRespawnCategory.Items21" xml:space="preserve">
+    <value>France_international_footballers</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Name" xml:space="preserve">
-    <value>toolStripContainer1.RightToolStripPanel</value>
+  <data name="comboBoxRespawnCategory.Items20" xml:space="preserve">
+    <value>England_international_footballers</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="buttonPastePlayerData.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Parent" xml:space="preserve">
-    <value>toolStripContainer1</value>
+  <data name="tableLayoutPanel3.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="LeftToolStripPanel.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="toolStripContainer1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1100, 508</value>
+  <data name="labelCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 0</value>
   </data>
-  <data name="toolStripContainer1.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="comboBoxRespawnCategory.Items29" xml:space="preserve">
+    <value>FC_Barcelona_players</value>
   </data>
-  <data name="toolStripContainer1.Text" xml:space="preserve">
-    <value>toolStripContainer1</value>
+  <data name="comboBoxRespawnCategory.Items28" xml:space="preserve">
+    <value>China_international_footballers</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Name" xml:space="preserve">
-    <value>toolStripContainer1.TopToolStripPanel</value>
+  <data name="tableLayoutPanelCopyPaste.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;buttonSaveCurrentFormation.Name" xml:space="preserve">
+    <value>buttonSaveCurrentFormation</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Parent" xml:space="preserve">
-    <value>toolStripContainer1</value>
+  <data name="tableLayoutPanelMain.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;checkBoxMaxForm.Name" xml:space="preserve">
+    <value>checkBoxMaxForm</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.Name" xml:space="preserve">
-    <value>toolStripContainer1</value>
+  <data name="buttonForceExit.Text" xml:space="preserve">
+    <value>Force exit. </value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FormMain</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="buttonRotateByStatistics.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tableLayoutPanelAutoTrain.Name" xml:space="preserve">
+    <value>tableLayoutPanelAutoTrain</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog1.Name" xml:space="preserve">
+    <value>openFileDialog1</value>
+  </data>
+  <data name="&gt;&gt;buttonPastePlayerData.Name" xml:space="preserve">
+    <value>buttonPastePlayerData</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxEnergy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tableLayoutPanelCopyPaste.Location" type="System.Drawing.Point, System.Drawing">
+    <value>278, 3</value>
+  </data>
+  <data name="&gt;&gt;buttonForceExit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonResetDate.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="BottomToolStripPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="BottomToolStripPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 0</value>
+  <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
+    <value>statusStrip1</value>
   </data>
-  <data name="&gt;&gt;BottomToolStripPanel.Name" xml:space="preserve">
-    <value>BottomToolStripPanel</value>
+  <data name="&gt;&gt;buttonBoostYouthPlayer.Name" xml:space="preserve">
+    <value>buttonBoostYouthPlayer</value>
   </data>
-  <data name="&gt;&gt;BottomToolStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tableLayoutPanel2.RowCount" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="TopToolStripPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="buttonAutoPosition.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="TopToolStripPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 0</value>
+  <data name="&gt;&gt;buttonResetDate.Name" xml:space="preserve">
+    <value>buttonResetDate</value>
   </data>
-  <data name="&gt;&gt;TopToolStripPanel.Name" xml:space="preserve">
-    <value>TopToolStripPanel</value>
+  <data name="checkBoxMaxForm.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;TopToolStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>828, 118</value>
   </data>
-  <data name="RightToolStripPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="tableLayoutPanelMaxPlayerForm.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="checkBoxMaxForm" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxMaxMorale" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxMaxEnergy" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0" /&gt;&lt;Rows Styles="Percent,33.33333,Percent,33.33333,Percent,33.33333" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="RightToolStripPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 0</value>
+  <data name="&gt;&gt;buttonImproveAllPlayersBy1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;RightToolStripPanel.Name" xml:space="preserve">
-    <value>RightToolStripPanel</value>
-  </data>
-  <data name="&gt;&gt;RightToolStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="LeftToolStripPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="LeftToolStripPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;LeftToolStripPanel.Name" xml:space="preserve">
-    <value>LeftToolStripPanel</value>
-  </data>
-  <data name="&gt;&gt;LeftToolStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ContentPanel.AutoScroll" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>905, 549</value>
-  </data>
-  <data name="&gt;&gt;ContentPanel.Name" xml:space="preserve">
-    <value>ContentPanel</value>
-  </data>
-  <data name="&gt;&gt;ContentPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripContentPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <metadata name="timerUpdateFast.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="timerUpdateSlow.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>159, 17</value>
-  </metadata>
-  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>519, 17</value>
-  </metadata>
-  <data name="saveFileDialog1.Filter" xml:space="preserve">
-    <value>csv files (*.csv)|*.csv|All files (*.*)|*.*</value>
-  </data>
-  <data name="saveFileDialog1.Title" xml:space="preserve">
-    <value>Select player data export location</value>
-  </data>
-  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>654, 17</value>
-  </metadata>
-  <data name="openFileDialog1.Filter" xml:space="preserve">
-    <value>csv files (*.csv)|*.csv|All files (*.*)|*.*</value>
-  </data>
-  <data name="openFileDialog1.Title" xml:space="preserve">
-    <value>Select player data export location</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1100, 508</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>FSM97 Trainer</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabel1.Name" xml:space="preserve">
-    <value>toolStripStatusLabel1</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;timerUpdateFast.Name" xml:space="preserve">
-    <value>timerUpdateFast</value>
-  </data>
-  <data name="&gt;&gt;timerUpdateFast.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tableLayoutPanelImportExport.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;timerUpdateSlow.Name" xml:space="preserve">
     <value>timerUpdateSlow</value>
   </data>
+  <data name="toolStripContainer1.ContentPanel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;buttonImproveAllPlayersBy1.Name" xml:space="preserve">
+    <value>buttonImproveAllPlayersBy1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Name" xml:space="preserve">
+    <value>toolStripContainer1.LeftToolStripPanel</value>
+  </data>
+  <data name="tableLayoutPanelImprovePlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 109</value>
+  </data>
+  <data name="&gt;&gt;buttonRotateByStatistics.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAbsense.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.ContentPanel.Parent" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;buttonSaveCurrentFormation.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonCopyPlayerData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tableLayoutPanelImprovePlayers.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelFormation.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="buttonImproveAllPlayersBy1.Text" xml:space="preserve">
+    <value>Improve All Players by 1</value>
+  </data>
+  <data name="buttonImproveAllPlayersBy1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 57</value>
+  </data>
+  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 348</value>
+  </data>
+  <data name="tableLayoutPanelAutoTrain.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="checkBoxAutoTrain" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxConvertToGK" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxNoAlternativeTraining" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,33.33333,Percent,33.33333,Percent,33.33333" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="checkBoxNoAbsense.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="checkBoxMaxStrength.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="tableLayoutPanel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="buttonForceExit.ToolTip" xml:space="preserve">
+    <value>E.g. when a player with number 40 joined team random events will occur until you are fired and save file deleted </value>
+  </data>
+  <data name="checkBoxConvertToGK.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 30</value>
+  </data>
+  <data name="&gt;&gt;LeftToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAlternativeTraining.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelCategory.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanelImportExport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 109</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items7" xml:space="preserve">
+    <value>Real_Madrid_CF_players</value>
+  </data>
+  <data name="&gt;&gt;buttonPastePlayerData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonCopyPlayerData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;buttonImportPlayerData.Name" xml:space="preserve">
+    <value>buttonImportPlayerData</value>
+  </data>
+  <data name="checkBoxMaxMorale.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="tableLayoutPanelMaxPlayerForm.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 21</value>
+  </data>
+  <data name="labelCopyRight.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="tableLayoutPanelImprovePlayers.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="tableLayoutPanelRotation.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LeftToolStripPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="toolStripContainer1.RightToolStripPanel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAutoPosition.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="buttonRotateByStatistics.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxRespawnCategory.Items25" xml:space="preserve">
+    <value>Netherlands_international_footballers</value>
+  </data>
+  <data name="buttonRotateByStatistics.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 57</value>
+  </data>
+  <data name="tableLayoutPanelMain.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="tableLayoutPanelMaxPlayerForm" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelImprovePlayers" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel1" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelImportExport" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelCopyPaste" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelRotation" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelUpdateRrespawnNameOnline" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="buttonAutoPosition" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelFormation" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel2" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanelAutoTrain" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="labelCopyRight" Row="3" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="buttonForceExit" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxLanguage" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonLandPurchase" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,25,Percent,25,Percent,25,Percent,25,Absolute,20" /&gt;&lt;Rows Styles="Percent,20,Percent,20,Percent,20,Percent,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelMaxPlayerForm.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="buttonUpdateNewSpawn.Text" xml:space="preserve">
+    <value>Update Respawn Player Names Online</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoPositionWithCurrentFormation.Name" xml:space="preserve">
+    <value>checkBoxAutoPositionWithCurrentFormation</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items8" xml:space="preserve">
+    <value>A.C._Milan_players</value>
+  </data>
+  <data name="tableLayoutPanelCopyPaste.ColumnCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="checkBoxAutoTrain.Text" xml:space="preserve">
+    <value>Auto Training Schedule</value>
+  </data>
+  <data name="checkBoxMaxMorale.Text" xml:space="preserve">
+    <value>Max Morale</value>
+  </data>
+  <data name="&gt;&gt;buttonAutoPosition.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="tableLayoutPanelUpdateRrespawnNameOnline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 109</value>
+  </data>
+  <data name="tableLayoutPanelFormation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 118</value>
+  </data>
+  <data name="checkBoxMaxMorale.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAutoPosition.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 109</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAbsense.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonCopyPlayerData.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanelImportExport.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;checkBoxContractAutoRenew.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="checkBoxNoAbsense.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 30</value>
+  </data>
+  <data name="checkBoxAutoTrain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 30</value>
+  </data>
+  <data name="buttonForceExit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>553, 348</value>
+  </data>
+  <data name="buttonForceExit.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxContractAutoRenew.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 31</value>
+  </data>
+  <data name="ContentPanel.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items" xml:space="preserve">
+    <value>FIFA_World_Cup-winning_players</value>
+  </data>
+  <data name="tableLayoutPanelRotation.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;buttonRotateByEnergy.Parent" xml:space="preserve">
+    <value>tableLayoutPanelRotation</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelUpdateRrespawnNameOnline.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.ContentPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanelCopyPaste.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoPositionWithCurrentFormation.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.BottomToolStripPanel.Parent" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="tableLayoutPanelMaxPlayerForm.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="checkBoxMaxMorale.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateNewSpawn.Parent" xml:space="preserve">
+    <value>tableLayoutPanelUpdateRrespawnNameOnline</value>
+  </data>
+  <data name="checkBoxAutoPositionWithCurrentFormation.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="tableLayoutPanelAutoTrain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxAutoPositionWithCurrentFormation.Text" xml:space="preserve">
+    <value>Auto Roster with Saved Formation</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Name" xml:space="preserve">
+    <value>toolStripContainer1.RightToolStripPanel</value>
+  </data>
+  <data name="buttonImproveAllPlayersBy1.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="openFileDialog1.Filter" xml:space="preserve">
+    <value>csv files (*.csv)|*.csv|All files (*.*)|*.*</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Name" xml:space="preserve">
+    <value>toolStripContainer1.TopToolStripPanel</value>
+  </data>
+  <data name="checkBoxContractAutoRenew.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tableLayoutPanelImprovePlayers.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxMaxForm.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxMaxEnergy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 75</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items5" xml:space="preserve">
+    <value>FIFA_Women's_Century_Club</value>
+  </data>
+  <data name="&gt;&gt;textBoxResetDateYear.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanelImportExport.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;RightToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBoxNoAbsense.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="checkBoxAutoTrain.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="buttonUpdateNewSpawn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tableLayoutPanelUpdateRrespawnNameOnline.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonUpdateNewSpawn" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel3" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="buttonRotateByEnergy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 48</value>
+  </data>
+  <data name="toolStripContainer1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1100, 508</value>
+  </data>
+  <data name="buttonBoostYouthPlayer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxMorale.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMaxPlayerForm</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelMaxPlayerForm.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonSaveCurrentFormation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelRotation.Name" xml:space="preserve">
+    <value>tableLayoutPanelRotation</value>
+  </data>
+  <data name="&gt;&gt;buttonLandPurchase.Parent" xml:space="preserve">
+    <value>tableLayoutPanelMain</value>
+  </data>
+  <data name="tableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
   <data name="&gt;&gt;timerUpdateSlow.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
-    <value>toolTip1</value>
+  <data name="comboBoxRespawnCategory.Items17" xml:space="preserve">
+    <value>Tottenham_Hotspur_F.C._players</value>
   </data>
-  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="toolStripContainer1.LeftToolStripPanel.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;saveFileDialog1.Name" xml:space="preserve">
-    <value>saveFileDialog1</value>
+  <data name="toolStripContainer1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;saveFileDialog1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="checkBoxMaxEnergy.Text" xml:space="preserve">
+    <value>Max Energy</value>
   </data>
-  <data name="&gt;&gt;openFileDialog1.Name" xml:space="preserve">
-    <value>openFileDialog1</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
   </data>
-  <data name="&gt;&gt;openFileDialog1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tableLayoutPanelRotation.ColumnCount" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>FormMain</value>
+  <data name="&gt;&gt;buttonPastePlayerData.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxConvertToGK.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;buttonForceExit.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;textBoxResetDateYear.Name" xml:space="preserve">
+    <value>textBoxResetDateYear</value>
+  </data>
+  <data name="tableLayoutPanelAutoTrain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>553, 233</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1100, 22</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelMain.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonImportPlayerData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tableLayoutPanelImprovePlayers.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;comboBoxRespawnCategory.Name" xml:space="preserve">
+    <value>comboBoxRespawnCategory</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelUpdateRrespawnNameOnline.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;buttonRotateByEnergy.Name" xml:space="preserve">
+    <value>buttonRotateByEnergy</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;buttonRotateByEnergy.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;BottomToolStripPanel.Name" xml:space="preserve">
+    <value>BottomToolStripPanel</value>
+  </data>
+  <data name="buttonImportPlayerData.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxNoAbsense.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxMaxStrength.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxConvertToGK.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelAutoTrain.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;labelCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog1.Name" xml:space="preserve">
+    <value>saveFileDialog1</value>
+  </data>
+  <data name="labelCopyRight.Text" xml:space="preserve">
+    <value>@2022-2025 Sheng Jiang @jiangsheng</value>
+  </data>
+  <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.Parent" xml:space="preserve">
+    <value>tableLayoutPanelUpdateRrespawnNameOnline</value>
+  </data>
+  <data name="checkBoxMaxMorale.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="tableLayoutPanelRotation.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonRotateByEnergy" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonRotateByStatistics" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="checkBoxMaxEnergy.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Parent" xml:space="preserve">
+    <value>toolStripContainer1.BottomToolStripPanel</value>
+  </data>
+  <data name="checkBoxMaxForm.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;comboBoxRespawnCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonImportPlayerData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 49</value>
+  </data>
+  <data name="checkBoxMaxStrength.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 30</value>
+  </data>
+  <data name="tableLayoutPanelUpdateRrespawnNameOnline.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="toolStripStatusLabel1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="toolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1085, 17</value>
+  </data>
+  <data name="buttonPastePlayerData.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="comboBoxLanguage.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabel1.Name" xml:space="preserve">
+    <value>toolStripStatusLabel1</value>
+  </data>
+  <data name="comboBoxRespawnCategory.Items1" xml:space="preserve">
+    <value>FIFA_World_Player_of_the_Year_winners</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelFormation.Name" xml:space="preserve">
+    <value>tableLayoutPanelFormation</value>
+  </data>
+  <data name="checkBoxNoAlternativeTraining.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxStrength.Name" xml:space="preserve">
+    <value>checkBoxMaxStrength</value>
+  </data>
+  <data name="ContentPanel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonForceExit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 110</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateNewSpawn.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxContractAutoRenew.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="tableLayoutPanelFormation.ColumnCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;buttonAutoPosition.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="buttonResetDate.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxRespawnCategory.Items16" xml:space="preserve">
+    <value>Newcastle_United_F.C._players</value>
+  </data>
+  <data name="ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>905, 549</value>
+  </data>
+  <metadata name="timerUpdateFast.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>305, 17</value>
+  </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>421, 17</value>
+  </metadata>
+  <metadata name="timerUpdateSlow.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>159, 17</value>
+  </metadata>
+  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>654, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>519, 17</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>zh-CN</value>
+  </metadata>
 </root>

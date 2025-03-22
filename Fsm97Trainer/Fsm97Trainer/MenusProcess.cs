@@ -13,11 +13,6 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
-using Diacritics.Extensions;
-using System.CodeDom;
-using System.Windows.Forms.VisualStyles;
-using System.Security.Cryptography;
 
 namespace Fsm97Trainer
 {
@@ -69,18 +64,6 @@ namespace Fsm97Trainer
         public Encoding Encoding { get; private set; }
         Process Process { get; set; }
 
-
-        static string CalculateMD5(string filename)
-        {
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = File.OpenRead(filename))
-                {
-                    var hash = md5.ComputeHash(stream);
-                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-                }
-            }
-        }
 
         TrainingEffectModifier trainingEffectModifier; 
         public MenusProcess()
@@ -170,7 +153,7 @@ namespace Fsm97Trainer
             bytes[0x75] = (byte)player.ContractWeeks;
             var salaryBytes = BitConverter.GetBytes(player.Salary);
             salaryBytes.CopyTo(bytes, 0x60);
-            NativeMethods.WriteBytes(Process, playerDataAddress + 0x2f, bytes, 0x2f, 0x31 - 0x2f + 1);
+            NativeMethods.WriteBytes(Process, playerDataAddress + 0x2f, bytes, 0x2f, 0x32 - 0x2f + 1);
             NativeMethods.WriteBytes(Process, playerDataAddress + 0x33, bytes, 0x33, 0x4d - 0x33 + 1);
             NativeMethods.WriteByte(Process, playerDataAddress + 0x75, (byte)player.ContractWeeks);
         }
@@ -424,7 +407,10 @@ namespace Fsm97Trainer
             int playerDataAddress = playerNode.DataAddress;
             Player player = playerNode.Data;
             if (to.Number > 0 && to.Number < 40)//game bug: no 40 causes access violation.
-                player.Number = to.Number;
+            {
+                if(player.Number != to.Number)
+                    player.Number = to.Number;
+            }
             player.Nationality = to.Nationality;
             player.Speed = Math.Max(player.Speed, to.Speed);
             player.Agility = Math.Max(player.Agility, to.Agility);

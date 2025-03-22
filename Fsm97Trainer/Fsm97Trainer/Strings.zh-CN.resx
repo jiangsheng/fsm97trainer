@@ -147,6 +147,9 @@
   <data name="InvalidFormationForSaving" xml:space="preserve">
     <value>保存阵容需要场上有11名球员，包括一名守门员</value>
   </data>
+  <data name="LandPurchased" xml:space="preserve">
+    <value>土地已经购买</value>
+  </data>
   <data name="MultipleGameProcessFound" xml:space="preserve">
     <value>检测到多个游戏进程</value>
   </data>

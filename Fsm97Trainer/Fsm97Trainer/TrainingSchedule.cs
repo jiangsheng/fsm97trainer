@@ -11,15 +11,25 @@ namespace Fsm97Trainer
             bool maxPower, bool noAlternativeTraining, TrainingEffectModifier trainingEffectModifier)
         {
             TrainingScheduleType[] schedule;
+            //is this a player a different best position only training as goalkeeper to avoid injury?
             if (player.Fitness < 99 && player.Position == (byte)PlayerPosition.GK && player.BestPosition != (byte)PlayerPosition.GK)
             {
-                schedule = (TrainingScheduleType[])GetTrainingSchedule(player, (PlayerPosition)player.BestPosition,maxPower, noAlternativeTraining, trainingEffectModifier).Clone();
+                //train for the player's real position
+                schedule = (TrainingScheduleType[])GetTrainingSchedule(player, (PlayerPosition)player.BestPosition, maxPower, noAlternativeTraining, trainingEffectModifier).Clone();
             }
             else
-                schedule = (TrainingScheduleType[])GetTrainingSchedule(player, (PlayerPosition)player.Position,maxPower, noAlternativeTraining,trainingEffectModifier).Clone();
-
+            {
+                //train for the game player's preferred position
+                schedule = (TrainingScheduleType[])GetTrainingSchedule(player, (PlayerPosition)player.Position, maxPower, noAlternativeTraining, trainingEffectModifier).Clone();
+            }
+            //see physiotherapist if injuries will not be auto reset
+            //training injury happens due to low energy
             if (!autoResetStatus && !maxEnergy && !trainingEffectModifier.RemoveNegativeTraining)
             {
+                //Only for on-field players
+                //gks almost never get injured so exclude them
+                //fitness < 99 means can be injured in training.
+                //fitness = 99 can still injured in training once in a blue moon but we ignore that. 
                 if (player.Status == 0 && player.Position != (byte)PlayerPosition.GK && player.Fitness < 99)
                 {
                     schedule[1] = schedule[3] = schedule[5] = TrainingScheduleType.Physiotherapist;

@@ -126,6 +126,9 @@
   <data name="EnglishOrGlobalVersion" xml:space="preserve">
     <value>English or global version</value>
   </data>
+  <data name="EnglishOrGlobalVersionWith9798Patch" xml:space="preserve">
+    <value>English or Global version with 97/98 season Patch</value>
+  </data>
   <data name="OriginalVersion" xml:space="preserve">
     <value>Original version</value>
   </data>
