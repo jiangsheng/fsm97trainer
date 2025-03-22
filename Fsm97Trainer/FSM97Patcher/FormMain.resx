@@ -118,36 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelSelectGameExeFile.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="labelSelectGameExePath.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelSelectGameExeFile.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelSelectGameExePath.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 0</value>
   </data>
-  <data name="labelSelectGameExeFile.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelSelectGameExePath.Size" type="System.Drawing.Size, System.Drawing">
     <value>361, 57</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelSelectGameExeFile.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelSelectGameExePath.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="labelSelectGameExeFile.Text" xml:space="preserve">
+  <data name="labelSelectGameExePath.Text" xml:space="preserve">
     <value>Select Game Exe File</value>
   </data>
-  <data name="labelSelectGameExeFile.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="labelSelectGameExePath.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;labelSelectGameExeFile.Name" xml:space="preserve">
-    <value>labelSelectGameExeFile</value>
+  <data name="&gt;&gt;labelSelectGameExePath.Name" xml:space="preserve">
+    <value>labelSelectGameExePath</value>
   </data>
-  <data name="&gt;&gt;labelSelectGameExeFile.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelSelectGameExePath.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelSelectGameExeFile.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelSelectGameExePath.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;labelSelectGameExeFile.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelSelectGameExePath.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="textBoxExePath.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -261,6 +261,9 @@
   <data name="&gt;&gt;buttonUnpatch.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
+  <data name="labelGameVersion.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="labelGameVersion.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -271,7 +274,7 @@
     <value>361, 57</value>
   </data>
   <data name="labelGameVersion.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="labelGameVersion.Text" xml:space="preserve">
     <value>Game Version</value>
@@ -499,6 +502,9 @@
     <value>Exercise, Jogging, Marking, Zonal Defence, 5 a side and Training Match improves Speed and Acceleration
 </value>
   </data>
+  <data name="checkBoxImproveSpeed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
   <data name="&gt;&gt;checkBoxImproveSpeed.Name" xml:space="preserve">
     <value>checkBoxImproveSpeed</value>
   </data>
@@ -586,6 +592,9 @@
   <data name="checkBoxHeadingImprovesDetermination.Text" xml:space="preserve">
     <value>Heading improves Determination</value>
   </data>
+  <data name="checkBoxHeadingImprovesDetermination.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
   <data name="&gt;&gt;checkBoxHeadingImprovesDetermination.Name" xml:space="preserve">
     <value>checkBoxHeadingImprovesDetermination</value>
   </data>
@@ -661,14 +670,11 @@
   <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>1103, 344</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -683,7 +689,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonBrowse" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="textBoxExePath" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelSelectGameExeFile" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxThrowInImprovesThrowing" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxShootingTraingGreed" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxPassingMatchImproveLeadership" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxTrainingMatchNongativeEffect" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxTrainingEffectX2" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxImproveSpeed" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="labelCopyright" Row="5" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="buttonPatch" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonUnpatch" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelGameVersion" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxKickingImprovesSpeed" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxHandlingImprovesAgility" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxHeadingImprovesDetermination" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="buttonShowTrainingEffects" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxLanguages" Row="4" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33.33333,Percent,33.33334,Percent,33.33334" /&gt;&lt;Rows Styles="Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonBrowse" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="textBoxExePath" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelSelectGameExePath" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxThrowInImprovesThrowing" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxShootingTraingGreed" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxPassingMatchImproveLeadership" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxTrainingMatchNongativeEffect" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxTrainingEffectX2" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxImproveSpeed" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="labelCopyright" Row="5" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="buttonPatch" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonUnpatch" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelGameVersion" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxKickingImprovesSpeed" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxHandlingImprovesAgility" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxHeadingImprovesDetermination" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="buttonShowTrainingEffects" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxLanguages" Row="4" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33.33332,Percent,33.33334,Percent,33.33334" /&gt;&lt;Rows Styles="Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

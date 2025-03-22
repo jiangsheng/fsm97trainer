@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            this.labelSelectGameExePath = new System.Windows.Forms.Label();
+            this.textBoxExePath = new System.Windows.Forms.TextBox();
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.buttonPatch = new System.Windows.Forms.Button();
             this.buttonUnpatch = new System.Windows.Forms.Button();
@@ -52,15 +53,10 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // labelSelectGameExePath
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(361, 57);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "选择游戏执行文件(Select Game Exe File)";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            resources.ApplyResources(this.labelSelectGameExePath, "labelSelectGameExePath");
+            this.labelSelectGameExePath.Name = "labelSelectGameExePath";
             // 
             // textBoxExePath
             // 
@@ -91,11 +87,8 @@
             // 
             // labelGameVersion
             // 
-            this.labelGameVersion.AutoSize = true;
-            this.labelGameVersion.Location = new System.Drawing.Point(230, 37);
+            resources.ApplyResources(this.labelGameVersion, "labelGameVersion");
             this.labelGameVersion.Name = "labelGameVersion";
-            this.labelGameVersion.Size = new System.Drawing.Size(0, 13);
-            this.labelGameVersion.TabIndex = 6;
             // 
             // labelCopyright
             // 
@@ -120,13 +113,10 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
             this.tableLayoutPanel1.Controls.Add(this.buttonBrowse, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxExePath, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelSelectGameExePath, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxThrowInImprovesThrowing, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxShootingTraingGreed, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxPassingMatchImproveLeadership, 2, 1);
@@ -136,7 +126,7 @@
             this.tableLayoutPanel1.Controls.Add(this.labelCopyright, 2, 5);
             this.tableLayoutPanel1.Controls.Add(this.buttonPatch, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.buttonUnpatch, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.labelGameVersion, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxKickingImprovesSpeed, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxHandlingImprovesAgility, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxHeadingImprovesDetermination, 2, 3);
@@ -242,8 +232,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label labelSelectGameExePath;
+        private System.Windows.Forms.TextBox textBoxExePath;
         private System.Windows.Forms.Button buttonBrowse;
         private System.Windows.Forms.Button buttonPatch;
         private System.Windows.Forms.Button buttonUnpatch;

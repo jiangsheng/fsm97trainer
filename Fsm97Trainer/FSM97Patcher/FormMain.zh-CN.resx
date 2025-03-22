@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="labelSelectGameExeFile.Text" xml:space="preserve">
-    <value>选择游戏执行文件</value>
+  <data name="labelSelectGameExePath.Text" xml:space="preserve">
+    <value>游戏Exe路径</value>
   </data>
   <data name="buttonBrowse.Text" xml:space="preserve">
     <value>浏览</value>
@@ -129,8 +129,19 @@
   <data name="buttonUnpatch.Text" xml:space="preserve">
     <value>卸载补丁</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="labelGameVersion.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="labelGameVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 57</value>
+  </data>
   <data name="labelGameVersion.Text" xml:space="preserve">
     <value>游戏版本</value>
+  </data>
+  <data name="labelGameVersion.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
   </data>
   <data name="checkBoxTrainingMatchNongativeEffect.Text" xml:space="preserve">
     <value>取消训练负面影响
