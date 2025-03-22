@@ -61,6 +61,15 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save Location.
+        /// </summary>
+        internal static string FormMainSaveToCsvDialogTitle {
+            get {
+                return ResourceManager.GetString("FormMainSaveToCsvDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&amp;query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0A%0D%0ASELECT+DISTINCT+%3Fplayer+%2C+%3Fname%0D%0AWHERE+%7B%3Fplayer+dbo%3AwikiPageID+%3Fnumber%3B+rdf%3Atype+dbo%3ASoccerPlayer+%3B%0D%0Adbo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetPlayerByYearCndCategoryQueryUrl {

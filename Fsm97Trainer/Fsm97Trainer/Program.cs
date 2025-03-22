@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
+using System.Globalization;
 using System.Net;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fsm97Trainer
@@ -20,20 +19,20 @@ namespace Fsm97Trainer
             Application.SetCompatibleTextRenderingDefault(false);
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             FormMain mainForm = new FormMain();
-            var settings=Properties.Settings.Default;
+            var settings = Properties.Settings.Default;
             settings.Reload();
             mainForm.AutoTrain = settings.AutoTrain;
             mainForm.ContractAutoRenew = settings.ContractAutoRenew;
             mainForm.AutoResetStatus = settings.AutoResetStatus;
-            mainForm.ConvertToGK=settings.ConvertToGK;  
+            mainForm.ConvertToGK = settings.ConvertToGK;
             mainForm.MaxEnergy = settings.MaxEnergy;
-            mainForm.MaxForm=settings.MaxForm;
+            mainForm.MaxForm = settings.MaxForm;
             mainForm.MaxMorale = settings.MaxMoral;
             mainForm.MaxPower = settings.MaxStrength;
             mainForm.NoAlternativeTraining = settings.NoAlternativeTraining;
             mainForm.SavedFormation = settings.SavedFormation;
-            if(mainForm.SavedFormation==null) 
-                mainForm.SavedFormation=new FSM97Lib.Formation();
+            if (mainForm.SavedFormation == null)
+                mainForm.SavedFormation = new FSM97Lib.Formation();
             mainForm.AutoPositionWithFormation = settings.AutoPositionWithFormation;
             Application.Run(mainForm);
             settings.AutoTrain = mainForm.AutoTrain;
@@ -54,9 +53,15 @@ namespace Fsm97Trainer
         {
             PropertyInfo[] piList = typeof(T).GetProperties();
             foreach (PropertyInfo pi in piList)
-            {               
-               pi.SetValue(destination, pi.GetValue(source, null), null);
+            {
+                pi.SetValue(destination, pi.GetValue(source, null), null);
             }
+        }
+        public static void ChangeLanguage(ComponentResourceManager resources, CultureInfo cultureInfo, string lang, Control control)
+        {
+            resources.ApplyResources(control, control.Name, cultureInfo);
+            foreach (Control subControl in control.Controls)
+                ChangeLanguage(resources, cultureInfo, lang, subControl);
         }
     }
 }

@@ -1,12 +1,8 @@
 ﻿using CsvHelper.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Fsm97Trainer
 {
-    internal class PlayerMap:CsvClassMap<Player>
+    internal class PlayerMap : CsvClassMap<Player>
     {
         public PlayerMap()
         {

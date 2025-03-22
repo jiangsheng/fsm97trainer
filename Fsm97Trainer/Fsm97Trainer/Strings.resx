@@ -117,13 +117,85 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FormMainSaveToCsvDialogTitle" xml:space="preserve">
-    <value>Save Location</value>
+  <data name="AllPlayerDataBoosted" xml:space="preserve">
+    <value>All player data boosted.</value>
   </data>
-  <data name="GetPlayerByYearCndCategoryQueryUrl" xml:space="preserve">
-    <value>https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&amp;query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0A%0D%0ASELECT+DISTINCT+%3Fplayer+%2C+%3Fname%0D%0AWHERE+%7B%3Fplayer+dbo%3AwikiPageID+%3Fnumber%3B+rdf%3Atype+dbo%3ASoccerPlayer+%3B%0D%0Adbo%3AbirthDate%7Cdbp%3AbirthDate+%3Fbirthdate+%3Brdfs%3Alabel+%3Fname+%3Bdcterms%3Asubject+%3Fcategory%0D%0AFILTER+%28%28lang%28%3Fname%29%3D%22{2}%22%29%26%26%3Fbirthdate%3E%3D+%22{0}-01-01%22%5E%5Exsd%3Adate+%26%26+%3Fbirthdate%3C%3D+%22{1}-12-31%22%5E%5Exsd%3Adate+%26%26+%3Fcategory+%3D%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FCategory%3A{3}%3E+%29.+%0D%0A%7D+%0D%0AORDER+BY+%28%3Fnumber%29&amp;format=application%2Fsparql-results%2Bjson&amp;timeout=30000&amp;signal_void=on&amp;signal_unconnected=on</value>
+  <data name="CannotFindGameProcess" xml:space="preserve">
+    <value>Cannot find game process!</value>
   </data>
-  <data name="GetPlayerByYearQueryUrl" xml:space="preserve">
-    <value>https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&amp;query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0A%0D%0ASELECT+%3Fplayer%2C+%3Fname+WHERE+%7B%0D%0A%3Fplayer+dbo%3AwikiPageID+%3Fnumber%3B%0D%0Ardf%3Atype+dbo%3ASoccerPlayer+%3B%0D%0A+++++++++++dbo%3AbirthDate%7Cdbp%3AbirthDate+%3Fbirthdate+%3B%0D%0A+++++++++++rdfs%3Alabel+%3Fname+%0D%0A+FILTER+%28%28lang%28%3Fname%29%3D%22{2}%22%29%26%26%3Fbirthdate%3E%3D+%22{0}-01-01%22%5E%5Exsd%3Adate+%26%26+%3Fbirthdate%3C%3D+%22{1}-12-31%22%5E%5Exsd%3Adate+%29+.+%0D%0A%7D+%0D%0AORDER+BY+%28%3Fnumber%29&amp;format=application%2Fsparql-results%2Bjson&amp;timeout=30000&amp;signal_void=on&amp;signal_unconnected=on</value>
+  <data name="CannotFindNewSpawn" xml:space="preserve">
+    <value>Cannot find new spawn.</value>
+  </data>
+  <data name="CanOnlyChangeAtSeasonStart" xml:space="preserve">
+    <value>Can only change at season start.</value>
+  </data>
+  <data name="CanOnlyChangeDateInOffseason" xml:space="preserve">
+    <value>Can only change date in offseason.</value>
+  </data>
+  <data name="FormationSaved" xml:space="preserve">
+    <value>Formation saved.</value>
+  </data>
+  <data name="GameDateChangeWarning" xml:space="preserve">
+    <value>To avoid age bug after 2079 you should reset date before 2079. In addition, resetting date would disrupt game scheduling, you should only do it in offseason. Continue?</value>
+  </data>
+  <data name="GameDateOutOfReangePrompt" xml:space="preserve">
+    <value>Please enter an integer between 1901 and 2078.</value>
+  </data>
+  <data name="GameDateReset" xml:space="preserve">
+    <value>Game date eeset,</value>
+  </data>
+  <data name="InvalidFormationForSaving" xml:space="preserve">
+    <value>Saving formation requires 11 players on the field, including a GK.</value>
+  </data>
+  <data name="MultipleGameProcessFound" xml:space="preserve">
+    <value>More than one menus.exe process found.</value>
+  </data>
+  <data name="NotEnoughPlayersForAutoPosition" xml:space="preserve">
+    <value>Auto Position to Formation requires 11 Players on the field</value>
+  </data>
+  <data name="PlayerDataCopied" xml:space="preserve">
+    <value>Player data copied</value>
+  </data>
+  <data name="PlayerDataImported" xml:space="preserve">
+    <value>Player data imported.</value>
+  </data>
+  <data name="PlayerDataPasted" xml:space="preserve">
+    <value>Player data pasted.</value>
+  </data>
+  <data name="PlayerNamesUpdated" xml:space="preserve">
+    <value>Player names updated</value>
+  </data>
+  <data name="PlayersRotated" xml:space="preserve">
+    <value>Players rotated.</value>
+  </data>
+  <data name="PleaseCopyPlayerDataFirst" xml:space="preserve">
+    <value>Please copy player data first</value>
+  </data>
+  <data name="PleaseSwitchToTheTrainingSchedulePageFirstContinue" xml:space="preserve">
+    <value>Please switch to the training schedule page first. Continue?</value>
+  </data>
+  <data name="PositionAutoReset" xml:space="preserve">
+    <value>Position auto reset.</value>
+  </data>
+  <data name="SeasonBeginningOnly" xml:space="preserve">
+    <value>Can only be done at the beginning of the season, continue?</value>
+  </data>
+  <data name="SelectPlayerDataExportLlocation" xml:space="preserve">
+    <value>Select player data export location</value>
+  </data>
+  <data name="UnsupportedGameVersion" xml:space="preserve">
+    <value>Unsupported game version.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="WarningConvertToGK" xml:space="preserve">
+    <value>Changing subs to GK will avoid training injories mostly but players will complain and sometimes threaten to retire, and managers will want you to increase performance (but you won't be fired). Continue?</value>
+  </data>
+  <data name="YouthPlayerDataBoosted" xml:space="preserve">
+    <value>Youth player data boosted.</value>
+  </data>
+  <data name="YouthPlayerNotFound" xml:space="preserve">
+    <value>Youth player not found.</value>
   </data>
 </root>

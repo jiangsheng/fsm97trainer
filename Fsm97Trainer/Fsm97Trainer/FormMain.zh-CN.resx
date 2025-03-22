@@ -117,13 +117,111 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FormMainSaveToCsvDialogTitle" xml:space="preserve">
-    <value>Save Location</value>
+  <data name="checkBoxMaxForm.Text" xml:space="preserve">
+    <value>满状态</value>
   </data>
-  <data name="GetPlayerByYearCndCategoryQueryUrl" xml:space="preserve">
-    <value>https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&amp;query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0A%0D%0ASELECT+DISTINCT+%3Fplayer+%2C+%3Fname%0D%0AWHERE+%7B%3Fplayer+dbo%3AwikiPageID+%3Fnumber%3B+rdf%3Atype+dbo%3ASoccerPlayer+%3B%0D%0Adbo%3AbirthDate%7Cdbp%3AbirthDate+%3Fbirthdate+%3Brdfs%3Alabel+%3Fname+%3Bdcterms%3Asubject+%3Fcategory%0D%0AFILTER+%28%28lang%28%3Fname%29%3D%22{2}%22%29%26%26%3Fbirthdate%3E%3D+%22{0}-01-01%22%5E%5Exsd%3Adate+%26%26+%3Fbirthdate%3C%3D+%22{1}-12-31%22%5E%5Exsd%3Adate+%26%26+%3Fcategory+%3D%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FCategory%3A{3}%3E+%29.+%0D%0A%7D+%0D%0AORDER+BY+%28%3Fnumber%29&amp;format=application%2Fsparql-results%2Bjson&amp;timeout=30000&amp;signal_void=on&amp;signal_unconnected=on</value>
+  <data name="checkBoxMaxMorale.Text" xml:space="preserve">
+    <value>满士气</value>
   </data>
-  <data name="GetPlayerByYearQueryUrl" xml:space="preserve">
-    <value>https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&amp;query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0A%0D%0ASELECT+%3Fplayer%2C+%3Fname+WHERE+%7B%0D%0A%3Fplayer+dbo%3AwikiPageID+%3Fnumber%3B%0D%0Ardf%3Atype+dbo%3ASoccerPlayer+%3B%0D%0A+++++++++++dbo%3AbirthDate%7Cdbp%3AbirthDate+%3Fbirthdate+%3B%0D%0A+++++++++++rdfs%3Alabel+%3Fname+%0D%0A+FILTER+%28%28lang%28%3Fname%29%3D%22{2}%22%29%26%26%3Fbirthdate%3E%3D+%22{0}-01-01%22%5E%5Exsd%3Adate+%26%26+%3Fbirthdate%3C%3D+%22{1}-12-31%22%5E%5Exsd%3Adate+%29+.+%0D%0A%7D+%0D%0AORDER+BY+%28%3Fnumber%29&amp;format=application%2Fsparql-results%2Bjson&amp;timeout=30000&amp;signal_void=on&amp;signal_unconnected=on</value>
+  <data name="checkBoxMaxEnergy.Text" xml:space="preserve">
+    <value>满体力</value>
+  </data>
+  <data name="buttonBoostYouthPlayer.Text" xml:space="preserve">
+    <value>改善新人数据</value>
+  </data>
+  <data name="buttonImproveAllPlayersBy1.Text" xml:space="preserve">
+    <value>所有球员数据+1</value>
+  </data>
+  <data name="buttonResetDate.Text" xml:space="preserve">
+    <value>重设日期至</value>
+  </data>
+  <data name="buttonImportPlayerData.Text" xml:space="preserve">
+    <value>导入球员数据</value>
+  </data>
+  <data name="buttonExportPlayerData.Text" xml:space="preserve">
+    <value>导出球员数据</value>
+  </data>
+  <data name="buttonPastePlayerData.Text" xml:space="preserve">
+    <value>粘贴球员数据</value>
+  </data>
+  <data name="buttonCopyPlayerData.Text" xml:space="preserve">
+    <value>复制球员数据</value>
+  </data>
+  <data name="buttonRotateByEnergy.Text" xml:space="preserve">
+    <value>体力优先轮换</value>
+  </data>
+  <data name="buttonRotateByStatistics.Text" xml:space="preserve">
+    <value>统计优先轮换</value>
+  </data>
+  <data name="buttonUpdateNewSpawn.Text" xml:space="preserve">
+    <value>在线更新重生球员名</value>
+  </data>
+  <data name="buttonUpdateNewSpawn.ToolTip" xml:space="preserve">
+    <value>可以执行多次，每次不同类别</value>
+  </data>
+  <data name="labelCategory.Text" xml:space="preserve">
+    <value>分类地址</value>
+  </data>
+  <data name="buttonAutoPosition.Text" xml:space="preserve">
+    <value>自适应位置</value>
+  </data>
+  <data name="buttonSaveCurrentFormation.Text" xml:space="preserve">
+    <value>保存当前阵型</value>
+  </data>
+  <data name="checkBoxAutoPositionWithCurrentFormation.Text" xml:space="preserve">
+    <value>自适应位置使用当前保存阵型</value>
+  </data>
+  <data name="checkBoxNoAbsense.Text" xml:space="preserve">
+    <value>球员总是可用</value>
+  </data>
+  <data name="checkBoxContractAutoRenew.Text" xml:space="preserve">
+    <value>自动续约</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="checkBoxMaxStrength.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxMaxStrength.Text" xml:space="preserve">
+    <value>力量最大</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="checkBoxMaxStrength.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="checkBoxAutoTrain.Text" xml:space="preserve">
+    <value>自动训练</value>
+  </data>
+  <data name="checkBoxConvertToGK.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxConvertToGK.Text" xml:space="preserve">
+    <value>守门员训练法</value>
+  </data>
+  <data name="checkBoxConvertToGK.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="checkBoxConvertToGK.ToolTip" xml:space="preserve">
+    <value>替补转为守门员可减少训练受伤</value>
+  </data>
+  <data name="checkBoxNoAlternativeTraining.Text" xml:space="preserve">
+    <value>不转练</value>
+  </data>
+  <data name="buttonForceExit.Text" xml:space="preserve">
+    <value>强行退出游戏</value>
+  </data>
+  <data name="buttonForceExit.ToolTip" xml:space="preserve">
+    <value>如出现40号球员bug时，会出现随机事件直到被解雇删档</value>
+  </data>
+  <data name="comboBoxLanguage.Items" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxLanguage.Items1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="openFileDialog1.Title" xml:space="preserve">
+    <value>选择球员数据保存路径</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>FSM97 球探工具</value>
   </data>
 </root>

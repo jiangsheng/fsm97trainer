@@ -164,5 +164,5 @@ namespace FSM97Lib
             }
             return sum / 100;
         }
-            }
+    }
 }

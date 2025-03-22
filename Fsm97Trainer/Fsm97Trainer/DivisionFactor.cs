@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
+﻿using System.ComponentModel;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fsm97Trainer
 {
-    public class  DivisionFactor : IDivisionFactor
+    public class DivisionFactor : IDivisionFactor
     {
-        public DivisionFactor() 
-        { 
+        public DivisionFactor()
+        {
 
         }
         public DivisionFactor(DivisionFactorStruct divisionFactorStruct) : this()
@@ -51,7 +44,7 @@ namespace Fsm97Trainer
     }
     [StructLayout(LayoutKind.Sequential)]
     public struct DivisionFactorStruct : IDivisionFactor
-    {      
+    {
         public float perf_factor { get; set; }
         public float pass_succ_factor { get; set; }
         public float tackle_succ_factor { get; set; }

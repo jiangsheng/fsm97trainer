@@ -4,12 +4,12 @@ using FSM97Lib;
 using OpenCCNET;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Fsm97Trainer
@@ -126,42 +126,33 @@ namespace Fsm97Trainer
                 MenusProcess menusProcess = GetMenusProcess();
                 var players = menusProcess.ReadPlayers(false);
                 if (players.Count > 0)
-                    SaveToCsv(players);
+                {
+                    if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        CsvConfiguration config = new CsvConfiguration();
+                        config.Encoding = Encoding.UTF8;
+                        config.CultureInfo = new CultureInfo("zh-hans");
+                        using (var writer = new StreamWriter(saveFileDialog1.FileName, false, Encoding.UTF8))
+                        using (var csv = new CsvWriter(writer, config))
+                        {
+                            csv.Configuration.RegisterClassMap<PlayerMap>();
+                            csv.WriteHeader<Player>();
+                            foreach (var playerNode in players)
+                            {
+                                csv.WriteRecord<Player>(playerNode.Data);
+                            }
+                        }
+                        ProcessStartInfo psi = new ProcessStartInfo();
+                        psi.UseShellExecute = true;
+                        psi.FileName = saveFileDialog1.FileName;
+                        Process.Start(psi);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 toolStripStatusLabel1.Text = ex.Message;
-            }
-        }
-
-        private static void SaveToCsv(LinkedList<PlayerNode> playerNodes)
-        {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.FileName = "players.csv";
-                sfd.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
-                sfd.Title = "选择球员数据保存路径(Select player data export location)";
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    CsvConfiguration config = new CsvConfiguration();
-                    config.Encoding = Encoding.UTF8;
-                    config.CultureInfo = new CultureInfo("zh-hans");
-                    using (var writer = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
-                    using (var csv = new CsvWriter(writer, config))
-                    {
-                        csv.Configuration.RegisterClassMap<PlayerMap>();
-                        csv.WriteHeader<Player>();
-                        foreach (var playerNode in playerNodes)
-                        {
-                            csv.WriteRecord<Player>(playerNode.Data);
-                        }
-                    }
-                    ProcessStartInfo psi = new ProcessStartInfo();
-                    psi.UseShellExecute = true;
-                    psi.FileName = sfd.FileName;
-                    Process.Start(psi);
-                }
             }
         }
 
@@ -174,7 +165,7 @@ namespace Fsm97Trainer
                 this.PlayerData = new LinkedList<Player>();
                 foreach (var playerNode in menusProcess.ReadPlayers(false))
                     this.PlayerData.AddLast(playerNode.Data);
-                MessageBox.Show("球员数据已复制(Player data copied)");
+                MessageBox.Show(Strings.PlayerDataCopied);
             }
             catch (Exception ex)
             {
@@ -186,7 +177,7 @@ namespace Fsm97Trainer
         {
             if (PlayerData == null)
             {
-                MessageBox.Show("请先复制数据！(Please copy player data first)");
+                MessageBox.Show(Strings.PleaseCopyPlayerDataFirst);
                 return;
             }
 
@@ -194,7 +185,7 @@ namespace Fsm97Trainer
             {
                 MenusProcess menusProcess = GetMenusProcess();
                 menusProcess.LoadPlayerData(this.PlayerData);
-                MessageBox.Show("球员数据已粘贴(Player data pasted)");
+                MessageBox.Show(Strings.PlayerDataPasted);
             }
             catch (Exception ex)
             {
@@ -214,7 +205,7 @@ namespace Fsm97Trainer
                 {
                     MenusProcess menusProcess = GetMenusProcess();
                     menusProcess.LoadPlayerData(players);
-                    MessageBox.Show("球员数据已导入(Player data imported)");
+                    MessageBox.Show(Strings.PlayerDataImported);
                 }
             }
             catch (Exception ex)
@@ -227,42 +218,35 @@ namespace Fsm97Trainer
         private LinkedList<Player> LoadFromCsv()
         {
             var result = new LinkedList<Player>();
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            var ofd = this.openFileDialog1;
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                ofd.FileName = "players.csv";
-                ofd.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
-                ofd.Title = "选择球员数据保存路径(Select player data export location)";
-                if (ofd.ShowDialog() == DialogResult.OK)
+                CsvConfiguration config = new CsvConfiguration();
+                config.Encoding = Encoding.UTF8;
+                config.CultureInfo = new CultureInfo("zh-hans");
+                using (var reader = new StreamReader(ofd.FileName, Encoding.UTF8))
+                using (var csv = new CsvReader(reader, config))
                 {
-                    CsvConfiguration config = new CsvConfiguration();
-                    config.Encoding = Encoding.UTF8;
-                    config.CultureInfo = new CultureInfo("zh-hans");
-                    using (var reader = new StreamReader(ofd.FileName, Encoding.UTF8))
-                    using (var csv = new CsvReader(reader, config))
+                    csv.Configuration.RegisterClassMap<PlayerMap>();
+                    csv.ReadHeader();
+                    foreach (var record in csv.GetRecords<Player>())
                     {
-                        csv.Configuration.RegisterClassMap<PlayerMap>();
-                        csv.ReadHeader();
-                        foreach (var record in csv.GetRecords<Player>())
-                        {
-                            result.AddLast(record);
-                        } 
+                        result.AddLast(record);
                     }
                 }
-                return result;
             }
+            return result;
         }
-
         private void buttonBoostYouthPlayer_Click(object sender, EventArgs e)
         {
             try
             {
-                var result = MessageBox.Show("只能在新赛季开始时进行。继续？\r\n"
-    + "Can only be done at the beginning of the season. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show(Strings.SeasonBeginningOnly, Strings.Warning, MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     MenusProcess menusProcess = GetMenusProcess();
                     menusProcess.BoostYouthPlayer(false);
-                    MessageBox.Show("年轻球员数据已增益(Youth Player data boosted)");
+                    MessageBox.Show(Strings.YouthPlayerDataBoosted);
                 }
             }
             catch (Exception ex)
@@ -293,8 +277,8 @@ namespace Fsm97Trainer
                 MenusProcess menusProcess = GetMenusProcess();
                 if (!menusProcess.HasExited())
                 {
-                    var result = MessageBox.Show("请切换到训练安排页。继续？\r\n"
-    + "Please switch to the training schedule page first. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
+                    var result = MessageBox.Show(Strings.PleaseSwitchToTheTrainingSchedulePageFirstContinue,
+                        Strings.Warning, MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
                         if (checkBoxAutoPositionWithCurrentFormation.Checked && this.SavedFormation.IsValid())
@@ -304,12 +288,12 @@ namespace Fsm97Trainer
                         else
                             menusProcess.RotatePlayer(rotateMethod, null);
 
-                        MessageBox.Show("球员已轮换(Players rotated)");
+                        MessageBox.Show(Strings.PlayersRotated);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("游戏进程找不到(Cannot find game process)");
+                    MessageBox.Show(Strings.CannotFindGameProcess);
                 }
             }
             catch (Exception ex)
@@ -326,7 +310,7 @@ namespace Fsm97Trainer
             {
                 MenusProcess menusProcess = GetMenusProcess();
                 menusProcess.ImproveAllPlayersBy1();
-                MessageBox.Show("所有球员数据已增益(All Player data boosted)");
+                MessageBox.Show(Strings.AllPlayerDataBoosted);
             }
             catch (Exception ex)
             {
@@ -346,8 +330,7 @@ namespace Fsm97Trainer
         {
             if (checkBoxConvertToGK.Checked)
             {
-                var result = MessageBox.Show("更换替补球员位置为守门员会减少受伤，但是球员会抱怨甚至威胁退役，经理也会定期要求提高球队水平但是不会被解雇。继续？\r\n"
-                    + "Changing subs to GK will avoid training injories mostly but players will complain and sometimes threaten to retire, and managers will want you to increase performance (but you won't be fired). Continue?", "警告(warning)", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show(Strings.WarningConvertToGK, Strings.Warning, MessageBoxButtons.YesNo);
                 if (result == DialogResult.No)
                     checkBoxConvertToGK.Checked = !checkBoxConvertToGK.Checked;
             }
@@ -413,26 +396,25 @@ namespace Fsm97Trainer
                 string targetYearText = textBoxResetDateYear.Text;
                 uint targetYear = 0;
                 if (!uint.TryParse(targetYearText, out targetYear)
-                    || targetYear<1900
-                    || targetYear >2078)
+                    || targetYear < 1900
+                    || targetYear > 2078)
                 {
-                    MessageBox.Show("请输入1901-2078之间的整数 (Please enter an integer between 1901 and 2078");
+                    MessageBox.Show(Strings.GameDateOutOfReangePrompt);
                     return;
                 }
                 MenusProcess menusProcess = GetMenusProcess();
                 if (!menusProcess.HasExited())
                 {
-                    var result = MessageBox.Show("为了避免2079年球员年龄出错，请在2079年之前重设日期。另外，如果在赛季中重设，会造成赛程错误，应该在休赛期重设日期。继续？\r\n"
-    + "To avoid age bug after 2079 you should reset date before 2079. In addition, resetting date would disrupt game scheduling, you should only do it in offseason. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
+                    var result = MessageBox.Show(Strings.GameDateChangeWarning,Strings.Warning, MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
                         menusProcess.ResetDate(targetYear);
-                        MessageBox.Show("游戏日期已重设 (Game Date Reset)");
+                        MessageBox.Show(Strings.GameDateReset);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("游戏进程找不到(Cannot find game process)");
+                    MessageBox.Show(Strings.CannotFindGameProcess);
                 }
             }
             catch (Exception ex)
@@ -449,8 +431,8 @@ namespace Fsm97Trainer
                 MenusProcess menusProcess = GetMenusProcess();
                 if (!menusProcess.HasExited())
                 {
-                    var result = MessageBox.Show("请切换到训练安排页。继续？\r\n"
-    + "Please switch to the training schedule page first. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
+                    var result = MessageBox.Show(
+                        Strings.PleaseSwitchToTheTrainingSchedulePageFirstContinue,Strings.Warning, MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
                         if (checkBoxAutoPositionWithCurrentFormation.Checked && this.SavedFormation.IsValid())
@@ -459,12 +441,12 @@ namespace Fsm97Trainer
                         }
                         else
                             menusProcess.AutoPosition(null);
-                        MessageBox.Show("位置已重设 (Position Auto Reset)");
+                        MessageBox.Show(Strings.PositionAutoReset);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("游戏进程找不到(Cannot find game process)");
+                    MessageBox.Show(Strings.CannotFindGameProcess);
                 }
             }
             catch (Exception ex)
@@ -487,15 +469,16 @@ namespace Fsm97Trainer
                     {
                         this.SavedFormation = newFormation;
                         StringBuilder message = new StringBuilder();
-                        message.AppendFormat("阵容已保存 (Formation Saved):{0}", newFormation.GetFormationName());
+                        message.Append(Strings.FormationSaved);
+                        message.AppendFormat(":{0}", newFormation.GetFormationName());
                         MessageBox.Show(message.ToString());
                     }
                     else
-                        MessageBox.Show("保存阵容需要场上有11名球员，包括一名守门员 (Saving formation requires 11 players on the field, including a GK.)");
+                        MessageBox.Show(Strings.InvalidFormationForSaving);
                 }
                 else
                 {
-                    MessageBox.Show("游戏进程找不到(Cannot find game process)");
+                    MessageBox.Show(Strings.CannotFindGameProcess);
                 }
             }
             catch (Exception ex)
@@ -527,21 +510,20 @@ namespace Fsm97Trainer
         {
             try
             {
-                var respawnCategory = comboBoxRespawnCategory.Text;           
+                var respawnCategory = comboBoxRespawnCategory.Text;
                 MenusProcess menusProcess = GetMenusProcess();
                 if (!menusProcess.HasExited())
                 {
-                    var result = MessageBox.Show("只能在新赛季开始时进行。继续？\r\n"
-    + "Can only be done at the beginning of the season. Continue?", "警告(warning)", MessageBoxButtons.YesNo);
+                    var result = MessageBox.Show(Strings.SeasonBeginningOnly,Strings.Warning, MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
                         menusProcess.UpdatePlayerNames(respawnCategory);
-                        MessageBox.Show("球员名字已更新 (Player Names Updated)");
+                        MessageBox.Show(Strings.PlayerNamesUpdated);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("游戏进程找不到(Cannot find game process)");
+                    MessageBox.Show(Strings.CannotFindGameProcess);
                 }
             }
             catch (Exception ex)
@@ -550,5 +532,25 @@ namespace Fsm97Trainer
                 toolStripStatusLabel1.Text = ex.Message;
             }
         }
+
+        private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBoxLanguage.SelectedIndex)
+            {
+                case 0:
+                    ChangeLanguage("en-US");
+                    break;
+                case 1:
+                    ChangeLanguage("zh-CN");
+                    break;
+            }
+        }
+        void ChangeLanguage(string lang)
+        {
+            ComponentResourceManager resources = new ComponentResourceManager(this.GetType());
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(lang);
+            Program.ChangeLanguage(resources, Thread.CurrentThread.CurrentUICulture, lang, this);
+        }
+
     }
 }

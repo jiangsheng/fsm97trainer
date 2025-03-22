@@ -1,8 +1,4 @@
 ﻿using FSM97Lib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Fsm97Trainer
 {
@@ -59,7 +55,7 @@ namespace Fsm97Trainer
             TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
             TrainingScheduleType.GoalKeeping
         };
-        
+
         public static TrainingScheduleType[] ImproveHeading = new TrainingScheduleType[] {
            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
             TrainingScheduleType.Heading, TrainingScheduleType.Heading,
@@ -110,7 +106,7 @@ namespace Fsm97Trainer
             TrainingScheduleType.Tackling
         };
 
-        
+
         public static TrainingScheduleType[] ImproveTacklingSkill = new TrainingScheduleType[] {
            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
             TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
@@ -173,14 +169,14 @@ namespace Fsm97Trainer
             TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
             TrainingScheduleType.TrainingMatch, TrainingScheduleType.TrainingMatch,
             TrainingScheduleType.TrainingMatch
-        }; 
+        };
         public static TrainingScheduleType[] ShootingAllWeek = new TrainingScheduleType[] {
            TrainingScheduleType.Shooting, TrainingScheduleType.Shooting,
             TrainingScheduleType.Shooting, TrainingScheduleType.Shooting,
             TrainingScheduleType.Shooting, TrainingScheduleType.Shooting,
             TrainingScheduleType.Shooting
         };
-        
+
         public static TrainingScheduleType[] MaintainShape = new TrainingScheduleType[] {
            TrainingScheduleType.WeightTraining, TrainingScheduleType.Kicking,
             TrainingScheduleType.Sprinting, TrainingScheduleType.Handling,

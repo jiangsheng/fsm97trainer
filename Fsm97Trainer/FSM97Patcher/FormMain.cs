@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -31,20 +32,15 @@ namespace FSM97Patcher
         byte[] unpatched = new byte[] { 0x8b, 0xc8, 0xff, 0x52, 0x40 };
         private void buttonBrowse_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            OpenFileDialog ofd = this.openFileDialog1;
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                ofd.FileName = "menus.exe";
-                ofd.Filter = "exe files (*.exe)|*.exe|All files (*.*)|*.*";
-                ofd.Title = "选择游戏可执行文件(Select Game Exe File)";
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
 
-                    textBox1.Text = ofd.FileName;
-                    OnNewFileEntered();
-                }
+                textBoxExePath.Text = ofd.FileName;
+                OnNewFileEntered();
             }
         }
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void textBoxExePath_TextChanged(object sender, EventArgs e)
         {
             OnNewFileEntered();
         }
@@ -64,11 +60,11 @@ namespace FSM97Patcher
         {
             try
             {
-                if (!File.Exists(textBox1.Text))
+                if (!File.Exists(textBoxExePath.Text))
                 {
-                    MessageBox.Show(String.Format("无法打开文件 (Cannot open file):{0}", textBox1.Text));
+                    MessageBox.Show(Strings.CannotOpenFile, textBoxExePath.Text);
                 }
-                using (Stream outStream = File.Open(textBox1.Text, FileMode.Open))
+                using (Stream outStream = File.Open(textBoxExePath.Text, FileMode.Open))
                 {
                     outStream.Seek(detectAddressPatch, SeekOrigin.Begin);
                     outStream.Write(patched, 0, patched.Length);
@@ -108,7 +104,7 @@ namespace FSM97Patcher
             string patchVersion;
             try
             {
-                FileInfo fi = new FileInfo(textBox1.Text);
+                FileInfo fi = new FileInfo(textBoxExePath.Text);
                 int detectAddress1 = 0;
                 int detectAddress2 = 0;
 
@@ -122,10 +118,10 @@ namespace FSM97Patcher
                         trainingEffectAddress = 0xe2aa0;
                         detect1 = new byte[] { 0xf9, 0xff, 0x8b, 0x10 };
                         detect2 = new byte[] { 0xa3, 0x10, 0x46, 0x61 };
-                        gameVersion = "中文版 (Chinese Ver)";
+                        gameVersion = Strings.ChineseVersion;
                         break;
                     case 1135104:
-                        gameVersion = "英文版 (English Ver)";
+                        gameVersion = Strings.EnglishOrGlobalVersion;
                         //004A89D7 - 8B C8  -mov ecx,eax
                         //004A89D9 - FF 52 40 - call dword ptr[edx + 40]
                         //004A89DC - A3 E8465800 - mov[MENUS.EXE + 1846E8],eax 
@@ -138,20 +134,20 @@ namespace FSM97Patcher
                         break;
                     default:
                         gameVersion = null;
-                        labelGameVersion.Text = "不支持的游戏版本 Unsupported Game version 文件大小错误";
+                        labelGameVersion.Text =Strings.UnsupportedGameversionFileSize;
                         return;
                 }
-                var gamebinary = File.ReadAllBytes(textBox1.Text);
+                var gamebinary = File.ReadAllBytes(textBoxExePath.Text);
                 int detectResult = CompareBits(gamebinary, detectAddress1, detect1, 0, detect1.Length);
                 if (detectResult != 0)
                 {
-                    labelGameVersion.Text = "不支持的游戏版本 Unsupported Game version 特征码1错误";
+                    labelGameVersion.Text = Strings.UnsupportedGameVersionMagicNumber1Mismatch;
                     return;
                 }
                 detectResult = CompareBits(gamebinary, detectAddress2, detect2, 0, detect2.Length);
                 if (detectResult != 0)
                 {
-                    labelGameVersion.Text = "不支持的游戏版本 Unsupported Game version 特征码2错误";
+                    labelGameVersion.Text = Strings.UnsupportedGameVersionMagicNumber2Mismatch;
                     return;
                 }
                 detectResult = CompareBits(gamebinary, detectAddressPatch, patched, 0, patched.Length);
@@ -160,18 +156,18 @@ namespace FSM97Patcher
                     detectResult = CompareBits(gamebinary, detectAddressPatch, unpatched, 0, unpatched.Length);
                     if (detectResult != 0)
                     {
-                        patchVersion = "不支持的补丁版本 Unsupported Patch version";
+                        patchVersion =Strings.UnsupportedPatchversion;
                     }
                     else
                     {
-                        patchVersion = "原版 (Original)";
+                        patchVersion = Strings.OriginalVersion;
                         buttonPatch.Enabled = true;
                         buttonUnpatch.Enabled = false;
                     }
                 }
                 else
                 {
-                    patchVersion = "补丁版 (Patched)";
+                    patchVersion = Strings.PatchedVersion;
                     buttonPatch.Enabled = false;
                     buttonUnpatch.Enabled = true;
                 }
@@ -188,11 +184,11 @@ namespace FSM97Patcher
         {
             try
             {
-                if (!File.Exists(textBox1.Text))
+                if (!File.Exists(textBoxExePath.Text))
                 {
-                    MessageBox.Show(String.Format("无法打开文件 (Cannot open file):{0}", textBox1.Text));
+                    MessageBox.Show(String.Format(Strings.CannotOpenFile, textBoxExePath.Text));
                 }
-                using (Stream outStream = File.Open(textBox1.Text, FileMode.Open))
+                using (Stream outStream = File.Open(textBoxExePath.Text, FileMode.Open))
                 {
                     outStream.Seek(detectAddressPatch, SeekOrigin.Begin);
                     outStream.Write(unpatched, 0, unpatched.Length);
@@ -217,10 +213,15 @@ namespace FSM97Patcher
         };
         private void buttonShowTrainingEffects_Click(object sender, EventArgs e)
         {
+            if (!File.Exists(textBoxExePath.Text))
+            {
+                MessageBox.Show(Strings.CannotOpenFile, textBoxExePath.Text);
+                return;
+            }
             try
             {
                 string[] headers;
-                FileInfo fi = new FileInfo(textBox1.Text);
+                FileInfo fi = new FileInfo(textBoxExePath.Text);
                 switch (fi.Length)
                 {
                     case 1378816:
@@ -231,61 +232,81 @@ namespace FSM97Patcher
                         headers = headerEn;
                         trainingEffectAddress = 0xe0000; break;
                     default:
-                        MessageBox.Show("不支持的游戏版本 (Unsupported Game Version)");
+                        MessageBox.Show(Strings.UnsupportedGameversionFileSize);
                         return;
                 }
-                var fileBytes = File.ReadAllBytes(textBox1.Text);
+                var fileBytes = File.ReadAllBytes(textBoxExePath.Text);
                 float[] trainingEffectFloat = new float[27 * 19];
-                Buffer.BlockCopy(fileBytes, trainingEffectAddress, trainingEffectFloat, 0, trainingEffectFloat.Length*4);
+                Buffer.BlockCopy(fileBytes, trainingEffectAddress, trainingEffectFloat, 0, trainingEffectFloat.Length * 4);
                 if (fileBytes.Length < trainingEffectAddress)
                 {
-                    MessageBox.Show("不支持的游戏版本 (Unsupported Game Version)");
+                    MessageBox.Show(Strings.UnsupportedGameversionFileSize);
                     return;
                 }
-                using (SaveFileDialog sfd = new SaveFileDialog())
+                SaveFileDialog sfd = this.saveFileDialog1;
+
+                if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    sfd.FileName = "trainingEffects.csv";
-                    sfd.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
-                    sfd.Title = "选择训练效果数据保存路径(Select player data export location)";
-                    if (sfd.ShowDialog() == DialogResult.OK)
+                    CsvConfiguration config = new CsvConfiguration();
+                    config.Encoding = Encoding.UTF8;
+                    config.CultureInfo = new CultureInfo("zh-hans");
+                    using (var writer = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
+                    using (var csv = new CsvWriter(writer, config))
                     {
-                        CsvConfiguration config = new CsvConfiguration();
-                        config.Encoding = Encoding.UTF8;
-                        config.CultureInfo = new CultureInfo("zh-hans");
-                        using (var writer = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
-                        using (var csv = new CsvWriter(writer, config))
+                        foreach (var item in headers)
                         {
-                            foreach (var item in headers)
+                            csv.WriteField(item);
+                        }
+                        csv.NextRecord();
+                        for (int i = 0; i < (int)TrainingScheduleType.TrainingMatch + 1; i++)
+                        {
+                            csv.WriteField(Enum.GetName(typeof(TrainingScheduleType), i));
+                            for (int j = 0; j < 27; j++)
                             {
-                                csv.WriteField(item);
+                                var fieldValue = trainingEffectFloat[i * 27 + j] * 200;
+                                if (fieldValue == 0)
+                                    csv.WriteField(string.Empty);
+                                else
+                                    csv.WriteField(fieldValue);
                             }
                             csv.NextRecord();
-                            for (int i = 0; i < (int)TrainingScheduleType.TrainingMatch + 1; i++)
-                            {
-                                csv.WriteField(Enum.GetName(typeof(TrainingScheduleType), i));
-                                for (int j = 0; j < 27; j++)
-                                {
-                                    var fieldValue = trainingEffectFloat[i * 27 + j] * 200;
-                                    if (fieldValue == 0)
-                                        csv.WriteField(string.Empty);
-                                    else
-                                        csv.WriteField(fieldValue);
-                                }
-                                csv.NextRecord();
-                            }
                         }
-                        ProcessStartInfo psi = new ProcessStartInfo();
-                        psi.UseShellExecute = true;
-                        psi.FileName = sfd.FileName;
-                        Process.Start(psi);
                     }
-                }  
+                    ProcessStartInfo psi = new ProcessStartInfo();
+                    psi.UseShellExecute = true;
+                    psi.FileName = sfd.FileName;
+                    Process.Start(psi);
+                }
+            }
+            catch (IOException ex)
+            {
+                labelGameVersion.Text = ex.Message;
+                MessageBox.Show(ex.Message);
             }
             catch (Exception ex)
             {
                 labelGameVersion.Text = ex.Message;
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void comboBoxLanguages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBoxLanguages.SelectedIndex)
+            {
+                case 0:
+                    ChangeLanguage("en-US");
+                    break;
+                case 1:
+                    ChangeLanguage("zh-CN");
+                    break;
+            }
+        }
+        void ChangeLanguage(string lang)
+        {
+            ComponentResourceManager resources = new ComponentResourceManager(this.GetType());
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(lang);
+            Program.ChangeLanguage(resources, Thread.CurrentThread.CurrentUICulture, lang, this);
         }
     }
 }

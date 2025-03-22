@@ -118,12 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FormMainSaveToCsvDialogTitle" xml:space="preserve">
-    <value>Save Location</value>
-  </data>
-  <data name="GetPlayerByYearCndCategoryQueryUrl" xml:space="preserve">
-    <value>https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&amp;query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0A%0D%0ASELECT+DISTINCT+%3Fplayer+%2C+%3Fname%0D%0AWHERE+%7B%3Fplayer+dbo%3AwikiPageID+%3Fnumber%3B+rdf%3Atype+dbo%3ASoccerPlayer+%3B%0D%0Adbo%3AbirthDate%7Cdbp%3AbirthDate+%3Fbirthdate+%3Brdfs%3Alabel+%3Fname+%3Bdcterms%3Asubject+%3Fcategory%0D%0AFILTER+%28%28lang%28%3Fname%29%3D%22{2}%22%29%26%26%3Fbirthdate%3E%3D+%22{0}-01-01%22%5E%5Exsd%3Adate+%26%26+%3Fbirthdate%3C%3D+%22{1}-12-31%22%5E%5Exsd%3Adate+%26%26+%3Fcategory+%3D%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FCategory%3A{3}%3E+%29.+%0D%0A%7D+%0D%0AORDER+BY+%28%3Fnumber%29&amp;format=application%2Fsparql-results%2Bjson&amp;timeout=30000&amp;signal_void=on&amp;signal_unconnected=on</value>
-  </data>
-  <data name="GetPlayerByYearQueryUrl" xml:space="preserve">
-    <value>https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&amp;query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0A%0D%0ASELECT+%3Fplayer%2C+%3Fname+WHERE+%7B%0D%0A%3Fplayer+dbo%3AwikiPageID+%3Fnumber%3B%0D%0Ardf%3Atype+dbo%3ASoccerPlayer+%3B%0D%0A+++++++++++dbo%3AbirthDate%7Cdbp%3AbirthDate+%3Fbirthdate+%3B%0D%0A+++++++++++rdfs%3Alabel+%3Fname+%0D%0A+FILTER+%28%28lang%28%3Fname%29%3D%22{2}%22%29%26%26%3Fbirthdate%3E%3D+%22{0}-01-01%22%5E%5Exsd%3Adate+%26%26+%3Fbirthdate%3C%3D+%22{1}-12-31%22%5E%5Exsd%3Adate+%29+.+%0D%0A%7D+%0D%0AORDER+BY+%28%3Fnumber%29&amp;format=application%2Fsparql-results%2Bjson&amp;timeout=30000&amp;signal_void=on&amp;signal_unconnected=on</value>
+    <value>保存路径</value>
   </data>
 </root>

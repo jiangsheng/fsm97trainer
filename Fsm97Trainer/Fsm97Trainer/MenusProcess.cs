@@ -1,27 +1,18 @@
-﻿using FSM97Lib;
+﻿using Diacritics.Extensions;
+using FSM97Lib;
 using NameParser;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OpenCCNET;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
-using Diacritics.Extensions;
-using System.CodeDom;
-using System.Windows.Forms.VisualStyles;
 using System.Security.Cryptography;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Fsm97Trainer
 {
@@ -83,7 +74,7 @@ namespace Fsm97Trainer
             }
         }
 
-        TrainingEffectModifier trainingEffectModifier; 
+        TrainingEffectModifier trainingEffectModifier;
         public MenusProcess()
         {
             Process[] processes = Process.GetProcessesByName("MENUS");
@@ -94,11 +85,11 @@ namespace Fsm97Trainer
                     // User must also dispose of any matched Processes that are returned
                     processes[i].Dispose();
                 }
-                throw new InvalidOperationException("检测到多个游戏进程 (More than one menus process found)");
+                throw new InvalidOperationException(Strings.MultipleGameProcessFound);
             }
             else if (processes.Count() == 0)
             {
-                throw new InvalidOperationException("未检测到游戏进程 (Menuse process not found)");
+                throw new InvalidOperationException(Strings.CannotFindGameProcess);
             }
             Process = processes.First();
             var gameExeFilePath = Process.MainModule.FileName;
@@ -107,7 +98,8 @@ namespace Fsm97Trainer
             {
                 case 1378816:
                     var md5 = CalculateMD5(fi.FullName);
-                    switch (md5) {
+                    switch (md5)
+                    {
                         case "a1e5fe2e30a34a1dbc783aa0e88aafec":
                             TeamDataAddress = 0x00547102;
                             DateAddress = 0x00562ED8;
@@ -123,7 +115,7 @@ namespace Fsm97Trainer
                             CurrentTeamIndexAddress = 0x562a4c;
                             TrainingDataAddress = 0x562f50;
                             TrainingEffectAddress = 0x004e38a0;
-                        break;
+                            break;
                     }
                     Encoding = Encoding.GetEncoding(936);
                     trainingEffectModifier = ReadTrainingEffectModifier();
@@ -141,25 +133,25 @@ namespace Fsm97Trainer
                     break;
                 default:
                     Process.Dispose();
-                    throw new InvalidOperationException("不支持的游戏版本 Unsupported Game version");
+                    throw new InvalidOperationException(Strings.UnsupportedGameVersion);
             }
         }
 
         internal int ReadCurrentTeamIndex()
         {
-            return NativeMethods.ReadByte(Process,CurrentTeamIndexAddress);
+            return NativeMethods.ReadByte(Process, CurrentTeamIndexAddress);
         }
 
         private void WritePlayer(PlayerNode playerNode)
         {
             int playerDataAddress = playerNode.DataAddress;
             Player player = playerNode.Data;
-            byte[] bytes = NativeMethods.ReadBytes(Process,playerDataAddress, 0x76);
+            byte[] bytes = NativeMethods.ReadBytes(Process, playerDataAddress, 0x76);
             bytes[0x2f] = (byte)player.Nationality;
             bytes[0x30] = (byte)player.Position;
             bytes[0x31] = (byte)player.Status;
             bytes[0x32] = (byte)player.Number;
-            Buffer.BlockCopy(player.Attributes, 0, bytes,0x33, (int)PlayerAttribute.Count);
+            Buffer.BlockCopy(player.Attributes, 0, bytes, 0x33, (int)PlayerAttribute.Count);
             bytes[0x4b] = (byte)player.Form;
             bytes[0x4c] = (byte)player.Moral;
             bytes[0x4d] = (byte)player.Energy;
@@ -169,9 +161,9 @@ namespace Fsm97Trainer
             bytes[0x75] = (byte)player.ContractWeeks;
             var salaryBytes = BitConverter.GetBytes(player.Salary);
             salaryBytes.CopyTo(bytes, 0x60);
-            NativeMethods.WriteBytes(Process,playerDataAddress + 0x2f, bytes, 0x2f, 0x31 - 0x2f + 1);
-            NativeMethods.WriteBytes(Process,playerDataAddress + 0x33, bytes, 0x33, 0x4d - 0x33 + 1);
-            NativeMethods.WriteByte(Process,playerDataAddress + 0x75, (byte)player.ContractWeeks);
+            NativeMethods.WriteBytes(Process, playerDataAddress + 0x2f, bytes, 0x2f, 0x31 - 0x2f + 1);
+            NativeMethods.WriteBytes(Process, playerDataAddress + 0x33, bytes, 0x33, 0x4d - 0x33 + 1);
+            NativeMethods.WriteByte(Process, playerDataAddress + 0x75, (byte)player.ContractWeeks);
         }
         private void WritePlayerContractWeeks(PlayerNode playerNode)
         {
@@ -189,7 +181,7 @@ namespace Fsm97Trainer
             formMoralEnergyBuffer[0] = (byte)playerNode.Data.Form;
             formMoralEnergyBuffer[1] = (byte)playerNode.Data.Moral;
             formMoralEnergyBuffer[2] = (byte)playerNode.Data.Energy;
-            NativeMethods.WriteBytes(Process, playerNode.DataAddress + 0x4b, formMoralEnergyBuffer,0,3);
+            NativeMethods.WriteBytes(Process, playerNode.DataAddress + 0x4b, formMoralEnergyBuffer, 0, 3);
         }
         private void WritePlayerStrengths(PlayerNode playerNode)
         {
@@ -211,7 +203,7 @@ namespace Fsm97Trainer
             Player player = new Player();
 
             player.FirstName = NativeMethods.ReadString
-                        (Process,playerDataAddress + 4, Encoding, 0x18);
+                        (Process, playerDataAddress + 4, Encoding, 0x18);
             player.LastName = NativeMethods.ReadString(Process, playerDataAddress + 0x1c, Encoding, 0x13);
             byte[] bytes = NativeMethods.ReadBytes(Process, playerDataAddress, 0x76);
             player.Nationality = bytes[0x2f];
@@ -230,10 +222,10 @@ namespace Fsm97Trainer
             player.MVP = bytes[0x74];
             player.ContractWeeks = bytes[0x75];
             player.Team = team;
-            player.PositionRating = (int)PositionRatings.GetPositionRatingDouble(player.Position,player.Attributes);
+            player.PositionRating = (int)PositionRatings.GetPositionRatingDouble(player.Position, player.Attributes);
             player.UpdateBestPosition();
 
-            player.BirthDateOffset= NativeMethods.ReadUShort(Process,playerDataAddress + 0x52);
+            player.BirthDateOffset = NativeMethods.ReadUShort(Process, playerDataAddress + 0x52);
             DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDate);
             DateTime birthday = new DateTime(1899, 12, 30).AddDays(player.BirthDateOffset);
             int years = currentDateTime.Year - birthday.Year;
@@ -254,8 +246,8 @@ namespace Fsm97Trainer
             PlayerNodeList playerNodes = new PlayerNodeList();
             List<Team> teams = new List<Team>();
 
-            ushort currentTeam = NativeMethods.ReadByte(Process,CurrentTeamIndexAddress);
-            int currentDate = NativeMethods.ReadInt(Process,DateAddress);
+            ushort currentTeam = NativeMethods.ReadByte(Process, CurrentTeamIndexAddress);
+            int currentDate = NativeMethods.ReadInt(Process, DateAddress);
             if (currentTeamOnly)
             {
                 Team team = new Team();
@@ -275,7 +267,7 @@ namespace Fsm97Trainer
                     {
                         playerNodes.AddLast(playerNode);
                     }
-                    
+
                     //Debug.WriteLine(String.Format("{0} has {1} players", team.Name, team.PlayerNodes.Count));
                 }
             }
@@ -310,7 +302,7 @@ namespace Fsm97Trainer
                     }
                     else
                     {
-                        Debug.WriteLine(String.Format("{0} ({1}) has no players", team.Name,team.Abbreviation));
+                        Debug.WriteLine(String.Format("{0} ({1}) has no players", team.Name, team.Abbreviation));
                     }
                 }
             }
@@ -375,16 +367,16 @@ namespace Fsm97Trainer
             }
             var retiredPlayerLastNames = retiredPlayerIndex.Keys;
             LinkedList<PlayerNode> unmatchedPlayerNodes = new LinkedList<PlayerNode>();
-            LinkedList<Player> unmatchedPlayers= new LinkedList<Player>();
+            LinkedList<Player> unmatchedPlayers = new LinkedList<Player>();
             foreach (var retiredPlayerLastName in retiredPlayerLastNames)
             {
                 var retiredPlayersWithSameLastName = retiredPlayerIndex.LookupByLastName(retiredPlayerLastName);
                 var respawnPlayersWithSameLastName = respawnPlayerNodes.LookupByLastName(retiredPlayerLastName);
-                while(retiredPlayersWithSameLastName.Count>0 && respawnPlayersWithSameLastName.Count>0)
+                while (retiredPlayersWithSameLastName.Count > 0 && respawnPlayersWithSameLastName.Count > 0)
                 {
                     var from = respawnPlayersWithSameLastName.First.Value;
                     var to = retiredPlayersWithSameLastName.First.Value;
-                    WritePlayerWithData(from,to);
+                    WritePlayerWithData(from, to);
                     Debug.WriteLine(String.Format("Matched {0} with {1}", from.Data, to));
                     respawnPlayersWithSameLastName.Remove(from);
                     retiredPlayersWithSameLastName.Remove(to);
@@ -406,7 +398,7 @@ namespace Fsm97Trainer
             {
                 unmatchedPlayerNodes.AddLast(playerNode);
             }
-            
+
             while (unmatchedPlayerNodes.Count > 0 && unmatchedPlayers.Count > 0)
             {
                 var from = unmatchedPlayerNodes.First.Value;
@@ -422,7 +414,9 @@ namespace Fsm97Trainer
         {
             int playerDataAddress = playerNode.DataAddress;
             Player player = playerNode.Data;
-
+            if (to.Number > 0 && to.Number < 40)//game bug: no 40 causes access violation.
+                player.Number = to.Number;
+            player.Nationality = to.Nationality;
             player.Speed = Math.Max(player.Speed, to.Speed);
             player.Agility = Math.Max(player.Agility, to.Agility);
             player.Acceleration = Math.Max(player.Acceleration, to.Acceleration);
@@ -459,14 +453,14 @@ namespace Fsm97Trainer
                 DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDate);
                 if (currentDateTime.Month < 5 || currentDateTime.Month > 7)
                 {
-                    throw new InvalidOperationException("只能在赛季初修改年轻球员数据 (Can only change youth player data at the beginning of the season)");
+                    throw new InvalidOperationException(Strings.CanOnlyChangeAtSeasonStart);
                 }
                 var playerNodes = ReadPlayers(currentTeamOnly);
                 var youthPlayerNodes = playerNodes.Where(p => p.Data.Age < 20 && p.Data.ContractWeeks == 144 || p.Data.ContractWeeks == 143)
                     .ToList();
                 if (youthPlayerNodes.Count == 0)
                 {
-                    throw new InvalidOperationException("未找到匹配的年轻球员。注意只能在赛季初修改年轻球员数据 (Youth player not found. Note can only change youth player data at the beginning of the season)");
+                    throw new InvalidOperationException(Strings.YouthPlayerNotFound);
                 }
                 foreach (var playerNode in youthPlayerNodes)
                 {
@@ -495,7 +489,7 @@ namespace Fsm97Trainer
                     player.Consistency += 25; if (player.Consistency > 99) player.Consistency = 99;
                     player.Determination += 25; if (player.Determination > 99) player.Determination = 99;
                     player.Greed += 25; if (player.Greed > 99) player.Greed = 99;
-                    player.PositionRating =(int) PositionRatings.GetPositionRatingDouble(player.Position,player.Attributes);
+                    player.PositionRating = (int)PositionRatings.GetPositionRatingDouble(player.Position, player.Attributes);
                     player.UpdateBestPosition();
                     player.Position = player.BestPosition;
                     WritePlayer(playerNode);
@@ -516,7 +510,7 @@ namespace Fsm97Trainer
                 var players = ReadPlayers(true);
                 if (players.Count == 0)
                 {
-                    Debug.WriteLine("Current team has no players");
+                    Debug.WriteLine("Current team has no player");
                     return;
                 }
                 var leftoverPlayers = new PlayerNodeList();
@@ -535,7 +529,8 @@ namespace Fsm97Trainer
                 GetRest(leftoverPlayers, rotateMethod, rest, targetFormation);
                 FixPositionAndSaveChangesToGame(normals, subs, rest);
             }
-            finally {
+            finally
+            {
                 NativeMethods.ResumeProcess(Process);
             }
         }
@@ -617,7 +612,7 @@ namespace Fsm97Trainer
         1,1,2,//RM, LM, AM,
         1,1,//RW,LW,
         1,10,1//FR, FOR,SS,Count
-            };          
+            };
             foreach (var mainTeamPlayer in mainTeam)
             {
                 var targetPosition = mainTeamPlayer.Data.GetBestPositionWithinLimit(positionLimit);
@@ -628,7 +623,7 @@ namespace Fsm97Trainer
                 }
                 normals.Add(mainTeamPlayer);
                 leftoverPlayers.Remove(mainTeamPlayer);
-                positionLimit[targetPosition] = positionLimit[targetPosition] - 1;                
+                positionLimit[targetPosition] = positionLimit[targetPosition] - 1;
             }
         }
 
@@ -807,11 +802,11 @@ namespace Fsm97Trainer
         {
             foreach (var leftoverPlayer in leftoverPlayers)
             {
-                int  targetPosition;
-                if(targetFormation==null)
+                int targetPosition;
+                if (targetFormation == null)
                     targetPosition = leftoverPlayer.Data.BestPosition;
                 else
-                    targetPosition = leftoverPlayer.Data.BestFitInFormation(targetFormation);             
+                    targetPosition = leftoverPlayer.Data.BestFitInFormation(targetFormation);
 
                 if (targetPosition != leftoverPlayer.Data.Position)
                 {
@@ -925,14 +920,15 @@ namespace Fsm97Trainer
                     WritePlayer(playerNode);
                 }
             }
-            finally {
+            finally
+            {
                 NativeMethods.ResumeProcess(Process);
             }
         }
 
 
-        internal void FastUpdate(bool autoTrain, bool convertToGK, bool autoResetStatus, 
-            bool maxEnergy, bool maxForm, bool maxMorale,bool maxPower, bool noAlternativeTraining
+        internal void FastUpdate(bool autoTrain, bool convertToGK, bool autoResetStatus,
+            bool maxEnergy, bool maxForm, bool maxMorale, bool maxPower, bool noAlternativeTraining
              )
         {
             try
@@ -996,13 +992,14 @@ namespace Fsm97Trainer
                     }
                 }
             }
-            finally {
+            finally
+            {
                 NativeMethods.ResumeProcess(Process);
             }
         }
 
 
-        internal void SlowUpdate(bool autoRenewContracts,bool maxPower)
+        internal void SlowUpdate(bool autoRenewContracts, bool maxPower)
         {
             try
             {
@@ -1027,7 +1024,8 @@ namespace Fsm97Trainer
                     }
                 }
             }
-            finally {
+            finally
+            {
                 NativeMethods.SuspendProcess(Process);
             }
         }
@@ -1047,7 +1045,7 @@ namespace Fsm97Trainer
                 DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDate);
                 if (currentDateTime.Month < 5 || currentDateTime.Month > 7)
                 {
-                    throw new InvalidOperationException("只能在休赛季修改日期 (Can only change date in offseason)");
+                    throw new InvalidOperationException(Strings.CanOnlyChangeDateInOffseason);
                 }
                 DateTime resetDateTime = new DateTime((int)targetYear, currentDateTime.Month, currentDateTime.Day);
                 TimeSpan resetTimeSpan = currentDateTime - resetDateTime;
@@ -1060,7 +1058,8 @@ namespace Fsm97Trainer
                 }
                 NativeMethods.WriteInt(Process, DateAddress, currentDate - daysToSubtract);
             }
-            finally {
+            finally
+            {
                 NativeMethods.ResumeProcess(Process);
             }
         }
@@ -1127,7 +1126,7 @@ namespace Fsm97Trainer
                 {
                     if (playerNodes.Where(p => p.Data.Status == 0).Count() != 11)
                     {
-                        throw new InvalidOperationException("当前场上需要11名球员 (Auto Position to Formation requires 11 Players on the field");
+                        throw new InvalidOperationException(Strings.NotEnoughPlayersForAutoPosition);
                     }
                     var leftoverPlayers = new PlayerNodeList();
 
@@ -1135,7 +1134,7 @@ namespace Fsm97Trainer
                     {
                         leftoverPlayers.AddLast(player);
                     }
-                    for (int position = (int)PlayerPosition.Count-1; position >= 0; position--)
+                    for (int position = (int)PlayerPosition.Count - 1; position >= 0; position--)
                     {
                         for (int requiredPlayersInPosition = targetFormation.PlayersInEachPosition[position];
                             requiredPlayersInPosition > 0; requiredPlayersInPosition--)
@@ -1161,19 +1160,20 @@ namespace Fsm97Trainer
                     }
                 }
             }
-            finally {
+            finally
+            {
                 NativeMethods.ResumeProcess(Process);
             }
         }
 
         internal TrainingEffectModifier ReadTrainingEffectModifier()
-        {            
+        {
             if (TrainingEffectAddress != 0)
             {
                 var trainingEffectBytes = NativeMethods.ReadBytes(Process, TrainingEffectAddress, 4 * 27 * ((int)TrainingScheduleType.TrainingMatch + 1));
                 return TrainingScheduleEffect.DetectModifiers(trainingEffectBytes);
             }
-            return new TrainingEffectModifier(); 
+            return new TrainingEffectModifier();
         }
 
         internal void GetCurrentFormation(Formation savedFormation)
@@ -1213,10 +1213,10 @@ namespace Fsm97Trainer
                     }
                 }
                 var newSpawns = playerNodes.Where(p => p.Data.Age < 20 && p.Data.ContractWeeks == 144)
-                    .OrderByDescending(p=>p.Data.Statistics).ToList();
+                    .OrderByDescending(p => p.Data.Statistics).ToList();
                 if (newSpawns.Count() == 0)
                 {
-                    throw new InvalidOperationException("没找到重生球员，此功能必须在新赛季初执行 （Cannot find new spawn, this feature can only be run at the beginning of the season");
+                    throw new InvalidOperationException(Strings.CannotFindNewSpawn);
                 }
                 List<HumanName> newNames = GetNewPlayerNames(respawnCategory);
                 foreach (var item in newNames)
@@ -1253,7 +1253,7 @@ namespace Fsm97Trainer
 
         private void WritePlayerNames(PlayerNode playerNode)
         {
-            NativeMethods.WriteString(Process, playerNode.Data.LastName,playerNode.DataAddress + 0x1c, Encoding, 0x13);
+            NativeMethods.WriteString(Process, playerNode.Data.LastName, playerNode.DataAddress + 0x1c, Encoding, 0x13);
             NativeMethods.WriteString(Process, playerNode.Data.FirstName, playerNode.DataAddress + 0x4, Encoding, 0x18);
         }
 
@@ -1347,7 +1347,8 @@ ORDER BY (?number)
                         fullName = string.Format("{0} {1}", pageUrl.Substring(0, 1), fullName);
                         humanName = new HumanName(fullName);
                     }
-                    else {
+                    else
+                    {
                         var pageUrlParts = pageUrl.Split('_');
                         var firstName = pageUrlParts.First().RemoveDiacritics();
                         fullName = string.Format("{0} {1}", firstName, fullName);

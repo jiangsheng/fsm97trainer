@@ -117,4 +117,620 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="labelSelectGameExeFile.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="labelSelectGameExeFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 0</value>
+  </data>
+  <data name="labelSelectGameExeFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 57</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="labelSelectGameExeFile.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelSelectGameExeFile.Text" xml:space="preserve">
+    <value>Select Game Exe File</value>
+  </data>
+  <data name="labelSelectGameExeFile.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;labelSelectGameExeFile.Name" xml:space="preserve">
+    <value>labelSelectGameExeFile</value>
+  </data>
+  <data name="&gt;&gt;labelSelectGameExeFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSelectGameExeFile.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;labelSelectGameExeFile.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="textBoxExePath.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="textBoxExePath.Location" type="System.Drawing.Point, System.Drawing">
+    <value>370, 3</value>
+  </data>
+  <data name="textBoxExePath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 20</value>
+  </data>
+  <data name="textBoxExePath.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBoxExePath.Name" xml:space="preserve">
+    <value>textBoxExePath</value>
+  </data>
+  <data name="&gt;&gt;textBoxExePath.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxExePath.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;textBoxExePath.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonBrowse.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="buttonBrowse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>737, 3</value>
+  </data>
+  <data name="buttonBrowse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>363, 51</value>
+  </data>
+  <data name="buttonBrowse.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="buttonBrowse.Text" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowse.Name" xml:space="preserve">
+    <value>buttonBrowse</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowse.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowse.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonPatch.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="buttonPatch.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonPatch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 288</value>
+  </data>
+  <data name="buttonPatch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 53</value>
+  </data>
+  <data name="buttonPatch.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="buttonPatch.Text" xml:space="preserve">
+    <value>Patch</value>
+  </data>
+  <data name="&gt;&gt;buttonPatch.Name" xml:space="preserve">
+    <value>buttonPatch</value>
+  </data>
+  <data name="&gt;&gt;buttonPatch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonPatch.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;buttonPatch.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="buttonUnpatch.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="buttonUnpatch.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonUnpatch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>370, 288</value>
+  </data>
+  <data name="buttonUnpatch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 53</value>
+  </data>
+  <data name="buttonUnpatch.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="buttonUnpatch.Text" xml:space="preserve">
+    <value>Unpatch</value>
+  </data>
+  <data name="&gt;&gt;buttonUnpatch.Name" xml:space="preserve">
+    <value>buttonUnpatch</value>
+  </data>
+  <data name="&gt;&gt;buttonUnpatch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonUnpatch.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;buttonUnpatch.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="labelGameVersion.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="labelGameVersion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 228</value>
+  </data>
+  <data name="labelGameVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 57</value>
+  </data>
+  <data name="labelGameVersion.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="labelGameVersion.Text" xml:space="preserve">
+    <value>Game Version</value>
+  </data>
+  <data name="labelGameVersion.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;labelGameVersion.Name" xml:space="preserve">
+    <value>labelGameVersion</value>
+  </data>
+  <data name="&gt;&gt;labelGameVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelGameVersion.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;labelGameVersion.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="labelCopyright.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelCopyright.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="labelCopyright.Location" type="System.Drawing.Point, System.Drawing">
+    <value>737, 285</value>
+  </data>
+  <data name="labelCopyright.Size" type="System.Drawing.Size, System.Drawing">
+    <value>363, 59</value>
+  </data>
+  <data name="labelCopyright.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="labelCopyright.Text" xml:space="preserve">
+    <value>@2022-2025 Sheng Jiang @jiangsheng</value>
+  </data>
+  <data name="labelCopyright.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;labelCopyright.Name" xml:space="preserve">
+    <value>labelCopyright</value>
+  </data>
+  <data name="&gt;&gt;labelCopyright.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelCopyright.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;labelCopyright.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="checkBoxTrainingMatchNongativeEffect.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxTrainingMatchNongativeEffect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 117</value>
+  </data>
+  <data name="checkBoxTrainingMatchNongativeEffect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 51</value>
+  </data>
+  <data name="checkBoxTrainingMatchNongativeEffect.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="checkBoxTrainingMatchNongativeEffect.Text" xml:space="preserve">
+    <value>Remove negative effect in training</value>
+  </data>
+  <data name="checkBoxTrainingMatchNongativeEffect.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;checkBoxTrainingMatchNongativeEffect.Name" xml:space="preserve">
+    <value>checkBoxTrainingMatchNongativeEffect</value>
+  </data>
+  <data name="&gt;&gt;checkBoxTrainingMatchNongativeEffect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxTrainingMatchNongativeEffect.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxTrainingMatchNongativeEffect.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="checkBoxTrainingEffectX2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxTrainingEffectX2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxTrainingEffectX2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>370, 117</value>
+  </data>
+  <data name="checkBoxTrainingEffectX2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 51</value>
+  </data>
+  <data name="checkBoxTrainingEffectX2.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="checkBoxTrainingEffectX2.Text" xml:space="preserve">
+    <value>Training Effect X2</value>
+  </data>
+  <data name="checkBoxTrainingEffectX2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;checkBoxTrainingEffectX2.Name" xml:space="preserve">
+    <value>checkBoxTrainingEffectX2</value>
+  </data>
+  <data name="&gt;&gt;checkBoxTrainingEffectX2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxTrainingEffectX2.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxTrainingEffectX2.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="checkBoxThrowInImprovesThrowing.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxThrowInImprovesThrowing.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxThrowInImprovesThrowing.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 60</value>
+  </data>
+  <data name="checkBoxThrowInImprovesThrowing.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 51</value>
+  </data>
+  <data name="checkBoxThrowInImprovesThrowing.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="checkBoxThrowInImprovesThrowing.Text" xml:space="preserve">
+    <value>Throwing, 5 a side and training match improves ThrowIn</value>
+  </data>
+  <data name="checkBoxThrowInImprovesThrowing.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;checkBoxThrowInImprovesThrowing.Name" xml:space="preserve">
+    <value>checkBoxThrowInImprovesThrowing</value>
+  </data>
+  <data name="&gt;&gt;checkBoxThrowInImprovesThrowing.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxThrowInImprovesThrowing.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxThrowInImprovesThrowing.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxShootingTraingGreed.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxShootingTraingGreed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>370, 60</value>
+  </data>
+  <data name="checkBoxShootingTraingGreed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 51</value>
+  </data>
+  <data name="checkBoxShootingTraingGreed.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="checkBoxShootingTraingGreed.Text" xml:space="preserve">
+    <value>Shooting, 5 a side and training matches improves Greed</value>
+  </data>
+  <data name="checkBoxShootingTraingGreed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;checkBoxShootingTraingGreed.Name" xml:space="preserve">
+    <value>checkBoxShootingTraingGreed</value>
+  </data>
+  <data name="&gt;&gt;checkBoxShootingTraingGreed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxShootingTraingGreed.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxShootingTraingGreed.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="checkBoxPassingMatchImproveLeadership.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxPassingMatchImproveLeadership.Location" type="System.Drawing.Point, System.Drawing">
+    <value>737, 60</value>
+  </data>
+  <data name="checkBoxPassingMatchImproveLeadership.Size" type="System.Drawing.Size, System.Drawing">
+    <value>363, 51</value>
+  </data>
+  <data name="checkBoxPassingMatchImproveLeadership.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="checkBoxPassingMatchImproveLeadership.Text" xml:space="preserve">
+    <value>Passing, 5 a side and training matches improves Leadership</value>
+  </data>
+  <data name="checkBoxPassingMatchImproveLeadership.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPassingMatchImproveLeadership.Name" xml:space="preserve">
+    <value>checkBoxPassingMatchImproveLeadership</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPassingMatchImproveLeadership.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPassingMatchImproveLeadership.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPassingMatchImproveLeadership.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="checkBoxImproveSpeed.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxImproveSpeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>737, 117</value>
+  </data>
+  <data name="checkBoxImproveSpeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>363, 51</value>
+  </data>
+  <data name="checkBoxImproveSpeed.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="checkBoxImproveSpeed.Text" xml:space="preserve">
+    <value>Exercise, Jogging, Marking, Zonal Defence, 5 a side and Training Match improves Speed and Acceleration
+</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImproveSpeed.Name" xml:space="preserve">
+    <value>checkBoxImproveSpeed</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImproveSpeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImproveSpeed.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImproveSpeed.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="checkBoxKickingImprovesSpeed.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxKickingImprovesSpeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 174</value>
+  </data>
+  <data name="checkBoxKickingImprovesSpeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 51</value>
+  </data>
+  <data name="checkBoxKickingImprovesSpeed.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="checkBoxKickingImprovesSpeed.Text" xml:space="preserve">
+    <value>Kicking improves speed</value>
+  </data>
+  <data name="checkBoxKickingImprovesSpeed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;checkBoxKickingImprovesSpeed.Name" xml:space="preserve">
+    <value>checkBoxKickingImprovesSpeed</value>
+  </data>
+  <data name="&gt;&gt;checkBoxKickingImprovesSpeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxKickingImprovesSpeed.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxKickingImprovesSpeed.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="checkBoxHandlingImprovesAgility.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxHandlingImprovesAgility.Location" type="System.Drawing.Point, System.Drawing">
+    <value>370, 174</value>
+  </data>
+  <data name="checkBoxHandlingImprovesAgility.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 51</value>
+  </data>
+  <data name="checkBoxHandlingImprovesAgility.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="checkBoxHandlingImprovesAgility.Text" xml:space="preserve">
+    <value>Goalkeeper handling improves Agility</value>
+  </data>
+  <data name="checkBoxHandlingImprovesAgility.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHandlingImprovesAgility.Name" xml:space="preserve">
+    <value>checkBoxHandlingImprovesAgility</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHandlingImprovesAgility.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHandlingImprovesAgility.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHandlingImprovesAgility.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="checkBoxHeadingImprovesDetermination.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="checkBoxHeadingImprovesDetermination.Location" type="System.Drawing.Point, System.Drawing">
+    <value>737, 174</value>
+  </data>
+  <data name="checkBoxHeadingImprovesDetermination.Size" type="System.Drawing.Size, System.Drawing">
+    <value>363, 51</value>
+  </data>
+  <data name="checkBoxHeadingImprovesDetermination.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="checkBoxHeadingImprovesDetermination.Text" xml:space="preserve">
+    <value>Heading improves Determination</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHeadingImprovesDetermination.Name" xml:space="preserve">
+    <value>checkBoxHeadingImprovesDetermination</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHeadingImprovesDetermination.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHeadingImprovesDetermination.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHeadingImprovesDetermination.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="buttonShowTrainingEffects.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="buttonShowTrainingEffects.Location" type="System.Drawing.Point, System.Drawing">
+    <value>370, 231</value>
+  </data>
+  <data name="buttonShowTrainingEffects.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 51</value>
+  </data>
+  <data name="buttonShowTrainingEffects.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="buttonShowTrainingEffects.Text" xml:space="preserve">
+    <value>Show Training  Effects</value>
+  </data>
+  <data name="&gt;&gt;buttonShowTrainingEffects.Name" xml:space="preserve">
+    <value>buttonShowTrainingEffects</value>
+  </data>
+  <data name="&gt;&gt;buttonShowTrainingEffects.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonShowTrainingEffects.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;buttonShowTrainingEffects.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="comboBoxLanguages.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="comboBoxLanguages.Items" xml:space="preserve">
+    <value>English （英语）</value>
+  </data>
+  <data name="comboBoxLanguages.Items1" xml:space="preserve">
+    <value>Simplified Chinese (简体中文)</value>
+  </data>
+  <data name="comboBoxLanguages.Location" type="System.Drawing.Point, System.Drawing">
+    <value>737, 231</value>
+  </data>
+  <data name="comboBoxLanguages.Size" type="System.Drawing.Size, System.Drawing">
+    <value>363, 51</value>
+  </data>
+  <data name="comboBoxLanguages.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguages.Name" xml:space="preserve">
+    <value>comboBoxLanguages</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguages.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguages.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguages.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1103, 344</value>
+  </data>
+  <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonBrowse" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="textBoxExePath" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelSelectGameExeFile" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxThrowInImprovesThrowing" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxShootingTraingGreed" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxPassingMatchImproveLeadership" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxTrainingMatchNongativeEffect" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxTrainingEffectX2" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxImproveSpeed" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="labelCopyright" Row="5" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="buttonPatch" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonUnpatch" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelGameVersion" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxKickingImprovesSpeed" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxHandlingImprovesAgility" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="checkBoxHeadingImprovesDetermination" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="buttonShowTrainingEffects" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxLanguages" Row="4" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33.33333,Percent,33.33334,Percent,33.33334" /&gt;&lt;Rows Styles="Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="openFileDialog1.Filter" xml:space="preserve">
+    <value>exe files (*.exe)|*.exe|All files (*.*)|*.*</value>
+  </data>
+  <data name="openFileDialog1.Title" xml:space="preserve">
+    <value>Select Game Exe File</value>
+  </data>
+  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>156, 17</value>
+  </metadata>
+  <data name="saveFileDialog1.Filter" xml:space="preserve">
+    <value>csv files (*.csv)|*.csv|All files (*.*)|*.*</value>
+  </data>
+  <data name="saveFileDialog1.Title" xml:space="preserve">
+    <value>Select training effect save location</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1103, 344</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>FSM97 Patcher</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog1.Name" xml:space="preserve">
+    <value>openFileDialog1</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog1.Name" xml:space="preserve">
+    <value>saveFileDialog1</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FormMain</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

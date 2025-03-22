@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
 
 namespace Fsm97Trainer
 {
@@ -132,7 +129,7 @@ namespace Fsm97Trainer
         {
             var stringBytes = encoding.GetBytes(value);
             var bytesToWrite = stringBytes;
-            if (stringBytes.Length> bytes)
+            if (stringBytes.Length > bytes)
             {
                 bytesToWrite = new byte[bytes];
                 Buffer.BlockCopy(stringBytes, 0, bytesToWrite, 0, bytes);

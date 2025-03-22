@@ -1,7 +1,6 @@
 ﻿using FSM97Lib;
 using System;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Fsm97Trainer
 {
@@ -218,13 +217,13 @@ namespace Fsm97Trainer
         }
         internal static bool CompareAttributes(Player fromPlayer, Player toPlayer)
         {
-            return fromPlayer.Attributes.SequenceEqual(toPlayer.Attributes);    
+            return fromPlayer.Attributes.SequenceEqual(toPlayer.Attributes);
         }
         internal static int CompareAttributesApproximately(Player fromPlayer, Player toPlayer)
         {
             for (int i = 0; i < (int)PlayerAttribute.Count; i++)
             {
-                var result = fromPlayer.Attributes[i] - toPlayer.Attributes[i]; 
+                var result = fromPlayer.Attributes[i] - toPlayer.Attributes[i];
                 if (result > 1 || result < -1) return result;
 
             }
@@ -237,7 +236,7 @@ namespace Fsm97Trainer
             double bestPositionRating = 0;
             for (int i = 0; i < (int)PlayerPosition.Count; i++)
             {
-                double testPositionRating = PositionRatings.GetPositionRatingDouble(i,attributes);
+                double testPositionRating = PositionRatings.GetPositionRatingDouble(i, attributes);
                 if (bestPositionRating < testPositionRating)
                 {
                     bestPosition = i;
@@ -265,7 +264,7 @@ namespace Fsm97Trainer
                 default: return "OTH";
             }
         }
-        
+
         public double GetPositionRatingDouble(int position)
         {
             return PositionRatings.GetPositionRatingDouble
@@ -353,12 +352,12 @@ namespace Fsm97Trainer
             }
             return playerRating / 100;*/
         }
-      
+
 
         public int GetPositionRating(int position)
         {
             return (int)GetPositionRatingDouble(position);
-        }  
+        }
         public string GetPositionName(int position)
         {
             return Enum.GetName(typeof(PlayerPosition), position);
@@ -476,7 +475,7 @@ namespace Fsm97Trainer
         {
             double bestPositionRating = 0;
             PlayerPosition bestPosition = 0;
-            for (int targetPosition = 0; targetPosition < (int) PlayerPosition.Count; targetPosition++)
+            for (int targetPosition = 0; targetPosition < (int)PlayerPosition.Count; targetPosition++)
             {
                 var targetPositionQuota = positionLimit[targetPosition];
                 if (targetPositionQuota == 0) continue;
