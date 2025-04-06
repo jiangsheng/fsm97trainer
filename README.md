@@ -62,6 +62,8 @@ Due to the way training works a player could have best position changed (e.g. LR
 
 Auto position would change every player to their best position. Well, sort of. Sometimes you want a fixed formation instead of letting players choose their position freely. You can set your formation in game (you don't really need to care if you put a CD in a forward position), then click the Save Current Formation button and check the Auto Position using Saved Formation checkbox. The next time you do auto positon or auto rotation, the saved formation would be used. You don't want to limit the player's free will if a player threatened to retire, however, and you should do Auto Position without formation when you enter the offseason if someone is unhappy. 
 
+Land purshases enables you to build better looking stadiums that was previously made impossible by rivers or roads. 
+
 #### Improving the computer
 
 The computer does not train. This makes late game matchs a cake walk. If you want some challenges you can improve computer player attributes. The Boost Youth Player feature would increase the attributes of all respawn players (age <20 and contract weeks between 96 and 144) by 25. The Improve All Players feature would increase the attributes of all players by 1. You can use it to compensate the attribute cap on respawn players and lack of training for computer players. 
