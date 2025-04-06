@@ -69,6 +69,8 @@ namespace Fsm97Trainer
         public MenusProcess()
         {
             Process[] processes = Process.GetProcessesByName("MENUS");
+            if(processes==null || processes.Length==0)
+                processes = Process.GetProcessesByName("MENUS.EXE");//for WINE
             if (processes.Count() > 1)
             {
                 for (int i = 0; i < processes.Length; i++)

@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCCNET", "..\..\OpenCC.N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diacritics", "..\..\Diacritics.NET\Diacritics\Diacritics.csproj", "{C24DDB9B-B0E6-4DA4-9B61-EB8F94CA1323}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessList", "ProcessList\ProcessList.csproj", "{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,6 +100,18 @@ Global
 		{C24DDB9B-B0E6-4DA4-9B61-EB8F94CA1323}.Release|x64.Build.0 = Release|Any CPU
 		{C24DDB9B-B0E6-4DA4-9B61-EB8F94CA1323}.Release|x86.ActiveCfg = Release|Any CPU
 		{C24DDB9B-B0E6-4DA4-9B61-EB8F94CA1323}.Release|x86.Build.0 = Release|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Debug|x64.Build.0 = Debug|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Debug|x86.Build.0 = Debug|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Release|x64.ActiveCfg = Release|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Release|x64.Build.0 = Release|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Release|x86.ActiveCfg = Release|Any CPU
+		{2BAE65D0-0CC4-48CA-B46B-89FFFE97FB30}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

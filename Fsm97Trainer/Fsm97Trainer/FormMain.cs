@@ -71,7 +71,15 @@ namespace Fsm97Trainer
 
             checkBoxContractAutoRenew.Checked = this.ContractAutoRenew;
             checkBoxAutoPositionWithCurrentFormation.Checked = this.AutoPositionWithFormation;
-            ZhConverter.Initialize();
+            try
+            {
+                ZhConverter.Initialize();
+            }
+            catch (Exception ex)
+            {
+                this.buttonUpdateNewSpawn.Enabled = false;
+            }
+            
             this.checkBoxFastTimer_CheckedChanged(sender, e);
             this.checkBoxSlowTimer_CheckedChanged(sender, e);
             timerUpdateSlow_Tick(sender, e);
