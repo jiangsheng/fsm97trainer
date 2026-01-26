@@ -1,5 +1,6 @@
 ﻿using FSM97Lib;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Fsm97Trainer
@@ -475,15 +476,25 @@ namespace Fsm97Trainer
         {
             double bestPositionRating = 0;
             PlayerPosition bestPosition = 0;
+            List<double> positionRatings = new List<double>();
             for (int targetPosition = 0; targetPosition < (int)PlayerPosition.Count; targetPosition++)
             {
                 var targetPositionQuota = positionLimit[targetPosition];
                 if (targetPositionQuota == 0) continue;
                 double testPositionRating = GetPositionRatingDouble(targetPosition);
+                positionRatings.Add(testPositionRating);
                 if (bestPositionRating < testPositionRating)
                 {
                     bestPosition = (PlayerPosition)targetPosition;
                     bestPositionRating = testPositionRating;
+                }
+                else if (bestPositionRating == testPositionRating)
+                {
+                    //favor front court positions
+                    //except for=>ss
+                    if (targetPosition == (int)PlayerPosition.SS && bestPosition ==PlayerPosition.FOR)
+                        continue;
+                    bestPosition = (PlayerPosition)targetPosition;
                 }
             }
             return (int)bestPosition;

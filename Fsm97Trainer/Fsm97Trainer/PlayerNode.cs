@@ -9,5 +9,9 @@
         public Player Data { get; set; }
         public string LastName { get => ((IObjectWithPersonName)Data).LastName; set => ((IObjectWithPersonName)Data).LastName = value; }
         public string FirstName { get => ((IObjectWithPersonName)Data).FirstName; set => ((IObjectWithPersonName)Data).FirstName = value; }
+        public override string ToString()
+        {
+            return string.Format("{0:x}->{1:x}: {2},{3}", NodeAddress, DataAddress, LastName, FirstName);
+        }
     }
 }

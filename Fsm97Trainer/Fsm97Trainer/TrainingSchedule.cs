@@ -833,11 +833,29 @@ namespace Fsm97Trainer
             if (player.Speed + player.Acceleration + player.Shooting +
                 player.Passing + player.Heading +
                 player.Control + player.Dribbling > 98 * 7)
-            {
-                if(trainingEffectModifier.RemoveNegativeTraining)
-                    return TrainingSchedulePreset.SprintingWithTrainingMatch;
-                else
-                    return TrainingSchedulePreset.BalancedSpeedAndSkill;
+            {                
+                if (player.Speed + player.Acceleration + player.Shooting==297)
+                {
+                    //all speed attributes are 99
+                    if(player.Shooting<99|| player.Passing< 99)
+                        return TrainingSchedulePreset.TrainingMatchAllWeek;
+                    if (player.Heading<99)
+                        return TrainingSchedulePreset.HeadingAllWeek;
+                    if (player.Control< 99|| player.Dribbling<99)
+                        return TrainingSchedulePreset.TrainingMatchAllWeek;
+                }
+                if (player.Coolness < 99 || player.Awareness < 99 || player.Flair < 99)
+                    return TrainingSchedulePreset.ControlAllWeek;
+
+                if (player.TackleDetermination < 99 || player.TackleSkill < 99)
+                { 
+                    if(player.TackleDetermination < player.TackleSkill )
+                        return TrainingSchedulePreset.MarkingAllWeek;
+                    if (player.TackleDetermination > player.TackleSkill)
+                        return TrainingSchedulePreset.ImproveTacklingSkillAllWeek;
+                    return TrainingSchedulePreset.ImproveTacklingBalanced;
+
+                }
             }
             return Enumerable.Repeat<TrainingScheduleType>((TrainingScheduleType)bestScheduleType, 7).ToArray();
         }
