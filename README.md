@@ -36,6 +36,7 @@ By default English leagues allows only 3 players on the bench. This creates a ha
 #### Changing training effects
 
 This would let you choose to have previously untrainable attibutes trainable. For example, due to a cap on leadership at 74, respawn players can only be trained to 98 at the CD position.
+
 The 2X effect would double the training speed, letting you to max a player in 5-8 years instead of 10-16 years. This would open the door to versatile training. In addition, some training types now can have extra effects, making them less useless. 
 
 ### Trainer
@@ -48,6 +49,8 @@ Importing player would allow you to import player data back after modifying in y
 
 Copying data would take a snapshot of the current player data and pasting would restore the player data. Note this may cause you to lose your training progress. This can help if you want to transfer the training progress to a respawn when one of your favorite old player retires. 
 
+Evailuate young players gives suggestion to see who is best at each position for players younger than a specifed age outside of your team.
+
 #### Quality of life improvements
 
 No Absense would make player available in the next game after an injury or red card. You still have to move the player back to rotation though. Auto rotation would help on that. It can rotate by energy (sometimes this makes an unused goalkeeper to play out of position) or by statistics. 
@@ -56,7 +59,7 @@ Max strength and Max energy makes game less interrupted by injury.
 
 Auro contract renewal disables the contract renewal reminders and renew the contract for you. 
 
-Auto Train would adjust the player's training schedule automatically. It would train for another position if the current one is maxed out, unless you disable that. Converting to GK would be another option to minimize traing injury but your players don't really like that. They may threaten to retire (some do folow up with the threat, so change to their best position when season ends) and the club may warn you for undererformance (but never will). 
+Auto Train would adjust the player's training schedule automatically. It would train for another position if the current one is maxed out. Converting to GK would be another option to minimize traing injury but your players don't really like that. They may threaten to retire (some do folow up with the threat, so change to their best position when season ends) and the club may warn you for undererformance (but never will). 
 
 Due to the way training works a player could have best position changed (e.g. LRB and RWB could become LW and RW if you do sprint training which is also essential for wing backs) by training and complain about it. 
 
@@ -72,7 +75,7 @@ The computer does not train. This makes late game matchs a cake walk. If you wan
 
 When an old player retires a new player would be respawn with the same last name. This makes the player data gradually obselete. 
 
-The Updating Respawn Names Online feature (should only run at the starting of a new season) would query Wikipedia data dump for players born 17 years ago (if not found, then players born since 1960). Due to the limitation of data format, female players would also be included. 
+The Updating Respawn Names Online feature (should only run at the starting of a new season) would query Wikipedia data dump from DBPedia (faster but no Chinese names) or WikiData (slower but supports more languages）for players born 17 years ago (if not found, then players born since 1960). Due to the limitation of data format, female players would also be included. 
 
 Combined with the reset date feature (should only be run in the offseason) you can choose to go back to a few decades before the game officially starts and have corresponding player names from that era. 
 
@@ -86,7 +89,7 @@ To avoid this bug, Date reset would reset the date to a secified year but keepin
 
 The game has another buffer overrun bug at 40 players (39 players in the official 97/98 season patch). When your team becomes too crowded, sometimes you would see a player with number 40 or 39 joins your team as the result of poorly planned player transfer or respawn. At this time, your game state becomes corrupted, random events will happen weekly until you are fired and game progress deleted.
 
-The only way to savalge the game save is to force exit the game process before the current game state is written to file, which the game does when you quit using the game's interface. You can instead close the game using the Task Manager tool in Windows, but the trainer provides a convient way to force exit the game.
+The only way to savalge the game save is to force exit the game process before the current game state is written to file, which the game does when you quit using the game's interface. You can instead close the game using the Task Manager tool in Windows, but the trainer provides a convient way to restart the game.
 
 
 
