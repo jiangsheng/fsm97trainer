@@ -117,104 +117,132 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="statusStrip1.ToolTip" xml:space="preserve">
-    <value />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="toolStripContainer1.BottomToolStripPanel.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxMaxForm.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 47</value>
   </data>
   <data name="checkBoxMaxForm.Text" xml:space="preserve">
     <value>满状态</value>
   </data>
-  <data name="checkBoxMaxForm.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxMaxMorale.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 62</value>
+  </data>
+  <data name="checkBoxMaxMorale.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 47</value>
   </data>
   <data name="checkBoxMaxMorale.Text" xml:space="preserve">
     <value>满士气</value>
   </data>
-  <data name="checkBoxMaxMorale.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxMaxEnergy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 119</value>
+  </data>
+  <data name="checkBoxMaxEnergy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 49</value>
   </data>
   <data name="checkBoxMaxEnergy.Text" xml:space="preserve">
     <value>满体力</value>
   </data>
-  <data name="checkBoxMaxEnergy.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelMaxPlayerForm.Location" type="System.Drawing.Point, System.Drawing">
+    <value>416, 371</value>
   </data>
-  <data name="tableLayoutPanelMaxPlayerForm.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelMaxPlayerForm.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 173</value>
+  </data>
+  <data name="buttonBoostYouthPlayer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 76</value>
   </data>
   <data name="buttonBoostYouthPlayer.Text" xml:space="preserve">
     <value>改善新人数据</value>
   </data>
-  <data name="buttonBoostYouthPlayer.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonImproveAllPlayersBy1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 91</value>
+  </data>
+  <data name="buttonImproveAllPlayersBy1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 77</value>
   </data>
   <data name="buttonImproveAllPlayersBy1.Text" xml:space="preserve">
     <value>所有球员数据+1</value>
   </data>
-  <data name="buttonImproveAllPlayersBy1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelImprovePlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>828, 188</value>
   </data>
-  <data name="tableLayoutPanelImprovePlayers.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelImprovePlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 173</value>
+  </data>
+  <data name="buttonResetDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>398, 76</value>
   </data>
   <data name="buttonResetDate.Text" xml:space="preserve">
     <value>重设日期至</value>
   </data>
-  <data name="buttonResetDate.ToolTip" xml:space="preserve">
-    <value />
+  <data name="textBoxResetDateYear.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 91</value>
   </data>
-  <data name="textBoxResetDateYear.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1240, 188</value>
   </data>
-  <data name="tableLayoutPanel1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 173</value>
+  </data>
+  <data name="buttonImportPlayerData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 91</value>
+  </data>
+  <data name="buttonImportPlayerData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 77</value>
   </data>
   <data name="buttonImportPlayerData.Text" xml:space="preserve">
     <value>导入球员数据</value>
   </data>
-  <data name="buttonImportPlayerData.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonExportPlayerData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>394, 74</value>
   </data>
   <data name="buttonExportPlayerData.Text" xml:space="preserve">
     <value>导出球员数据</value>
   </data>
-  <data name="buttonExportPlayerData.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelImportExport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 173</value>
   </data>
-  <data name="tableLayoutPanelImportExport.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonPastePlayerData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 91</value>
+  </data>
+  <data name="buttonPastePlayerData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 77</value>
   </data>
   <data name="buttonPastePlayerData.Text" xml:space="preserve">
     <value>粘贴球员数据</value>
   </data>
-  <data name="buttonPastePlayerData.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonCopyPlayerData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 76</value>
   </data>
   <data name="buttonCopyPlayerData.Text" xml:space="preserve">
     <value>复制球员数据</value>
   </data>
-  <data name="buttonCopyPlayerData.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelCopyPaste.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 173</value>
   </data>
-  <data name="tableLayoutPanelCopyPaste.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonRotateByEnergy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>394, 74</value>
   </data>
   <data name="buttonRotateByEnergy.Text" xml:space="preserve">
     <value>体力优先轮换</value>
   </data>
-  <data name="buttonRotateByEnergy.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonRotateByStatistics.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 91</value>
+  </data>
+  <data name="buttonRotateByStatistics.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 77</value>
   </data>
   <data name="buttonRotateByStatistics.Text" xml:space="preserve">
     <value>统计优先轮换</value>
   </data>
-  <data name="buttonRotateByStatistics.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelRotation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 173</value>
   </data>
-  <data name="tableLayoutPanelRotation.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonUpdateNewSpawn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>398, 76</value>
   </data>
   <data name="buttonUpdateNewSpawn.Text" xml:space="preserve">
     <value>在线更新重生球员名</value>
@@ -222,72 +250,92 @@
   <data name="buttonUpdateNewSpawn.ToolTip" xml:space="preserve">
     <value>可以执行多次，每次不同类别</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="labelCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 13</value>
+    <value>73, 20</value>
   </data>
   <data name="labelCategory.Text" xml:space="preserve">
     <value>分类地址</value>
   </data>
-  <data name="labelCategory.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 91</value>
   </data>
-  <data name="comboBoxRespawnCategory.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>398, 77</value>
   </data>
-  <data name="tableLayoutPanel3.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelUpdateRrespawnNameOnline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 173</value>
   </data>
-  <data name="tableLayoutPanelUpdateRrespawnNameOnline.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonAutoPosition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>416, 188</value>
+  </data>
+  <data name="buttonAutoPosition.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 173</value>
   </data>
   <data name="buttonAutoPosition.Text" xml:space="preserve">
     <value>自适应位置</value>
   </data>
-  <data name="buttonAutoPosition.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonSaveCurrentFormation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 76</value>
   </data>
   <data name="buttonSaveCurrentFormation.Text" xml:space="preserve">
     <value>保存当前阵型</value>
   </data>
-  <data name="buttonSaveCurrentFormation.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxAutoPositionWithCurrentFormation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 91</value>
+  </data>
+  <data name="checkBoxAutoPositionWithCurrentFormation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 77</value>
   </data>
   <data name="checkBoxAutoPositionWithCurrentFormation.Text" xml:space="preserve">
     <value>自适应位置使用当前保存阵型</value>
   </data>
-  <data name="checkBoxAutoPositionWithCurrentFormation.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelFormation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 188</value>
   </data>
-  <data name="tableLayoutPanelFormation.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelFormation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 173</value>
+  </data>
+  <data name="checkBoxNoAbsense.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 47</value>
   </data>
   <data name="checkBoxNoAbsense.Text" xml:space="preserve">
     <value>球员总是可用</value>
   </data>
-  <data name="checkBoxNoAbsense.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxContractAutoRenew.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 119</value>
+  </data>
+  <data name="checkBoxContractAutoRenew.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 49</value>
   </data>
   <data name="checkBoxContractAutoRenew.Text" xml:space="preserve">
     <value>自动续约</value>
   </data>
-  <data name="checkBoxContractAutoRenew.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxMaxStrength.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 62</value>
+  </data>
+  <data name="checkBoxMaxStrength.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 47</value>
   </data>
   <data name="checkBoxMaxStrength.Text" xml:space="preserve">
     <value>力量最大</value>
   </data>
-  <data name="checkBoxMaxStrength.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 371</value>
   </data>
-  <data name="tableLayoutPanel2.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 173</value>
+  </data>
+  <data name="checkBoxAutoTrain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 47</value>
   </data>
   <data name="checkBoxAutoTrain.Text" xml:space="preserve">
     <value>自动训练</value>
   </data>
-  <data name="checkBoxAutoTrain.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxConvertToGK.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 62</value>
+  </data>
+  <data name="checkBoxConvertToGK.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 47</value>
   </data>
   <data name="checkBoxConvertToGK.Text" xml:space="preserve">
     <value>守门员训练法</value>
@@ -295,17 +343,35 @@
   <data name="checkBoxConvertToGK.ToolTip" xml:space="preserve">
     <value>替补转为守门员可减少训练受伤</value>
   </data>
+  <data name="checkBoxNoAlternativeTraining.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 119</value>
+  </data>
+  <data name="checkBoxNoAlternativeTraining.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 49</value>
+  </data>
   <data name="checkBoxNoAlternativeTraining.Text" xml:space="preserve">
     <value>不转练</value>
   </data>
-  <data name="checkBoxNoAlternativeTraining.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelAutoTrain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>828, 371</value>
   </data>
-  <data name="tableLayoutPanelAutoTrain.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelAutoTrain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 173</value>
   </data>
-  <data name="labelCopyRight.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labelCopyRight.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1240, 549</value>
+  </data>
+  <data name="labelCopyRight.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 186</value>
+  </data>
+  <data name="labelCopyRight.Text" xml:space="preserve">
+    <value>@2022-2026 Sheng Jiang @jiangsheng</value>
+  </data>
+  <data name="buttonForceExit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>828, 554</value>
+  </data>
+  <data name="buttonForceExit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 176</value>
   </data>
   <data name="buttonForceExit.Text" xml:space="preserve">
     <value>强行退出游戏</value>
@@ -319,61 +385,28 @@
   <data name="comboBoxLanguage.Items1" xml:space="preserve">
     <value />
   </data>
-  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
-    <value />
+  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 554</value>
+  </data>
+  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 176</value>
+  </data>
+  <data name="buttonLandPurchase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>416, 554</value>
+  </data>
+  <data name="buttonLandPurchase.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 176</value>
   </data>
   <data name="buttonLandPurchase.Text" xml:space="preserve">
     <value>购买所有土地</value>
   </data>
-  <data name="buttonLandPurchase.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tableLayoutPanelMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1650, 735</value>
   </data>
-  <data name="tableLayoutPanelMain.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripContainer1.ContentPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripContainer1.LeftToolStripPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripContainer1.RightToolStripPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripContainer1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripContainer1.TopToolStripPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BottomToolStripPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TopToolStripPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RightToolStripPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LeftToolStripPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ContentPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="saveFileDialog1.Filter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="saveFileDialog1.Title" xml:space="preserve">
-    <value>选择球员数据保存路径</value>
-  </data>
-  <data name="openFileDialog1.Title" xml:space="preserve">
-    <value>选择球员数据保存路径</value>
+  <data name="toolStripContainer1.ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1650, 735</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>FSM97 球探工具</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
   </data>
 </root>

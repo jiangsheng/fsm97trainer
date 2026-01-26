@@ -165,10 +165,17 @@ namespace Fsm97Trainer
 
 
         public static TrainingScheduleType[] SprintingWithTrainingMatch = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch
+           TrainingScheduleType.TrainingMatch, TrainingScheduleType.Sprinting,
+           TrainingScheduleType.TrainingMatch, TrainingScheduleType.Sprinting,
+           TrainingScheduleType.TrainingMatch, TrainingScheduleType.Sprinting,
+           TrainingScheduleType.TrainingMatch
+        };
+
+        public static TrainingScheduleType[] BalancedSpeedAndSkill = new TrainingScheduleType[] {
+           TrainingScheduleType.Sprinting,TrainingScheduleType.TrainingMatch,
+           TrainingScheduleType.Sprinting,TrainingScheduleType.TrainingMatch, 
+           TrainingScheduleType.WeightTraining, TrainingScheduleType.Sprinting,
+           TrainingScheduleType.FiveASide
         };
         public static TrainingScheduleType[] ShootingAllWeek = new TrainingScheduleType[] {
            TrainingScheduleType.Shooting, TrainingScheduleType.Shooting,

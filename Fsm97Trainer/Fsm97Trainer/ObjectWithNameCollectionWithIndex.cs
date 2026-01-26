@@ -8,7 +8,7 @@ namespace Fsm97Trainer
         public ObjectWithNameCollectionWithIndex()
         {
         }
-        public ObjectWithNameCollectionWithIndex(LinkedList<T> dataSource)
+        public ObjectWithNameCollectionWithIndex(IEnumerable<T> dataSource)
         {
             foreach (var player in dataSource)
             {

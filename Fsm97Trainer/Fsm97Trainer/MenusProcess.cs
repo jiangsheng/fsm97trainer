@@ -4,14 +4,18 @@ using NameParser;
 using Newtonsoft.Json.Linq;
 using OpenCCNET;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fsm97Trainer
@@ -60,12 +64,13 @@ namespace Fsm97Trainer
         public int TrainingEffectAddress { get; internal set; }
 
         public int AssetAddress { get; internal set; }
+        public int SeatsAddresses { get; set; }
 
         public Encoding Encoding { get; private set; }
         Process Process { get; set; }
 
 
-        TrainingEffectModifier trainingEffectModifier; 
+        TrainingEffectModifier trainingEffectModifier;
         public MenusProcess()
         {
             Process[] processes = Process.GetProcessesByName("MENUS");
@@ -78,11 +83,11 @@ namespace Fsm97Trainer
                     // User must also dispose of any matched Processes that are returned
                     processes[i].Dispose();
                 }
-                throw new InvalidOperationException(Strings.MultipleGameProcessFound);
+                throw new InvalidOperationException(Properties.Resources.MultipleGameProcessFound);
             }
             else if (processes.Count() == 0)
             {
-                throw new InvalidOperationException(Strings.CannotFindGameProcess);
+                throw new InvalidOperationException(Properties.Resources.CannotFindGameProcess);
             }
             Process = processes.First();
             var gameExeFilePath = Process.MainModule.FileName;
@@ -127,7 +132,7 @@ namespace Fsm97Trainer
                     break;
                 default:
                     Process.Dispose();
-                    throw new InvalidOperationException(Strings.UnsupportedGameVersion);
+                    throw new InvalidOperationException(Properties.Resources.UnsupportedGameVersion);
             }
         }
 
@@ -245,6 +250,7 @@ namespace Fsm97Trainer
             if (currentTeamOnly)
             {
                 Team team = new Team();
+                team.Id = currentTeam;
                 int teamDataAddress = TeamDataAddress + currentTeam * 0x140;
                 team.Name = NativeMethods.ReadString(Process, teamDataAddress, Encoding, 24);
                 team.FanGroupName = NativeMethods.ReadString
@@ -270,6 +276,7 @@ namespace Fsm97Trainer
                 for (int i = 0; i < 348; i++)
                 {
                     Team team = new Team();
+                    team.Id = (ushort)i;
                     int teamDataAddress = TeamDataAddress + i * 0x140;
                     team.Name = NativeMethods.ReadString(Process, teamDataAddress, Encoding, 24);
                     team.FanGroupName = NativeMethods.ReadString(Process, teamDataAddress + 0x19, Encoding, 16);
@@ -326,10 +333,12 @@ namespace Fsm97Trainer
             return result;
         }
 
-        public void LoadPlayerData(LinkedList<Player> playerData)
+        public void LoadPlayerData(IEnumerable<Player> playerData)
         {
             var currentPlayerData = this.ReadPlayers(false);
             if (currentPlayerData.Count() == 0) return;
+
+
             var respawnPlayerNodes = new ObjectWithNameCollectionWithIndex<PlayerNode>();
             var retiredPlayerIndex = new ObjectWithNameCollectionWithIndex<Player>(playerData);
             foreach (var playerNode in currentPlayerData)
@@ -450,14 +459,14 @@ namespace Fsm97Trainer
                 DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDate);
                 if (currentDateTime.Month < 5 || currentDateTime.Month > 7)
                 {
-                    throw new InvalidOperationException(Strings.CanOnlyChangeAtSeasonStart);
+                    throw new InvalidOperationException(Properties.Resources.CanOnlyChangeAtSeasonStart);
                 }
                 var playerNodes = ReadPlayers(currentTeamOnly);
                 var youthPlayerNodes = playerNodes.Where(p => p.Data.Age < 20 && p.Data.ContractWeeks == 144 || p.Data.ContractWeeks == 143)
                     .ToList();
                 if (youthPlayerNodes.Count == 0)
                 {
-                    throw new InvalidOperationException(Strings.YouthPlayerNotFound);
+                    throw new InvalidOperationException(Properties.Resources.YouthPlayerNotFound);
                 }
                 foreach (var playerNode in youthPlayerNodes)
                 {
@@ -524,7 +533,7 @@ namespace Fsm97Trainer
                 GetNormals(leftoverPlayers, rotateMethod, normals, targetFormation);
                 GetSubs(leftoverPlayers, rotateMethod, normals, subs, targetFormation, convertToGk);
                 GetRest(leftoverPlayers, rotateMethod, rest, targetFormation, convertToGk);
-                FixPositionAndSaveChangesToGame(normals, subs, rest);
+                FixPositionAndSaveChangesToGame(normals, subs, rest, convertToGk);
             }
             finally
             {
@@ -823,7 +832,7 @@ namespace Fsm97Trainer
             }
 
         }
-        private void FixPositionAndSaveChangesToGame(List<PlayerNode> normals, List<PlayerNode> subs, List<PlayerNode> rest)
+        private void FixPositionAndSaveChangesToGame(List<PlayerNode> normals, List<PlayerNode> subs, List<PlayerNode> rest,bool convertToGk)
         {
             var newPlayers = new LinkedList<PlayerNode>();
             foreach (var playerNode in normals)
@@ -854,6 +863,8 @@ namespace Fsm97Trainer
                     player.Status = 2;
                     WritePlayerStatus(playerNode);
                 }
+                if (convertToGk)
+                    Debug.Assert(player.Position == (int)PlayerPosition.GK);
                 newPlayers.AddLast(playerNode);
             }
             if (newPlayers.Count > 0)
@@ -948,6 +959,10 @@ namespace Fsm97Trainer
                         var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data,
                             autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier)
                             .Select(p => (byte)p).ToArray();
+                        if (playerSchedule[0] == (int)TrainingScheduleType.None)
+                        {
+                            playerSchedule = TrainingSchedule.GenericTraining(playerNode.Data, maxPower, trainingEffectModifier).Select(p => (byte)p).ToArray(); ;
+                        }
 
                         if (playerNode.Data.Fitness < 99)
                         {
@@ -961,9 +976,9 @@ namespace Fsm97Trainer
                         {
                             if (playerNode.Data.Status != 0 && convertToGK)
                             {
-                                if (playerNode.Data.Position == (byte)PlayerPosition.GK && playerNode.Data.BestPosition != (byte)PlayerPosition.GK)
+                                if (playerNode.Data.Position != (byte)PlayerPosition.GK)
                                 {
-                                    playerNode.Data.Position = playerNode.Data.BestPosition;
+                                    playerNode.Data.Position = (byte)PlayerPosition.GK;
                                     WritePlayerPosition(playerNode);
                                 }
                             }
@@ -1033,7 +1048,7 @@ namespace Fsm97Trainer
             }
             finally
             {
-                NativeMethods.SuspendProcess(Process);
+                NativeMethods.ResumeProcess(Process);
             }
         }
 
@@ -1052,7 +1067,7 @@ namespace Fsm97Trainer
                 DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDate);
                 if (currentDateTime.Month < 5 || currentDateTime.Month > 7)
                 {
-                    throw new InvalidOperationException(Strings.CanOnlyChangeDateInOffseason);
+                    throw new InvalidOperationException(Properties.Resources.CanOnlyChangeDateInOffseason);
                 }
                 DateTime resetDateTime = new DateTime((int)targetYear, currentDateTime.Month, currentDateTime.Day);
                 TimeSpan resetTimeSpan = currentDateTime - resetDateTime;
@@ -1133,7 +1148,7 @@ namespace Fsm97Trainer
                 {
                     if (playerNodes.Where(p => p.Data.Status == 0).Count() != 11)
                     {
-                        throw new InvalidOperationException(Strings.NotEnoughPlayersForAutoPosition);
+                        throw new InvalidOperationException(Properties.Resources.NotEnoughPlayersForAutoPosition);
                     }
                     var leftoverPlayers = new PlayerNodeList();
 
@@ -1200,8 +1215,9 @@ namespace Fsm97Trainer
         {
             Process.Kill();
         }
-        internal void UpdatePlayerNames(string respawnCategory)
+        internal List<HumanName> UpdatePlayerNames(string respawnCategory)
         {
+            List<HumanName> newNames =null;
             try
             {
                 NativeMethods.SuspendProcess(Process);
@@ -1223,9 +1239,9 @@ namespace Fsm97Trainer
                     .OrderByDescending(p => p.Data.Statistics).ToList();
                 if (newSpawns.Count() == 0)
                 {
-                    throw new InvalidOperationException(Strings.CannotFindNewSpawn);
+                    throw new InvalidOperationException(Properties.Resources.CannotFindNewSpawn);
                 }
-                List<HumanName> newNames = GetNewPlayerNames(respawnCategory);
+                newNames = GetNewPlayerNames(respawnCategory, newSpawns.Count);
                 foreach (var item in newNames)
                 {
                     if (newSpawns.Count == 0) break;
@@ -1251,11 +1267,13 @@ namespace Fsm97Trainer
                     }
                     newSpawns.Remove(newSpawn);
                 }
+                return newNames;
             }
             finally
             {
                 NativeMethods.ResumeProcess(Process);
             }
+            return newNames;
         }
 
         private void WritePlayerNames(PlayerNode playerNode)
@@ -1264,107 +1282,247 @@ namespace Fsm97Trainer
             NativeMethods.WriteString(Process, playerNode.Data.FirstName, playerNode.DataAddress + 0x4, Encoding, 0x18);
         }
 
-        private List<HumanName> GetNewPlayerNames(string respawnCategory)
+        List<HumanName> GetNewPlayerNames(string respawnCategory, int resultLimit)
         {
             List<HumanName> result = new List<HumanName>();
-            using (WebClient client = new WebClient())
+            int currentDateInt = NativeMethods.ReadInt(Process, DateAddress);
+            DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDateInt);
+            var birthYear = currentDateTime.AddYears(-17).Year;
+            var language = "en";
+            List<QueryUpdatePlayerNameResult> downloadedNames = null;
+            switch (Encoding.CodePage)
             {
-                client.Headers.Add("Referer", "https://dbpedia.org/sparql");
-                int currentDateInt = NativeMethods.ReadInt(Process, DateAddress);
-                DateTime currentDateTime = new DateTime(1899, 12, 30).AddDays(currentDateInt);
-                var toYear = currentDateTime.AddYears(-17).Year;
-                var fromYear = currentDateTime.AddYears(-17).Year;
-                var language = "en";
-                switch (Encoding.CodePage)
-                {
-                    case 936:
-                        language = "zh";
-                        break;
-                    case 437:
-                    default:
-                        language = "en";
-                        break;
-                }
-                string url;
-                if (string.IsNullOrWhiteSpace(respawnCategory))
-                {
-                    /*PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX dbo: <http://dbpedia.org/ontology/>
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                case 936:
+                    language = "zh";
+                    downloadedNames= GetNewPlayerNamesWikiData(respawnCategory, birthYear, language, resultLimit);
+                    break;
+                case 437:
+                default:
+                    language = "en";
+                    downloadedNames = GetNewPlayerNamesDbpedia(respawnCategory, birthYear, language, resultLimit);
+                    break;
+            }
 
-    SELECT ?player, ?name WHERE {
-    ?player dbo:wikiPageID ?number;
-    rdf:type dbo:SoccerPlayer ;
-               dbo:birthDate|dbp:birthDate ?birthdate ;
-               rdfs:label ?name 
-     FILTER ((lang(?name)="zh")&&?birthdate>= "1970-01-01"^^xsd:date && ?birthdate<= "1970-12-31"^^xsd:date ) . 
-    } 
-    ORDER BY (?number)*/
-                    url = string.Format(Properties.Resources.GetPlayerByYearQueryUrl, fromYear, toYear, language);
+            foreach (var downloadedName in downloadedNames)
+            {
+                var itemUrl = downloadedName.EntityId;
+                var itemLabel_en = downloadedName.EnglishName.RemoveDiacritics();
+                var itemLabel_zh = downloadedName.ChineseName;
+                if (string.IsNullOrEmpty(itemLabel_zh))
+                {
+                    HumanName englishHumanName = new HumanName(itemLabel_en);
+                    var firstName = englishHumanName.First;
+                    var lastName = englishHumanName.Last;
+
+                    if (string.IsNullOrWhiteSpace(lastName))
+                    {
+                        //this person does not have full name
+                        lastName = firstName;
+                    }
+                    if (firstName.Length > 17)
+                        firstName = firstName.Substring(0, 17);
+                    if (lastName.Length > 12)
+                        lastName = lastName.Substring(0, 12);
+                    result.Add(new HumanName(string.Format("{0} {1}", firstName, lastName)));
                 }
                 else
                 {
-                    /*
-                     * PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX dbo: <http://dbpedia.org/ontology/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-
-SELECT DISTINCT ?player , ?name
-WHERE {?player dbo:wikiPageID ?number; rdf:type dbo:SoccerPlayer ;
-dbo:birthDate|dbp:birthDate ?birthdate ;rdfs:label ?name ;dcterms:subject ?category
-FILTER ((lang(?name)="zh")&&?birthdate>= "1960-01-01"^^xsd:date && ?birthdate<= "1997-12-31"^^xsd:date && ?category =<http://dbpedia.org/resource/Category:A.C._Milan_players> ). 
-} 
-ORDER BY (?number)
-                     */
-                    url = string.Format(Properties.Resources.GetPlayerByYearCndCategoryQueryUrl, fromYear, toYear, language,
-                      Uri.EscapeDataString(respawnCategory));
-                }
-                string json = client.DownloadString(url);
-                var queryResult = JObject.Parse(json);
-                List<QueryUpdatePlayerNameResult> downloadedNames = queryResult.SelectToken("results").SelectToken("bindings")
-                    .Select(jt => jt.ToObject<QueryUpdatePlayerNameResult>()).ToList();
-                if (downloadedNames.Count == 0)
-                {
-                    //this would give people who are most famous when Wikipedia founded which is not far from when the game was released. 
-                    url = string.Format(Properties.Resources.GetPlayerByYearQueryUrl, "1960", toYear, language);
-                    json = client.DownloadString(url);
-                    queryResult = JObject.Parse(json);
-                    downloadedNames = queryResult.SelectToken("results").SelectToken("bindings")
-                        .Select(jt => jt.ToObject<QueryUpdatePlayerNameResult>()).ToList();
-                }
-                foreach (var item in downloadedNames)
-                {
-                    var pageUrl = item.Player.Value.Replace("http://dbpedia.org/resource/", string.Empty);
-                    var fullName = item.Name.Value;
-                    fullName = ZhConverter.HantToHans(fullName);
-                    if (fullName.Contains("("))
+                    itemLabel_zh = ZhConverter.HantToHans(itemLabel_zh);
+                    if (itemLabel_en.Contains("("))
                     {
-                        fullName = fullName.Substring(0, fullName.IndexOf("(")).Trim();
+                        itemLabel_en = itemLabel_en.Substring(0, itemLabel_en.IndexOf("(")).Trim();
                     }
-                    if (fullName.Contains("("))
+                    if (itemLabel_zh.Contains("("))
                     {
-                        fullName = fullName.Substring(0, fullName.IndexOf("(")).Trim();
+                        itemLabel_zh = itemLabel_zh.Substring(0, itemLabel_zh.IndexOf("(")).Trim();
                     }
-                    fullName = fullName.Replace("·", " ");
-                    HumanName humanName = new HumanName(fullName);
-                    if (string.IsNullOrWhiteSpace(humanName.Last))
+                    //Chinese wikipedia has u+00B7 as the separator for names
+                    itemLabel_zh = itemLabel_zh.Replace("·", " ");
+                    HumanName chineseHumanName = new HumanName(itemLabel_zh);
+                    HumanName englishHumanName = new HumanName(itemLabel_en);
+                    var firstName = englishHumanName.First;
+                    if (firstName.Length > 17)
+                        firstName = firstName.Substring(0, 17);
+                    var lastName = chineseHumanName.Last;
+                    if (string.IsNullOrWhiteSpace(chineseHumanName.Last))
                     {
-                        fullName = string.Format("{0} {1}", pageUrl.Substring(0, 1), fullName);
-                        humanName = new HumanName(fullName);
+                        //could be CJK name
+                        //use full chinese name as last name
+                        //use english first name as firs name
+                        lastName = chineseHumanName.First;
                     }
-                    else
-                    {
-                        var pageUrlParts = pageUrl.Split('_');
-                        var firstName = pageUrlParts.First().RemoveDiacritics();
-                        fullName = string.Format("{0} {1}", firstName, fullName);
-                        humanName = new HumanName(fullName);
-                    }
-                    result.Add(humanName);
+                    if (lastName.Length > 12)
+                        lastName = lastName.Substring(0, 12);
+                    result.Add(new HumanName(string.Format("{0} {1}", firstName, lastName)));
                 }
             }
             return result;
+        }
+        
+        string GetNewPlayerNamesWikiDataQuery(string respawnCategory, int birthYear, string language,int resultLimit)
+        {
+            if (language != "zh") throw new ArgumentException(nameof(language));
+            if (string.IsNullOrEmpty(respawnCategory))
+            {
+                /* SELECT ?player ?birthDate ?itemLabel_en ?itemLabel_zh WHERE {
+                  ?player wdt:P31 wd:Q5;                # instance of human
+                  wdt:P106 wd:Q937857;          # occupation: association football player
+                  wdt:P569 ?birthDate.          # date of birth
+                  FILTER(YEAR(?birthDate) = {0})       # born in 1987
+                  SERVICE wikibase:label {
+                       bd:serviceParam wikibase:language "en".
+                      ?player rdfs:label ?itemLabel_en.
+                       }
+                  SERVICE wikibase:label {
+                      bd:serviceParam wikibase:language "zh".
+                      ?player rdfs:label ?itemLabel_zh.
+                  }
+                  FILTER(LANG(?itemLabel_zh) = "zh")
+                  }
+                  ORDER BY xsd:integer(REPLACE(STR(?player), "http://www.wikidata.org/entity/Q", ""))
+                  LIMIT {1}
+                 */
+                return string.Format(Properties.Resources.WikiDataQueryGetPlayerNameByBirthYear,
+                   birthYear,resultLimit);
+            }
+            else {
+                /* 
+                     SELECT ?item ?itemLabel_en ?itemLabel_zh
+                     WHERE {
+                      SERVICE wikibase:mwapi {
+                        bd:serviceParam wikibase:endpoint "en.wikipedia.org";
+                          wikibase:api "Generator";
+                          mwapi:generator "categorymembers";
+                          mwapi:gcmtitle "Category:{0}";
+                          mwapi:gcmprop "ids";
+                          mwapi:gcmlimit "{1}".
+                        ?item wikibase:apiOutputItem mwapi:item.
+                      }
+                      ?item wdt:P569 ?birthDate
+                      SERVICE wikibase:label {
+                        bd:serviceParam wikibase:language "en".
+                        ?item rdfs:label ?itemLabel_en.
+                      } 
+                      SERVICE wikibase:label {
+                        bd:serviceParam wikibase:language "zh".
+                        ?item rdfs:label ?itemLabel_zh.
+                      }     
+                       FILTER(YEAR(?birthDate) = {2}) 
+                
+                       FILTER(lang(?itemLabel_zh) = "zh")
+                    }
+                    ORDER BY xsd:integer(REPLACE(STR(?item), "http://www.wikidata.org/entity/Q", ""))
+
+                    LIMIT {1}
+                 */
+                return string.Format(Properties.Resources.WikiDataQueryGetPlayerNameByBirthYearWithinCategory,
+                   respawnCategory.Replace('_', ' '),
+                   resultLimit, birthYear);
+
+
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="respawnCategory"></param>
+        /// <returns></returns>
+        List<QueryUpdatePlayerNameResult> GetNewPlayerNamesWikiData(string respawnCategory, int birthYear, string language, int resultLimit)
+        {
+            List<HumanName> result = new List<HumanName>();
+            string query = GetNewPlayerNamesWikiDataQuery(respawnCategory, birthYear, language, resultLimit);
+            // Wikidata SPARQL endpoint
+            var endpointUri = new Uri("https://query.wikidata.org/sparql");
+            using (WebClient client = new WebClient())
+            {
+                client.Headers.Add("Referer", "https://query.wikidata.org/");
+                client.Headers.Add("User-Agent", "github.com/jiangsheng/FSM97Trainer/1.0");
+                client.Headers.Add("Accept", "application/sparql-results+json");
+                client.Encoding = Encoding.UTF8;
+                Debug.WriteLine(query);
+                string json = client.DownloadString(string.Format("{0}?query={1}", endpointUri, Uri.EscapeDataString(query)));
+                var queryResult = JObject.Parse(json);
+
+                List<QueryUpdatePlayerNameResult> downloadedNames = queryResult.SelectToken("results").SelectToken("bindings")
+                    .Select(jt => new QueryUpdatePlayerNameResult {
+                        EntityId = jt["item"]?["value"]?.ToString(),
+                        EnglishName = jt["itemLabel_en"]?["value"]?.ToString(),
+                        ChineseName = jt["itemLabel_zh"]?["value"]?.ToString(),
+                    }).ToList();
+                return downloadedNames;
+            }
+        }
+        string GetNewPlayerNamesDbpediaQuery(string respawnCategory, int birthYear, string language, int resultLimit)
+        {
+            if (string.IsNullOrWhiteSpace(respawnCategory))
+            {
+                /*
+                SELECT DISTINCT ?item ?itemLabel_en WHERE {
+                      ?player a dbo:SoccerPlayer ;
+                      rdfs:label ?itemLabel;
+                      owl:sameAs ?item;
+                      dbo:birthDate ?birthDate.
+                      FILTER (lang(?itemLabel) = "en")
+                    FILTER(YEAR(?birthDate) = 1987)       # born in 1987
+                    FILTER(STRSTARTS(STR(?item), "http://www.wikidata.org/entity/Q"))
+                    # Extract QID string
+                      BIND(STRAFTER(STR(?item), "http://www.wikidata.org/entity/Q") AS ?qid)
+                     BIND(STR(?itemLabel) AS ?itemLabel_en)
+                    }
+                    ORDER BY xsd:integer(?qid)
+                    LIMIT 50
+
+                 */
+                return string.Format(Properties.Resources.DBPediaGetPlayerByYearQuery, birthYear, resultLimit);
+            }
+            else
+            { /*
+                 SELECT DISTINCT * WHERE {
+                  ?player a dbo:SoccerPlayer ;
+                  rdfs:label ?itemLabel;
+                  owl:sameAs ?item;
+                  dbo:birthDate ?birthDate;
+                dct:subject ?category.
+                  FILTER (lang(?itemLabel) = "en")
+                FILTER(YEAR(?birthDate) = 1970)       # born in 1987
+                FILTER(STRSTARTS(STR(?item), "http://www.wikidata.org/entity/Q"))
+                FILTER(STRSTARTS(STR(?category), "http://dbpedia.org/resource/Category:AC_Milan_players"))
+                # Extract QID string
+                  BIND(STRAFTER(STR(?item), "http://www.wikidata.org/entity/Q") AS ?qid)
+                 BIND(STR(?itemLabel) AS ?itemLabel_en)
+                }
+                ORDER BY xsd:integer(?qid)
+                LIMIT 500
+               */
+                return string.Format(Properties.Resources.DbpediaGetPlayerByYearAndCategoryQuery, birthYear,respawnCategory,
+                    resultLimit);
+
+            }
+
+        }
+        private List<QueryUpdatePlayerNameResult> GetNewPlayerNamesDbpedia(string respawnCategory, int birthYear, string language, int resultLimit)
+        {
+            string query = GetNewPlayerNamesDbpediaQuery(respawnCategory, birthYear, language, resultLimit);
+
+            var endpointUri = new Uri("https://dbpedia.org/sparql");
+            using (WebClient client = new WebClient())
+            {
+                client.Headers.Add("Referer", "https://dbpedia.org/sparql");
+                client.Headers.Add("User-Agent", "github.com/jiangsheng/FSM97Trainer/1.0");
+                client.Headers.Add("Accept", "application/sparql-results+json");
+                client.Encoding = Encoding.UTF8;
+                Debug.WriteLine(query);
+                string json = client.DownloadString(string.Format("{0}?query={1}", endpointUri, Uri.EscapeDataString(query)));
+                var queryResult = JObject.Parse(json);
+
+                List<QueryUpdatePlayerNameResult> downloadedNames = queryResult.SelectToken("results").SelectToken("bindings")
+                    .Select(jt => 
+                    new QueryUpdatePlayerNameResult { 
+                        EntityId = jt["item"]?["value"]?.ToString(),
+                        EnglishName = jt["itemLabel_en"]?["value"]?.ToString()
+                    }).ToList();
+                return downloadedNames;
+            }
         }
 
         internal void PurchaseAllLand()
@@ -1387,6 +1545,124 @@ ORDER BY (?number)
             {
                 NativeMethods.ResumeProcess(Process);
             }
+        }
+        public void Restart()
+        {
+            var mainModulePath= this.Process.MainModule.FileName;
+            if (!this.Process.HasExited)
+            {
+                this.Process.CloseMainWindow(); // Sends a close request
+                this.Process.WaitForExit(5000); // Waits for up to 5 seconds
+            }
+            if (!Process.HasExited)
+            {
+                Process.Kill();
+                Process.WaitForExit();
+            }
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = mainModulePath,
+                WorkingDirectory = Path.GetDirectoryName(mainModulePath)
+            };
+            System.Diagnostics.Process.Start(startInfo);
+        }
+        int evalProgress = 0;
+        object evalProgressLock = new object(); 
+        public string EvaluateYoungPlayers(int maxEvalAge, bool autoResetStatus,
+            bool maxEnergy, bool maxPower,bool noAlternativeTraining, Action<int> evaluateYoungPlayersReportProgress, Action<int> evaluateYoungPlayersReportTotalPlayerPositions)
+        {
+            List<Player> youngPlayers = new List<Player>();
+            try
+            {
+                NativeMethods.SuspendProcess(Process);
+                ushort currentTeam = NativeMethods.ReadByte(Process, CurrentTeamIndexAddress);
+                var playerNodes = ReadPlayers(false);
+                youngPlayers = playerNodes.Where(p => p.Data.Age <= maxEvalAge &&
+                p.Data.Team.Id != currentTeam)
+                    .Select(node => node.Data).ToList();
+
+            }
+            catch { 
+                return Properties.Resources.FailedToReadPlayersForTheMoment;
+            }
+            finally
+            {
+                NativeMethods.ResumeProcess(Process);
+            }
+            if (youngPlayers.Count == 0)
+            {
+                return Properties.Resources.YouthPlayerNotFound;
+            }
+            StringBuilder stringBuilder = new StringBuilder();
+
+            Dictionary<PlayerPosition, string> targetPositions = new Dictionary<PlayerPosition, string>();
+            targetPositions.Add(PlayerPosition.FOR, "FOR/SS/FR");
+            targetPositions.Add(PlayerPosition.RW, "LW/RW");
+            targetPositions.Add(PlayerPosition.AM, "LM/RM/AM");
+            targetPositions.Add(PlayerPosition.DM, "DM");
+            targetPositions.Add(PlayerPosition.RWB, "LWB/RWB");
+            targetPositions.Add(PlayerPosition.CD, "CD");
+            targetPositions.Add(PlayerPosition.RB, "LB/RB");
+            targetPositions.Add(PlayerPosition.SW, "SW");
+            targetPositions.Add(PlayerPosition.GK, "GK");
+            var targetPositionValues = targetPositions.Keys.ToList();
+            var targetPositionValueIndexes= Enumerable.Range(0, targetPositionValues.Count).ToList();
+
+            List<EvaluateYoungPlayersResult> evaluateYoungPlayersResults = 
+                Enumerable.Range(0, targetPositionValues.Count)
+                .Select(n=> (EvaluateYoungPlayersResult)null).ToList();
+            evaluateYoungPlayersReportTotalPlayerPositions(targetPositionValueIndexes.Count* youngPlayers.Count);
+            //Parallel.ForEach(targetPositionValueIndexes,targetPositionValueIndex=>
+            
+            foreach (var targetPositionValueIndex in targetPositionValueIndexes)
+            {
+                var position = targetPositionValues[targetPositionValueIndex];
+                EvaluateYoungPlayersResult evaluateYoungPlayersResult = new EvaluateYoungPlayersResult(position, youngPlayers,
+                autoResetStatus,
+            maxEnergy, maxPower, noAlternativeTraining,
+                trainingEffectModifier);
+                evaluateYoungPlayersResults[targetPositionValueIndex] =
+                evaluateYoungPlayersResult;
+                evaluateYoungPlayersResult.OnEvalPlayerPositionComplete+= (s, e) =>
+                {
+                    lock (evalProgressLock)
+                    {
+                        evalProgress++;
+                        evaluateYoungPlayersReportProgress(evalProgress);
+                    }
+                };
+                evaluateYoungPlayersResults[targetPositionValueIndex].Evaluate();
+                //}); 
+            }
+
+            for (int targetPositionIndex = 0; targetPositionIndex < targetPositionValues.Count; targetPositionIndex++)
+            {
+                var targetPositionValue = targetPositionValues[targetPositionIndex];
+                var targetPositionName = targetPositions[targetPositionValue];
+                var resultForPosition = evaluateYoungPlayersResults[targetPositionIndex];
+                var topPlayers= resultForPosition.Grades
+                    .OrderByDescending(p => p.FinalRating)
+                    .ThenBy(p => p.WeeksToMax)
+                    .ThenByDescending(p => p.Player.Statistics)
+                    .Take(20).ToList();
+
+                stringBuilder.AppendLine(string.Format(Properties.Resources.EvalTopPlayersHeader, targetPositionName));
+                foreach (var topPlayer in topPlayers)
+                {
+                    var player= topPlayer.Player;
+                    stringBuilder.AppendLine(string.Format(Properties.Resources.EvalTopPlayerEntry,
+                        player.FirstName,
+                        player.LastName,
+                        player.Age,
+                        player.PositionRating,
+                        player.PositionName,
+                        player.NationalityName,
+                        topPlayer.WeeksToMax
+                        ));
+                    //stringBuilder.AppendLine(topPlayer.Schedules.ToString());
+                }
+            }
+            return stringBuilder.ToString();
         }
     }
 }

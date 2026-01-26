@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Fsm97Trainer {
+namespace Fsm97Trainer.Properties {
     using System;
     
     
@@ -19,17 +19,17 @@ namespace Fsm97Trainer {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Strings() {
+        internal Resources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Fsm97Trainer {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fsm97Trainer.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fsm97Trainer.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -106,11 +106,81 @@ namespace Fsm97Trainer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT DISTINCT * WHERE {{
+        ///  ?player a dbo:SoccerPlayer ;
+        ///  rdfs:label ?itemLabel;
+        ///  owl:sameAs ?item;
+        ///  dbo:birthDate ?birthDate;
+        ///dct:subject ?category.
+        ///  FILTER (lang(?itemLabel) = &quot;en&quot;)
+        ///FILTER(YEAR(?birthDate) = {0})       # born in 1987
+        ///FILTER(STRSTARTS(STR(?item), &quot;http://www.wikidata.org/entity/Q&quot;))
+        ///FILTER(STRSTARTS(STR(?category), &quot;http://dbpedia.org/resource/Category:{1}&quot;))
+        ///# Extract QID string
+        ///  BIND(STRAFTER(STR(?item), &quot;http://www.wikidata.org/entity/Q&quot;) AS ?qid)
+        /// BIND(STR(?itemLabel) [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DbpediaGetPlayerByYearAndCategoryQuery {
+            get {
+                return ResourceManager.GetString("DbpediaGetPlayerByYearAndCategoryQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT DISTINCT ?item ?itemLabel_en WHERE {{
+        ///  ?player a dbo:SoccerPlayer ;
+        ///  rdfs:label ?itemLabel;
+        ///  owl:sameAs ?item;
+        ///  dbo:birthDate ?birthDate.
+        ///  FILTER (lang(?itemLabel) = &quot;en&quot;)
+        ///FILTER(YEAR(?birthDate) = {0})       # born in 1987
+        ///FILTER(STRSTARTS(STR(?item), &quot;http://www.wikidata.org/entity/Q&quot;))
+        ///# Extract QID string
+        ///  BIND(STRAFTER(STR(?item), &quot;http://www.wikidata.org/entity/Q&quot;) AS ?qid)
+        /// BIND(STR(?itemLabel) AS ?itemLabel_en)
+        ///}}
+        ///ORDER BY xsd:integer(?qid)
+        ///LIMIT {1}.
+        /// </summary>
+        internal static string DBPediaGetPlayerByYearQuery {
+            get {
+                return ResourceManager.GetString("DBPediaGetPlayerByYearQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - {0} {1}, Age: {2}, Stats: {3}, Position: {4}, Nationality {5}.
+        /// </summary>
+        internal static string EvalTopPlayerEntry {
+            get {
+                return ResourceManager.GetString("EvalTopPlayerEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top players for position {0}.
+        /// </summary>
+        internal static string EvalTopPlayersHeader {
+            get {
+                return ResourceManager.GetString("EvalTopPlayersHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Formation saved..
         /// </summary>
         internal static string FormationSaved {
             get {
                 return ResourceManager.GetString("FormationSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Location.
+        /// </summary>
+        internal static string FormMainSaveToCsvDialogTitle {
+            get {
+                return ResourceManager.GetString("FormMainSaveToCsvDialogTitle", resourceCulture);
             }
         }
         
@@ -291,6 +361,53 @@ namespace Fsm97Trainer {
         internal static string WarningConvertToGK {
             get {
                 return ResourceManager.GetString("WarningConvertToGK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  SELECT ?item  ?itemLabel_en ?itemLabel_zh WHERE {{
+        /// ?item wdt:P31 wd:Q5;                # instance of human
+        /// wdt:P106 wd:Q937857;          # occupation: association football player
+        /// wdt:P569 ?birthDate.          # date of birth
+        /// FILTER(YEAR(?birthDate) = {0})       # born in 1987
+        /// SERVICE wikibase:label {{
+        ///  bd:serviceParam wikibase:language &quot;en&quot;.
+        ///  ?item rdfs:label ?itemLabel_en.
+        /// }}
+        /// SERVICE wikibase:label {{
+        ///  bd:serviceParam wikibase:language &quot;zh&quot;.
+        ///  ?item rdfs:label ?itemLabel_zh.
+        /// }}
+        /// FI [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string WikiDataQueryGetPlayerNameByBirthYear {
+            get {
+                return ResourceManager.GetString("WikiDataQueryGetPlayerNameByBirthYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT ?item ?itemLabel_en ?itemLabel_zh
+        /// WHERE {{
+        ///  SERVICE wikibase:mwapi {{
+        ///    bd:serviceParam wikibase:endpoint &quot;en.wikipedia.org&quot;;
+        ///      wikibase:api &quot;Generator&quot;;
+        ///      mwapi:generator &quot;categorymembers&quot;;
+        ///      mwapi:gcmtitle &quot;Category:{0}&quot;;
+        ///      mwapi:gcmprop &quot;ids&quot;;
+        ///      mwapi:gcmlimit &quot;{1}&quot;.
+        ///    ?item wikibase:apiOutputItem mwapi:item.
+        ///  }}
+        ///  ?item wdt:P569 ?birthDate
+        ///  SERVICE wikibase:label {{
+        ///    bd:serviceParam wikibase:language &quot;en&quot;.
+        ///    ?item rdfs:label ?itemLabel_en.
+        ///  }}
+        ///  S [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string WikiDataQueryGetPlayerNameByBirthYearWithinCategory {
+            get {
+                return ResourceManager.GetString("WikiDataQueryGetPlayerNameByBirthYearWithinCategory", resourceCulture);
             }
         }
         

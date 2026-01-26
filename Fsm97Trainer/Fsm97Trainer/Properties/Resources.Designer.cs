@@ -19,7 +19,7 @@ namespace Fsm97Trainer.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,6 +61,157 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All player data boosted..
+        /// </summary>
+        internal static string AllPlayerDataBoosted {
+            get {
+                return ResourceManager.GetString("AllPlayerDataBoosted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find game process!.
+        /// </summary>
+        internal static string CannotFindGameProcess {
+            get {
+                return ResourceManager.GetString("CannotFindGameProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find new spawn..
+        /// </summary>
+        internal static string CannotFindNewSpawn {
+            get {
+                return ResourceManager.GetString("CannotFindNewSpawn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can only change at season start..
+        /// </summary>
+        internal static string CanOnlyChangeAtSeasonStart {
+            get {
+                return ResourceManager.GetString("CanOnlyChangeAtSeasonStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can only change date in offseason..
+        /// </summary>
+        internal static string CanOnlyChangeDateInOffseason {
+            get {
+                return ResourceManager.GetString("CanOnlyChangeDateInOffseason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT DISTINCT * WHERE {{
+        ///  ?player a dbo:SoccerPlayer ;
+        ///  rdfs:label ?itemLabel;
+        ///  owl:sameAs ?item;
+        ///  dbo:birthDate ?birthDate;
+        ///dct:subject ?category.
+        ///  FILTER (lang(?itemLabel) = &quot;en&quot;)
+        ///FILTER(YEAR(?birthDate) = {0})       # born in 1987
+        ///FILTER(STRSTARTS(STR(?item), &quot;http://www.wikidata.org/entity/Q&quot;))
+        ///FILTER(STRSTARTS(STR(?category), &quot;http://dbpedia.org/resource/Category:{1}&quot;))
+        ///# Extract QID string
+        ///  BIND(STRAFTER(STR(?item), &quot;http://www.wikidata.org/entity/Q&quot;) AS ?qid)
+        /// BIND(STR(?itemLabel) [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DbpediaGetPlayerByYearAndCategoryQuery {
+            get {
+                return ResourceManager.GetString("DbpediaGetPlayerByYearAndCategoryQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT DISTINCT ?item ?itemLabel_en WHERE {{
+        ///  ?player a dbo:SoccerPlayer ;
+        ///  rdfs:label ?itemLabel;
+        ///  owl:sameAs ?item;
+        ///  dbo:birthDate ?birthDate.
+        ///  FILTER (lang(?itemLabel) = &quot;en&quot;)
+        ///FILTER(YEAR(?birthDate) = {0})       # born in 1987
+        ///FILTER(STRSTARTS(STR(?item), &quot;http://www.wikidata.org/entity/Q&quot;))
+        ///# Extract QID string
+        ///  BIND(STRAFTER(STR(?item), &quot;http://www.wikidata.org/entity/Q&quot;) AS ?qid)
+        /// BIND(STR(?itemLabel) AS ?itemLabel_en)
+        ///}}
+        ///ORDER BY xsd:integer(?qid)
+        ///LIMIT {1}.
+        /// </summary>
+        internal static string DBPediaGetPlayerByYearQuery {
+            get {
+                return ResourceManager.GetString("DBPediaGetPlayerByYearQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - {0} {1}, Age: {2}, Stats: {3}, Position: {4}, Nationality {5}  weeks to max: {6}.
+        /// </summary>
+        internal static string EvalTopPlayerEntry {
+            get {
+                return ResourceManager.GetString("EvalTopPlayerEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top players for position {0}:.
+        /// </summary>
+        internal static string EvalTopPlayersHeader {
+            get {
+                return ResourceManager.GetString("EvalTopPlayersHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evaluating player with positions {0}/{1}.
+        /// </summary>
+        internal static string EvaluatingPlayerPositionsProgressReport {
+            get {
+                return ResourceManager.GetString("EvaluatingPlayerPositionsProgressReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evaluation Complete.
+        /// </summary>
+        internal static string EvaluationCompleted {
+            get {
+                return ResourceManager.GetString("EvaluationCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evaluation in progress please wait..
+        /// </summary>
+        internal static string EvaluationInProgressPleaseWait {
+            get {
+                return ResourceManager.GetString("EvaluationInProgressPleaseWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to read players for the moment, the game might be busy, try again later..
+        /// </summary>
+        internal static string FailedToReadPlayersForTheMoment {
+            get {
+                return ResourceManager.GetString("FailedToReadPlayersForTheMoment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formation saved..
+        /// </summary>
+        internal static string FormationSaved {
+            get {
+                return ResourceManager.GetString("FormationSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save Location.
         /// </summary>
         internal static string FormMainSaveToCsvDialogTitle {
@@ -70,20 +221,247 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&amp;query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0A%0D%0ASELECT+DISTINCT+%3Fplayer+%2C+%3Fname%0D%0AWHERE+%7B%3Fplayer+dbo%3AwikiPageID+%3Fnumber%3B+rdf%3Atype+dbo%3ASoccerPlayer+%3B%0D%0Adbo [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to To avoid age bug after 2079 you should reset date before 2079. In addition, resetting date would disrupt game scheduling, you should only do it in offseason. Continue?.
         /// </summary>
-        internal static string GetPlayerByYearCndCategoryQueryUrl {
+        internal static string GameDateChangeWarning {
             get {
-                return ResourceManager.GetString("GetPlayerByYearCndCategoryQueryUrl", resourceCulture);
+                return ResourceManager.GetString("GameDateChangeWarning", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&amp;query=PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+dbo%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0A%0D%0ASELECT+%3Fplayer%2C+%3Fname+WHERE+%7B%0D%0A%3Fplayer+dbo%3AwikiPageID+%3Fnumber%3B%0D%0Ardf%3Atype+dbo%3ASoccerPlayer+%3B%0D%0A+++++++ [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Please enter an integer between 1901 and 2078..
         /// </summary>
-        internal static string GetPlayerByYearQueryUrl {
+        internal static string GameDateOutOfReangePrompt {
             get {
-                return ResourceManager.GetString("GetPlayerByYearQueryUrl", resourceCulture);
+                return ResourceManager.GetString("GameDateOutOfReangePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game date eeset,.
+        /// </summary>
+        internal static string GameDateReset {
+            get {
+                return ResourceManager.GetString("GameDateReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving formation requires 11 players on the field, including a GK..
+        /// </summary>
+        internal static string InvalidFormationForSaving {
+            get {
+                return ResourceManager.GetString("InvalidFormationForSaving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Land Purchased。.
+        /// </summary>
+        internal static string LandPurchased {
+            get {
+                return ResourceManager.GetString("LandPurchased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More than one menus.exe process found..
+        /// </summary>
+        internal static string MultipleGameProcessFound {
+            get {
+                return ResourceManager.GetString("MultipleGameProcessFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Position to Formation requires 11 Players on the field.
+        /// </summary>
+        internal static string NotEnoughPlayersForAutoPosition {
+            get {
+                return ResourceManager.GetString("NotEnoughPlayersForAutoPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player data copied.
+        /// </summary>
+        internal static string PlayerDataCopied {
+            get {
+                return ResourceManager.GetString("PlayerDataCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player data imported..
+        /// </summary>
+        internal static string PlayerDataImported {
+            get {
+                return ResourceManager.GetString("PlayerDataImported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player data pasted..
+        /// </summary>
+        internal static string PlayerDataPasted {
+            get {
+                return ResourceManager.GetString("PlayerDataPasted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player names updated.
+        /// </summary>
+        internal static string PlayerNamesUpdated {
+            get {
+                return ResourceManager.GetString("PlayerNamesUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Players rotated..
+        /// </summary>
+        internal static string PlayersRotated {
+            get {
+                return ResourceManager.GetString("PlayersRotated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please copy player data first.
+        /// </summary>
+        internal static string PleaseCopyPlayerDataFirst {
+            get {
+                return ResourceManager.GetString("PleaseCopyPlayerDataFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please switch to the training schedule page first. Continue?.
+        /// </summary>
+        internal static string PleaseSwitchToTheTrainingSchedulePageFirstContinue {
+            get {
+                return ResourceManager.GetString("PleaseSwitchToTheTrainingSchedulePageFirstContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position auto reset..
+        /// </summary>
+        internal static string PositionAutoReset {
+            get {
+                return ResourceManager.GetString("PositionAutoReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can only be done at the beginning of the season, continue?.
+        /// </summary>
+        internal static string SeasonBeginningOnly {
+            get {
+                return ResourceManager.GetString("SeasonBeginningOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select player data export location.
+        /// </summary>
+        internal static string SelectPlayerDataExportLlocation {
+            get {
+                return ResourceManager.GetString("SelectPlayerDataExportLlocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported game version..
+        /// </summary>
+        internal static string UnsupportedGameVersion {
+            get {
+                return ResourceManager.GetString("UnsupportedGameVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        internal static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changing subs to GK will avoid training injories mostly but players will complain and sometimes threaten to retire, and managers will want you to increase performance (but you won&apos;t be fired). Continue?.
+        /// </summary>
+        internal static string WarningConvertToGK {
+            get {
+                return ResourceManager.GetString("WarningConvertToGK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  SELECT ?item  ?itemLabel_en ?itemLabel_zh WHERE {{
+        /// ?item wdt:P31 wd:Q5;                # instance of human
+        /// wdt:P106 wd:Q937857;          # occupation: association football player
+        /// wdt:P569 ?birthDate.          # date of birth
+        /// FILTER(YEAR(?birthDate) = {0})       # born in 1987
+        /// SERVICE wikibase:label {{
+        ///  bd:serviceParam wikibase:language &quot;en&quot;.
+        ///  ?item rdfs:label ?itemLabel_en.
+        /// }}
+        /// SERVICE wikibase:label {{
+        ///  bd:serviceParam wikibase:language &quot;zh&quot;.
+        ///  ?item rdfs:label ?itemLabel_zh.
+        /// }}
+        /// FI [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string WikiDataQueryGetPlayerNameByBirthYear {
+            get {
+                return ResourceManager.GetString("WikiDataQueryGetPlayerNameByBirthYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT ?item ?itemLabel_en ?itemLabel_zh
+        /// WHERE {{
+        ///  SERVICE wikibase:mwapi {{
+        ///    bd:serviceParam wikibase:endpoint &quot;en.wikipedia.org&quot;;
+        ///      wikibase:api &quot;Generator&quot;;
+        ///      mwapi:generator &quot;categorymembers&quot;;
+        ///      mwapi:gcmtitle &quot;Category:{0}&quot;;
+        ///      mwapi:gcmprop &quot;ids&quot;;
+        ///      mwapi:gcmlimit &quot;{1}&quot;.
+        ///    ?item wikibase:apiOutputItem mwapi:item.
+        ///  }}
+        ///  ?item wdt:P569 ?birthDate
+        ///  SERVICE wikibase:label {{
+        ///    bd:serviceParam wikibase:language &quot;en&quot;.
+        ///    ?item rdfs:label ?itemLabel_en.
+        ///  }}
+        ///  S [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string WikiDataQueryGetPlayerNameByBirthYearWithinCategory {
+            get {
+                return ResourceManager.GetString("WikiDataQueryGetPlayerNameByBirthYearWithinCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Youth player data boosted..
+        /// </summary>
+        internal static string YouthPlayerDataBoosted {
+            get {
+                return ResourceManager.GetString("YouthPlayerDataBoosted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Youth player not found..
+        /// </summary>
+        internal static string YouthPlayerNotFound {
+            get {
+                return ResourceManager.GetString("YouthPlayerNotFound", resourceCulture);
             }
         }
     }

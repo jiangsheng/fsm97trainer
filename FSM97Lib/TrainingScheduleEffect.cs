@@ -329,11 +329,34 @@ namespace FSM97Lib
             return result;
         }
 
-        public static double GetScheduleEffect(int scheduleType, byte[] attributes,TrainingEffectModifier trainingEffectModifier)
+        public static double GetScheduleEffect(int scheduleType, byte[] attributes,TrainingEffectModifier trainingEffectModifier, bool shouldTrainAsGK, bool shouldTrainAsLrb, bool shouldTrainAsCd)
         {
             double sum = 0;
             for (int i = 0; i < (int)PlayerAttribute.Count; i++)
             {
+                //skip attributes that won't affect position rating
+                if (i == (int)PlayerAttribute.Stamina) continue;
+                if (i == (int)PlayerAttribute.Fitness) continue;
+                if (i == (int) PlayerAttribute.Strength) continue;
+                //skip goal keeper traning from calculation if not good enough for 
+                if (!shouldTrainAsGK)
+                {
+                    if (i == (int)PlayerAttribute.Kicking) continue;
+                    if (i == (int)PlayerAttribute.Handling) continue;
+                    if (i == (int)PlayerAttribute.Throwing) continue;
+                }
+
+                // skip wrightlifting traning if not good enough 
+                if (!shouldTrainAsLrb)
+                {
+                    if (i == (int)PlayerAttribute.Determination) continue;
+                }
+                //skip consistency traning if not needed
+                if (!shouldTrainAsGK && !shouldTrainAsLrb && !shouldTrainAsCd)
+                {
+                    if (i == (int)PlayerAttribute.Consistency) continue;
+                }
+                    
                 int attribute = 99 - attributes[i];
                 if (attribute < 0) attribute = 0;
                 sum += attribute*trainingEffectModifier.RawData[scheduleType * 27 + i];

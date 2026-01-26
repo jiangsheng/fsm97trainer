@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="toolStripStatusLabel1.Text" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="tabPageFormation.Text" xml:space="preserve">
+    <value>阵型</value>
+  </data>
+  <data name="tabPageTraining.Text" xml:space="preserve">
+    <value>训练</value>
+  </data>
+  <data name="buttonExportPlayerData.Text" xml:space="preserve">
+    <value>导出球员数据</value>
+  </data>
+  <data name="labelExportPlayerData.Text" xml:space="preserve">
+    <value>将球员数据导出为CSV格式。
+可用Excel等软件进行数据分析或修改，之后导入。</value>
+  </data>
+  <data name="buttonImport.Text" xml:space="preserve">
+    <value>导入球员数据</value>
+  </data>
+  <data name="labelImportPlayerData.Text" xml:space="preserve">
+    <value>导入编辑后的数据。匹配基于球员名字，所以不要更改姓名。</value>
+  </data>
+  <data name="buttonCopyPlayerData.Text" xml:space="preserve">
+    <value>复制球员数据</value>
+  </data>
+  <data name="labelCopyPlayerData.Text" xml:space="preserve">
+    <value>保存球员数据准备粘贴。可用于在赛季末保存即将退役的球员的训练结果。</value>
+  </data>
+  <data name="buttonPastePlayerData.Text" xml:space="preserve">
+    <value>粘贴球员数据</value>
+  </data>
+  <data name="labelPastePlayerData.Text" xml:space="preserve">
+    <value>粘贴保存的球员数据。可用于赛季初将退役球员数据复制到再生球员。</value>
+  </data>
+  <data name="buttonEvalYoungPlayers.Text" xml:space="preserve">
+    <value>评估年轻球员</value>
+  </data>
+  <data name="labelEvalMaxAge.Text" xml:space="preserve">
+    <value>年龄上限</value>
+  </data>
+  <data name="labelEvilYoungPlayers.Text" xml:space="preserve">
+    <value>评估其他球队的年轻队员。</value>
+  </data>
+  <data name="tabPageTransfer.Text" xml:space="preserve">
+    <value>数据</value>
+  </data>
+  <data name="tabPageOther.Text" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="buttonSaveFormation.Text" xml:space="preserve">
+    <value>保存阵型</value>
+  </data>
+  <data name="labelSaveFormation.Text" xml:space="preserve">
+    <value>保存游戏中当前阵型以供后用。</value>
+  </data>
+  <data name="checkBoxStayInFormation.Text" xml:space="preserve">
+    <value>保持阵型</value>
+  </data>
+  <data name="labelStayInFormation.Text" xml:space="preserve">
+    <value>保存的阵型是否对自动位置调整和轮换有效。</value>
+  </data>
+  <data name="buttonChangeToBestPosition.Text" xml:space="preserve">
+    <value>位置自适应</value>
+  </data>
+  <data name="labelChangeToBestPosition.Text" xml:space="preserve">
+    <value>自适应到最佳位置。</value>
+  </data>
+  <data name="buttonAurateByEnergy.Text" xml:space="preserve">
+    <value>体力优先轮换</value>
+  </data>
+  <data name="labelRotateByEnergy.Text" xml:space="preserve">
+    <value>按体力轮换（可能导致替补守门员打不熟悉位置）</value>
+  </data>
+  <data name="buttonRotateByAbility.Text" xml:space="preserve">
+    <value>统计优先轮换</value>
+  </data>
+  <data name="labelRotateByAbility.Text" xml:space="preserve">
+    <value>能力轮换（可能导致疲惫队员仍在首发）</value>
+  </data>
+  <data name="checkBoxMaxForm.Text" xml:space="preserve">
+    <value>最大状态</value>
+  </data>
+  <data name="labelMaxForm.Text" xml:space="preserve">
+    <value>状态最大。</value>
+  </data>
+  <data name="checkBoxMaxMoral.Text" xml:space="preserve">
+    <value>最大士气</value>
+  </data>
+  <data name="labelMaxMoral.Text" xml:space="preserve">
+    <value>士气最大。球员会感谢你。</value>
+  </data>
+  <data name="checkBoxMaxEnergy.Text" xml:space="preserve">
+    <value>最大体力</value>
+  </data>
+  <data name="labelMaxEnergy.Text" xml:space="preserve">
+    <value>体力最大。</value>
+  </data>
+  <data name="checkBoxMaxStrength.Text" xml:space="preserve">
+    <value>最大力量</value>
+  </data>
+  <data name="labelMaxStrength.Text" xml:space="preserve">
+    <value>全队力量最大，避免受伤。</value>
+  </data>
+  <data name="checkBoxContractAutoRenew.Text" xml:space="preserve">
+    <value>合同自动续约</value>
+  </data>
+  <data name="labelContractAutoRenew.Text" xml:space="preserve">
+    <value>不用谈判了。</value>
+  </data>
+  <data name="checkBoxNoAbsense.Text" xml:space="preserve">
+    <value>无缺席</value>
+  </data>
+  <data name="labelNoAbsense.Text" xml:space="preserve">
+    <value>红牌不是问题。</value>
+  </data>
+  <data name="checkBoxAutoTrainingSchedule.Text" xml:space="preserve">
+    <value>自动化训练日程</value>
+  </data>
+  <data name="labelAutoTraningSchedule.Text" xml:space="preserve">
+    <value>根据球员位置和能力自动设置训练计划。</value>
+  </data>
+  <data name="checkBoxConvertToGk.Text" xml:space="preserve">
+    <value>替补转守门员</value>
+  </data>
+  <data name="labelCnvertToGK.Text" xml:space="preserve">
+    <value>将替补转为守门员来最小化受伤风险。训练日程无变化。
+除非你忘记在赛季末使用位置自适应，
+否则球员的退役威胁是没有用的。</value>
+  </data>
+  <data name="checkBoxCurrentPositionOnly.Text" xml:space="preserve">
+    <value>仅当前位置</value>
+  </data>
+  <data name="labelCurrentPositionOnly.Text" xml:space="preserve">
+    <value>只针对当前位置优化，可能造成总进度较慢。</value>
+  </data>
+  <data name="labelComputerBoost.Text" xml:space="preserve">
+    <value>电脑不训练，因此游戏越来越无聊。所以这里有一些更改来弥补这一点。</value>
+  </data>
+  <data name="buttonBoostYouthPlayers.Text" xml:space="preserve">
+    <value>改善年轻球员</value>
+  </data>
+  <data name="labelBoostYouthPlayers.Text" xml:space="preserve">
+    <value>新生球员全属性+25。</value>
+  </data>
+  <data name="buttonBoostAllPlayersBy1.Text" xml:space="preserve">
+    <value>所有球员全属性+1</value>
+  </data>
+  <data name="labelBoostAllPlayersBy1.Text" xml:space="preserve">
+    <value>所有球员属性+1</value>
+  </data>
+  <data name="buttonPurchaseLand.Text" xml:space="preserve">
+    <value>购买全部土地</value>
+  </data>
+  <data name="labelPurchaseLand.Text" xml:space="preserve">
+    <value>你的体育场现在可以扩展到道路和河流。</value>
+  </data>
+  <data name="labelTimeTravel.Text" xml:space="preserve">
+    <value> 2079年球员年龄会溢出，导致一系列随机事件直至游戏冻结。
+ 在此之前时间旅行返回则可正常继续。
+ 应只在休赛期执行，不然会扰乱赛事系统。
+ 导致无法正常比赛。</value>
+  </data>
+  <data name="buttonTimeTravel.Text" xml:space="preserve">
+    <value>时间旅行到</value>
+  </data>
+  <data name="buttonRestartGame.Text" xml:space="preserve">
+    <value>重启游戏</value>
+  </data>
+  <data name="labelRestartGame.Text" xml:space="preserve">
+    <value>本作关闭时自动存盘。如果碰到40号球员溢出，需要不保存关闭。
+在游戏持续要求插入光盘时也可以用这个而不是任务管理器重启游戏。
+</value>
+  </data>
+  <data name="labelUpdateNewSpawn.Text" xml:space="preserve">
+    <value>每赛季老球员退役，被同姓随机名新球员替换。 
+这将从维基百科下载新的球员名字
+或者是老球员名字，如果你在上赛季末选择了时间旅行。
+如果你想限制球员名字，在下拉框中选择。
+本功能应只在赛季初执行。</value>
+  </data>
+  <data name="buttonUpdatePlayerNameForNewSpawn.Text" xml:space="preserve">
+    <value>更新新生球员名字</value>
+  </data>
+  <data name="buttonChangeLanguage.Text" xml:space="preserve">
+    <value>Change Language</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>FSM97 球探工具</value>
+  </data>
+</root>

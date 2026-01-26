@@ -130,10 +130,13 @@
     <value>只能在赛季初修改</value>
   </data>
   <data name="CanOnlyChangeDateInOffseason" xml:space="preserve">
-    <value>只能在赛季末尾修改日期</value>
+    <value>只能在赛季末休赛期修改日期</value>
   </data>
   <data name="FormationSaved" xml:space="preserve">
     <value>阵容已保存</value>
+  </data>
+  <data name="FormMainSaveToCsvDialogTitle" xml:space="preserve">
+    <value>保存路径</value>
   </data>
   <data name="GameDateChangeWarning" xml:space="preserve">
     <value>为了避免2079年球员年龄出错，请在2079年之前重设日期。另外，如果在赛季中重设，会造成赛程错误，应该在休赛期重设日期。继续？</value>
@@ -200,5 +203,23 @@
   </data>
   <data name="YouthPlayerNotFound" xml:space="preserve">
     <value>未找到匹配的年轻球员</value>
+  </data>
+  <data name="EvalTopPlayersHeader" xml:space="preserve">
+    <value>位置{0}的最佳球员：</value>
+  </data>
+  <data name="EvalTopPlayerEntry" xml:space="preserve">
+    <value>- {0} {1}, 年龄: {2}, 统计: {3}，位置 {4}, 国籍: {5} 练满时间：{6}周</value>
+  </data>
+  <data name="EvaluatingPlayerPositionsProgressReport" xml:space="preserve">
+    <value>评估球员训练计划{0}/{1}</value>
+  </data>
+  <data name="EvaluationCompleted" xml:space="preserve">
+    <value>评估结束。</value>
+  </data>
+  <data name="EvaluationInProgressPleaseWait" xml:space="preserve">
+    <value>已在评估中。</value>
+  </data>
+  <data name="FailedToReadPlayersForTheMoment" xml:space="preserve">
+    <value>无法读取游戏，游戏可能忙，请稍后重试</value>
   </data>
 </root>
