@@ -109,7 +109,7 @@ namespace Fsm97Trainer
             if (stageMinimum < 99)
             {
                 result = ImproveConsistencyTo(player, stageMinimum);
-                if (result != null) return result;
+                result = ImproveCoolnessTo(player, stageMinimum); if (result != null) return result;
 
                 result = ImproveCoolnessTo(player, stageMinimum);
                 if (result != null) return result;
