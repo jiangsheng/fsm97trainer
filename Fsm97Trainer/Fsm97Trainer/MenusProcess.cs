@@ -68,6 +68,7 @@ namespace Fsm97Trainer
 
         public Encoding Encoding { get; private set; }
         Process Process { get; set; }
+        public bool DebugTraining { get; set; }
 
 
         TrainingEffectModifier trainingEffectModifier;
@@ -802,9 +803,9 @@ namespace Fsm97Trainer
             var targetPosition = subTeamPlayer.Data.BestFitInPositions(targetPositions);
             if (convertToGk)
                 targetPosition = (int)PlayerPosition.GK;
-            if (targetPosition != subTeamPlayer.Data.Position)
+            else if (subTeamPlayer.Data.BestPosition!= subTeamPlayer.Data.Position)
             {
-                subTeamPlayer.Data.Position = targetPosition;
+                subTeamPlayer.Data.Position = subTeamPlayer.Data.BestPosition;
                 WritePlayerPosition(subTeamPlayer);
             }
             leftoverPlayers.Remove(subTeamPlayer);
@@ -957,11 +958,15 @@ namespace Fsm97Trainer
                     if (autoTrain)
                     {
                         var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data,
-                            autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier)
+                            autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier,DebugTraining)
                             .Select(p => (byte)p).ToArray();
                         if (playerSchedule[0] == (int)TrainingScheduleType.None)
                         {
-                            playerSchedule = TrainingSchedule.GenericTraining(playerNode.Data, maxPower, trainingEffectModifier).Select(p => (byte)p).ToArray(); ;
+                            if (DebugTraining)
+                            { 
+                                Debug.WriteLine(String.Format("Player {0} has no training schedule, applying generic training.", playerNode.Data));
+                            }
+                            playerSchedule = TrainingSchedule.GenericTraining(playerNode.Data,PlayerPosition.Count, maxPower, trainingEffectModifier).Select(p => (byte)p).ToArray(); ;
                         }
 
                         if (playerNode.Data.Fitness < 99)
@@ -1569,7 +1574,7 @@ namespace Fsm97Trainer
         int evalProgress = 0;
         object evalProgressLock = new object(); 
         public string EvaluateYoungPlayers(int maxEvalAge, bool autoResetStatus,
-            bool maxEnergy, bool maxPower,bool noAlternativeTraining, Action<int> evaluateYoungPlayersReportProgress, Action<int> evaluateYoungPlayersReportTotalPlayerPositions)
+            bool maxEnergy, bool maxPower,bool noAlternativeTraining, Action<int> evaluateYoungPlayersReportProgress, Action<int> evaluateYoungPlayersReportTotalPlayerPositions, bool debugTraining)
         {
             List<Player> youngPlayers = new List<Player>();
             try
@@ -1620,7 +1625,7 @@ namespace Fsm97Trainer
                 EvaluateYoungPlayersResult evaluateYoungPlayersResult = new EvaluateYoungPlayersResult(position, youngPlayers,
                 autoResetStatus,
             maxEnergy, maxPower, noAlternativeTraining,
-                trainingEffectModifier);
+                trainingEffectModifier,DebugTraining);
                 evaluateYoungPlayersResults[targetPositionValueIndex] =
                 evaluateYoungPlayersResult;
                 evaluateYoungPlayersResult.OnEvalPlayerPositionComplete+= (s, e) =>
@@ -1659,7 +1664,8 @@ namespace Fsm97Trainer
                         player.NationalityName,
                         topPlayer.WeeksToMax
                         ));
-                    //stringBuilder.AppendLine(topPlayer.Schedules.ToString());
+                    if(debugTraining)
+                        stringBuilder.AppendLine(topPlayer.Schedules.ToString());
                 }
             }
             return stringBuilder.ToString();

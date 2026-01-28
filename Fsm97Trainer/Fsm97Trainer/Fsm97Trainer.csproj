@@ -89,14 +89,14 @@
     <Compile Include="FormMain2.Designer.cs">
       <DependentUpon>FormMain2.cs</DependentUpon>
     </Compile>
+    <Compile Include="IObjectWithPersonName.cs" />
+    <Compile Include="MenusProcess.cs" />
     <Compile Include="Models\FormMainModel.cs" />
     <Compile Include="Models\PropertyChangingCancelEventArgs.cs" />
     <Compile Include="IDivisionFactor.cs" />
-    <Compile Include="IObjectWithPersonName.cs" />
-    <Compile Include="MenusProcess.cs" />
     <Compile Include="NativeMethods.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="ObjectWithNameCollectionWithIndex.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="PlayerMap.cs" />
     <Compile Include="PlayerNode.cs" />
     <Compile Include="PlayerNodeList.cs" />
@@ -108,16 +108,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="QueryUpdatePlayerNameResult.cs" />
-    <Compile Include="RotateMethod.cs" />
-    <Compile Include="Team.cs" />
-    <Compile Include="TrainingSchedule.cs" />
-    <Compile Include="TrainingSchedulePreset.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="RotateMethod.cs" />
+    <Compile Include="Team.cs" />
+    <Compile Include="TrainingSchedule.cs" />
+    <Compile Include="TrainingSchedulePreset.cs" />
     <Compile Include="WikiDataPlayerResult.cs" />
     <Compile Include="YoungPlayerEvaluation.cs" />
     <EmbeddedResource Include="FormMain.resx">

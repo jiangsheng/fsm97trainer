@@ -11,7 +11,7 @@ namespace Fsm97Trainer
     internal class EvaluateYoungPlayersResult
     {
 
-        public EvaluateYoungPlayersResult(PlayerPosition position, List<Player> youngPlayers, bool autoResetStatus, bool maxEnergy,  bool maxPower, bool noAlternativeTraining, TrainingEffectModifier trainingEffectModifier)
+        public EvaluateYoungPlayersResult(PlayerPosition position, List<Player> youngPlayers, bool autoResetStatus, bool maxEnergy,  bool maxPower, bool noAlternativeTraining, TrainingEffectModifier trainingEffectModifier, bool debugTraining)
         {
             Position = position;
             YoungPlayers = youngPlayers;
@@ -21,6 +21,7 @@ namespace Fsm97Trainer
             NoAlternativeTraining = noAlternativeTraining;
             TrainingEffectModifier = trainingEffectModifier;
             GetTrainingScheduleEffects= TrainingScheduleEffect.GetTrainingScheduleEffect(trainingEffectModifier);
+            DebugTraining = debugTraining;
         }
         byte[] GetTrainingScheduleEffects { get; set; }
 
@@ -32,6 +33,7 @@ namespace Fsm97Trainer
         public bool MaxPower { get; }
         public bool NoAlternativeTraining { get; }
         public TrainingEffectModifier TrainingEffectModifier { get; }
+        public bool DebugTraining { get; set; }
         public event EventHandler OnEvalPlayerPositionComplete;
         public void Evaluate()
         {
@@ -45,6 +47,17 @@ namespace Fsm97Trainer
         {
             YoungPlayerEvaluation result=new YoungPlayerEvaluation();
             result.Player = youngPlayer;
+
+            //cut the lower half
+            var positionRating = PositionRatings.GetPositionRatingDouble((int)this.Position, youngPlayer.Attributes);
+            if (positionRating <=50)
+            { 
+                result.WeeksToMax = 0;
+                result.FinalRating = (int)positionRating; 
+                OnEvalPlayerPositionComplete?.Invoke(this, EventArgs.Empty);
+                return result;
+            }
+
             Player playerClone = new Player();
             Buffer.BlockCopy(youngPlayer.Attributes, 0, playerClone.Attributes, 0, playerClone.Attributes.Length);
             playerClone.LastName = youngPlayer.LastName;
@@ -66,7 +79,7 @@ namespace Fsm97Trainer
             while (!maxedOut)
             {
                 var weeklyTrainingSchedule = TrainingSchedule.GetTrainingSchedule(playerClone, AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining
-                    , TrainingEffectModifier);
+                    , TrainingEffectModifier,DebugTraining);
 
                 double weeklyTrainingScheduleEffects = 0;
                 for (int dayOfWeek = 0; dayOfWeek < weeklyTrainingSchedule.Length; dayOfWeek++)
@@ -94,7 +107,7 @@ namespace Fsm97Trainer
                 }
                 if (lastWeeklyTrainingSchedule == null || !lastWeeklyTrainingSchedule.SequenceEqual(weeklyTrainingSchedule))
                 {
-                    AddScheduleToOuput(result, playerClone, weeklyTrainingSchedule, lastScheduleLastedWeekCount);
+                    AddScheduleToOuput(result, playerClone, weeklyTrainingSchedule, lastScheduleLastedWeekCount,DebugTraining);
                     lastScheduleLastedWeekCount = 0;
                 }
                 weeks++;
@@ -107,7 +120,7 @@ namespace Fsm97Trainer
                     Debug.Assert(weeks > 100);
                     maxedOut = true;                    
                     OnEvalPlayerPositionComplete?.Invoke(this, EventArgs.Empty);
-                    AddScheduleToOuput(result, playerClone, weeklyTrainingSchedule, lastScheduleLastedWeekCount );
+                    AddScheduleToOuput(result, playerClone, weeklyTrainingSchedule, lastScheduleLastedWeekCount, DebugTraining);
                     lastScheduleLastedWeekCount = 0;
                 }
                 lastWeeklyTrainingSchedule= weeklyTrainingSchedule;
@@ -117,27 +130,29 @@ namespace Fsm97Trainer
             return result;
         }
 
-        private static void AddScheduleToOuput(YoungPlayerEvaluation result, Player playerClone, TrainingScheduleType[] weeklyTrainingSchedule, int lastScheduleLastedWeekCount)
+        private static void AddScheduleToOuput(YoungPlayerEvaluation result, Player playerClone, TrainingScheduleType[] weeklyTrainingSchedule, int lastScheduleLastedWeekCount,bool debugTraining)
         {
-            return;
-            result.Schedules.AppendFormat("{0},{1},{2}\t{3},{4:2},{5}\t{6},{7},{8},{9},{10}\t{11},{12}\t{13},{14},{15}\t{16},{17},{18}\t{19},{20} ",
-                playerClone.Speed, playerClone.Agility, playerClone.Acceleration,
-                playerClone.Stamina, playerClone.Strength, playerClone.Fitness,
-                playerClone.Shooting, playerClone.Passing, playerClone.Heading, playerClone.Control, playerClone.Dribbling,
-                playerClone.TackleDetermination, playerClone.TackleSkill,
-                playerClone.Coolness, playerClone.Awareness, playerClone.Flair,
-                playerClone.Kicking, playerClone.Throwing, playerClone.Handling,
-                playerClone.Consistency, playerClone.Determination
-                );
-            for (int dayOfWeek = 0; dayOfWeek < weeklyTrainingSchedule.Length; dayOfWeek++)
+            if (debugTraining)
             {
-                var dailyTrainingScheduleType = weeklyTrainingSchedule[dayOfWeek];
-                if (result.Schedules.Length != 0)
-                    result.Schedules.Append(",");
-                result.Schedules.Append(dailyTrainingScheduleType);
+                result.Schedules.AppendFormat("{0},{1},{2}\t{3},{4:2},{5}\t{6},{7},{8},{9},{10}\t{11},{12}\t{13},{14},{15}\t{16},{17},{18}\t{19},{20} ",
+                    playerClone.Speed, playerClone.Agility, playerClone.Acceleration,
+                    playerClone.Stamina, playerClone.Strength, playerClone.Fitness,
+                    playerClone.Shooting, playerClone.Passing, playerClone.Heading, playerClone.Control, playerClone.Dribbling,
+                    playerClone.TackleDetermination, playerClone.TackleSkill,
+                    playerClone.Coolness, playerClone.Awareness, playerClone.Flair,
+                    playerClone.Kicking, playerClone.Throwing, playerClone.Handling,
+                    playerClone.Consistency, playerClone.Determination
+                    );
+                for (int dayOfWeek = 0; dayOfWeek < weeklyTrainingSchedule.Length; dayOfWeek++)
+                {
+                    var dailyTrainingScheduleType = weeklyTrainingSchedule[dayOfWeek];
+                    if (result.Schedules.Length != 0)
+                        result.Schedules.Append(",");
+                    result.Schedules.Append(dailyTrainingScheduleType);
+                }
+                result.Schedules.AppendFormat("\tWeeks:{0}", lastScheduleLastedWeekCount);
+                result.Schedules.AppendLine();
             }
-            result.Schedules.AppendFormat("\tWeeks:{0}", lastScheduleLastedWeekCount);
-            result.Schedules.AppendLine();
         }
     }
 }

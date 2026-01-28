@@ -17,6 +17,9 @@ namespace Fsm97Trainer.Models
 {
     public class FormMainModel : IDisposable, INotifyPropertyChanged
     {
+        public FormMainModel() { 
+            NoAlternativeTraining = true;
+        }
         public EventHandler<ErrorEventArgs> OnError;
         public EventHandler<ErrorEventArgs> OnWarning;
         public EventHandler<EventArgs> OnModalMessage;
@@ -257,6 +260,7 @@ namespace Fsm97Trainer.Models
         }
         public event EventHandler OnEvalProgressChanged;
         public int MaxEvalAge { get; set; }
+        public bool DebugTraining { get; set; }
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -521,8 +525,9 @@ namespace Fsm97Trainer.Models
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
+                menusProcess.DebugTraining = DebugTraining;
                 menusProcess.FastUpdate(AutoTrain, ConvertToGK, AutoResetStatus, MaxEnergy, MaxForm, MaxMorale, MaxPower, NoAlternativeTraining
-                    );
+                    );                
             }
             catch (Exception ex)
             {
@@ -734,8 +739,9 @@ namespace Fsm97Trainer.Models
                 EvalProgress = 0;
                 TotalPlayerPositionsToEval = 0;
                 MenusProcess menusProcess = GetMenusProcess();
-                EvalYoungPlayersResult=menusProcess.EvaluateYoungPlayers(MaxEvalAge,AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining
-                    , EvaluateYoungPlayersReportProgress, EvaluateYoungPlayersReportTotalPlayerPositions);
+                menusProcess.DebugTraining = DebugTraining;
+                EvalYoungPlayersResult =menusProcess.EvaluateYoungPlayers(MaxEvalAge,AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining
+                    , EvaluateYoungPlayersReportProgress, EvaluateYoungPlayersReportTotalPlayerPositions,DebugTraining);
             }
             catch (Exception ex)
             {

@@ -2,22 +2,22 @@
 {
     public enum TrainingScheduleType
     {
-        None,
+        None,//0
         Shooting,
         Passing,
         Heading,
         Sprinting,
-        Jogging,
+        Jogging,//5
         Control,
         Exercise,
         WeightTraining,
         ZonalDefence,
-        Marking,
+        Marking,//10
         Tackling,
         Physiotherapist,
         Handling,
         GoalKeeping,
-        Kicking,
+        Kicking,//15
         Throwing,
         FiveASide,
         TrainingMatch

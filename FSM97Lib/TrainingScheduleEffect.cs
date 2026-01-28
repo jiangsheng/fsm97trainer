@@ -329,39 +329,57 @@ namespace FSM97Lib
             return result;
         }
 
-        public static double GetScheduleEffect(int scheduleType, byte[] attributes,TrainingEffectModifier trainingEffectModifier, bool shouldTrainAsGK, bool shouldTrainAsLrb, bool shouldTrainAsCd)
+        public static double GetScheduleEffect(int scheduleType, PlayerPosition playerPosition, byte[] attributes,TrainingEffectModifier trainingEffectModifier, bool shouldTrainAsGK, bool shouldTrainAsLrb, bool shouldTrainAsCd)
         {
+            byte[] positionRatings;
+
+            switch (playerPosition)
+            {
+                case PlayerPosition.Count:
+                    positionRatings = Enumerable.Range(1, (int)PlayerPosition.Count).Select(i => (byte)i).ToArray(); break;
+                default:
+                    positionRatings= PositionRatings.Ratings[(int)playerPosition]; break;
+            }
+                
             double sum = 0;
-            for (int i = 0; i < (int)PlayerAttribute.Count; i++)
+            for (int attributeIndex = 0; attributeIndex < (int)PlayerAttribute.Count; attributeIndex++)
             {
                 //skip attributes that won't affect position rating
-                if (i == (int)PlayerAttribute.Stamina) continue;
-                if (i == (int)PlayerAttribute.Fitness) continue;
-                if (i == (int) PlayerAttribute.Strength) continue;
+                if (attributeIndex == (int)PlayerAttribute.Stamina) continue;
+                if (attributeIndex == (int)PlayerAttribute.Fitness) continue;
+                if (attributeIndex == (int) PlayerAttribute.Strength) continue;
                 //skip goal keeper traning from calculation if not good enough for 
                 if (!shouldTrainAsGK)
                 {
-                    if (i == (int)PlayerAttribute.Kicking) continue;
-                    if (i == (int)PlayerAttribute.Handling) continue;
-                    if (i == (int)PlayerAttribute.Throwing) continue;
+                    if (attributeIndex == (int)PlayerAttribute.Kicking) continue;
+                    if (attributeIndex == (int)PlayerAttribute.Handling) continue;
+                    if (attributeIndex == (int)PlayerAttribute.Throwing) continue;
                 }
 
                 // skip wrightlifting traning if not good enough 
                 if (!shouldTrainAsLrb)
                 {
-                    if (i == (int)PlayerAttribute.Determination) continue;
+                    if (attributeIndex == (int)PlayerAttribute.Determination) continue;
                 }
                 //skip consistency traning if not needed
                 if (!shouldTrainAsGK && !shouldTrainAsLrb && !shouldTrainAsCd)
                 {
-                    if (i == (int)PlayerAttribute.Consistency) continue;
+                    if (attributeIndex == (int)PlayerAttribute.Consistency) continue;
                 }
-                    
-                int attribute = 99 - attributes[i];
+                if (positionRatings[attributeIndex]==0) continue;
+
+
+                int attribute = 99 - attributes[attributeIndex];
                 if (attribute < 0) attribute = 0;
-                sum += attribute*trainingEffectModifier.RawData[scheduleType * 27 + i];
+                if (attribute == 0) continue;
+                sum += attribute*trainingEffectModifier.RawData[scheduleType * 27 + attributeIndex];
             }
             return sum;
+        }
+        public static double GetScheduleEffect(TrainingScheduleType[] scheduleTypes, PlayerPosition playerPosition, byte[] attributes, TrainingEffectModifier trainingEffectModifier, bool shouldTrainAsGK, bool shouldTrainAsLrb, bool shouldTrainAsCd)
+        {
+            
+            return scheduleTypes.Select(scheduleType=> GetScheduleEffect((int)scheduleType, playerPosition, attributes, trainingEffectModifier, shouldTrainAsGK, shouldTrainAsLrb, shouldTrainAsCd)).Sum();
         }
     }
 }

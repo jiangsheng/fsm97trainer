@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Fsm97Trainer
 {
@@ -212,15 +213,29 @@ namespace Fsm97Trainer
 
         public override string ToString()
         {
-            return String.Format("{0}, {1}: age {2}, position {3}, rating {4},Throwin {5}, Lead {6}, Greed {7}", LastName, FirstName,
-                Age, positionName, PositionRating,
-                ThrowIn, Leadership, Greed);
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendFormat("{0} {1} {2} {3}",PositionName,Number, LastName,FirstName);
+            stringBuilder.AppendFormat(" age {0}, position {1} rating {2}", Age, positionName,PositionRating);
+            stringBuilder.AppendFormat(" best position {0}, best position rating {1}", BestPositionName, BestPositionRating);
+            stringBuilder.AppendFormat("\r\n Speeds: {0}, Agility: {1}, Acceleration: {2} , Healths: Stamina: {3}, Strength: {4}, Fitness: {5}",
+                Speed, Agility, Acceleration, Stamina, Strength, Fitness);
+            stringBuilder.AppendFormat(" Skills: Shooting: {0}, Passing: {1}, Heading: {2}, Control: {3}, Dribbling: {4}",
+                Shooting, Passing, Heading, Control, Dribbling);
+            stringBuilder.AppendFormat("\r\n tackles: Determination: {0}, Skill: {1}",
+                TackleDetermination, TackleSkill);
+            stringBuilder.AppendFormat(" Mentalities: Coolness: {0}, Awareness: {1}, Flair: {2}",
+                Coolness, Awareness, Flair);
+            stringBuilder.AppendFormat("\r\n Goalkeeping: Kicking: {0}, Throwing: {1}, Handling: {2}",
+                Kicking, Throwing, Handling);
+            stringBuilder.AppendFormat(" Others: ThrowIn: {0}, Leadership: {1}, Consistency: {2}, Determination: {3}, Greed: {4}",
+                ThrowIn, Leadership, Consistency, Determination, Greed);
+            return stringBuilder.ToString();
         }
         internal static bool CompareAttributes(Player fromPlayer, Player toPlayer)
         {
             return fromPlayer.Attributes.SequenceEqual(toPlayer.Attributes);
         }
-        internal static int CompareAttributesApproximately(Player fromPlayer, Player toPlayer)
+        public static int CompareAttributesApproximately(Player fromPlayer, Player toPlayer)
         {
             for (int i = 0; i < (int)PlayerAttribute.Count; i++)
             {
@@ -364,7 +379,7 @@ namespace Fsm97Trainer
             return Enum.GetName(typeof(PlayerPosition), position);
         }
 
-        internal int BestFitInFormation(Formation targetFormation)
+        public int BestFitInFormation(Formation targetFormation)
         {
             double bestPositionRating = 0;
             int bestPosition = 0;
@@ -401,7 +416,7 @@ namespace Fsm97Trainer
             }
             return bestPosition;
         }
-        internal double GetBestPositionRatingExceptGKInFormation(Formation formation)
+        public double GetBestPositionRatingExceptGKInFormation(Formation formation)
         {
             double bestPositionRating = 0;
             int bestPosition = 0;
@@ -421,7 +436,7 @@ namespace Fsm97Trainer
             return bestPositionRating;
         }
 
-        internal double GetBestPositionRating(PlayerPosition[] targetPositions)
+        public double GetBestPositionRating(PlayerPosition[] targetPositions)
         {
             double bestPositionRating = 0;
             PlayerPosition bestPosition = 0;
@@ -437,7 +452,7 @@ namespace Fsm97Trainer
             return bestPositionRating;
         }
 
-        internal int BestFitInPositions(PlayerPosition[] targetPositions)
+        public int BestFitInPositions(PlayerPosition[] targetPositions)
         {
             double bestPositionRating = 0;
             PlayerPosition bestPosition = 0;
@@ -453,7 +468,7 @@ namespace Fsm97Trainer
             return (int)bestPosition;
         }
 
-        internal double GetAveragePositionRatingInFormationExceptTargetPositionAndGK(Player data, int position, Formation formation)
+        public double GetAveragePositionRatingInFormationExceptTargetPositionAndGK(Player data, int position, Formation formation)
         {
             double sumPositionRating = 0;
             int countPositions = 0;
@@ -472,7 +487,7 @@ namespace Fsm97Trainer
             return sumPositionRating + countPositions;
         }
 
-        internal int GetBestPositionWithinLimit(int[] positionLimit)
+        public int GetBestPositionWithinLimit(int[] positionLimit)
         {
             double bestPositionRating = 0;
             PlayerPosition bestPosition = 0;
