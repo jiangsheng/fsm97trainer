@@ -665,9 +665,9 @@ namespace Fsm97Trainer.Models
                         {
                             if(stringBuilder.Length!=0)
                                 stringBuilder.Append(", ");
-                            stringBuilder.Append(name.First);
+                            stringBuilder.Append(name.HumanName.First);
                             stringBuilder.Append(" ");
-                            stringBuilder.Append(name.Last);
+                            stringBuilder.Append(name.HumanName.Last);
                         }
 
                         ShowModalMessage(string.Format("{0}: {1}", Properties.Resources.PlayerNamesUpdated, stringBuilder));

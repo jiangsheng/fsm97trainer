@@ -336,7 +336,7 @@ namespace FSM97Lib
             switch (playerPosition)
             {
                 case PlayerPosition.Count:
-                    positionRatings = Enumerable.Range(1, (int)PlayerPosition.Count).Select(i => (byte)i).ToArray(); break;
+                    positionRatings = Enumerable.Range(1, (int)PlayerAttribute.Count).Select(i => (byte)i).ToArray(); break;
                 default:
                     positionRatings= PositionRatings.Ratings[(int)playerPosition]; break;
             }

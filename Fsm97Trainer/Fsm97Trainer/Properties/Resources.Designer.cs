@@ -106,7 +106,7 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT DISTINCT * WHERE {{
+        ///   Looks up a localized string similar to SELECT DISTINCT ?item ?itemLabel_en ?birthDate WHERE {{
         ///  ?player a dbo:SoccerPlayer ;
         ///  rdfs:label ?itemLabel;
         ///  owl:sameAs ?item;
@@ -117,8 +117,7 @@ namespace Fsm97Trainer.Properties {
         ///FILTER(STRSTARTS(STR(?item), &quot;http://www.wikidata.org/entity/Q&quot;))
         ///FILTER(STRSTARTS(STR(?category), &quot;http://dbpedia.org/resource/Category:{1}&quot;))
         ///# Extract QID string
-        ///  BIND(STRAFTER(STR(?item), &quot;http://www.wikidata.org/entity/Q&quot;) AS ?qid)
-        /// BIND(STR(?itemLabel) [rest of string was truncated]&quot;;.
+        ///  BIND(STRAFTER(STR(?item), &quot;http://www.wikidata.org/entity/Q&quot;) AS [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DbpediaGetPlayerByYearAndCategoryQuery {
             get {
@@ -127,7 +126,7 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT DISTINCT ?item ?itemLabel_en WHERE {{
+        ///   Looks up a localized string similar to SELECT DISTINCT ?item ?itemLabel_en ?birthDate WHERE {{
         ///  ?player a dbo:SoccerPlayer ;
         ///  rdfs:label ?itemLabel;
         ///  owl:sameAs ?item;
@@ -401,7 +400,7 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  SELECT ?item  ?itemLabel_en ?itemLabel_zh WHERE {{
+        ///   Looks up a localized string similar to  SELECT ?item  ?itemLabel_en ?itemLabel_zh ?birthDate WHERE {{
         /// ?item wdt:P31 wd:Q5;                # instance of human
         /// wdt:P106 wd:Q937857;          # occupation: association football player
         /// wdt:P569 ?birthDate.          # date of birth
@@ -412,9 +411,7 @@ namespace Fsm97Trainer.Properties {
         /// }}
         /// SERVICE wikibase:label {{
         ///  bd:serviceParam wikibase:language &quot;zh&quot;.
-        ///  ?item rdfs:label ?itemLabel_zh.
-        /// }}
-        /// FI [rest of string was truncated]&quot;;.
+        ///  ?item rdfs:label ?itemLabel_zh [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string WikiDataQueryGetPlayerNameByBirthYear {
             get {
@@ -423,7 +420,7 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT ?item ?itemLabel_en ?itemLabel_zh
+        ///   Looks up a localized string similar to SELECT ?item ?itemLabel_en ?itemLabel_zh ?birthDate
         /// WHERE {{
         ///  SERVICE wikibase:mwapi {{
         ///    bd:serviceParam wikibase:endpoint &quot;en.wikipedia.org&quot;;
@@ -437,9 +434,7 @@ namespace Fsm97Trainer.Properties {
         ///  ?item wdt:P569 ?birthDate
         ///  SERVICE wikibase:label {{
         ///    bd:serviceParam wikibase:language &quot;en&quot;.
-        ///    ?item rdfs:label ?itemLabel_en.
-        ///  }}
-        ///  S [rest of string was truncated]&quot;;.
+        ///    ?item rdfs:label ?itemLabel_en. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string WikiDataQueryGetPlayerNameByBirthYearWithinCategory {
             get {

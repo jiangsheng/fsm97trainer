@@ -148,7 +148,7 @@
     <value>Game date eeset,</value>
   </data>
   <data name="DbpediaGetPlayerByYearAndCategoryQuery" xml:space="preserve">
-    <value>SELECT DISTINCT * WHERE {{
+    <value>SELECT DISTINCT ?item ?itemLabel_en ?birthDate WHERE {{
   ?player a dbo:SoccerPlayer ;
   rdfs:label ?itemLabel;
   owl:sameAs ?item;
@@ -166,7 +166,7 @@ ORDER BY xsd:integer(?qid)
 LIMIT {2}</value>
   </data>
   <data name="DBPediaGetPlayerByYearQuery" xml:space="preserve">
-    <value>SELECT DISTINCT ?item ?itemLabel_en WHERE {{
+    <value>SELECT DISTINCT ?item ?itemLabel_en ?birthDate WHERE {{
   ?player a dbo:SoccerPlayer ;
   rdfs:label ?itemLabel;
   owl:sameAs ?item;
@@ -182,7 +182,7 @@ ORDER BY xsd:integer(?qid)
 LIMIT {1}</value>
   </data>
   <data name="WikiDataQueryGetPlayerNameByBirthYearWithinCategory" xml:space="preserve">
-    <value>SELECT ?item ?itemLabel_en ?itemLabel_zh
+    <value>SELECT ?item ?itemLabel_en ?itemLabel_zh ?birthDate
  WHERE {{
   SERVICE wikibase:mwapi {{
     bd:serviceParam wikibase:endpoint "en.wikipedia.org";
@@ -210,7 +210,7 @@ ORDER BY xsd:integer(REPLACE(STR(?item), "http://www.wikidata.org/entity/Q", "")
 LIMIT {1}</value>
   </data>
   <data name="WikiDataQueryGetPlayerNameByBirthYear" xml:space="preserve">
-    <value> SELECT ?item  ?itemLabel_en ?itemLabel_zh WHERE {{
+    <value> SELECT ?item  ?itemLabel_en ?itemLabel_zh ?birthDate WHERE {{
  ?item wdt:P31 wd:Q5;                # instance of human
  wdt:P106 wd:Q937857;          # occupation: association football player
  wdt:P569 ?birthDate.          # date of birth

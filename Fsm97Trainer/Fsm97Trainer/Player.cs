@@ -210,6 +210,29 @@ namespace Fsm97Trainer
                 return attributes;
             }
         }
+        public static DateTime dateOffsetBase = new DateTime(1899, 12, 30);
+        public DateTime BirthDay {
+            get
+            {
+
+                return dateOffsetBase.AddDays(BirthDateOffset);
+            }
+        }
+        public void UpdateAge(DateTime currentDateTime)
+        {
+            var birthday = BirthDay;
+            int years = currentDateTime.Year - birthday.Year;
+            // Go back to the year in which the person was born in case of a leap year
+            if (birthday.Date >= currentDateTime.AddYears(-years))
+                years--;
+            Age = years % 256;
+            //sumilate age bug
+            if ((currentDateTime- dateOffsetBase).Days < 6570)
+            {
+                Age = Age + 78;
+            }
+
+        }
 
         public override string ToString()
         {
