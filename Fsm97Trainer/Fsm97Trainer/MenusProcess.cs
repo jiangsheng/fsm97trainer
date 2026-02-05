@@ -22,6 +22,7 @@ namespace Fsm97Trainer
 {
     public class MenusProcess : IDisposable
     {
+        private const int totalTeamCount = 349;
         Random random = new Random();
         private bool disposedValue;
 
@@ -137,17 +138,36 @@ namespace Fsm97Trainer
             }
         }
 
-        internal int ReadCurrentTeamIndex()
+        internal ushort ReadCurrentTeamIndex()
         {
-            return NativeMethods.ReadByte(Process, CurrentTeamIndexAddress);
+            return NativeMethods.ReadUShort(Process, CurrentTeamIndexAddress);
         }
-
+        public List<Team> ReadTeams()
+        {
+            var result = new List<Team>();
+            for (int i = 0; i < totalTeamCount; i++)
+            {
+                Team team = new Team();
+                team.Id = (ushort)i;
+                int teamDataAddress = TeamDataAddress + i * 0x140;
+                team.Address = teamDataAddress;
+                team.Name = NativeMethods.ReadString(Process, teamDataAddress, Encoding, 24);
+                team.FanGroupName = NativeMethods.ReadString(Process, teamDataAddress + 0x19, Encoding, 16);
+                team.Abbreviation = NativeMethods.ReadString(Process, teamDataAddress + 0x2b, Encoding, 3);
+                team.ManagerFirstName = NativeMethods.ReadString(Process, teamDataAddress + 0x94, Encoding, 11);
+                team.ManagerLastName = NativeMethods.ReadString(Process, teamDataAddress + 0x9f, Encoding, 11);
+                team.Stadium = NativeMethods.ReadString(Process, teamDataAddress + 0x32, Encoding, 16);
+                team.MapName = NativeMethods.ReadString(Process, teamDataAddress + 0xBD, Encoding, 26);
+                result.Add(team);
+            }
+            return result;
+        }
         public PlayerNodeList ReadPlayers(bool currentTeamOnly)
         {
             PlayerNodeList playerNodes = new PlayerNodeList();
             List<Team> teams = new List<Team>();
 
-            ushort currentTeam = NativeMethods.ReadByte(Process, CurrentTeamIndexAddress);
+            ushort currentTeam = NativeMethods.ReadUShort(Process, CurrentTeamIndexAddress);
             int currentDate = NativeMethods.ReadInt(Process, DateAddress);
             if (currentTeamOnly)
             {
@@ -175,7 +195,7 @@ namespace Fsm97Trainer
             }
             else
             {
-                for (int i = 0; i < 348; i++)
+                for (int i = 0; i < totalTeamCount; i++)
                 {
                     Team team = new Team();
                     team.Id = (ushort)i;
@@ -774,7 +794,7 @@ namespace Fsm97Trainer
             if (newPlayers.Count > 0)
             {
                 var currentNode = newPlayers.First;
-                ushort currentTeam = NativeMethods.ReadByte(Process, CurrentTeamIndexAddress);
+                ushort currentTeam = NativeMethods.ReadUShort(Process, CurrentTeamIndexAddress);
                 int teamDataAddress = TeamDataAddress + currentTeam * 0x140;
                 NativeMethods.WriteInt(Process, teamDataAddress + 0x136, currentNode.Value.NodeAddress);
                 while (currentNode != null)
@@ -1495,7 +1515,7 @@ namespace Fsm97Trainer
             try
             {
                 NativeMethods.SuspendProcess(Process);
-                ushort currentTeam = NativeMethods.ReadByte(Process, CurrentTeamIndexAddress);
+                ushort currentTeam = NativeMethods.ReadUShort(Process, CurrentTeamIndexAddress);
                 var playerNodes = ReadPlayers(false);
                 youngPlayers = playerNodes.Where(p => p.Data.Age <= maxEvalAge &&
                 p.Data.Team.Id != currentTeam)

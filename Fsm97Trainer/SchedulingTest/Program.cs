@@ -14,9 +14,22 @@ namespace SchedulingTest
     {
         static void Main(string[] args)
         {
-            using(FormMainModel formMainModel = new FormMainModel())
+            using (FormMainModel formMainModel = new FormMainModel())
             {
-                formMainModel.AutoTrain=true;
+                var teams = formMainModel.GetMenusProcess().ReadTeams();
+                foreach (var team in teams)
+                {
+                    Debug.WriteLine(team);
+                }
+            }
+        }
+
+
+        private static void TestEval()
+        {
+            using (FormMainModel formMainModel = new FormMainModel())
+            {
+                formMainModel.AutoTrain = true;
                 //formMainModel.DebugTraining = true;
                 formMainModel.MaxEvalAge = 19;
                 formMainModel.MaxPower = true;
@@ -29,6 +42,7 @@ namespace SchedulingTest
                 Debug.WriteLine(formMainModel.EvalYoungPlayersResult);
             }
         }
+
         static ProgressBar progressBar;
         private static void FormMainModel_OnEvalProgressChanged(object sender, EventArgs e)
         {
