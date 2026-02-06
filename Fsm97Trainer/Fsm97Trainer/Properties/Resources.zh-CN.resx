@@ -208,7 +208,7 @@
     <value>位置{0}的最佳球员：</value>
   </data>
   <data name="EvalTopPlayerEntry" xml:space="preserve">
-    <value>- {0} {1}, 年龄: {2}, 统计: {3}，位置 {4}, 国籍: {5} 练满时间：{6}周</value>
+    <value>- {0,19}, {1,-24}    年龄: {2,2}   统计: {3} 位置 {4}  国籍: {5} 练满时间：{6}周</value>
   </data>
   <data name="EvaluatingPlayerPositionsProgressReport" xml:space="preserve">
     <value>评估球员训练计划{0}/{1}</value>

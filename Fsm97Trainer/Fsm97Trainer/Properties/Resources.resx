@@ -289,7 +289,7 @@ LIMIT {1}</value>
     <value>Top players for position {0}:</value>
   </data>
   <data name="EvalTopPlayerEntry" xml:space="preserve">
-    <value>- {0} {1}, Age: {2}, Stats: {3}, Position: {4}, Nationality {5}  weeks to max: {6}</value>
+    <value>- {0,19}, {1,-24}    Age: {2,2}  Stats: {3}  Position: {4}   Nationality {5} weeks to max: {6}</value>
   </data>
   <data name="EvaluatingPlayerPositionsProgressReport" xml:space="preserve">
     <value>Evaluating player with positions {0}/{1}</value>

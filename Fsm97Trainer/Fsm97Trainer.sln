@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.2.11415.280 d18.0
+VisualStudioVersion = 18.2.11415.280
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fsm97Trainer", "Fsm97Trainer\Fsm97Trainer.csproj", "{95FDF3A5-F06A-4520-A6E3-FAC3EA965005}"
 EndProject
@@ -94,8 +94,8 @@ Global
 		{557EF7FF-8BB2-4083-AF38-2F35C9797202}.Debug|x86.Build.0 = Debug|x86
 		{557EF7FF-8BB2-4083-AF38-2F35C9797202}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{557EF7FF-8BB2-4083-AF38-2F35C9797202}.Release|Any CPU.Build.0 = Release|Any CPU
-		{557EF7FF-8BB2-4083-AF38-2F35C9797202}.Release|x86.ActiveCfg = Release|Any CPU
-		{557EF7FF-8BB2-4083-AF38-2F35C9797202}.Release|x86.Build.0 = Release|Any CPU
+		{557EF7FF-8BB2-4083-AF38-2F35C9797202}.Release|x86.ActiveCfg = Release|x86
+		{557EF7FF-8BB2-4083-AF38-2F35C9797202}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

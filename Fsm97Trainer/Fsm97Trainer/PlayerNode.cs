@@ -56,6 +56,8 @@ namespace Fsm97Trainer
             playerDataBuffer[0x73] = (byte)player.Goals;
             playerDataBuffer[0x74] = (byte)player.MVP;
             playerDataBuffer[0x75] = (byte)player.ContractWeeks;
+            NativeMethods.WriteBytes(process, playerDataAddress, playerDataBuffer, 0,(uint)playerDataBuffer.Length);
+
         }
         public void WritePlayerStatus(Process process)
         {

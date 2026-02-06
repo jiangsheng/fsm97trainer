@@ -148,7 +148,7 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - {0} {1}, Age: {2}, Stats: {3}, Position: {4}, Nationality {5}  weeks to max: {6}.
+        ///   Looks up a localized string similar to - {0,19}, {1,-24}    Age: {2,2}  Stats: {3}  Position: {4}   Nationality {5} weeks to max: {6}.
         /// </summary>
         internal static string EvalTopPlayerEntry {
             get {

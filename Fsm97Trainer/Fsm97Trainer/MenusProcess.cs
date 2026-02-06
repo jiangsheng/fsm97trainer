@@ -1581,6 +1581,7 @@ namespace Fsm97Trainer
                 var targetPositionName = targetPositions[targetPositionValue];
                 var resultForPosition = evaluateYoungPlayersResults[targetPositionIndex];
                 var topPlayers= resultForPosition.Grades
+                    .Where(r=>r.WeeksToMax>0)
                     .OrderByDescending(p => p.FinalRating)
                     .ThenBy(p => p.WeeksToMax)
                     .ThenByDescending(p => p.Player.Statistics)
@@ -1590,9 +1591,8 @@ namespace Fsm97Trainer
                 foreach (var topPlayer in topPlayers)
                 {
                     var player= topPlayer.Player;
-                    stringBuilder.AppendLine(string.Format(Properties.Resources.EvalTopPlayerEntry,
-                        player.FirstName,
-                        player.LastName,
+                    stringBuilder.AppendLine(string.Format(Properties.Resources.EvalTopPlayerEntry,                        
+                        player.LastName, player.FirstName,
                         player.Age,
                         player.PositionRating,
                         player.PositionName,
@@ -1600,9 +1600,9 @@ namespace Fsm97Trainer
                         topPlayer.WeeksToMax
                         ));
                     if(debugTraining)
-                    if(debugTraining)
                         stringBuilder.AppendLine(topPlayer.Schedules.ToString());
                 }
+                stringBuilder.AppendLine();
             }
             return stringBuilder.ToString();
         }
