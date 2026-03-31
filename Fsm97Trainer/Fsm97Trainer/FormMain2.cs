@@ -1,4 +1,5 @@
-﻿using Fsm97Trainer.Models;
+﻿using FSM97Lib;
+using Fsm97Trainer.Models;
 using OpenCCNET;
 using System;
 using System.Collections.Generic;
@@ -326,20 +327,21 @@ namespace Fsm97Trainer
                 MessageBox.Show(Properties.Resources.EvaluationInProgressPleaseWait);
                 return;
             }
-            textBoxEvalYoungPlayers.Text =string.Empty; 
+            Model.EvalProgress = 0;
+            webBrowserEvalResult.Navigate("about:blank"); 
             backgroundWorkerEval.RunWorkerAsync();
         }
 
         private void flowLayoutPanelData_Resize(object sender, EventArgs e)
         {
-            textBoxEvalYoungPlayers.Width= flowLayoutPanelData.ClientSize.Width - textBoxEvalYoungPlayers.Margin.Left - textBoxEvalYoungPlayers.Margin.Right - 20;
+            webBrowserEvalResult.Width= flowLayoutPanelData.ClientSize.Width - webBrowserEvalResult.Margin.Left - webBrowserEvalResult.Margin.Right - 20;
         }
 
         private void backgroundWorkerEval_DoWork(object sender, DoWorkEventArgs e)
         {
             if(!string.IsNullOrEmpty(Model.CurrentLanguage))
                 Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Model.CurrentLanguage);
-            Model.EvaluateYoungPlayers();
+            Model.EvaluateYoungPlayers(PlayerPosition.Count,null,50);
             Model.OnEvalProgressChanged+= (s, ev) =>
             {
                 backgroundWorkerEval.ReportProgress(Model.EvalProgress);
@@ -356,7 +358,7 @@ namespace Fsm97Trainer
         {
             toolStripProgressBar1.Value = 0;
             toolStripStatusLabel1.Text = Properties.Resources.EvaluationCompleted;
-            textBoxEvalYoungPlayers.Text = Model.EvalYoungPlayersResult;
+            webBrowserEvalResult.DocumentText= Model.EvalYoungPlayersResult;
         }
     }
 }

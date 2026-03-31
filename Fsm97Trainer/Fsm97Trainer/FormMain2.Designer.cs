@@ -73,7 +73,6 @@
             this.labelEvalMaxAge = new System.Windows.Forms.Label();
             this.numericUpDownMaxAge = new System.Windows.Forms.NumericUpDown();
             this.labelEvilYoungPlayers = new System.Windows.Forms.Label();
-            this.textBoxEvalYoungPlayers = new System.Windows.Forms.TextBox();
             this.tabPageOther = new System.Windows.Forms.TabPage();
             this.flowLayoutPanelOther = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonPurchaseLand = new System.Windows.Forms.Button();
@@ -93,6 +92,7 @@
             this.timerFast = new System.Windows.Forms.Timer(this.components);
             this.timerEvelProgressReport = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerEval = new System.ComponentModel.BackgroundWorker();
+            this.webBrowserEvalResult = new System.Windows.Forms.WebBrowser();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -433,7 +433,7 @@
             this.flowLayoutPanelData.Controls.Add(this.labelEvalMaxAge);
             this.flowLayoutPanelData.Controls.Add(this.numericUpDownMaxAge);
             this.flowLayoutPanelData.Controls.Add(this.labelEvilYoungPlayers);
-            this.flowLayoutPanelData.Controls.Add(this.textBoxEvalYoungPlayers);
+            this.flowLayoutPanelData.Controls.Add(this.webBrowserEvalResult);
             resources.ApplyResources(this.flowLayoutPanelData, "flowLayoutPanelData");
             this.flowLayoutPanelData.Name = "flowLayoutPanelData";
             this.flowLayoutPanelData.Resize += new System.EventHandler(this.flowLayoutPanelData_Resize);
@@ -523,11 +523,6 @@
             resources.ApplyResources(this.labelEvilYoungPlayers, "labelEvilYoungPlayers");
             this.flowLayoutPanelData.SetFlowBreak(this.labelEvilYoungPlayers, true);
             this.labelEvilYoungPlayers.Name = "labelEvilYoungPlayers";
-            // 
-            // textBoxEvalYoungPlayers
-            // 
-            resources.ApplyResources(this.textBoxEvalYoungPlayers, "textBoxEvalYoungPlayers");
-            this.textBoxEvalYoungPlayers.Name = "textBoxEvalYoungPlayers";
             // 
             // tabPageOther
             // 
@@ -717,6 +712,11 @@
             this.backgroundWorkerEval.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerEval_ProgressChanged);
             this.backgroundWorkerEval.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerEval_RunWorkerCompleted);
             // 
+            // webBrowserEvalResult
+            // 
+            resources.ApplyResources(this.webBrowserEvalResult, "webBrowserEvalResult");
+            this.webBrowserEvalResult.Name = "webBrowserEvalResult";
+            // 
             // FormMain2
             // 
             resources.ApplyResources(this, "$this");
@@ -823,11 +823,11 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Button buttonEvalYoungPlayers;
         private System.Windows.Forms.Label labelEvilYoungPlayers;
-        private System.Windows.Forms.TextBox textBoxEvalYoungPlayers;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.Label labelEvalMaxAge;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxAge;
         private System.Windows.Forms.Timer timerEvelProgressReport;
         private System.ComponentModel.BackgroundWorker backgroundWorkerEval;
+        private System.Windows.Forms.WebBrowser webBrowserEvalResult;
     }
 }

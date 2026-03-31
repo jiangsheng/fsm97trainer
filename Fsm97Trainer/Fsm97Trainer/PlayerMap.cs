@@ -1,8 +1,9 @@
 ﻿using CsvHelper.Configuration;
+using FSM97Lib;
 
 namespace Fsm97Trainer
 {
-    internal class PlayerMap : CsvClassMap<Player>
+    internal class PlayerMap : CsvClassMap<PlayerModel>
     {
         public PlayerMap()
         {

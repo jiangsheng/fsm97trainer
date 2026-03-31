@@ -80,6 +80,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BottleneckAttributes.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Division.cs" />
     <Compile Include="DivisionFactor.cs" />
     <Compile Include="EvaluateYoungPlayersResult.cs" />
@@ -89,7 +91,6 @@
     <Compile Include="FormMain2.Designer.cs">
       <DependentUpon>FormMain2.cs</DependentUpon>
     </Compile>
-    <Compile Include="IObjectWithPersonName.cs" />
     <Compile Include="MenusProcess.cs" />
     <Compile Include="Models\FormMainModel.cs" />
     <Compile Include="Models\PropertyChangingCancelEventArgs.cs" />
@@ -115,9 +116,11 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="RotateMethod.cs" />
-    <Compile Include="Team.cs" />
+    <Compile Include="TeamNode.cs" />
     <Compile Include="TrainingSchedule.cs" />
     <Compile Include="TrainingSchedulePreset.cs" />
+    <Compile Include="TrainingScheduleSteps.cs" />
+    <Compile Include="WeeklyTrainingSchedule.cs" />
     <Compile Include="WikiDataPlayerResult.cs" />
     <Compile Include="YoungPlayerEvaluation.cs" />
     <EmbeddedResource Include="FormMain.resx">

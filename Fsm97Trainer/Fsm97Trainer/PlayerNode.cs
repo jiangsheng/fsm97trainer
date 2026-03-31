@@ -1,6 +1,7 @@
 ﻿using FSM97Lib;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Web;
 
@@ -8,21 +9,31 @@ namespace Fsm97Trainer
 {
     public class PlayerNode : IObjectWithPersonName
     {
+        TeamNode teamNode;
+        public TeamNode TeamNode
+        {
+            get { return teamNode; }
+            set
+            {
+                teamNode = value;
+            }
+        }
         public int NodeAddress { get; set; }
         public int DataAddress { get; set; }
         public int NextNode { get; set; }
         public int PreviousNode { get; set; }
-        public Player Data { get; set; }
-        public string LastName { get => ((IObjectWithPersonName)Data).LastName; set => ((IObjectWithPersonName)Data).LastName = value; }
-        public string FirstName { get => ((IObjectWithPersonName)Data).FirstName; set => ((IObjectWithPersonName)Data).FirstName = value; }
+        public PlayerModel Data { get; set; }
+        public string LastName { get => Data.LastName; set => Data.LastName = value; }
+        public string FirstName { get => Data.FirstName; set => Data.FirstName = value; }
+
         public override string ToString()
         {
-            return string.Format("{0:x}->{1:x}: {2},{3}", NodeAddress, DataAddress, LastName, FirstName);
+            return string.Format("{0:x}->{1:x}: {3}", NodeAddress, DataAddress, Data);
         }
         public void WritePlayer(Process process,Encoding encoding)
         {
             int playerDataAddress = DataAddress;
-            Player player = Data;
+            PlayerModel player = Data;
             byte[] playerDataBuffer = NativeMethods.ReadBytes(process, playerDataAddress, 0x76);
             byte[] lastNameBuffer = new byte[0x13];
             byte[] firstNameBuffer = new byte[0x18];
@@ -39,7 +50,7 @@ namespace Fsm97Trainer
             playerDataBuffer[0x30] = (byte)player.Position;
             playerDataBuffer[0x31] = (byte)player.Status;
             playerDataBuffer[0x32] = (byte)player.Number;
-            Buffer.BlockCopy(player.Attributes, 0, playerDataBuffer, 0x33, (int)PlayerAttribute.Count);
+            Buffer.BlockCopy(player.AttributesBytes.ToArray(), 0, playerDataBuffer, 0x33, (int)PlayerAttribute.Count);
             playerDataBuffer[0x4b] = (byte)player.Form;
             playerDataBuffer[0x4c] = (byte)player.Moral;
             playerDataBuffer[0x4d] = (byte)player.Energy;
@@ -65,7 +76,7 @@ namespace Fsm97Trainer
         }
         public void WritePlayerBirthDate(Process process)
         {
-            NativeMethods.WriteUShort(process, DataAddress + 0x52, Data.BirthDateOffset);
+            NativeMethods.WriteUShort(process, DataAddress + 0x52, (ushort)Data.BirthDateOffset);
         }
 
         public void WritePlayerNames(Process process, Encoding encoding)
@@ -73,21 +84,22 @@ namespace Fsm97Trainer
             NativeMethods.WriteString(process, Data.LastName, DataAddress + 0x1c, encoding, 0x13);
             NativeMethods.WriteString(process, Data.FirstName, DataAddress + 0x4, encoding, 0x18);
         }
-        public void ReadPlayer(Process process,int playerDataAddress, Team team, Encoding encoding, int currentDate)
+        public void ReadPlayer(Process process,int playerDataAddress, TeamNode team, Encoding encoding, int currentDate)
         {
             this.DataAddress = playerDataAddress;
-            Player player = new Player();
+
+            byte[] bytes = NativeMethods.ReadBytes(process, playerDataAddress, 0x76);
+            var attributeBuffer= new byte[(int)PlayerAttribute.Count];
+            Buffer.BlockCopy(bytes, 0x33, attributeBuffer, 0, (int)PlayerAttribute.Count);
+            var player = new PlayerModel(attributeBuffer);
 
             player.FirstName = NativeMethods.ReadString
                         (process, playerDataAddress + 4, encoding, 0x18);
             player.LastName = NativeMethods.ReadString(process, playerDataAddress + 0x1c, encoding, 0x13);
-            byte[] bytes = NativeMethods.ReadBytes(process, playerDataAddress, 0x76);
             player.Nationality = bytes[0x2f];
             player.Position = bytes[0x30];
             player.Status = bytes[0x31];
-            player.Number = bytes[0x32];
-
-            Buffer.BlockCopy(bytes, 0x33, player.Attributes, 0, (int)PlayerAttribute.Count);
+            player.Number = bytes[0x32];            
             player.Form = bytes[0x4b];
             player.Moral = bytes[0x4c];
             player.Energy = bytes[0x4d];
@@ -97,13 +109,11 @@ namespace Fsm97Trainer
             player.Goals = bytes[0x73];
             player.MVP = bytes[0x74];
             player.ContractWeeks = bytes[0x75];
-            player.Team = team;
-            player.PositionRating = (int)PositionRatings.GetPositionRatingDouble(player.Position, player.Attributes);
-            player.UpdateBestPosition();
+            player.Team = team.Data;
 
             player.BirthDateOffset = NativeMethods.ReadUShort(process, playerDataAddress + 0x52);
-            DateTime currentDateTime = Player.dateOffsetBase.AddDays(currentDate);
-            player.UpdateAge(currentDateTime);
+            DateTime currentDateTime = PlayerModel.dateOffsetBase.AddDays(currentDate);
+            PlayerNode.UpdateAge(player,currentDateTime);
             Data = player;
         }
         byte[] formMoralEnergyBuffer = new byte[3];
@@ -130,6 +140,21 @@ namespace Fsm97Trainer
         {
 
             NativeMethods.WriteByte(process, DataAddress + 0x75, (byte)Data.ContractWeeks);
+        }
+        public static void UpdateAge(PlayerModel player, DateTime currentDateTime)
+        {
+            var birthday = player.BirthDay;
+            int years = currentDateTime.Year - birthday.Year;
+            // Go back to the year in which the person was born in case of a leap year
+            if (birthday.Date >= currentDateTime.AddYears(-years))
+                years--;
+            player.Age = years % 256;
+            //sumilate age bug
+            if ((currentDateTime - PlayerModel.dateOffsetBase).Days < 6570)
+            {
+                player.Age = player.Age + 78;
+            }
+
         }
 
     }

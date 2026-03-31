@@ -19,7 +19,9 @@ namespace Fsm97Trainer
         QueryInformation = 0x00000400,
         Synchronize = 0x00100000
     }
+
     [Flags]
+
     public enum ThreadAccessFlags : int
     {
         TERMINATE = (0x0001),

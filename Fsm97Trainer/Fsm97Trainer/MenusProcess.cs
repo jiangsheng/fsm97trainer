@@ -1,5 +1,6 @@
 ﻿using Diacritics.Extensions;
 using FSM97Lib;
+using HtmlAgilityPack;
 using NameParser;
 using Newtonsoft.Json.Linq;
 using OpenCCNET;
@@ -76,7 +77,7 @@ namespace Fsm97Trainer
         public MenusProcess()
         {
             Process[] processes = Process.GetProcessesByName("MENUS");
-            if(processes==null || processes.Length==0)
+            if (processes == null || processes.Length == 0)
                 processes = Process.GetProcessesByName("MENUS.EXE");//for WINE
             if (processes.Count() > 1)
             {
@@ -142,15 +143,17 @@ namespace Fsm97Trainer
         {
             return NativeMethods.ReadUShort(Process, CurrentTeamIndexAddress);
         }
-        public List<Team> ReadTeams()
+        public List<TeamNode> ReadTeams()
         {
-            var result = new List<Team>();
+            var result = new List<TeamNode>(totalTeamCount);
             for (int i = 0; i < totalTeamCount; i++)
             {
-                Team team = new Team();
-                team.Id = (ushort)i;
+                TeamNode teamNode = new TeamNode();
+                var team = new TeamModel();
+                teamNode.Data = team;
                 int teamDataAddress = TeamDataAddress + i * 0x140;
-                team.Address = teamDataAddress;
+                teamNode.Address = teamDataAddress;
+                team.Id = (ushort)i;
                 team.Name = NativeMethods.ReadString(Process, teamDataAddress, Encoding, 24);
                 team.FanGroupName = NativeMethods.ReadString(Process, teamDataAddress + 0x19, Encoding, 16);
                 team.Abbreviation = NativeMethods.ReadString(Process, teamDataAddress + 0x2b, Encoding, 3);
@@ -158,34 +161,28 @@ namespace Fsm97Trainer
                 team.ManagerLastName = NativeMethods.ReadString(Process, teamDataAddress + 0x9f, Encoding, 11);
                 team.Stadium = NativeMethods.ReadString(Process, teamDataAddress + 0x32, Encoding, 16);
                 team.MapName = NativeMethods.ReadString(Process, teamDataAddress + 0xBD, Encoding, 26);
-                result.Add(team);
+                result.Add(teamNode);
             }
             return result;
         }
         public PlayerNodeList ReadPlayers(bool currentTeamOnly)
         {
             PlayerNodeList playerNodes = new PlayerNodeList();
-            List<Team> teams = new List<Team>();
+            List<TeamNode> teams = ReadTeams();
 
             ushort currentTeam = NativeMethods.ReadUShort(Process, CurrentTeamIndexAddress);
             int currentDate = NativeMethods.ReadInt(Process, DateAddress);
             if (currentTeamOnly)
             {
-                Team team = new Team();
-                team.Id = currentTeam;
-                int teamDataAddress = TeamDataAddress + currentTeam * 0x140;
-                team.Name = NativeMethods.ReadString(Process, teamDataAddress, Encoding, 24);
-                team.FanGroupName = NativeMethods.ReadString
-                    (Process, teamDataAddress + 0x19, Encoding, 16);
-                team.Abbreviation = NativeMethods.ReadString(Process, teamDataAddress + 0x2b, Encoding, 3);
-
+                var teamNode = teams.FirstOrDefault(t => t.Data.Id == currentTeam);
+                int teamDataAddress = teamNode.Address;
                 int teamPlayerAddress = NativeMethods.ReadInt(Process, teamDataAddress + 0x136);
                 if (teamPlayerAddress == 0)
                     teamPlayerAddress = NativeMethods.ReadInt(Process, teamDataAddress + 0x13a);
                 if (teamPlayerAddress != 0)
                 {
-                    team.PlayerNodes = ReadPlayers(teamPlayerAddress, team, Encoding, currentDate);
-                    foreach (var playerNode in team.PlayerNodes)
+                    teamNode.PlayerNodes = ReadPlayers(teamPlayerAddress, teamNode, Encoding, currentDate);
+                    foreach (var playerNode in teamNode.PlayerNodes)
                     {
                         playerNodes.AddLast(playerNode);
                     }
@@ -197,21 +194,15 @@ namespace Fsm97Trainer
             {
                 for (int i = 0; i < totalTeamCount; i++)
                 {
-                    Team team = new Team();
-                    team.Id = (ushort)i;
-                    int teamDataAddress = TeamDataAddress + i * 0x140;
-                    team.Name = NativeMethods.ReadString(Process, teamDataAddress, Encoding, 24);
-                    team.FanGroupName = NativeMethods.ReadString(Process, teamDataAddress + 0x19, Encoding, 16);
-                    team.Abbreviation = NativeMethods.ReadString(Process, teamDataAddress + 0x2b, Encoding, 3);
-                    team.ManagerFirstName = NativeMethods.ReadString(Process, teamDataAddress + 0x94, Encoding, 11);
-                    team.ManagerLastName = NativeMethods.ReadString(Process, teamDataAddress + 0x9f, Encoding, 11);
+                    var teamNode = teams.FirstOrDefault(t => t.Data.Id == i);
+                    int teamDataAddress = teamNode.Address;
 
                     int teamPlayerAddress = NativeMethods.ReadInt(Process, teamDataAddress + 0x136);
                     if (teamPlayerAddress != 0)
                     {
-                        team.PlayerNodes = ReadPlayers(teamPlayerAddress, team, Encoding, currentDate);
-                        teams.Add(team);
-                        foreach (var playerNode in team.PlayerNodes)
+                        teamNode.PlayerNodes = ReadPlayers(teamPlayerAddress, teamNode, Encoding, currentDate);
+                        teams.Add(teamNode);
+                        foreach (var playerNode in teamNode.PlayerNodes)
                         {
                             playerNodes.AddLast(playerNode);
                         }
@@ -225,7 +216,7 @@ namespace Fsm97Trainer
                     }
                     else
                     {
-                        Debug.WriteLine(String.Format("{0} ({1}) has no players", team.Name, team.Abbreviation));
+                        Debug.WriteLine(String.Format("{0} ({1}) has no players", teamNode.Data.Name, teamNode.Data.Abbreviation));
                     }
                 }
             }
@@ -233,7 +224,7 @@ namespace Fsm97Trainer
         }
 
 
-        private PlayerNodeList ReadPlayers(int nodeAddress, Team team, Encoding encoding, int currentDate)
+        private PlayerNodeList ReadPlayers(int nodeAddress, TeamNode team, Encoding encoding, int currentDate)
         {
             PlayerNodeList result = new PlayerNodeList();
             if (nodeAddress == 0) return result;
@@ -245,7 +236,8 @@ namespace Fsm97Trainer
                 resultNode.DataAddress = NativeMethods.ReadInt(Process, nodeAddress);
                 resultNode.NextNode = nextNodeAddress;//always memorySharp.ReadInt(nodeAddress + 4), false);
                 resultNode.PreviousNode = NativeMethods.ReadInt(Process, nodeAddress + 8);
-                resultNode.ReadPlayer(Process,resultNode.DataAddress, team, encoding, currentDate);
+                resultNode.ReadPlayer(Process, resultNode.DataAddress, team, encoding, currentDate);
+                resultNode.TeamNode = team;
                 result.AddLast(resultNode);
                 //move next
                 nodeAddress = nextNodeAddress;
@@ -255,27 +247,27 @@ namespace Fsm97Trainer
             return result;
         }
 
-        public void LoadPlayerData(IEnumerable<Player> playerData)
+        public void LoadPlayerData(IEnumerable<PlayerModel> playerData)
         {
             var currentPlayerData = this.ReadPlayers(false);
             if (currentPlayerData.Count() == 0) return;
 
 
             var respawnPlayerNodes = new ObjectWithNameCollectionWithIndex<PlayerNode>();
-            var retiredPlayerIndex = new ObjectWithNameCollectionWithIndex<Player>(playerData);
+            var retiredPlayerIndex = new ObjectWithNameCollectionWithIndex<PlayerModel>(playerData);
             foreach (var playerNode in currentPlayerData)
             {
                 var lastName = playerNode.Data.LastName;
                 var firstName = playerNode.Data.FirstName;
                 var namesakePlayers = retiredPlayerIndex.LookupByName(lastName, firstName);
-                Player foundPlayer = null;
+                PlayerModel foundPlayer = null;
                 if (namesakePlayers != null)
                 {
                     foreach (var namesakePlayer in namesakePlayers)
                     {
                         //twins?
                         if (playerNode.Data.BirthDateOffset == namesakePlayer.BirthDateOffset
-                            && Player.CompareAttributesApproximately(playerNode.Data, namesakePlayer) == 0)
+                            && PlayerModel.CompareAttributesApproximately(playerNode.Data, namesakePlayer) == 0)
                         {
                             WritePlayerWithData(playerNode, namesakePlayer);
                             foundPlayer = namesakePlayer;
@@ -293,8 +285,8 @@ namespace Fsm97Trainer
                 }
             }
             var retiredPlayerLastNames = retiredPlayerIndex.Keys;
-            LinkedList<PlayerNode> unmatchedPlayerNodes = new LinkedList<PlayerNode>();
-            LinkedList<Player> unmatchedPlayers = new LinkedList<Player>();
+            var unmatchedPlayerNodes = new LinkedList<PlayerNode>();
+            var unmatchedPlayers = new LinkedList<PlayerModel>();
             foreach (var retiredPlayerLastName in retiredPlayerLastNames)
             {
                 var retiredPlayersWithSameLastName = retiredPlayerIndex.LookupByLastName(retiredPlayerLastName);
@@ -337,13 +329,13 @@ namespace Fsm97Trainer
             }
         }
 
-        private void WritePlayerWithData(PlayerNode playerNode, Player to)
+        private void WritePlayerWithData(PlayerNode playerNode, PlayerModel to)
         {
             int playerDataAddress = playerNode.DataAddress;
-            Player player = playerNode.Data;
+            var player = playerNode.Data;
             if (to.Number > 0 && to.Number < 40)//game bug: no 40 causes access violation.
             {
-                if(player.Number != to.Number)
+                if (player.Number != to.Number)
                     player.Number = to.Number;
             }
             player.Nationality = to.Nationality;
@@ -380,7 +372,7 @@ namespace Fsm97Trainer
             {
                 NativeMethods.SuspendProcess(Process);
                 int currentDate = NativeMethods.ReadInt(Process, DateAddress);
-                DateTime currentDateTime = Player.dateOffsetBase.AddDays(currentDate);
+                DateTime currentDateTime = PlayerModel.dateOffsetBase.AddDays(currentDate);
                 if (currentDateTime.Month < 5 || currentDateTime.Month > 7)
                 {
                     throw new InvalidOperationException(Properties.Resources.CanOnlyChangeAtSeasonStart);
@@ -419,8 +411,6 @@ namespace Fsm97Trainer
                     player.Consistency += 25; if (player.Consistency > 99) player.Consistency = 99;
                     player.Determination += 25; if (player.Determination > 99) player.Determination = 99;
                     player.Greed += 25; if (player.Greed > 99) player.Greed = 99;
-                    player.PositionRating = (int)PositionRatings.GetPositionRatingDouble(player.Position, player.Attributes);
-                    player.UpdateBestPosition();
                     player.Position = player.BestPosition;
                     playerNode.WritePlayer(Process, Encoding);
                 }
@@ -449,9 +439,9 @@ namespace Fsm97Trainer
                     leftoverPlayers.AddLast(player);
                 }
 
-                List<PlayerNode> normals = new List<PlayerNode>();
-                List<PlayerNode> subs = new List<PlayerNode>();
-                List<PlayerNode> rest = new List<PlayerNode>();
+                List<PlayerNode> normals = new List<PlayerNode>(11);
+                List<PlayerNode> subs = new List<PlayerNode>(5);
+                List<PlayerNode> rest = new List<PlayerNode>(24);
 
                 GetGKs(leftoverPlayers, rotateMethod, normals, subs);
                 GetNormals(leftoverPlayers, rotateMethod, normals, targetFormation);
@@ -474,12 +464,12 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     gkQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                    p.Data.GetPositionRating((int)PlayerPosition.GK) * 2).ThenBy(p => this.random.Next());
+                    PositionRatings.GetPositionRating((int)PlayerPosition.GK, p.Data) * 2).ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     gkQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                    p.Data.GetPositionRating((int)PlayerPosition.GK) * 2).ThenBy(p => this.random.Next());
+                    PositionRatings.GetPositionRating((int)PlayerPosition.GK, p.Data) * 2).ThenBy(p => this.random.Next());
                     break;
             }
             var gks = gkQuery.Take(2).ToArray();
@@ -522,13 +512,13 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     query = leftoverPlayers.OrderByDescending(
-                        p => p.Data.Energy + p.Data.GetBestPositionRatingExceptGKInFormation(null) * 2)
+                        p => p.Data.Energy + PositionRatings.GetBestPositionRatingExceptGKInFormation(null, p.Data) * 2)
                         .ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     query = leftoverPlayers.OrderByDescending(
-                        p => p.Data.Statistics + p.Data.GetBestPositionRatingExceptGKInFormation(null) * 2).
+                        p => p.Data.Statistics + PositionRatings.GetBestPositionRatingExceptGKInFormation(null, p.Data) * 2).
                         ThenBy(p => this.random.Next());
                     break;
             }
@@ -545,7 +535,7 @@ namespace Fsm97Trainer
             };
             foreach (var mainTeamPlayer in mainTeam)
             {
-                var targetPosition = mainTeamPlayer.Data.GetBestPositionWithinLimit(positionLimit);
+                var targetPosition = PositionRatings.GetBestPositionWithinLimit(positionLimit, mainTeamPlayer.Data);
                 if (mainTeamPlayer.Data.Position != targetPosition)
                 {
                     mainTeamPlayer.Data.Position = targetPosition;
@@ -569,7 +559,7 @@ namespace Fsm97Trainer
                     {
                         case RotateMethod.Energy:
                             bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy + p.Data.GetPositionRatingDouble(position) * 2)
-                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(
+                                .ThenBy(p => PositionRatings.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(
                                     p.Data, position, targetFormation))
                                 .ThenBy(p => this.random.Next());
                             break;
@@ -577,7 +567,7 @@ namespace Fsm97Trainer
                         default:
                             bestFitsQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
                                 p.Data.GetPositionRatingDouble(position) * 2)
-                                .ThenBy(p => p.Data.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(
+                                .ThenBy(p => PositionRatings.GetAveragePositionRatingInFormationExceptTargetPositionAndGK(
                                     p.Data, position, targetFormation))
                                 .ThenBy(p => this.random.Next());
                             break;
@@ -676,12 +666,12 @@ namespace Fsm97Trainer
                 {
                     case RotateMethod.Energy:
                         subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation) * 2).ThenBy(p => this.random.Next());
+                                PositionRatings.GetBestPositionRatingExceptGKInFormation(targetFormation, p.Data) * 2).ThenBy(p => this.random.Next());
                         break;
                     case RotateMethod.Statistics:
                     default:
                         subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                                p.Data.GetBestPositionRatingExceptGKInFormation(targetFormation) * 2).ThenBy(p => this.random.Next());
+                                PositionRatings.GetBestPositionRatingExceptGKInFormation(targetFormation, p.Data) * 2).ThenBy(p => this.random.Next());
                         break;
                 }
                 var subRest = subQuery.Take(subNeeded).ToArray();
@@ -691,7 +681,7 @@ namespace Fsm97Trainer
                     if (targetFormation == null)
                         targetPosition = subTeamPlayer.Data.BestPosition;
                     else
-                        targetPosition = subTeamPlayer.Data.BestFitInFormation(targetFormation);
+                        targetPosition = PositionRatings.BestFitInFormation(targetFormation, subTeamPlayer.Data);
                     if (convertToGk)
                         targetPosition = (int)PlayerPosition.GK;
 
@@ -714,19 +704,19 @@ namespace Fsm97Trainer
             {
                 case RotateMethod.Energy:
                     subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Energy +
-                            p.Data.GetBestPositionRating(targetPositions) * 2).ThenBy(p => this.random.Next());
+                            PositionRatings.GetBestPositionRating(targetPositions, p.Data) * 2).ThenBy(p => this.random.Next());
                     break;
                 case RotateMethod.Statistics:
                 default:
                     subQuery = leftoverPlayers.OrderByDescending(p => p.Data.Statistics +
-                           p.Data.GetBestPositionRating(targetPositions) * 2).ThenBy(p => this.random.Next());
+                           PositionRatings.GetBestPositionRating(targetPositions, p.Data) * 2).ThenBy(p => this.random.Next());
                     break;
             }
             var subTeamPlayer = subQuery.First();
-            var targetPosition = subTeamPlayer.Data.BestFitInPositions(targetPositions);
+            var targetPosition = PositionRatings.BestFitInPositions(targetPositions, subTeamPlayer.Data);
             if (convertToGk)
                 targetPosition = (int)PlayerPosition.GK;
-            else if (subTeamPlayer.Data.BestPosition!= subTeamPlayer.Data.Position)
+            else if (subTeamPlayer.Data.BestPosition != subTeamPlayer.Data.Position)
             {
                 subTeamPlayer.Data.Position = subTeamPlayer.Data.BestPosition;
                 subTeamPlayer.WritePlayerPosition(Process);
@@ -744,7 +734,7 @@ namespace Fsm97Trainer
                 if (targetFormation == null)
                     targetPosition = leftoverPlayer.Data.BestPosition;
                 else
-                    targetPosition = leftoverPlayer.Data.BestFitInFormation(targetFormation);
+                    targetPosition = PositionRatings.BestFitInFormation(targetFormation, leftoverPlayer.Data);
                 if (convertToGk)
                     targetPosition = (int)PlayerPosition.GK;
                 if (targetPosition != leftoverPlayer.Data.Position)
@@ -756,7 +746,7 @@ namespace Fsm97Trainer
             }
 
         }
-        private void FixPositionAndSaveChangesToGame(List<PlayerNode> normals, List<PlayerNode> subs, List<PlayerNode> rest,bool convertToGk)
+        private void FixPositionAndSaveChangesToGame(List<PlayerNode> normals, List<PlayerNode> subs, List<PlayerNode> rest, bool convertToGk)
         {
             var newPlayers = new LinkedList<PlayerNode>();
             foreach (var playerNode in normals)
@@ -856,7 +846,6 @@ namespace Fsm97Trainer
                     player.Consistency += increment; if (player.Consistency > 99) player.Consistency = 99;
                     player.Determination += increment; if (player.Determination > 99) player.Determination = 99;
                     player.Greed += increment; if (player.Greed > 99) player.Greed = 99;
-                    player.UpdateBestPosition();
                     player.Position = player.BestPosition;
                     playerNode.WritePlayer(Process, Encoding);
                 }
@@ -874,46 +863,67 @@ namespace Fsm97Trainer
         {
             try
             {
+                var trainingEffects = trainingEffectModifier.TrainingEffects;
                 NativeMethods.SuspendProcess(Process);
                 var playerNodes = ReadPlayers(true);
                 foreach (var playerNode in playerNodes)
                 {
                     if (autoTrain)
                     {
+                        var player = playerNode.Data;
+                        var playerPosition=playerNode.Data.Position;
+                        if (convertToGK)
+                        {
+                            if (playerPosition == (int)PlayerPosition.GK)
+                            {
+                                var BestPlayerPosition = playerNode.Data.BestPosition;
+                                playerPosition = BestPlayerPosition;
+                            }
+                        }
+                        var projectedAttributesAfterSprinting = TrainingSchedule.ProjectedAttributesAfterSprinting(playerNode.Data,(PlayerPosition) playerPosition, trainingEffectModifier,trainingEffects);
+                        var projectedAttributesAfterTrainingMatch = TrainingSchedule.ProjectedAttributesAfterTrainingMatch(playerNode.Data, (PlayerPosition)playerPosition,trainingEffects,
+                            projectedAttributesAfterSprinting);
+
+                        var attributeLeftToTrain = TrainingSchedule.GetAttributesToTrain(player,(PlayerPosition) playerPosition);
+                        var bottleneckAttributeIndex = TrainingSchedule.GetTopBottleneckAttributes(player, (PlayerPosition)playerPosition, trainingEffectModifier,trainingEffects, attributeLeftToTrain
+                            , projectedAttributesAfterSprinting, projectedAttributesAfterSprinting);
+
                         var playerSchedule = TrainingSchedule.GetTrainingSchedule(playerNode.Data,
-                            autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier,DebugTraining)
-                            .Select(p => (byte)p).ToArray();
-                        if (playerSchedule[0] == (int)TrainingScheduleType.None)
+                            autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, trainingEffectModifier,trainingEffects, DebugTraining, projectedAttributesAfterSprinting, projectedAttributesAfterTrainingMatch, attributeLeftToTrain, bottleneckAttributeIndex);
+                        if (playerSchedule == null)
                         {
                             if (DebugTraining)
-                            { 
+                            {
                                 Debug.WriteLine(String.Format("Player {0} has no training schedule, applying generic training.", playerNode.Data));
                             }
-                            playerSchedule = TrainingSchedule.GenericTraining(playerNode.Data,PlayerPosition.Count, maxPower, trainingEffectModifier).Select(p => (byte)p).ToArray(); ;
+                            playerSchedule = TrainingSchedule.GenericTraining(playerNode.Data, PlayerPosition.Count, maxPower, trainingEffectModifier,trainingEffects, projectedAttributesAfterSprinting, projectedAttributesAfterTrainingMatch, attributeLeftToTrain, bottleneckAttributeIndex);
                         }
-
-                        if (playerNode.Data.Fitness < 99)
+                        if (playerSchedule != null)
                         {
-                            if (playerNode.Data.Status != 0 && convertToGK)
+                            var playerScheduleBytes = playerSchedule.Select(p => (byte)p.TrainingScheduleType).ToArray();
+                            if (playerNode.Data.Fitness < 99)
                             {
-                                playerNode.Data.Position = (byte)PlayerPosition.GK;
-                                playerNode.WritePlayerPosition(Process);
-                            }
-                        }
-                        else
-                        {
-                            if (playerNode.Data.Status != 0 && convertToGK)
-                            {
-                                if (playerNode.Data.Position != (byte)PlayerPosition.GK)
+                                if (playerNode.Data.Status != 0 && convertToGK)
                                 {
                                     playerNode.Data.Position = (byte)PlayerPosition.GK;
                                     playerNode.WritePlayerPosition(Process);
                                 }
                             }
+                            else
+                            {
+                                if (playerNode.Data.Status != 0 && convertToGK)
+                                {
+                                    if (playerNode.Data.Position != (byte)PlayerPosition.GK)
+                                    {
+                                        playerNode.Data.Position = (byte)PlayerPosition.GK;
+                                        playerNode.WritePlayerPosition(Process);
+                                    }
+                                }
+                            }
+                            int playerScheduleAddress = TrainingDataAddress +
+                                (playerNode.Data.Number - 1) * 116;
+                            NativeMethods.WriteBytes(Process, playerScheduleAddress, playerScheduleBytes, 0, 7);
                         }
-                        int playerScheduleAddress = TrainingDataAddress +
-                            (playerNode.Data.Number - 1) * 116;
-                        NativeMethods.WriteBytes(Process, playerScheduleAddress, playerSchedule, 0, 7);
                     }
                     if (autoResetStatus)
                     {
@@ -992,7 +1002,7 @@ namespace Fsm97Trainer
             {
                 NativeMethods.SuspendProcess(Process);
                 int currentDate = NativeMethods.ReadInt(Process, DateAddress);
-                DateTime currentDateTime = Player.dateOffsetBase.AddDays(currentDate);
+                DateTime currentDateTime = PlayerModel.dateOffsetBase.AddDays(currentDate);
                 if (currentDateTime.Month < 5 || currentDateTime.Month > 7)
                 {
                     throw new InvalidOperationException(Properties.Resources.CanOnlyChangeDateInOffseason);
@@ -1145,7 +1155,7 @@ namespace Fsm97Trainer
         }
         internal List<QueryUpdatePlayerNameResult> UpdatePlayerNames(string respawnCategory)
         {
-            List<QueryUpdatePlayerNameResult> newNames =null;
+            List<QueryUpdatePlayerNameResult> newNames = null;
             try
             {
                 NativeMethods.SuspendProcess(Process);
@@ -1163,15 +1173,16 @@ namespace Fsm97Trainer
                 newNames = GetNewPlayerNames(respawnCategory, newSpawns.Count);
                 foreach (var newName in newNames)
                 {
-                    if (newSpawns.Count == 0) break; 
-                    
+                    if (newSpawns.Count == 0) break;
+
                     var namesakePlayers = playerNodesIndex.LookupByName(newName.HumanName.Last, newName.HumanName.First);
-                    if (namesakePlayers != null && namesakePlayers.Count>0)
+                    if (namesakePlayers != null && namesakePlayers.Count > 0)
                     {
                         bool found = false;
-                        foreach (var namesakePlayer in namesakePlayers) {
+                        foreach (var namesakePlayer in namesakePlayers)
+                        {
                             if (namesakePlayer.Data.BirthDay != newName.BirthDay)
-                            { 
+                            {
                                 found = true; break;
                             }
                         }
@@ -1182,11 +1193,11 @@ namespace Fsm97Trainer
                         if (newName.BirthDay.HasValue)
                         {
                             int currentDateInt = NativeMethods.ReadInt(Process, DateAddress);
-                            DateTime currentDateTime = Player.dateOffsetBase.AddDays(currentDateInt);
-                            namesakePlayers.First.Value.Data.BirthDateOffset = (ushort)(newName.BirthDay.Value- Player.dateOffsetBase).Days;
-                            namesakePlayers.First.Value.Data.UpdateAge(currentDateTime);
+                            DateTime currentDateTime = PlayerModel.dateOffsetBase.AddDays(currentDateInt);
+                            namesakePlayers.First.Value.Data.BirthDateOffset = (ushort)(newName.BirthDay.Value - PlayerModel.dateOffsetBase).Days;
+                            PlayerNode.UpdateAge(namesakePlayers.First.Value.Data, currentDateTime);
                             namesakePlayers.First.Value.WritePlayerBirthDate(Process);
-                        }                        
+                        }
                     }
 
                     var newSpawn = newSpawns.First();
@@ -1208,6 +1219,11 @@ namespace Fsm97Trainer
                 }
                 return newNames;
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error updating player names: " + ex.Message);
+                throw;
+            }
             finally
             {
                 NativeMethods.ResumeProcess(Process);
@@ -1218,9 +1234,9 @@ namespace Fsm97Trainer
 
         List<QueryUpdatePlayerNameResult> GetNewPlayerNames(string respawnCategory, int resultLimit)
         {
-            List<QueryUpdatePlayerNameResult> result = new List<QueryUpdatePlayerNameResult>();
+            List<QueryUpdatePlayerNameResult> result = new List<QueryUpdatePlayerNameResult>(resultLimit);
             int currentDateInt = NativeMethods.ReadInt(Process, DateAddress);
-            DateTime currentDateTime = Player.dateOffsetBase.AddDays(currentDateInt);
+            DateTime currentDateTime = PlayerModel.dateOffsetBase.AddDays(currentDateInt);
             var birthYear = currentDateTime.AddYears(-17).Year;
             var language = "en";
             List<QueryUpdatePlayerNameResult> downloadedNames = null;
@@ -1228,7 +1244,7 @@ namespace Fsm97Trainer
             {
                 case 936:
                     language = "zh";
-                    downloadedNames= GetNewPlayerNamesWikiData(respawnCategory, birthYear, language, resultLimit);
+                    downloadedNames = GetNewPlayerNamesWikiData(respawnCategory, birthYear, language, resultLimit);
                     break;
                 case 437:
                 default:
@@ -1296,8 +1312,8 @@ namespace Fsm97Trainer
             }
             return result;
         }
-        
-        string GetNewPlayerNamesWikiDataQuery(string respawnCategory, int birthYear, string language,int resultLimit)
+
+        string GetNewPlayerNamesWikiDataQuery(string respawnCategory, int birthYear, string language, int resultLimit)
         {
             if (language != "zh") throw new ArgumentException(nameof(language));
             if (string.IsNullOrEmpty(respawnCategory))
@@ -1321,9 +1337,10 @@ namespace Fsm97Trainer
                   LIMIT {1}
                  */
                 return string.Format(Properties.Resources.WikiDataQueryGetPlayerNameByBirthYear,
-                   birthYear,resultLimit);
+                   birthYear, resultLimit);
             }
-            else {
+            else
+            {
                 /* 
                      SELECT ?item ?itemLabel_en ?itemLabel_zh
                      WHERE {
@@ -1367,7 +1384,7 @@ namespace Fsm97Trainer
         /// <returns></returns>
         List<QueryUpdatePlayerNameResult> GetNewPlayerNamesWikiData(string respawnCategory, int birthYear, string language, int resultLimit)
         {
-            List<HumanName> result = new List<HumanName>();
+            List<HumanName> result = new List<HumanName>(resultLimit);
             string query = GetNewPlayerNamesWikiDataQuery(respawnCategory, birthYear, language, resultLimit);
             // Wikidata SPARQL endpoint
             var endpointUri = new Uri("https://query.wikidata.org/sparql");
@@ -1382,7 +1399,8 @@ namespace Fsm97Trainer
                 var queryResult = JObject.Parse(json);
 
                 List<QueryUpdatePlayerNameResult> downloadedNames = queryResult.SelectToken("results").SelectToken("bindings")
-                    .Select(jt => new QueryUpdatePlayerNameResult {
+                    .Select(jt => new QueryUpdatePlayerNameResult
+                    {
                         EntityId = jt["newName"]?["value"]?.ToString(),
                         EnglishName = jt["itemLabel_en"]?["value"]?.ToString(),
                         ChineseName = jt["itemLabel_zh"]?["value"]?.ToString(),
@@ -1433,7 +1451,7 @@ namespace Fsm97Trainer
                 ORDER BY xsd:integer(?qid)
                 LIMIT 500
                */
-                return string.Format(Properties.Resources.DbpediaGetPlayerByYearAndCategoryQuery, birthYear,respawnCategory,
+                return string.Format(Properties.Resources.DbpediaGetPlayerByYearAndCategoryQuery, birthYear, respawnCategory,
                     resultLimit);
 
             }
@@ -1455,8 +1473,9 @@ namespace Fsm97Trainer
                 var queryResult = JObject.Parse(json);
 
                 List<QueryUpdatePlayerNameResult> downloadedNames = queryResult.SelectToken("results").SelectToken("bindings")
-                    .Select(jt => 
-                    new QueryUpdatePlayerNameResult { 
+                    .Select(jt =>
+                    new QueryUpdatePlayerNameResult
+                    {
                         EntityId = jt["newName"]?["value"]?.ToString(),
                         EnglishName = jt["itemLabel_en"]?["value"]?.ToString(),
                         BirthDayText = jt["birthDate"]?["value"]?.ToString()
@@ -1488,7 +1507,7 @@ namespace Fsm97Trainer
         }
         public void Restart()
         {
-            var mainModulePath= this.Process.MainModule.FileName;
+            var mainModulePath = this.Process.MainModule.FileName;
             if (!this.Process.HasExited)
             {
                 this.Process.CloseMainWindow(); // Sends a close request
@@ -1507,104 +1526,462 @@ namespace Fsm97Trainer
             System.Diagnostics.Process.Start(startInfo);
         }
         int evalProgress = 0;
-        object evalProgressLock = new object(); 
-        public string EvaluateYoungPlayers(int maxEvalAge, bool autoResetStatus,
-            bool maxEnergy, bool maxPower,bool noAlternativeTraining, Action<int> evaluateYoungPlayersReportProgress, Action<int> evaluateYoungPlayersReportTotalPlayerPositions, bool debugTraining)
+        object evalProgressLock = new object();
+        public string EvaluateYoungPlayers(PlayerPosition playerPosition, int maxEvalAge, bool autoResetStatus,
+            bool maxEnergy, bool maxPower, bool noAlternativeTraining, Action<int> evaluateYoungPlayersReportProgress, Action<int> evaluateYoungPlayersReportTotalPlayerPositions, bool debugTraining, string playerLastname, int minRating)
         {
-            List<Player> youngPlayers = new List<Player>();
+            List<PlayerModel> youngPlayers = null;
+            float[][] traingEffect = trainingEffectModifier.TrainingEffects;
             try
             {
                 NativeMethods.SuspendProcess(Process);
                 ushort currentTeam = NativeMethods.ReadUShort(Process, CurrentTeamIndexAddress);
                 var playerNodes = ReadPlayers(false);
-                youngPlayers = playerNodes.Where(p => p.Data.Age <= maxEvalAge &&
-                p.Data.Team.Id != currentTeam)
-                    .Select(node => node.Data).ToList();
+
+                var youngPlayersQuery = playerNodes.Where(p => p.Data.Age <= maxEvalAge);
+                if (!string.IsNullOrEmpty(playerLastname))
+                {
+                    youngPlayersQuery = youngPlayersQuery.Where(p => p.Data.LastName == playerLastname);
+                }
+                youngPlayers = youngPlayersQuery.Select(node => node.Data).ToList();
 
             }
-            catch { 
+            catch
+            {
                 return Properties.Resources.FailedToReadPlayersForTheMoment;
             }
             finally
             {
                 NativeMethods.ResumeProcess(Process);
             }
-            if (youngPlayers.Count == 0)
+            if (youngPlayers == null || youngPlayers.Count == 0)
             {
                 return Properties.Resources.YouthPlayerNotFound;
             }
-            StringBuilder stringBuilder = new StringBuilder();
 
             Dictionary<PlayerPosition, string> targetPositions = new Dictionary<PlayerPosition, string>();
-            targetPositions.Add(PlayerPosition.FOR, "FOR/SS/FR");
-            targetPositions.Add(PlayerPosition.RW, "LW/RW");
-            targetPositions.Add(PlayerPosition.AM, "LM/RM/AM");
-            targetPositions.Add(PlayerPosition.DM, "DM");
-            targetPositions.Add(PlayerPosition.RWB, "LWB/RWB");
-            targetPositions.Add(PlayerPosition.CD, "CD");
-            targetPositions.Add(PlayerPosition.RB, "LB/RB");
-            targetPositions.Add(PlayerPosition.SW, "SW");
-            targetPositions.Add(PlayerPosition.GK, "GK");
-            var targetPositionValues = targetPositions.Keys.ToList();
-            var targetPositionValueIndexes= Enumerable.Range(0, targetPositionValues.Count).ToList();
-
-            List<EvaluateYoungPlayersResult> evaluateYoungPlayersResults = 
-                Enumerable.Range(0, targetPositionValues.Count)
-                .Select(n=> (EvaluateYoungPlayersResult)null).ToList();
-            evaluateYoungPlayersReportTotalPlayerPositions(targetPositionValueIndexes.Count* youngPlayers.Count);
-            //Parallel.ForEach(targetPositionValueIndexes,targetPositionValueIndex=>
-            
-            foreach (var targetPositionValueIndex in targetPositionValueIndexes)
+            if (playerPosition == PlayerPosition.Count)
             {
-                var position = targetPositionValues[targetPositionValueIndex];
-                EvaluateYoungPlayersResult evaluateYoungPlayersResult = new EvaluateYoungPlayersResult(position, youngPlayers,
-                autoResetStatus,
-            maxEnergy, maxPower, noAlternativeTraining,
-                trainingEffectModifier,DebugTraining);
-                evaluateYoungPlayersResults[targetPositionValueIndex] =
-                evaluateYoungPlayersResult;
-                evaluateYoungPlayersResult.OnEvalPlayerPositionComplete+= (s, e) =>
-                {
-                    lock (evalProgressLock)
-                    {
-                        evalProgress++;
-                        evaluateYoungPlayersReportProgress(evalProgress);
-                    }
-                };
-                evaluateYoungPlayersResults[targetPositionValueIndex].Evaluate();
-                //}); 
+                targetPositions.Add(PlayerPosition.FOR, "FOR/SS");
+                targetPositions.Add(PlayerPosition.FR, "FR");
+                targetPositions.Add(PlayerPosition.RW, "LW/RW");
+                targetPositions.Add(PlayerPosition.RM, "LM/RM/AM");
+                targetPositions.Add(PlayerPosition.DM, "DM");
+                targetPositions.Add(PlayerPosition.RWB, "LWB/RWB");
+                targetPositions.Add(PlayerPosition.CD, "CD");
+                targetPositions.Add(PlayerPosition.RB, "LB/RB");
+                targetPositions.Add(PlayerPosition.SW, "SW");
+                targetPositions.Add(PlayerPosition.GK, "GK");
             }
+            else
+            {
+                targetPositions.Add(playerPosition, Enum.GetName(typeof(PlayerPosition), playerPosition));
+            }
+
+            var targetPositionValues = targetPositions.Keys.ToList();
+            var targetPositionValueIndexes = Enumerable.Range(0, targetPositionValues.Count).ToList();
+
+            EvaluateYoungPlayersResult[] evaluateYoungPlayersResults = new EvaluateYoungPlayersResult[targetPositionValues.Count];
+            evaluateYoungPlayersReportTotalPlayerPositions(targetPositionValueIndexes.Count * youngPlayers.Count);
+
+            if (debugTraining || System.Diagnostics.Debugger.IsAttached)
+            {
+                foreach (var targetPositionValueIndex in targetPositionValueIndexes)
+                {
+                    var position = targetPositionValues[targetPositionValueIndex];
+                    EvaluateYoungPlayersResult evaluateYoungPlayersResult = new EvaluateYoungPlayersResult(position, youngPlayers,
+                    autoResetStatus,
+                maxEnergy, maxPower, noAlternativeTraining,
+                    trainingEffectModifier, DebugTraining, traingEffect);
+                    evaluateYoungPlayersResults[targetPositionValueIndex] =
+                    evaluateYoungPlayersResult;
+                    evaluateYoungPlayersResult.OnEvalPlayerPositionComplete += (s, e) =>
+                    {
+                        lock (evalProgressLock)
+                        {
+                            evalProgress++;
+                            evaluateYoungPlayersReportProgress(evalProgress);
+                        }
+                    };
+                    evaluateYoungPlayersResults[targetPositionValueIndex].Evaluate(minRating);
+                    //}); 
+                }
+            }
+            else
+            {
+                Parallel.ForEach(targetPositionValueIndexes, targetPositionValueIndex =>
+                {
+                    var position = targetPositionValues[targetPositionValueIndex];
+                    EvaluateYoungPlayersResult evaluateYoungPlayersResult = new EvaluateYoungPlayersResult(position, youngPlayers,
+                    autoResetStatus,
+                    maxEnergy, maxPower, noAlternativeTraining,
+                    trainingEffectModifier, DebugTraining, traingEffect);
+                    evaluateYoungPlayersResults[targetPositionValueIndex] =
+                    evaluateYoungPlayersResult;
+                    evaluateYoungPlayersResult.OnEvalPlayerPositionComplete += (s, e) =>
+                    {
+                        lock (evalProgressLock)
+                        {
+                            evalProgress++;
+                            evaluateYoungPlayersReportProgress(evalProgress);
+                        }
+                    };
+                    evaluateYoungPlayersResults[targetPositionValueIndex].Evaluate(minRating);
+                });
+            }
+            return GenerateHtmlOutput(debugTraining, targetPositions, targetPositionValues, evaluateYoungPlayersResults);
+        }
+
+        private static string GenerateHtmlOutput(bool debugTraining, Dictionary<PlayerPosition, string> targetPositions, List<PlayerPosition> targetPositionValues, EvaluateYoungPlayersResult[] evaluateYoungPlayersResults)
+        {
+            var doc = new HtmlAgilityPack.HtmlDocument();
+            var documentNode = HtmlNode.CreateNode("<!DOCTYPE html><html><head></head><body></body></html>");
+            doc.DocumentNode.AppendChild(documentNode);
+            var bodyNode = doc.DocumentNode.SelectSingleNode("//body");
+            var rankingsNode= doc.CreateElement("div");
+            rankingsNode.Attributes.Add("Id", "rankings");
+
+            var detailsNode = doc.CreateElement("div");
+            detailsNode.Attributes.Add("Id", "details");
 
             for (int targetPositionIndex = 0; targetPositionIndex < targetPositionValues.Count; targetPositionIndex++)
             {
                 var targetPositionValue = targetPositionValues[targetPositionIndex];
                 var targetPositionName = targetPositions[targetPositionValue];
                 var resultForPosition = evaluateYoungPlayersResults[targetPositionIndex];
-                var topPlayers= resultForPosition.Grades
-                    .Where(r=>r.WeeksToMax>0)
+                var topPlayers = resultForPosition.Grades
+                    .Where(r => r.WeeksToMax > 0)
                     .OrderByDescending(p => p.FinalRating)
                     .ThenBy(p => p.WeeksToMax)
                     .ThenByDescending(p => p.Player.Statistics)
                     .Take(20).ToList();
+                if (topPlayers.Count == 0) continue;
+                var averageWeeks = resultForPosition.Grades
+                        .Where(r => r.WeeksToMax > 0)
+                        .OrderByDescending(p => p.FinalRating)
+                        .ThenBy(p => p.WeeksToMax)
+                        .ThenByDescending(p => p.Player.Statistics)
+                        .Average(p => p.WeeksToMax);
+                var evalResultTable = doc.CreateElement("table");
+                var caption = doc.CreateElement("caption");
+                var textNode = doc.CreateTextNode(string.Format(Properties.Resources.EvalTopPlayersHeader, targetPositionName));
+                caption.AppendChild(textNode);
+                evalResultTable.AppendChild(caption);
+                var thead = doc.CreateElement("thead");
+                var headerRow = doc.CreateElement("tr");
+                var headers = new string[] { Properties.Resources.LastName, Properties.Resources.FirstName, Properties.Resources.Age, Properties.Resources.PositionRating, Properties.Resources.Position, Properties.Resources.Nationality, Properties.Resources.WeeksToMax };
+                foreach (var header in headers)
+                {
+                    var th = doc.CreateElement("th");
+                    th.AppendChild(doc.CreateTextNode(header));
+                    headerRow.AppendChild(th);
+                }
+                thead.AppendChild(headerRow);
+                evalResultTable.AppendChild(thead);
+                var tbody = doc.CreateElement("tbody");
 
-                stringBuilder.AppendLine(string.Format(Properties.Resources.EvalTopPlayersHeader, targetPositionName));
                 foreach (var topPlayer in topPlayers)
                 {
-                    var player= topPlayer.Player;
-                    stringBuilder.AppendLine(string.Format(Properties.Resources.EvalTopPlayerEntry,                        
-                        player.LastName, player.FirstName,
-                        player.Age,
-                        player.PositionRating,
-                        player.PositionName,
-                        player.NationalityName,
-                        topPlayer.WeeksToMax
-                        ));
-                    if(debugTraining)
-                        stringBuilder.AppendLine(topPlayer.Schedules.ToString());
+                    var player = topPlayer.Player;
+                    var row = doc.CreateElement("tr");
+                    var cellLastName = doc.CreateElement("td");
+                    cellLastName.AppendChild(doc.CreateTextNode(player.LastName));
+                    row.AppendChild(cellLastName);
+                    var cellFirstName = doc.CreateElement("td");
+                    cellFirstName.AppendChild(doc.CreateTextNode(player.FirstName));
+                    row.AppendChild(cellFirstName);
+                    var cellAge = doc.CreateElement("td");
+                    cellAge.AppendChild(doc.CreateTextNode(player.Age.ToString()));
+                    row.AppendChild(cellAge);
+                    var cellPositionRating = doc.CreateElement("td");
+                    cellPositionRating.AppendChild(doc.CreateTextNode(player.PositionRating.ToString()));
+                    row.AppendChild(cellPositionRating);
+                    var cellPositionName = doc.CreateElement("td");
+                    cellPositionName.AppendChild(doc.CreateTextNode(player.PositionName));
+                    row.AppendChild(cellPositionName);
+                    var cellNationality = doc.CreateElement("td");
+                    if(!string.IsNullOrWhiteSpace(player.NationalityName))
+                        cellNationality.AppendChild(doc.CreateTextNode(player.NationalityName));
+                    row.AppendChild(cellNationality);
+                    var cellWeeksToMax = doc.CreateElement("td");
+                    cellWeeksToMax.AppendChild(doc.CreateTextNode(topPlayer.WeeksToMax.ToString()));
+                    row.AppendChild(cellWeeksToMax);
+                    tbody.AppendChild(row);
                 }
-                stringBuilder.AppendLine();
+                evalResultTable.AppendChild(tbody);
+
+
+                var tfoot = doc.CreateElement("tfoot");
+                tfoot.Attributes.Add("style", "text-align: center;");
+                var footerRow = doc.CreateElement("tr");
+                var footerCell = doc.CreateElement("td");
+                footerCell.SetAttributeValue("colspan", headers.Length.ToString());
+                footerCell.AppendChild(doc.CreateTextNode(string.Format(Properties.Resources.AverageWeeks, averageWeeks)));
+                footerRow.AppendChild(footerCell);
+                tfoot.AppendChild(footerRow);
+                evalResultTable.AppendChild(tfoot);
+
+                rankingsNode.AppendChild(evalResultTable);
+
+                if (debugTraining)
+                {
+                    foreach (var topPlayer in topPlayers)
+                    {
+                        var player = topPlayer.Player;
+                        var scheduleTable = doc.CreateElement("table");
+                        var scheduleCaption = doc.CreateElement("caption");
+                        scheduleCaption.AppendChild(doc.CreateTextNode(string.Format(Properties.Resources.EvalTopPlayerEntry,
+                            player.LastName, player.FirstName,
+                            player.Age,
+                            player.PositionRating,
+                            player.PositionName,
+                            player.NationalityName,
+                            topPlayer.WeeksToMax
+                            )));
+                        scheduleTable.AppendChild(scheduleCaption);
+
+                        var scheduleThead = doc.CreateElement("thead");
+                        var scheduleHeaderRow = doc.CreateElement("tr");
+                        var scheduleHeaders = new string[] { PlayerAttribute.Speed.ToLocalizedString(),
+                                PlayerAttribute.Agility.ToLocalizedString(),
+                                PlayerAttribute.Acceleration.ToLocalizedString(),
+                                PlayerAttribute.Stamina.ToLocalizedString(),
+                                PlayerAttribute.Strength.ToLocalizedString(),
+                                PlayerAttribute.Fitness.ToLocalizedString(),
+                                PlayerAttribute.Shooting.ToLocalizedString(),
+                                PlayerAttribute.Passing.ToLocalizedString(),
+                                PlayerAttribute.Heading.ToLocalizedString(),
+                                PlayerAttribute.Control.ToLocalizedString(),
+                                PlayerAttribute.Dribbling.ToLocalizedString(),
+                                PlayerAttribute.TackleDetermination.ToLocalizedString(),
+                                PlayerAttribute.TackleSkill.ToLocalizedString(),
+                                PlayerAttribute.Coolness.ToLocalizedString(),
+                                PlayerAttribute.Awareness.ToLocalizedString(),
+                                PlayerAttribute.Flair.ToLocalizedString(),
+                                PlayerAttribute.Kicking.ToLocalizedString(),
+                                PlayerAttribute.Throwing.ToLocalizedString(),
+                                PlayerAttribute.Handling.ToLocalizedString(),
+                                PlayerAttribute.Leadership.ToLocalizedString(),
+                                PlayerAttribute.Consistency.ToLocalizedString(),
+                                PlayerAttribute.Determination.ToLocalizedString(),
+                                Properties.Resources.BottleneckAttributes,
+                                Properties.Resources.TrainingSchedule,
+                                Properties.Resources.WeeksCount};
+                        foreach (var scheduleHeader in scheduleHeaders)
+                        {
+                            if (scheduleHeader != null)
+                            {
+                                var th = doc.CreateElement("th");
+                                th.AppendChild(doc.CreateTextNode(scheduleHeader));
+                                scheduleHeaderRow.AppendChild(th);
+                            }
+                        }
+                        scheduleThead.AppendChild(scheduleHeaderRow);
+                        scheduleTable.AppendChild(scheduleThead);
+                        var scheduleTbody = doc.CreateElement("tbody");
+
+                        int[] roundsForEachTrainingScheduleType = new int[(int)TrainingScheduleType.Count];
+                        foreach (var weeklyTrainingSchedule in topPlayer.WeeklyTrainingSchedules)
+                        {
+                            var scheduleRow = doc.CreateElement("tr");
+                            var schedulePlayer = weeklyTrainingSchedule.Player;
+                            for (int i = 0; i < (int)PlayerAttribute.Count; i++)
+                            {
+                                var cell = doc.CreateElement("td");
+                                int attributeValue;
+                                switch ((PlayerAttribute)i)
+                                {
+                                    default:
+                                        attributeValue = schedulePlayer.Attributes[i]; break;
+                                    case PlayerAttribute.Coolness:
+                                        attributeValue = schedulePlayer.TackleDetermination; break;
+                                    case PlayerAttribute.Awareness:
+                                        attributeValue = schedulePlayer.TackleSkill; break;
+
+                                    case PlayerAttribute.TackleDetermination:
+                                        attributeValue = schedulePlayer.Coolness; break;
+                                    case PlayerAttribute.TackleSkill:
+                                        attributeValue = schedulePlayer.Awareness; break;
+                                }
+                                switch ((PlayerAttribute)i)
+                                {
+                                    case PlayerAttribute.ThrowIn:
+                                    case PlayerAttribute.Greed:
+                                        break;
+                                    default:
+                                        if (attributeValue != TrainingSchedule.attributeCap)
+                                        {
+                                            cell.AppendChild(doc.CreateTextNode(attributeValue.ToString()));
+                                        }
+                                        scheduleRow.AppendChild(cell);
+                                        break;
+
+                                }
+                            }
+
+                            var bottleneckAttributesCell = doc.CreateElement("td");
+                            if (weeklyTrainingSchedule.BottleneckAttributes != null)
+                            {
+                                bool isFirstBottleneckAttribute = true;
+                                StringBuilder stringBuilderbottleneckAttributesCellText = new StringBuilder();
+                                foreach (var bottleneckAttribute in weeklyTrainingSchedule.BottleneckAttributes)
+                                {
+                                    if (isFirstBottleneckAttribute)
+                                        isFirstBottleneckAttribute = false;
+                                    else
+                                        stringBuilderbottleneckAttributesCellText.Append(", ");
+                                    stringBuilderbottleneckAttributesCellText.Append(bottleneckAttribute.AttributeIndex.ToLocalizedString());
+                                    if (bottleneckAttribute.Repeat > 0)
+                                    {
+                                        stringBuilderbottleneckAttributesCellText.Append("(");
+                                        stringBuilderbottleneckAttributesCellText.Append(bottleneckAttribute.Repeat.ToString());
+                                        stringBuilderbottleneckAttributesCellText.Append(")");
+                                    }
+                                }
+                                if (stringBuilderbottleneckAttributesCellText.Length > 0)
+                                {
+                                    bottleneckAttributesCell.AppendChild(doc.CreateTextNode(stringBuilderbottleneckAttributesCellText.ToString()));
+                                }
+                            }
+                            scheduleRow.AppendChild(bottleneckAttributesCell);
+                            var trainingScheduleCell = doc.CreateElement("td");
+                            if (weeklyTrainingSchedule.Steps != null)
+                            {
+                                bool firstTrainingScheduleCell = true;
+                                StringBuilder trainingScheduleCellText = new StringBuilder();
+                                foreach (var training in weeklyTrainingSchedule.Steps)
+                                {
+                                    if (firstTrainingScheduleCell)
+                                        firstTrainingScheduleCell = false;
+                                    else
+                                        trainingScheduleCellText.Append(", ");
+                                    trainingScheduleCellText.Append(training.ToString());
+                                    roundsForEachTrainingScheduleType[(int)training.TrainingScheduleType] += weeklyTrainingSchedule.Weeks;
+                                }
+                                trainingScheduleCell.AppendChild(doc.CreateTextNode(trainingScheduleCellText.ToString()));
+                            }
+                            scheduleRow.AppendChild(trainingScheduleCell);
+
+                            var weeksCountCell = doc.CreateElement("td");
+                            if (weeklyTrainingSchedule.Weeks > 0)
+                            {
+                                weeksCountCell.AppendChild(doc.CreateTextNode(weeklyTrainingSchedule.Weeks.ToString()));
+                            }
+                            scheduleRow.AppendChild(weeksCountCell);
+                            scheduleTbody.AppendChild(scheduleRow);
+                        }
+                        scheduleTable.AppendChild(scheduleTbody);
+                        var scheduleFoot = doc.CreateElement("tfoot");
+                        scheduleFoot.Attributes.Add("style", "text-align: center;");
+
+                        var scheduleFootRow = doc.CreateElement("tr");
+                        var scheduleFootCell = doc.CreateElement("td");
+                        scheduleFootCell.SetAttributeValue("colspan", scheduleHeaders.Length.ToString());
+                        StringBuilder scheduleFootCellText = new StringBuilder();
+                        bool firstScheduleFootCellText = true;
+                        scheduleFootCellText.Append(Properties.Resources.TotalRoundsForEachTrainingScheduleType);
+                        for (int i = 0; i < (int)TrainingScheduleType.Count; i++)
+                        {
+                            if (roundsForEachTrainingScheduleType[i] > 0)
+                            {
+                                if (firstScheduleFootCellText)
+                                    firstScheduleFootCellText = false;
+                                else
+                                    scheduleFootCellText.Append(", ");
+                                scheduleFootCellText.Append(((TrainingScheduleType)i).ToLocalizedString());
+                                scheduleFootCellText.Append(": ");
+                                scheduleFootCellText.Append(roundsForEachTrainingScheduleType[i].ToString());
+                            }
+                        }
+                        scheduleFootCell.AppendChild(doc.CreateTextNode(scheduleFootCellText.ToString()));
+                        scheduleFootRow.AppendChild(scheduleFootCell);
+                        scheduleFoot.AppendChild(scheduleFootRow);
+                        scheduleTable.AppendChild(scheduleFoot);
+                        detailsNode.AppendChild(scheduleTable);
+                    }
+                }
             }
-            return stringBuilder.ToString();
+            bodyNode.AppendChild(rankingsNode);
+            bodyNode.AppendChild(detailsNode);
+
+            return doc.DocumentNode.OuterHtml;
+        }
+
+        public string EvaluateYoungPlayers(PlayerPosition playerPosition, int maxEvalAge, bool autoResetStatus, bool maxEnergy, bool maxPower, bool noAlternativeTraining, Action<int> evaluateYoungPlayersReportProgress, Action<int> evaluateYoungPlayersReportTotalPlayerPositions, bool debugTraining, PlayerModel player)
+        {
+            float[][] traingEffect = trainingEffectModifier.TrainingEffects;
+            Dictionary<PlayerPosition, string> targetPositions = new Dictionary<PlayerPosition, string>();
+            if (playerPosition == PlayerPosition.Count)
+            {
+                targetPositions.Add(PlayerPosition.FOR, "FOR/SS");
+                targetPositions.Add(PlayerPosition.FR, "FR");
+                targetPositions.Add(PlayerPosition.RW, "LW/RW");
+                targetPositions.Add(PlayerPosition.RM, "LM/RM/AM");
+                targetPositions.Add(PlayerPosition.DM, "DM");
+                targetPositions.Add(PlayerPosition.RWB, "LWB/RWB");
+                targetPositions.Add(PlayerPosition.CD, "CD");
+                targetPositions.Add(PlayerPosition.RB, "LB/RB");
+                targetPositions.Add(PlayerPosition.SW, "SW");
+                targetPositions.Add(PlayerPosition.GK, "GK");
+            }
+            else
+            {
+                targetPositions.Add(playerPosition, Enum.GetName(typeof(PlayerPosition), playerPosition));
+            }
+            var targetPositionValues = targetPositions.Keys.ToList();
+            var targetPositionValueIndexes = Enumerable.Range(0, targetPositionValues.Count).ToList();
+
+            EvaluateYoungPlayersResult[] evaluateYoungPlayersResults = new EvaluateYoungPlayersResult[targetPositionValues.Count];
+            evaluateYoungPlayersReportTotalPlayerPositions(targetPositionValueIndexes.Count);
+
+            if (debugTraining || System.Diagnostics.Debugger.IsAttached)
+            {
+                foreach (var targetPositionValueIndex in targetPositionValueIndexes)
+                {
+                    var position = targetPositionValues[targetPositionValueIndex];
+                    EvaluateYoungPlayersResult evaluateYoungPlayersResult = new EvaluateYoungPlayersResult(position,
+                        new List<PlayerModel> { player },
+                    autoResetStatus,
+                maxEnergy, maxPower, noAlternativeTraining,
+                    trainingEffectModifier, DebugTraining, traingEffect);
+                    evaluateYoungPlayersResults[targetPositionValueIndex] =
+                    evaluateYoungPlayersResult;
+                    evaluateYoungPlayersResult.OnEvalPlayerPositionComplete += (s, e) =>
+                    {
+                        lock (evalProgressLock)
+                        {
+                            evalProgress++;
+                            evaluateYoungPlayersReportProgress(evalProgress);
+                        }
+                    };
+                    evaluateYoungPlayersResults[targetPositionValueIndex].Evaluate(0);
+                    //}); 
+                }
+            }
+            else
+            {
+                Parallel.ForEach(targetPositionValueIndexes, targetPositionValueIndex =>
+                {
+                    var position = targetPositionValues[targetPositionValueIndex];
+                    EvaluateYoungPlayersResult evaluateYoungPlayersResult = new EvaluateYoungPlayersResult(position, new List<PlayerModel> { player },
+                    autoResetStatus,
+                    maxEnergy, maxPower, noAlternativeTraining,
+                    trainingEffectModifier, DebugTraining, traingEffect);
+                    evaluateYoungPlayersResults[targetPositionValueIndex] =
+                    evaluateYoungPlayersResult;
+                    evaluateYoungPlayersResult.OnEvalPlayerPositionComplete += (s, e) =>
+                    {
+                        lock (evalProgressLock)
+                        {
+                            evalProgress++;
+                            evaluateYoungPlayersReportProgress(evalProgress);
+                        }
+                    };
+                    evaluateYoungPlayersResults[targetPositionValueIndex].Evaluate(0);
+                });
+            }
+            return GenerateHtmlOutput(debugTraining, targetPositions, targetPositionValues, evaluateYoungPlayersResults);
         }
     }
 }
+ 

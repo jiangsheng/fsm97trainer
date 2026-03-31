@@ -352,10 +352,10 @@ namespace Fsm97Trainer.Models
                             using (var csv = new CsvWriter(writer, config))
                             {
                                 csv.Configuration.RegisterClassMap<PlayerMap>();
-                                csv.WriteHeader<Player>();
+                                csv.WriteHeader<PlayerModel>();
                                 foreach (var playerNode in players)
                                 {
-                                    csv.WriteRecord<Player>(playerNode.Data);
+                                    csv.WriteRecord<PlayerModel>(playerNode.Data);
                                 }
                             }
                             ProcessStartInfo psi = new ProcessStartInfo();
@@ -414,9 +414,9 @@ namespace Fsm97Trainer.Models
                 ReportError(ex);
             }
         }
-        private LinkedList<Player> LoadFromCsv()
+        private LinkedList<PlayerModel> LoadFromCsv()
         {
-            var result = new LinkedList<Player>();
+            var result = new LinkedList<PlayerModel>();
             using (var ofd = new OpenFileDialog())
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
@@ -430,7 +430,7 @@ namespace Fsm97Trainer.Models
                     {
                         csv.Configuration.RegisterClassMap<PlayerMap>();
                         csv.ReadHeader();
-                        foreach (var record in csv.GetRecords<Player>())
+                        foreach (var record in csv.GetRecords<PlayerModel>())
                         {
                             result.AddLast(record);
                         }
@@ -719,7 +719,7 @@ namespace Fsm97Trainer.Models
         public void ChangeLanguage(string lang,Form mainForm)
         {
             ComponentResourceManager resources = new ComponentResourceManager(mainForm.GetType());
-            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(lang);
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture=CultureInfo.GetCultureInfo(lang);
             Program.ChangeLanguage(resources, Thread.CurrentThread.CurrentUICulture, lang, mainForm);
         }
         public void EvaluateYoungPlayersReportProgress(int progress)
@@ -732,16 +732,35 @@ namespace Fsm97Trainer.Models
             this.TotalPlayerPositionsToEval= total;
         }
 
-        public void EvaluateYoungPlayers()
+        public void EvaluateYoungPlayers(PlayerPosition playerPosition,string playerLastName,int minRating)
         {
+            if(!string.IsNullOrWhiteSpace(playerLastName))
+                DebugTraining = true;
             try
             {
                 EvalProgress = 0;
                 TotalPlayerPositionsToEval = 0;
                 MenusProcess menusProcess = GetMenusProcess();
                 menusProcess.DebugTraining = DebugTraining;
-                EvalYoungPlayersResult =menusProcess.EvaluateYoungPlayers(MaxEvalAge,AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining
-                    , EvaluateYoungPlayersReportProgress, EvaluateYoungPlayersReportTotalPlayerPositions,DebugTraining);
+                EvalYoungPlayersResult =menusProcess.EvaluateYoungPlayers(playerPosition,MaxEvalAge, AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining
+                    , EvaluateYoungPlayersReportProgress, EvaluateYoungPlayersReportTotalPlayerPositions,DebugTraining, playerLastName, minRating);
+            }
+            catch (Exception ex)
+            {
+                ReportError(ex);
+            }
+        }
+        public void EvaluateYoungPlayer(PlayerPosition playerPosition, PlayerModel player)
+        {
+            DebugTraining = true;
+            try
+            {
+                EvalProgress = 0;
+                TotalPlayerPositionsToEval = 0;
+                MenusProcess menusProcess = GetMenusProcess();
+                menusProcess.DebugTraining = DebugTraining;
+                EvalYoungPlayersResult = menusProcess.EvaluateYoungPlayers(playerPosition, MaxEvalAge, AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining
+                    , EvaluateYoungPlayersReportProgress, EvaluateYoungPlayersReportTotalPlayerPositions, DebugTraining, player);
             }
             catch (Exception ex)
             {

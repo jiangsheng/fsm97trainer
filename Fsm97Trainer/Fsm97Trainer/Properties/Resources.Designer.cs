@@ -61,11 +61,38 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Age.
+        /// </summary>
+        internal static string Age {
+            get {
+                return ResourceManager.GetString("Age", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All player data boosted..
         /// </summary>
         internal static string AllPlayerDataBoosted {
             get {
                 return ResourceManager.GetString("AllPlayerDataBoosted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Average weeks:{0}.
+        /// </summary>
+        internal static string AverageWeeks {
+            get {
+                return ResourceManager.GetString("AverageWeeks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bottleneck Attributes.
+        /// </summary>
+        internal static string BottleneckAttributes {
+            get {
+                return ResourceManager.GetString("BottleneckAttributes", resourceCulture);
             }
         }
         
@@ -202,6 +229,15 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First Name.
+        /// </summary>
+        internal static string FirstName {
+            get {
+                return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Formation saved..
         /// </summary>
         internal static string FormationSaved {
@@ -265,11 +301,29 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        internal static string LastName {
+            get {
+                return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More than one menus.exe process found..
         /// </summary>
         internal static string MultipleGameProcessFound {
             get {
                 return ResourceManager.GetString("MultipleGameProcessFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nationality.
+        /// </summary>
+        internal static string Nationality {
+            get {
+                return ResourceManager.GetString("Nationality", resourceCulture);
             }
         }
         
@@ -346,11 +400,29 @@ namespace Fsm97Trainer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Position.
+        /// </summary>
+        internal static string Position {
+            get {
+                return ResourceManager.GetString("Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Position auto reset..
         /// </summary>
         internal static string PositionAutoReset {
             get {
                 return ResourceManager.GetString("PositionAutoReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position Rating.
+        /// </summary>
+        internal static string PositionRating {
+            get {
+                return ResourceManager.GetString("PositionRating", resourceCulture);
             }
         }
         
@@ -369,6 +441,24 @@ namespace Fsm97Trainer.Properties {
         internal static string SelectPlayerDataExportLlocation {
             get {
                 return ResourceManager.GetString("SelectPlayerDataExportLlocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total wekks:.
+        /// </summary>
+        internal static string TotalRoundsForEachTrainingScheduleType {
+            get {
+                return ResourceManager.GetString("TotalRoundsForEachTrainingScheduleType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Training Schedule.
+        /// </summary>
+        internal static string TrainingSchedule {
+            get {
+                return ResourceManager.GetString("TrainingSchedule", resourceCulture);
             }
         }
         
@@ -396,6 +486,24 @@ namespace Fsm97Trainer.Properties {
         internal static string WarningConvertToGK {
             get {
                 return ResourceManager.GetString("WarningConvertToGK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weeks.
+        /// </summary>
+        internal static string WeeksCount {
+            get {
+                return ResourceManager.GetString("WeeksCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weeks To Max.
+        /// </summary>
+        internal static string WeeksToMax {
+            get {
+                return ResourceManager.GetString("WeeksToMax", resourceCulture);
             }
         }
         

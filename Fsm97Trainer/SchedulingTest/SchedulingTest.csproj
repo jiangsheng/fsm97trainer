@@ -58,6 +58,9 @@
     <Reference Include="Goblinfactory.Konsole, Version=6.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Goblinfactory.Konsole.6.2.2\lib\netstandard2.0\Goblinfactory.Konsole.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.12.4.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.12.4\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -71,6 +74,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\FSM97Lib\FSM97Lib.csproj">
+      <Project>{92c0ac2c-ec8a-443e-acbc-7fff26e98f9d}</Project>
+      <Name>FSM97Lib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fsm97Trainer\Fsm97Trainer.csproj">
       <Project>{95fdf3a5-f06a-4520-a6e3-fac3ea965005}</Project>
       <Name>Fsm97Trainer</Name>

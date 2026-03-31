@@ -1,18 +1,29 @@
-﻿using Fsm97Trainer;
+﻿using FSM97Lib;
+using Fsm97Trainer;
 using Fsm97Trainer.Models;
 using Konsole;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 
 namespace SchedulingTest
 {
-    internal class Program
+    internal static class Program
     {
         static void Main(string[] args)
+        {
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");
+                        TestEval();
+            //TestTeams();
+            //TestEvalPlayer();
+        }
+        static void TestTeams()
         {
             using (FormMainModel formMainModel = new FormMainModel())
             {
@@ -24,22 +35,82 @@ namespace SchedulingTest
             }
         }
 
-
+        static int lastDisplayedEvalProgress;
         private static void TestEval()
         {
             using (FormMainModel formMainModel = new FormMainModel())
             {
+                lastDisplayedEvalProgress = 0;
                 formMainModel.AutoTrain = true;
-                //formMainModel.DebugTraining = true;
-                formMainModel.MaxEvalAge = 19;
+                formMainModel.MaxEvalAge = 99;
                 formMainModel.MaxPower = true;
-                formMainModel.NoAlternativeTraining = true;
+                formMainModel.NoAlternativeTraining = false;
                 formMainModel.MaxEnergy = true;
+                formMainModel.CurrentLanguage = "zh-CN";
+                formMainModel.DebugTraining = true;
+                //formMainModel.OnFastTimer();
+                formMainModel.OnEvalProgressChanged += FormMainModel_OnEvalProgressChanged; 
+                try
+                {
 
+                    formMainModel.EvaluateYoungPlayers(PlayerPosition.GK, "希曼", 60);
+                    /*formMainModel.MaxEvalAge = 19;
+                    formMainModel.TotalPlayerPositionsToEval=0;
+                    formMainModel.EvaluateYoungPlayers(PlayerPosition.FOR, null, 60);*/
+                    Debug.WriteLine(formMainModel.EvalYoungPlayersResult);
+                    var fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".htm";
+                    File.WriteAllText(fileName, formMainModel.EvalYoungPlayersResult);
+                    ProcessStartInfo processStartInfo = new ProcessStartInfo(fileName)
+                    {
+                        UseShellExecute = true,
+                        FileName = fileName
+                    }; Process.Start(processStartInfo);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+            }
+        }
+        private static void TestEvalPlayer()
+        {
+            List<byte> data = new List<byte>() {
+                87,  87  ,81
+                ,99,74,99,
+                92,  97,  90,  89,  66,
+
+                  94,99, 85,  78,85,
+                20,  28,  24,
+                99,75,43,73,99
+            };
+
+            PlayerModel player=new PlayerModel(data.ToArray());
+            player.LastName = "Test";
+            player.FirstName = "Test";
+
+            using (FormMainModel formMainModel = new FormMainModel())
+            {
+                lastDisplayedEvalProgress = 0;
+                formMainModel.AutoTrain = true;
+                formMainModel.MaxEvalAge = 99;
+                formMainModel.MaxPower = true;
+                formMainModel.NoAlternativeTraining = false;
+                formMainModel.MaxEnergy = true;
+                formMainModel.CurrentLanguage = "zh-CN";
+                formMainModel.DebugTraining = true;
                 //formMainModel.OnFastTimer();
                 formMainModel.OnEvalProgressChanged += FormMainModel_OnEvalProgressChanged;
-                formMainModel.EvaluateYoungPlayers();
-                Debug.WriteLine(formMainModel.EvalYoungPlayersResult);
+                formMainModel.EvaluateYoungPlayer(PlayerPosition.DM, player);
+                /*formMainModel.MaxEvalAge = 19;
+                formMainModel.TotalPlayerPositionsToEval=0;
+                formMainModel.EvaluateYoungPlayers(PlayerPosition.FOR, null, 60);*/
+                var fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".htm";
+                File.WriteAllText(fileName, formMainModel.EvalYoungPlayersResult);
+                ProcessStartInfo processStartInfo = new ProcessStartInfo(fileName)
+                {
+                    UseShellExecute = true,
+                    FileName = fileName
+                }; Process.Start(processStartInfo);
             }
         }
 
@@ -50,11 +121,18 @@ namespace SchedulingTest
 
             if (Model.TotalPlayerPositionsToEval > 0)
             {
-                if(progressBar == null)
+                if (progressBar == null)
                     progressBar = new ProgressBar(PbStyle.DoubleLine, Model.TotalPlayerPositionsToEval);
             }
-            var progress= Model.EvalProgress < Model.TotalPlayerPositionsToEval? Model.EvalProgress: Model.TotalPlayerPositionsToEval;
-            progressBar.Refresh(progress,string.Format("{0}/{1}",Model.EvalProgress,Model.TotalPlayerPositionsToEval));
+            var progress = Model.EvalProgress < Model.TotalPlayerPositionsToEval ? Model.EvalProgress : Model.TotalPlayerPositionsToEval;
+            if (Model.TotalPlayerPositionsToEval > 0)
+            {
+                if (progress - lastDisplayedEvalProgress > Model.TotalPlayerPositionsToEval / 100)
+                {
+                    progressBar.Refresh(progress, string.Format("{0}/{1}", Model.EvalProgress, Model.TotalPlayerPositionsToEval));
+                    lastDisplayedEvalProgress = progress;
+                }
+            }
         }
     }
 }

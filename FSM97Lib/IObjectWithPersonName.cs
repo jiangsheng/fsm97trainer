@@ -1,4 +1,4 @@
-﻿namespace Fsm97Trainer
+﻿namespace FSM97Lib
 {
     public interface IObjectWithPersonName
     {

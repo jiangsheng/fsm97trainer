@@ -303,4 +303,40 @@ LIMIT {1}</value>
   <data name="FailedToReadPlayersForTheMoment" xml:space="preserve">
     <value>Failed to read players for the moment, the game might be busy, try again later.</value>
   </data>
+  <data name="AverageWeeks" xml:space="preserve">
+    <value>Average weeks:{0}</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="PositionRating" xml:space="preserve">
+    <value>Position Rating</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nationality</value>
+  </data>
+  <data name="WeeksToMax" xml:space="preserve">
+    <value>Weeks To Max</value>
+  </data>
+  <data name="BottleneckAttributes" xml:space="preserve">
+    <value>Bottleneck Attributes</value>
+  </data>
+  <data name="TrainingSchedule" xml:space="preserve">
+    <value>Training Schedule</value>
+  </data>
+  <data name="WeeksCount" xml:space="preserve">
+    <value>Weeks</value>
+  </data>
+  <data name="TotalRoundsForEachTrainingScheduleType" xml:space="preserve">
+    <value>Total wekks:</value>
+  </data>
 </root>

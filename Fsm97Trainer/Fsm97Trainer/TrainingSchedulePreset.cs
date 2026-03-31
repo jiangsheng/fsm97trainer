@@ -6,8 +6,19 @@ namespace Fsm97Trainer
     internal static class TrainingSchedulePreset
     {
         static TrainingSchedulePreset(){
+            defaultPresets = new List<TrainingScheduleType[]>()
+            {
+                DefaultGK,
+                DefaultLRB,
+                DefaultCD,
+                DefaultLRWB,
+                DefaultDMSW,
+                DefaultLRAMLRW,
+                DefaultFRFORSS
 
-            allPresets = new List<TrainingScheduleType[]>() {
+            };
+
+                allPresets = new List<TrainingScheduleType[]>() {
                 SprintingAllWeek,SprintingWithWeightTraining,
                 SprintingWithTrainingMatch,
                 TrainingMatchAllWeek,GKAgility,
@@ -17,12 +28,12 @@ namespace Fsm97Trainer
                 ShootingAllWeek,
                 PassingAllWeek,
 
-                HeadingAllWeek,ImproveHeading,
+                HeadingAllWeek,ImproveHeading,HeadingWithSprint,
                 ControlAllWeek,
                 MarkingAllWeek,ImproveMarking,
                 TacklingSkillAllWeek,ImproveTacklingSkill,
                 ImproveTacklingBalanced,ImproveTacklingBalancedWithTrainingMatch,
-                ImproveAwarenessSchedule,ImproveAwarenessScheduleMaxPower,
+                ImproveAwareness,ZonalDefenceAllWeek,
                 FiveASideAllWeek,
                 KickingAllWeek,ImproveKicking,
                 ThrowingAllWeek,
@@ -34,7 +45,9 @@ namespace Fsm97Trainer
                 MaintainShape,
                 None
             };
-            noNegativePresets= new List<TrainingScheduleType[]>() {
+            allPresets.AddRange(defaultPresets);
+            
+            noNegativePresets = new List<TrainingScheduleType[]>() {
                 SprintingWithWeightTraining,
                 SprintingWithTrainingMatch,
                 TrainingMatchAllWeek,GKAgility,
@@ -46,7 +59,7 @@ namespace Fsm97Trainer
                 ImproveMarking,
                 ImproveTacklingSkill,
                 ImproveTacklingBalanced,ImproveTacklingBalancedWithTrainingMatch,
-                ImproveAwarenessSchedule,
+                ImproveAwareness,
                 FiveASideAllWeek,
                 ImproveKicking,
                 ThrowingAllWeek,
@@ -72,6 +85,14 @@ namespace Fsm97Trainer
             get
             {
                 return noNegativePresets;
+            }
+        }
+        static List<TrainingScheduleType[]> defaultPresets;
+        public static List<TrainingScheduleType[]> DefaultPresets
+        {
+            get
+            {
+                return defaultPresets;
             }
         }
         public static TrainingScheduleType[] SprintingAllWeek = new TrainingScheduleType[] {
@@ -146,11 +167,17 @@ namespace Fsm97Trainer
             TrainingScheduleType.Heading
         };
 
+        public static TrainingScheduleType[] HeadingWithSprint= new TrainingScheduleType[] {
+           TrainingScheduleType.Heading, TrainingScheduleType.Heading,
+            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
+            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
+            TrainingScheduleType.Sprinting
+        };
         public static TrainingScheduleType[] ImproveHeading = new TrainingScheduleType[] {
            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
             TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Heading,
-            TrainingScheduleType.Heading
+            TrainingScheduleType.Sprinting, TrainingScheduleType.TrainingMatch,
+            TrainingScheduleType.TrainingMatch
         };
 
         public static TrainingScheduleType[] ControlAllWeek = new TrainingScheduleType[] {
@@ -198,13 +225,13 @@ namespace Fsm97Trainer
             TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
             TrainingScheduleType.TrainingMatch
         };
-        public static TrainingScheduleType[] ImproveAwarenessSchedule = new TrainingScheduleType[] {
+        public static TrainingScheduleType[] ImproveAwareness = new TrainingScheduleType[] {
            TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
-            TrainingScheduleType.ZonalDefence, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.WeightTraining,
+            TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
+            TrainingScheduleType.ZonalDefence, TrainingScheduleType.TrainingMatch,
             TrainingScheduleType.TrainingMatch
         };
-        public static TrainingScheduleType[] ImproveAwarenessScheduleMaxPower = new TrainingScheduleType[] {
+        public static TrainingScheduleType[] ZonalDefenceAllWeek = new TrainingScheduleType[] {
            TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
             TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
             TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
@@ -300,5 +327,82 @@ namespace Fsm97Trainer
             TrainingScheduleType.None, TrainingScheduleType.None,
             TrainingScheduleType.None
         };
+        static TrainingScheduleType[] DefaultGK = new TrainingScheduleType[] {
+           TrainingScheduleType.Sprinting, TrainingScheduleType.Control,
+            TrainingScheduleType.Handling, TrainingScheduleType.Kicking,
+            TrainingScheduleType.Kicking, TrainingScheduleType.Throwing,
+            TrainingScheduleType.TrainingMatch
+        };
+        static TrainingScheduleType[] DefaultLRB = new TrainingScheduleType[] {
+           TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
+            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
+            TrainingScheduleType.Sprinting, TrainingScheduleType.Heading,
+            TrainingScheduleType.TrainingMatch
+        };
+        static TrainingScheduleType[] DefaultCD = new TrainingScheduleType[] {
+           TrainingScheduleType.Sprinting, TrainingScheduleType.Heading,
+            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
+            TrainingScheduleType.Control, TrainingScheduleType.Control,
+            TrainingScheduleType.TrainingMatch
+        };
+        static TrainingScheduleType[] DefaultLRWB = new TrainingScheduleType[] {
+           TrainingScheduleType.Sprinting, TrainingScheduleType.TrainingMatch,
+            TrainingScheduleType.Control, TrainingScheduleType.Marking,
+            TrainingScheduleType.Sprinting, TrainingScheduleType.TrainingMatch,
+            TrainingScheduleType.Control
+        };
+        static TrainingScheduleType[] DefaultDMSW = new TrainingScheduleType[] {
+           TrainingScheduleType.Sprinting, TrainingScheduleType.Heading,
+            TrainingScheduleType.Sprinting, TrainingScheduleType.Control,
+            TrainingScheduleType.Marking, TrainingScheduleType.TrainingMatch,
+            TrainingScheduleType.TrainingMatch
+        };
+
+
+        static TrainingScheduleType[] DefaultLRAMLRW = new TrainingScheduleType[] {
+           TrainingScheduleType.Sprinting, TrainingScheduleType.Tackling,
+            TrainingScheduleType.TrainingMatch, TrainingScheduleType.Sprinting,
+            TrainingScheduleType.Tackling, TrainingScheduleType.TrainingMatch,
+            TrainingScheduleType.TrainingMatch
+        };
+        static TrainingScheduleType[] DefaultFRFORSS = new TrainingScheduleType[] {
+           TrainingScheduleType.Sprinting, TrainingScheduleType.Heading,
+            TrainingScheduleType.TrainingMatch, TrainingScheduleType.Sprinting,
+            TrainingScheduleType.Heading, TrainingScheduleType.TrainingMatch,
+            TrainingScheduleType.Control
+        };
+
+
+        public static TrainingScheduleType[] GetDefaultTrainingSchedule(PlayerPosition playerPosition, TrainingEffectModifier trainingEffectModifier)
+        {
+            switch (playerPosition)
+            {
+                case PlayerPosition.GK:
+                    return DefaultGK;
+                case PlayerPosition.RB:
+                case PlayerPosition.LB:
+                    return DefaultLRB;
+                case PlayerPosition.CD:
+                    return DefaultCD;
+                case PlayerPosition.RWB:
+                case PlayerPosition.LWB:
+                    return DefaultLRWB;
+                case PlayerPosition.SW:
+                case PlayerPosition.DM:
+                    return DefaultDMSW;
+                case PlayerPosition.RM:
+                case PlayerPosition.LM:
+                case PlayerPosition.AM:
+                case PlayerPosition.RW:
+                case PlayerPosition.LW:
+                    return DefaultLRAMLRW;
+                case PlayerPosition.FR:
+                case PlayerPosition.FOR:
+                case PlayerPosition.SS:
+                    return DefaultFRFORSS;
+                default:
+                    return null;
+            }
+        }
     }
 }

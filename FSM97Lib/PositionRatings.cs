@@ -155,14 +155,169 @@ namespace FSM97Lib
             ssRatings[(int)PlayerAttribute.Flair] = 10;
             ratings[(int)PlayerPosition.SS] = ssRatings;
         }
-        public static double GetPositionRatingDouble(int playerPosition, byte[] attributes)
+        public static double GetPositionRatingDouble(int playerPosition, IPlayerTrainableAttributes<double> playerTrainableAttributes) 
         {
+            var positionRatings = ratings[playerPosition];
             double sum = 0;
             for (int i = 0; i < (int)PlayerAttribute.Count; i++)
             {
-                sum += ratings[playerPosition][i] * attributes[i];
+                    sum += positionRatings[i] * (double)(playerTrainableAttributes.Attributes[i]);
             }
             return sum / 100;
+        }
+        public static double GetPositionRatingDouble(int playerPosition, IPlayerTrainableAttributes<int> playerTrainableAttributes)
+        {
+            var positionRatings = ratings[playerPosition];
+            double sum = 0;
+            for (int i = 0; i < (int)PlayerAttribute.Count; i++)
+            {
+                sum += positionRatings[i] * (double)(playerTrainableAttributes.Attributes[i]);
+            }
+            return sum / 100;
+        }
+        public static int GetPositionRating(int playerPosition, IPlayerTrainableAttributes<int> playerTrainableAttributes)
+        {
+            var positionRatings = ratings[playerPosition];
+            double sum = 0;
+            for (int i = 0; i < (int)PlayerAttribute.Count; i++)
+            {
+                    sum += positionRatings[i] * (double)(playerTrainableAttributes.Attributes[i]);
+            }
+            return (int)sum / 100;
+        }
+        public static int BestFitInFormation(Formation targetFormation, IPlayerTrainableAttributes<int> playerTrainableAttributes)
+        {
+            double bestPositionRating = 0;
+            int bestPosition = 0;
+            for (int i = 0; i < targetFormation.PlayersInEachPosition.Length; i++)
+            {
+                if (targetFormation.PlayersInEachPosition[i] > 0)
+                {
+                    double testPositionRating = GetPositionRatingDouble(i, playerTrainableAttributes);
+                    if (bestPositionRating < testPositionRating)
+                    {
+                        bestPosition = i;
+                        bestPositionRating = testPositionRating;
+                    }
+                }
+            }
+            return bestPosition;
+        }
+
+        public static int GetBestPositionExceptGKInFormation(Formation formation, IPlayerTrainableAttributes<int> playerTrainableAttributes)
+        {
+            double bestPositionRating = 0;
+            int bestPosition = 0;
+            for (int i = 1; i < (int)PlayerPosition.Count; i++)
+            {
+                if (formation != null)
+                {
+                    if (formation.PlayersInEachPosition[i] == 0) continue;
+                }
+                double testPositionRating = GetPositionRatingDouble(i, playerTrainableAttributes);
+                if (bestPositionRating < testPositionRating)
+                {
+                    bestPosition = i;
+                    bestPositionRating = testPositionRating;
+                }
+            }
+            return bestPosition;
+        }
+        public static double GetBestPositionRatingExceptGKInFormation(Formation formation, IPlayerTrainableAttributes<int> playerTrainableAttributes)
+        {
+            double bestPositionRating = 0;
+            int bestPosition = 0;
+            for (int i = 1; i < (int)PlayerPosition.Count; i++)
+            {
+                if (formation != null)
+                {
+                    if (formation.PlayersInEachPosition[i] == 0) continue;
+                }
+                double testPositionRating = GetPositionRatingDouble(i, playerTrainableAttributes);
+                if (bestPositionRating < testPositionRating)
+                {
+                    bestPosition = i;
+                    bestPositionRating = testPositionRating;
+                }
+            }
+            return bestPositionRating;
+        }
+        public static double GetBestPositionRating(PlayerPosition[] targetPositions, IPlayerTrainableAttributes<int> playerTrainableAttributes)
+        {
+            double bestPositionRating = 0;
+            PlayerPosition bestPosition = 0;
+            foreach (var targetPosition in targetPositions)
+            {
+                double testPositionRating = GetPositionRatingDouble((int)targetPosition, playerTrainableAttributes);
+                if (bestPositionRating < testPositionRating)
+                {
+                    bestPosition = targetPosition;
+                    bestPositionRating = testPositionRating;
+                }
+            }
+            return bestPositionRating;
+        }
+        public static int BestFitInPositions(PlayerPosition[] targetPositions, IPlayerTrainableAttributes<int> playerTrainableAttributes)
+        {
+            double bestPositionRating = 0;
+            PlayerPosition bestPosition = 0;
+            foreach (var targetPosition in targetPositions)
+            {
+                double testPositionRating = GetPositionRatingDouble((int)targetPosition, playerTrainableAttributes);
+                if (bestPositionRating < testPositionRating)
+                {
+                    bestPosition = targetPosition;
+                    bestPositionRating = testPositionRating;
+                }
+            }
+            return (int)bestPosition;
+        }
+
+        public static double GetAveragePositionRatingInFormationExceptTargetPositionAndGK(IPlayerTrainableAttributes<int> data, int position, Formation formation)
+        {
+            double sumPositionRating = 0;
+            int countPositions = 0;
+
+            for (int i = 1; i < (int)PlayerPosition.Count; i++)
+            {
+                if (formation != null)
+                {
+                    if (formation.PlayersInEachPosition[i] == 0) continue;
+                }
+
+                double testPositionRating = GetPositionRatingDouble(i, data);
+                sumPositionRating += testPositionRating;
+                countPositions++;
+            }
+            return sumPositionRating + countPositions;
+        }
+
+        public static int GetBestPositionWithinLimit(int[] positionLimit, IPlayerTrainableAttributes<int> playerTrainableAttributes)
+        {
+            double bestPositionRating = 0;
+            PlayerPosition bestPosition = 0;
+            List<double> positionRatings = new List<double>((int)PlayerPosition.Count);
+            for (int targetPosition = 0; targetPosition < (int)PlayerPosition.Count; targetPosition++)
+            {
+                var targetPositionQuota = positionLimit[targetPosition];
+                if (targetPositionQuota == 0) continue;
+                double testPositionRating = GetPositionRatingDouble(targetPosition, playerTrainableAttributes);
+                positionRatings.Add(testPositionRating);
+                if (bestPositionRating < testPositionRating)
+                {
+                    bestPosition = (PlayerPosition)targetPosition;
+                    bestPositionRating = testPositionRating;
+                }
+                else if (bestPositionRating == testPositionRating)
+                {
+                    //favor front court positions
+                    //except for=>ss
+                    if (targetPosition == (int)PlayerPosition.SS && bestPosition == PlayerPosition.FOR)
+                        continue;
+                    bestPosition = (PlayerPosition)targetPosition;
+                }
+            }
+            return (int)bestPosition;
         }
     }
 }

@@ -1,17 +1,15 @@
 ﻿using System.Collections.Generic;
 
-namespace Fsm97Trainer
+namespace FSM97Lib
 {
-    public class Team
+    public class TeamModel
     {
         public string Name { get; set; }
         public string FanGroupName { get; set; }
         public string Abbreviation { get; set; }
         public string ManagerFirstName { get; set; }
         public string ManagerLastName { get; set; }
-        public LinkedList<PlayerNode> PlayerNodes { get; set; }
         public ushort Id { get; set; }
-        public int Address { get; set; }
         public string Stadium { get; set; }
         public string MapName { get; set; }
 
@@ -25,8 +23,8 @@ namespace Fsm97Trainer
 
         public override string ToString()
         {
-            return string.Format("{0:X}:#{1:x} {2}({6}) :{3},{4}, Fan Group {5} at {7}, Map {8" +
-                "}", Address, Id, Name, ManagerFirstName, ManagerLastName, FanGroupName, Abbreviation, Stadium, MapName);
+            return string.Format("#{0:x} {1}({2}) :{3},{4}, Fan Group {5} at {6}, Map {7}", 
+                Id, Name, Abbreviation, ManagerLastName,ManagerFirstName, FanGroupName, Stadium, MapName);
         }
     }
 }

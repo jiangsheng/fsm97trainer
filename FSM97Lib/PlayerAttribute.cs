@@ -7,35 +7,35 @@ namespace FSM97Lib
 {
     public enum PlayerAttribute
     {
-        Speed,
-        Agility,
-        Acceleration,
+        Speed,//0
+        Agility,//1
+        Acceleration,//2
 
-        Stamina,
-        Strength,
-        Fitness,
+        Stamina,//3
+        Strength,//4
+        Fitness,//5
 
-        Shooting,
-        Passing,
-        Heading,
-        Control,
-        Dribbling,
+        Shooting,//6
+        Passing,//7
+        Heading,//8
+        Control,//9
+        Dribbling,//10
         
-        Coolness,Awareness,
-        TackleDetermination,
-        TackleSkill,
-        Flair,
+        Coolness,//11
+        Awareness,//12
+        TackleDetermination,//13
+        TackleSkill,//14
+        Flair,//15
 
-        Kicking,
-        Throwing,
-        Handling,
+        Kicking,//16
+        Throwing,//17
+        Handling,//18
 
-        ThrowIn,
-        Leadership,
-        Consistency,
-        Determination,
-        Greed,
-        
+        ThrowIn,//19
+        Leadership,//20
+        Consistency,//21
+        Determination,//22
+        Greed,//23        
         Count
     }
 }

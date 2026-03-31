@@ -372,7 +372,7 @@ namespace FSM97Lib
                 int attribute = 99 - attributes[attributeIndex];
                 if (attribute < 0) attribute = 0;
                 if (attribute == 0) continue;
-                sum += attribute*trainingEffectModifier.RawData[scheduleType * 27 + attributeIndex];
+                sum += attribute*trainingEffectModifier.TrainingEffects[scheduleType][attributeIndex];
             }
             return sum;
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FSM97Lib;
+using System.Collections.Generic;
 
 namespace Fsm97Trainer
 {
