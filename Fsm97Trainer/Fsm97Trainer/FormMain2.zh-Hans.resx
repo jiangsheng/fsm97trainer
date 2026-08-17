@@ -123,42 +123,40 @@
   <data name="tabPageFormation.Text" xml:space="preserve">
     <value>阵型</value>
   </data>
+  <data name="checkBoxAutoTrainingSchedule.Text" xml:space="preserve">
+    <value>自动化训练日程</value>
+  </data>
+  <data name="labelAutoTraningSchedule.Text" xml:space="preserve">
+    <value>根据球员位置和能力自动设置训练计划。</value>
+  </data>
+  <data name="checkBoxConvertToGk.Text" xml:space="preserve">
+    <value>替补转守门员</value>
+  </data>
+  <data name="labelCnvertToGK.Text" xml:space="preserve">
+    <value>将替补转为守门员来最小化受伤风险。训练日程无变化。
+除非你忘记在赛季末使用位置自适应，
+否则球员的退役威胁是没有用的。</value>
+  </data>
+  <data name="checkBoxAlwaysTrainConsistency.Text" xml:space="preserve">
+    <value>总是训练意志</value>
+  </data>
+  <data name="labelComputerBoost.Text" xml:space="preserve">
+    <value>电脑不训练，因此游戏越来越无聊。所以这里有一些更改来弥补这一点。</value>
+  </data>
+  <data name="buttonBoostYouthPlayers.Text" xml:space="preserve">
+    <value>改善年轻球员</value>
+  </data>
+  <data name="labelBoostYouthPlayers.Text" xml:space="preserve">
+    <value>新生球员全属性+25。</value>
+  </data>
+  <data name="buttonBoostAllPlayersBy1.Text" xml:space="preserve">
+    <value>所有球员全属性+1</value>
+  </data>
+  <data name="labelBoostAllPlayersBy1.Text" xml:space="preserve">
+    <value>所有球员属性+1</value>
+  </data>
   <data name="tabPageTraining.Text" xml:space="preserve">
     <value>训练</value>
-  </data>
-  <data name="buttonExportPlayerData.Text" xml:space="preserve">
-    <value>导出球员数据</value>
-  </data>
-  <data name="labelExportPlayerData.Text" xml:space="preserve">
-    <value>将球员数据导出为CSV格式。
-可用Excel等软件进行数据分析或修改，之后导入。</value>
-  </data>
-  <data name="buttonImport.Text" xml:space="preserve">
-    <value>导入球员数据</value>
-  </data>
-  <data name="labelImportPlayerData.Text" xml:space="preserve">
-    <value>导入编辑后的数据。匹配基于球员名字，所以不要更改姓名。</value>
-  </data>
-  <data name="buttonCopyPlayerData.Text" xml:space="preserve">
-    <value>复制球员数据</value>
-  </data>
-  <data name="labelCopyPlayerData.Text" xml:space="preserve">
-    <value>保存球员数据准备粘贴。可用于在赛季末保存即将退役的球员的训练结果。</value>
-  </data>
-  <data name="buttonPastePlayerData.Text" xml:space="preserve">
-    <value>粘贴球员数据</value>
-  </data>
-  <data name="labelPastePlayerData.Text" xml:space="preserve">
-    <value>粘贴保存的球员数据。可用于赛季初将退役球员数据复制到再生球员。</value>
-  </data>
-  <data name="buttonEvalYoungPlayers.Text" xml:space="preserve">
-    <value>评估年轻球员</value>
-  </data>
-  <data name="labelEvalMaxAge.Text" xml:space="preserve">
-    <value>年龄上限</value>
-  </data>
-  <data name="labelEvilYoungPlayers.Text" xml:space="preserve">
-    <value>评估其他球队的年轻队员。</value>
   </data>
   <data name="tabPageTransfer.Text" xml:space="preserve">
     <value>数据</value>
@@ -232,40 +230,39 @@
   <data name="labelNoAbsense.Text" xml:space="preserve">
     <value>红牌不是问题。</value>
   </data>
-  <data name="checkBoxAutoTrainingSchedule.Text" xml:space="preserve">
-    <value>自动化训练日程</value>
+  <data name="buttonExportPlayerData.Text" xml:space="preserve">
+    <value>导出球员数据</value>
   </data>
-  <data name="labelAutoTraningSchedule.Text" xml:space="preserve">
-    <value>根据球员位置和能力自动设置训练计划。</value>
+  <data name="labelExportPlayerData.Text" xml:space="preserve">
+    <value>将球员数据导出为CSV格式。
+可用Excel等软件进行数据分析或修改，之后导入。</value>
   </data>
-  <data name="checkBoxConvertToGk.Text" xml:space="preserve">
-    <value>替补转守门员</value>
+  <data name="buttonImport.Text" xml:space="preserve">
+    <value>导入球员数据</value>
   </data>
-  <data name="labelCnvertToGK.Text" xml:space="preserve">
-    <value>将替补转为守门员来最小化受伤风险。训练日程无变化。
-除非你忘记在赛季末使用位置自适应，
-否则球员的退役威胁是没有用的。</value>
+  <data name="labelImportPlayerData.Text" xml:space="preserve">
+    <value>导入编辑后的数据。匹配基于球员名字，所以不要更改姓名。</value>
   </data>
-  <data name="checkBoxCurrentPositionOnly.Text" xml:space="preserve">
-    <value>仅当前位置</value>
+  <data name="buttonCopyPlayerData.Text" xml:space="preserve">
+    <value>复制球员数据</value>
   </data>
-  <data name="labelCurrentPositionOnly.Text" xml:space="preserve">
-    <value>只针对当前位置优化，可能造成总进度较慢。</value>
+  <data name="labelCopyPlayerData.Text" xml:space="preserve">
+    <value>保存球员数据准备粘贴。可用于在赛季末保存即将退役的球员的训练结果。</value>
   </data>
-  <data name="labelComputerBoost.Text" xml:space="preserve">
-    <value>电脑不训练，因此游戏越来越无聊。所以这里有一些更改来弥补这一点。</value>
+  <data name="buttonPastePlayerData.Text" xml:space="preserve">
+    <value>粘贴球员数据</value>
   </data>
-  <data name="buttonBoostYouthPlayers.Text" xml:space="preserve">
-    <value>改善年轻球员</value>
+  <data name="labelPastePlayerData.Text" xml:space="preserve">
+    <value>粘贴保存的球员数据。可用于赛季初将退役球员数据复制到再生球员。</value>
   </data>
-  <data name="labelBoostYouthPlayers.Text" xml:space="preserve">
-    <value>新生球员全属性+25。</value>
+  <data name="buttonEvalYoungPlayers.Text" xml:space="preserve">
+    <value>评估年轻球员</value>
   </data>
-  <data name="buttonBoostAllPlayersBy1.Text" xml:space="preserve">
-    <value>所有球员全属性+1</value>
+  <data name="labelEvalMaxAge.Text" xml:space="preserve">
+    <value>年龄上限</value>
   </data>
-  <data name="labelBoostAllPlayersBy1.Text" xml:space="preserve">
-    <value>所有球员属性+1</value>
+  <data name="labelEvilYoungPlayers.Text" xml:space="preserve">
+    <value>评估其他球队的年轻队员。</value>
   </data>
   <data name="buttonPurchaseLand.Text" xml:space="preserve">
     <value>购买全部土地</value>
@@ -305,5 +302,11 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>FSM97 球探工具</value>
+  </data>
+  <data name="checkBoxCurrentPositionOnly.Text" xml:space="preserve">
+    <value>仅当前位置</value>
+  </data>
+  <data name="labelCurrentPositionOnly.Text" xml:space="preserve">
+    <value>只针对当前位置优化，可能造成总进度较慢。</value>
   </data>
 </root>

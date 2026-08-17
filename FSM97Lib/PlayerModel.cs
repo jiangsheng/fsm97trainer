@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FSM97Lib
 {
-    public class PlayerModel:IPlayerTrainableAttributes<int>,ITeamMember, IPerson, IObjectWithPersonName
+    public class PlayerModel:IPlayerTrainableAttributes<int>,ITeamMember<int>, IPerson, IObjectWithPersonName
     {
         int[] attributes = new int[(int)PlayerAttribute.Count];
         public int[] Attributes

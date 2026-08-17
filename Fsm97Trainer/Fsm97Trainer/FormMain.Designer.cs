@@ -26,6 +26,7 @@ namespace Fsm97Trainer
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelMaxPlayerForm = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxMaxForm = new System.Windows.Forms.CheckBox();
+            this.bindingSourceModel = new System.Windows.Forms.BindingSource(this.components);
             this.checkBoxMaxMorale = new System.Windows.Forms.CheckBox();
             this.checkBoxMaxEnergy = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanelImprovePlayers = new System.Windows.Forms.TableLayoutPanel();
@@ -72,13 +73,13 @@ namespace Fsm97Trainer
             this.timerUpdateFast = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateSlow = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.bindingSourceModel = new System.Windows.Forms.BindingSource(this.components);
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelMaxPlayerForm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceModel)).BeginInit();
             this.tableLayoutPanelImprovePlayers.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanelImportExport.SuspendLayout();
@@ -89,7 +90,6 @@ namespace Fsm97Trainer
             this.tableLayoutPanelFormation.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanelAutoTrain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceModel)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -154,6 +154,11 @@ namespace Fsm97Trainer
             this.checkBoxMaxForm.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.bindingSourceModel, "MaxForm", true));
             this.checkBoxMaxForm.Name = "checkBoxMaxForm";
             this.checkBoxMaxForm.UseVisualStyleBackColor = true;
+            // 
+            // bindingSourceModel
+            // 
+            this.bindingSourceModel.AllowNew = false;
+            this.bindingSourceModel.DataSource = typeof(Fsm97Trainer.Models.FormMainModel);
             // 
             // checkBoxMaxMorale
             // 
@@ -504,11 +509,6 @@ namespace Fsm97Trainer
             this.timerUpdateSlow.Interval = 180000;
             this.timerUpdateSlow.Tick += new System.EventHandler(this.timerUpdateSlow_Tick);
             // 
-            // bindingSourceModel
-            // 
-            this.bindingSourceModel.AllowNew = false;
-            this.bindingSourceModel.DataSource = typeof(Fsm97Trainer.Models.FormMainModel);
-            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -526,6 +526,7 @@ namespace Fsm97Trainer
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelMaxPlayerForm.ResumeLayout(false);
             this.tableLayoutPanelMaxPlayerForm.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceModel)).EndInit();
             this.tableLayoutPanelImprovePlayers.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -540,7 +541,6 @@ namespace Fsm97Trainer
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanelAutoTrain.ResumeLayout(false);
             this.tableLayoutPanelAutoTrain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceModel)).EndInit();
             this.ResumeLayout(false);
 
         }

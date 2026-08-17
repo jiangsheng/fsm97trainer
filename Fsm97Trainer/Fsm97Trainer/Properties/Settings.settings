@@ -44,5 +44,8 @@
     <Setting Name="MaxEvalAge" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">19</Value>
     </Setting>
+    <Setting Name="AlwaysTrainConsistency" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

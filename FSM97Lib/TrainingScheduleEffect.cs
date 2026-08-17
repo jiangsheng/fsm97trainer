@@ -199,7 +199,6 @@ namespace FSM97Lib
             0,0.09f,-5f//form moral energy
         };
 
-
         public static byte[] GetTrainingScheduleEffect(TrainingEffectModifier trainingEffectModifier)
         {
             float[] resultInFloat = new float[27 * 19];
@@ -326,6 +325,7 @@ namespace FSM97Lib
             if (trainingEffectFloat[(int)TrainingScheduleType.Heading * 27 + (int)PlayerAttribute.Determination] > 0)
                 result.HeadingImproveDetermination = true;
             result.RawData = trainingEffectFloat;
+
             return result;
         }
 

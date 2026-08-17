@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FSM97Lib
 {
-    interface ITeamMember
+    interface ITeamMember<T> where T : struct
     {
         int Position { get; set; }
         int BestPosition { get; }
@@ -25,7 +25,7 @@ namespace FSM97Lib
         int GamesThisSeason { get; set; }
         TeamModel Team { get; set; }
         int Statistics { get; }
-        int PositionRating { get; }
-        int BestPositionRating { get; }
+        T PositionRating { get; }
+        T BestPositionRating { get; }
     }
 }

@@ -73,6 +73,7 @@
             this.labelEvalMaxAge = new System.Windows.Forms.Label();
             this.numericUpDownMaxAge = new System.Windows.Forms.NumericUpDown();
             this.labelEvilYoungPlayers = new System.Windows.Forms.Label();
+            this.webBrowserEvalResult = new System.Windows.Forms.WebBrowser();
             this.tabPageOther = new System.Windows.Forms.TabPage();
             this.flowLayoutPanelOther = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonPurchaseLand = new System.Windows.Forms.Button();
@@ -92,7 +93,7 @@
             this.timerFast = new System.Windows.Forms.Timer(this.components);
             this.timerEvelProgressReport = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerEval = new System.ComponentModel.BackgroundWorker();
-            this.webBrowserEvalResult = new System.Windows.Forms.WebBrowser();
+            this.checkBoxAlwaysTrainConsistency = new System.Windows.Forms.CheckBox();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -347,6 +348,7 @@
             this.flowLayoutPanelTraining.Controls.Add(this.labelAutoTraningSchedule);
             this.flowLayoutPanelTraining.Controls.Add(this.checkBoxConvertToGk);
             this.flowLayoutPanelTraining.Controls.Add(this.labelCnvertToGK);
+            this.flowLayoutPanelTraining.Controls.Add(this.checkBoxAlwaysTrainConsistency);
             this.flowLayoutPanelTraining.Controls.Add(this.labelComputerBoost);
             this.flowLayoutPanelTraining.Controls.Add(this.buttonBoostYouthPlayers);
             this.flowLayoutPanelTraining.Controls.Add(this.labelBoostYouthPlayers);
@@ -523,6 +525,11 @@
             resources.ApplyResources(this.labelEvilYoungPlayers, "labelEvilYoungPlayers");
             this.flowLayoutPanelData.SetFlowBreak(this.labelEvilYoungPlayers, true);
             this.labelEvilYoungPlayers.Name = "labelEvilYoungPlayers";
+            // 
+            // webBrowserEvalResult
+            // 
+            resources.ApplyResources(this.webBrowserEvalResult, "webBrowserEvalResult");
+            this.webBrowserEvalResult.Name = "webBrowserEvalResult";
             // 
             // tabPageOther
             // 
@@ -712,10 +719,12 @@
             this.backgroundWorkerEval.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerEval_ProgressChanged);
             this.backgroundWorkerEval.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerEval_RunWorkerCompleted);
             // 
-            // webBrowserEvalResult
+            // checkBoxAlwaysTrainConsistency
             // 
-            resources.ApplyResources(this.webBrowserEvalResult, "webBrowserEvalResult");
-            this.webBrowserEvalResult.Name = "webBrowserEvalResult";
+            resources.ApplyResources(this.checkBoxAlwaysTrainConsistency, "checkBoxAlwaysTrainConsistency");
+            this.flowLayoutPanelTraining.SetFlowBreak(this.checkBoxAlwaysTrainConsistency, true);
+            this.checkBoxAlwaysTrainConsistency.Name = "checkBoxAlwaysTrainConsistency";
+            this.checkBoxAlwaysTrainConsistency.UseVisualStyleBackColor = true;
             // 
             // FormMain2
             // 
@@ -829,5 +838,6 @@
         private System.Windows.Forms.Timer timerEvelProgressReport;
         private System.ComponentModel.BackgroundWorker backgroundWorkerEval;
         private System.Windows.Forms.WebBrowser webBrowserEvalResult;
+        private System.Windows.Forms.CheckBox checkBoxAlwaysTrainConsistency;
     }
 }

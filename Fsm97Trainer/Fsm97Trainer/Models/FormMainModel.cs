@@ -222,6 +222,7 @@ namespace Fsm97Trainer.Models
         public int RestoreBoundsTop { get; set; }
         public int RestoreBoundsRight { get; set; }
         public int RestoreBoundsBottom { get; set; }
+        public bool AlwaysTrainConsistency{ get; set; }
 
         string evalYoungPlayersResult;
 
@@ -525,8 +526,7 @@ namespace Fsm97Trainer.Models
             try
             {
                 MenusProcess menusProcess = GetMenusProcess();
-                menusProcess.DebugTraining = DebugTraining;
-                menusProcess.FastUpdate(AutoTrain, ConvertToGK, AutoResetStatus, MaxEnergy, MaxForm, MaxMorale, MaxPower, NoAlternativeTraining
+                menusProcess.FastUpdate(AutoTrain, ConvertToGK, AutoResetStatus, MaxEnergy, MaxForm, MaxMorale, MaxPower, NoAlternativeTraining,AlwaysTrainConsistency
                     );                
             }
             catch (Exception ex)
@@ -734,33 +734,29 @@ namespace Fsm97Trainer.Models
 
         public void EvaluateYoungPlayers(PlayerPosition playerPosition,string playerLastName,int minRating)
         {
-            if(!string.IsNullOrWhiteSpace(playerLastName))
-                DebugTraining = true;
+           
             try
             {
                 EvalProgress = 0;
                 TotalPlayerPositionsToEval = 0;
                 MenusProcess menusProcess = GetMenusProcess();
-                menusProcess.DebugTraining = DebugTraining;
                 EvalYoungPlayersResult =menusProcess.EvaluateYoungPlayers(playerPosition,MaxEvalAge, AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining
-                    , EvaluateYoungPlayersReportProgress, EvaluateYoungPlayersReportTotalPlayerPositions,DebugTraining, playerLastName, minRating);
+                    , EvaluateYoungPlayersReportProgress, EvaluateYoungPlayersReportTotalPlayerPositions,playerLastName, minRating, AlwaysTrainConsistency,DebugTraining);
             }
             catch (Exception ex)
             {
                 ReportError(ex);
             }
         }
-        public void EvaluateYoungPlayer(PlayerPosition playerPosition, PlayerModel player)
+        public void EvaluateYoungPlayer(PlayerPosition playerPosition, PlayerModelDouble player)
         {
-            DebugTraining = true;
             try
             {
                 EvalProgress = 0;
                 TotalPlayerPositionsToEval = 0;
                 MenusProcess menusProcess = GetMenusProcess();
-                menusProcess.DebugTraining = DebugTraining;
                 EvalYoungPlayersResult = menusProcess.EvaluateYoungPlayers(playerPosition, MaxEvalAge, AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining
-                    , EvaluateYoungPlayersReportProgress, EvaluateYoungPlayersReportTotalPlayerPositions, DebugTraining, player);
+                    , EvaluateYoungPlayersReportProgress, EvaluateYoungPlayersReportTotalPlayerPositions, AlwaysTrainConsistency,player, DebugTraining);
             }
             catch (Exception ex)
             {

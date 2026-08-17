@@ -174,6 +174,862 @@
   <data name="tabControlMain.Alignment" type="System.Windows.Forms.TabAlignment, System.Windows.Forms">
     <value>Bottom</value>
   </data>
+  <data name="&gt;&gt;flowLayoutPanelFormation.Name" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelFormation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelFormation.Parent" xml:space="preserve">
+    <value>tabPageFormation</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelFormation.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tabPageFormation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
+  </data>
+  <data name="tabPageFormation.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageFormation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1003, 640</value>
+  </data>
+  <data name="tabPageFormation.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPageFormation.Text" xml:space="preserve">
+    <value>Formation</value>
+  </data>
+  <data name="&gt;&gt;tabPageFormation.Name" xml:space="preserve">
+    <value>tabPageFormation</value>
+  </data>
+  <data name="&gt;&gt;tabPageFormation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageFormation.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageFormation.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxAutoTrainingSchedule.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="checkBoxAutoTrainingSchedule.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 24</value>
+  </data>
+  <data name="checkBoxAutoTrainingSchedule.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxAutoTrainingSchedule.Text" xml:space="preserve">
+    <value>Auto Training Schedule</value>
+  </data>
+  <data name="checkBoxAutoTrainingSchedule.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoTrainingSchedule.Name" xml:space="preserve">
+    <value>checkBoxAutoTrainingSchedule</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoTrainingSchedule.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoTrainingSchedule.Parent" xml:space="preserve">
+    <value>flowLayoutPanelTraining</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoTrainingSchedule.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelAutoTraningSchedule.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="labelAutoTraningSchedule.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelAutoTraningSchedule.Location" type="System.Drawing.Point, System.Drawing">
+    <value>209, 5</value>
+  </data>
+  <data name="labelAutoTraningSchedule.Size" type="System.Drawing.Size, System.Drawing">
+    <value>247, 20</value>
+  </data>
+  <data name="labelAutoTraningSchedule.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelAutoTraningSchedule.Text" xml:space="preserve">
+    <value>Manage training schedule for you.</value>
+  </data>
+  <data name="&gt;&gt;labelAutoTraningSchedule.Name" xml:space="preserve">
+    <value>labelAutoTraningSchedule</value>
+  </data>
+  <data name="&gt;&gt;labelAutoTraningSchedule.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelAutoTraningSchedule.Parent" xml:space="preserve">
+    <value>flowLayoutPanelTraining</value>
+  </data>
+  <data name="&gt;&gt;labelAutoTraningSchedule.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="checkBoxConvertToGk.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxConvertToGk.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 33</value>
+  </data>
+  <data name="checkBoxConvertToGk.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 24</value>
+  </data>
+  <data name="checkBoxConvertToGk.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="checkBoxConvertToGk.Text" xml:space="preserve">
+    <value>Convert subs to GK</value>
+  </data>
+  <data name="checkBoxConvertToGk.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;checkBoxConvertToGk.Name" xml:space="preserve">
+    <value>checkBoxConvertToGk</value>
+  </data>
+  <data name="&gt;&gt;checkBoxConvertToGk.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxConvertToGk.Parent" xml:space="preserve">
+    <value>flowLayoutPanelTraining</value>
+  </data>
+  <data name="&gt;&gt;checkBoxConvertToGk.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelCnvertToGK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="labelCnvertToGK.Location" type="System.Drawing.Point, System.Drawing">
+    <value>209, 30</value>
+  </data>
+  <data name="labelCnvertToGK.Size" type="System.Drawing.Size, System.Drawing">
+    <value>536, 86</value>
+  </data>
+  <data name="labelCnvertToGK.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="labelCnvertToGK.Text" xml:space="preserve">
+    <value>Minimize training injuries by converting subs to GK. 
+Don't worry, the schedule is unchanged, 
+and their retirement threats are empty 
+if you perform Auto Position at the end of the season.
+</value>
+  </data>
+  <data name="&gt;&gt;labelCnvertToGK.Name" xml:space="preserve">
+    <value>labelCnvertToGK</value>
+  </data>
+  <data name="&gt;&gt;labelCnvertToGK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelCnvertToGK.Parent" xml:space="preserve">
+    <value>flowLayoutPanelTraining</value>
+  </data>
+  <data name="&gt;&gt;labelCnvertToGK.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxAlwaysTrainConsistency.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxAlwaysTrainConsistency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 119</value>
+  </data>
+  <data name="checkBoxAlwaysTrainConsistency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 24</value>
+  </data>
+  <data name="checkBoxAlwaysTrainConsistency.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="checkBoxAlwaysTrainConsistency.Text" xml:space="preserve">
+    <value>Always train consistency regardless of position</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAlwaysTrainConsistency.Name" xml:space="preserve">
+    <value>checkBoxAlwaysTrainConsistency</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAlwaysTrainConsistency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAlwaysTrainConsistency.Parent" xml:space="preserve">
+    <value>flowLayoutPanelTraining</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAlwaysTrainConsistency.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="labelComputerBoost.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelComputerBoost.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="labelComputerBoost.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelComputerBoost.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 156</value>
+  </data>
+  <data name="labelComputerBoost.Size" type="System.Drawing.Size, System.Drawing">
+    <value>606, 40</value>
+  </data>
+  <data name="labelComputerBoost.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="labelComputerBoost.Text" xml:space="preserve">
+    <value>Computers don't train so the games becomes less and less competitive after a while. 
+Here are some changes to make up for that.</value>
+  </data>
+  <data name="labelComputerBoost.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;labelComputerBoost.Name" xml:space="preserve">
+    <value>labelComputerBoost</value>
+  </data>
+  <data name="&gt;&gt;labelComputerBoost.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelComputerBoost.Parent" xml:space="preserve">
+    <value>flowLayoutPanelTraining</value>
+  </data>
+  <data name="&gt;&gt;labelComputerBoost.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="buttonBoostYouthPlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 199</value>
+  </data>
+  <data name="buttonBoostYouthPlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 30</value>
+  </data>
+  <data name="buttonBoostYouthPlayers.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="buttonBoostYouthPlayers.Text" xml:space="preserve">
+    <value>Boost Youth Players</value>
+  </data>
+  <data name="buttonBoostYouthPlayers.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;buttonBoostYouthPlayers.Name" xml:space="preserve">
+    <value>buttonBoostYouthPlayers</value>
+  </data>
+  <data name="&gt;&gt;buttonBoostYouthPlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonBoostYouthPlayers.Parent" xml:space="preserve">
+    <value>flowLayoutPanelTraining</value>
+  </data>
+  <data name="&gt;&gt;buttonBoostYouthPlayers.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="labelBoostYouthPlayers.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="labelBoostYouthPlayers.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelBoostYouthPlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>181, 196</value>
+  </data>
+  <data name="labelBoostYouthPlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>251, 40</value>
+  </data>
+  <data name="labelBoostYouthPlayers.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="labelBoostYouthPlayers.Text" xml:space="preserve">
+    <value>Attributes of new spawned players
+ are increased by 25</value>
+  </data>
+  <data name="&gt;&gt;labelBoostYouthPlayers.Name" xml:space="preserve">
+    <value>labelBoostYouthPlayers</value>
+  </data>
+  <data name="&gt;&gt;labelBoostYouthPlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelBoostYouthPlayers.Parent" xml:space="preserve">
+    <value>flowLayoutPanelTraining</value>
+  </data>
+  <data name="&gt;&gt;labelBoostYouthPlayers.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="buttonBoostAllPlayersBy1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 239</value>
+  </data>
+  <data name="buttonBoostAllPlayersBy1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 30</value>
+  </data>
+  <data name="buttonBoostAllPlayersBy1.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="buttonBoostAllPlayersBy1.Text" xml:space="preserve">
+    <value>Boost All Players By 1</value>
+  </data>
+  <data name="buttonBoostAllPlayersBy1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;buttonBoostAllPlayersBy1.Name" xml:space="preserve">
+    <value>buttonBoostAllPlayersBy1</value>
+  </data>
+  <data name="&gt;&gt;buttonBoostAllPlayersBy1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonBoostAllPlayersBy1.Parent" xml:space="preserve">
+    <value>flowLayoutPanelTraining</value>
+  </data>
+  <data name="&gt;&gt;buttonBoostAllPlayersBy1.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="labelBoostAllPlayersBy1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="labelBoostAllPlayersBy1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelBoostAllPlayersBy1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>181, 236</value>
+  </data>
+  <data name="labelBoostAllPlayersBy1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 40</value>
+  </data>
+  <data name="labelBoostAllPlayersBy1.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="labelBoostAllPlayersBy1.Text" xml:space="preserve">
+    <value>Attributes of all players 
+are increased by 1</value>
+  </data>
+  <data name="&gt;&gt;labelBoostAllPlayersBy1.Name" xml:space="preserve">
+    <value>labelBoostAllPlayersBy1</value>
+  </data>
+  <data name="&gt;&gt;labelBoostAllPlayersBy1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelBoostAllPlayersBy1.Parent" xml:space="preserve">
+    <value>flowLayoutPanelTraining</value>
+  </data>
+  <data name="&gt;&gt;labelBoostAllPlayersBy1.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="flowLayoutPanelTraining.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="flowLayoutPanelTraining.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="flowLayoutPanelTraining.Size" type="System.Drawing.Size, System.Drawing">
+    <value>997, 634</value>
+  </data>
+  <data name="flowLayoutPanelTraining.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelTraining.Name" xml:space="preserve">
+    <value>flowLayoutPanelTraining</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelTraining.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelTraining.Parent" xml:space="preserve">
+    <value>tabPageTraining</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelTraining.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tabPageTraining.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
+  </data>
+  <data name="tabPageTraining.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageTraining.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1003, 640</value>
+  </data>
+  <data name="tabPageTraining.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tabPageTraining.Text" xml:space="preserve">
+    <value>Training</value>
+  </data>
+  <data name="&gt;&gt;tabPageTraining.Name" xml:space="preserve">
+    <value>tabPageTraining</value>
+  </data>
+  <data name="&gt;&gt;tabPageTraining.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageTraining.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageTraining.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelData.Name" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelData.Parent" xml:space="preserve">
+    <value>tabPageTransfer</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelData.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tabPageTransfer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
+  </data>
+  <data name="tabPageTransfer.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageTransfer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1003, 640</value>
+  </data>
+  <data name="tabPageTransfer.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabPageTransfer.Text" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfer.Name" xml:space="preserve">
+    <value>tabPageTransfer</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfer.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageTransfer.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelOther.Name" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelOther.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelOther.Parent" xml:space="preserve">
+    <value>tabPageOther</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelOther.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tabPageOther.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
+  </data>
+  <data name="tabPageOther.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageOther.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1003, 640</value>
+  </data>
+  <data name="tabPageOther.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="tabPageOther.Text" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="&gt;&gt;tabPageOther.Name" xml:space="preserve">
+    <value>tabPageOther</value>
+  </data>
+  <data name="&gt;&gt;tabPageOther.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageOther.Parent" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabPageOther.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabControlMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tabControlMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tabControlMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1011, 673</value>
+  </data>
+  <data name="tabControlMain.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabControlMain.Name" xml:space="preserve">
+    <value>tabControlMain</value>
+  </data>
+  <data name="&gt;&gt;tabControlMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControlMain.Parent" xml:space="preserve">
+    <value>toolStripContainer1.ContentPanel</value>
+  </data>
+  <data name="&gt;&gt;tabControlMain.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="toolStripContainer1.ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1011, 673</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.ContentPanel.Name" xml:space="preserve">
+    <value>toolStripContainer1.ContentPanel</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.ContentPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripContentPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.ContentPanel.Parent" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.ContentPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="toolStripContainer1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Name" xml:space="preserve">
+    <value>toolStripContainer1.LeftToolStripPanel</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Parent" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="toolStripContainer1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Name" xml:space="preserve">
+    <value>toolStripContainer1.RightToolStripPanel</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Parent" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="toolStripContainer1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1011, 730</value>
+  </data>
+  <data name="toolStripContainer1.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="toolStripContainer1.Text" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Name" xml:space="preserve">
+    <value>toolStripContainer1.TopToolStripPanel</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Parent" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.Name" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonSaveFormation.Name" xml:space="preserve">
+    <value>buttonSaveFormation</value>
+  </data>
+  <data name="&gt;&gt;buttonSaveFormation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSaveFormation.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;buttonSaveFormation.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;labelSaveFormation.Name" xml:space="preserve">
+    <value>labelSaveFormation</value>
+  </data>
+  <data name="&gt;&gt;labelSaveFormation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSaveFormation.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;labelSaveFormation.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxStayInFormation.Name" xml:space="preserve">
+    <value>checkBoxStayInFormation</value>
+  </data>
+  <data name="&gt;&gt;checkBoxStayInFormation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxStayInFormation.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;checkBoxStayInFormation.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;labelStayInFormation.Name" xml:space="preserve">
+    <value>labelStayInFormation</value>
+  </data>
+  <data name="&gt;&gt;labelStayInFormation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelStayInFormation.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;labelStayInFormation.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeToBestPosition.Name" xml:space="preserve">
+    <value>buttonChangeToBestPosition</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeToBestPosition.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeToBestPosition.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeToBestPosition.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;labelChangeToBestPosition.Name" xml:space="preserve">
+    <value>labelChangeToBestPosition</value>
+  </data>
+  <data name="&gt;&gt;labelChangeToBestPosition.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelChangeToBestPosition.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;labelChangeToBestPosition.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;buttonAurateByEnergy.Name" xml:space="preserve">
+    <value>buttonAurateByEnergy</value>
+  </data>
+  <data name="&gt;&gt;buttonAurateByEnergy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAurateByEnergy.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;buttonAurateByEnergy.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;labelRotateByEnergy.Name" xml:space="preserve">
+    <value>labelRotateByEnergy</value>
+  </data>
+  <data name="&gt;&gt;labelRotateByEnergy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelRotateByEnergy.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;labelRotateByEnergy.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;buttonRotateByAbility.Name" xml:space="preserve">
+    <value>buttonRotateByAbility</value>
+  </data>
+  <data name="&gt;&gt;buttonRotateByAbility.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonRotateByAbility.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;buttonRotateByAbility.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;labelRotateByAbility.Name" xml:space="preserve">
+    <value>labelRotateByAbility</value>
+  </data>
+  <data name="&gt;&gt;labelRotateByAbility.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelRotateByAbility.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;labelRotateByAbility.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxForm.Name" xml:space="preserve">
+    <value>checkBoxMaxForm</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxForm.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxForm.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxForm.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;labelMaxForm.Name" xml:space="preserve">
+    <value>labelMaxForm</value>
+  </data>
+  <data name="&gt;&gt;labelMaxForm.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelMaxForm.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;labelMaxForm.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxMoral.Name" xml:space="preserve">
+    <value>checkBoxMaxMoral</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxMoral.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxMoral.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxMoral.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;labelMaxMoral.Name" xml:space="preserve">
+    <value>labelMaxMoral</value>
+  </data>
+  <data name="&gt;&gt;labelMaxMoral.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelMaxMoral.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;labelMaxMoral.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxEnergy.Name" xml:space="preserve">
+    <value>checkBoxMaxEnergy</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxEnergy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxEnergy.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxEnergy.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;labelMaxEnergy.Name" xml:space="preserve">
+    <value>labelMaxEnergy</value>
+  </data>
+  <data name="&gt;&gt;labelMaxEnergy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelMaxEnergy.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;labelMaxEnergy.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxStrength.Name" xml:space="preserve">
+    <value>checkBoxMaxStrength</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxStrength.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxStrength.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMaxStrength.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;labelMaxStrength.Name" xml:space="preserve">
+    <value>labelMaxStrength</value>
+  </data>
+  <data name="&gt;&gt;labelMaxStrength.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelMaxStrength.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;labelMaxStrength.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;checkBoxContractAutoRenew.Name" xml:space="preserve">
+    <value>checkBoxContractAutoRenew</value>
+  </data>
+  <data name="&gt;&gt;checkBoxContractAutoRenew.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxContractAutoRenew.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;checkBoxContractAutoRenew.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;labelContractAutoRenew.Name" xml:space="preserve">
+    <value>labelContractAutoRenew</value>
+  </data>
+  <data name="&gt;&gt;labelContractAutoRenew.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelContractAutoRenew.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;labelContractAutoRenew.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAbsense.Name" xml:space="preserve">
+    <value>checkBoxNoAbsense</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAbsense.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAbsense.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNoAbsense.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;labelNoAbsense.Name" xml:space="preserve">
+    <value>labelNoAbsense</value>
+  </data>
+  <data name="&gt;&gt;labelNoAbsense.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelNoAbsense.Parent" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;labelNoAbsense.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="flowLayoutPanelFormation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="flowLayoutPanelFormation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="flowLayoutPanelFormation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>997, 634</value>
+  </data>
+  <data name="flowLayoutPanelFormation.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelFormation.Name" xml:space="preserve">
+    <value>flowLayoutPanelFormation</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelFormation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelFormation.Parent" xml:space="preserve">
+    <value>tabPageFormation</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelFormation.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="buttonSaveFormation.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
@@ -262,6 +1118,9 @@ and use it for other functions in the trainer</value>
   <data name="&gt;&gt;checkBoxStayInFormation.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="bindingSourceMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>270, 17</value>
+  </metadata>
   <data name="labelStayInFormation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
   </data>
@@ -812,378 +1671,185 @@ rating position if possible</value>
   <data name="&gt;&gt;labelNoAbsense.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
-  <data name="flowLayoutPanelFormation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;buttonExportPlayerData.Name" xml:space="preserve">
+    <value>buttonExportPlayerData</value>
   </data>
-  <data name="flowLayoutPanelFormation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="&gt;&gt;buttonExportPlayerData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="flowLayoutPanelFormation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>997, 634</value>
+  <data name="&gt;&gt;buttonExportPlayerData.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
   </data>
-  <data name="flowLayoutPanelFormation.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelFormation.Name" xml:space="preserve">
-    <value>flowLayoutPanelFormation</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelFormation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelFormation.Parent" xml:space="preserve">
-    <value>tabPageFormation</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelFormation.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonExportPlayerData.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="tabPageFormation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
+  <data name="&gt;&gt;labelExportPlayerData.Name" xml:space="preserve">
+    <value>labelExportPlayerData</value>
   </data>
-  <data name="tabPageFormation.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
+  <data name="&gt;&gt;labelExportPlayerData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tabPageFormation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1003, 640</value>
+  <data name="&gt;&gt;labelExportPlayerData.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
   </data>
-  <data name="tabPageFormation.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageFormation.Text" xml:space="preserve">
-    <value>Formation</value>
-  </data>
-  <data name="&gt;&gt;tabPageFormation.Name" xml:space="preserve">
-    <value>tabPageFormation</value>
-  </data>
-  <data name="&gt;&gt;tabPageFormation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageFormation.Parent" xml:space="preserve">
-    <value>tabControlMain</value>
-  </data>
-  <data name="&gt;&gt;tabPageFormation.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="checkBoxAutoTrainingSchedule.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="checkBoxAutoTrainingSchedule.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 24</value>
-  </data>
-  <data name="checkBoxAutoTrainingSchedule.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxAutoTrainingSchedule.Text" xml:space="preserve">
-    <value>Auto Training Schedule</value>
-  </data>
-  <data name="checkBoxAutoTrainingSchedule.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoTrainingSchedule.Name" xml:space="preserve">
-    <value>checkBoxAutoTrainingSchedule</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoTrainingSchedule.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoTrainingSchedule.Parent" xml:space="preserve">
-    <value>flowLayoutPanelTraining</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoTrainingSchedule.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelAutoTraningSchedule.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
-  </data>
-  <data name="labelAutoTraningSchedule.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelAutoTraningSchedule.Location" type="System.Drawing.Point, System.Drawing">
-    <value>209, 5</value>
-  </data>
-  <data name="labelAutoTraningSchedule.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 20</value>
-  </data>
-  <data name="labelAutoTraningSchedule.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;labelExportPlayerData.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="labelAutoTraningSchedule.Text" xml:space="preserve">
-    <value>Manage training schedule for you.</value>
+  <data name="&gt;&gt;buttonImport.Name" xml:space="preserve">
+    <value>buttonImport</value>
   </data>
-  <data name="&gt;&gt;labelAutoTraningSchedule.Name" xml:space="preserve">
-    <value>labelAutoTraningSchedule</value>
+  <data name="&gt;&gt;buttonImport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelAutoTraningSchedule.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;buttonImport.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
   </data>
-  <data name="&gt;&gt;labelAutoTraningSchedule.Parent" xml:space="preserve">
-    <value>flowLayoutPanelTraining</value>
-  </data>
-  <data name="&gt;&gt;labelAutoTraningSchedule.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="checkBoxConvertToGk.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxConvertToGk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 33</value>
-  </data>
-  <data name="checkBoxConvertToGk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 24</value>
-  </data>
-  <data name="checkBoxConvertToGk.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;buttonImport.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="checkBoxConvertToGk.Text" xml:space="preserve">
-    <value>Convert subs to GK</value>
+  <data name="&gt;&gt;labelImportPlayerData.Name" xml:space="preserve">
+    <value>labelImportPlayerData</value>
   </data>
-  <data name="checkBoxConvertToGk.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;checkBoxConvertToGk.Name" xml:space="preserve">
-    <value>checkBoxConvertToGk</value>
-  </data>
-  <data name="&gt;&gt;checkBoxConvertToGk.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxConvertToGk.Parent" xml:space="preserve">
-    <value>flowLayoutPanelTraining</value>
-  </data>
-  <data name="&gt;&gt;checkBoxConvertToGk.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="labelCnvertToGK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
-  </data>
-  <data name="labelCnvertToGK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>209, 30</value>
-  </data>
-  <data name="labelCnvertToGK.Size" type="System.Drawing.Size, System.Drawing">
-    <value>536, 86</value>
-  </data>
-  <data name="labelCnvertToGK.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="labelCnvertToGK.Text" xml:space="preserve">
-    <value>Minimize training injuries by converting subs to GK. 
-Don't worry, the schedule is unchanged, 
-and their retirement threats are empty 
-if you perform Auto Position at the end of the season.
-</value>
-  </data>
-  <data name="&gt;&gt;labelCnvertToGK.Name" xml:space="preserve">
-    <value>labelCnvertToGK</value>
-  </data>
-  <data name="&gt;&gt;labelCnvertToGK.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelImportPlayerData.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelCnvertToGK.Parent" xml:space="preserve">
-    <value>flowLayoutPanelTraining</value>
+  <data name="&gt;&gt;labelImportPlayerData.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
   </data>
-  <data name="&gt;&gt;labelCnvertToGK.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelImportPlayerData.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="labelComputerBoost.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;buttonCopyPlayerData.Name" xml:space="preserve">
+    <value>buttonCopyPlayerData</value>
   </data>
-  <data name="labelComputerBoost.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;buttonCopyPlayerData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="labelComputerBoost.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="&gt;&gt;buttonCopyPlayerData.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
   </data>
-  <data name="labelComputerBoost.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 116</value>
-  </data>
-  <data name="labelComputerBoost.Size" type="System.Drawing.Size, System.Drawing">
-    <value>606, 40</value>
-  </data>
-  <data name="labelComputerBoost.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="labelComputerBoost.Text" xml:space="preserve">
-    <value>Computers don't train so the games becomes less and less competitive after a while. 
-Here are some changes to make up for that.</value>
-  </data>
-  <data name="labelComputerBoost.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;labelComputerBoost.Name" xml:space="preserve">
-    <value>labelComputerBoost</value>
-  </data>
-  <data name="&gt;&gt;labelComputerBoost.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelComputerBoost.Parent" xml:space="preserve">
-    <value>flowLayoutPanelTraining</value>
-  </data>
-  <data name="&gt;&gt;labelComputerBoost.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonCopyPlayerData.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="buttonBoostYouthPlayers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 159</value>
+  <data name="&gt;&gt;labelCopyPlayerData.Name" xml:space="preserve">
+    <value>labelCopyPlayerData</value>
   </data>
-  <data name="buttonBoostYouthPlayers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 30</value>
+  <data name="&gt;&gt;labelCopyPlayerData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="buttonBoostYouthPlayers.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+  <data name="&gt;&gt;labelCopyPlayerData.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
   </data>
-  <data name="buttonBoostYouthPlayers.Text" xml:space="preserve">
-    <value>Boost Youth Players</value>
-  </data>
-  <data name="buttonBoostYouthPlayers.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;buttonBoostYouthPlayers.Name" xml:space="preserve">
-    <value>buttonBoostYouthPlayers</value>
-  </data>
-  <data name="&gt;&gt;buttonBoostYouthPlayers.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonBoostYouthPlayers.Parent" xml:space="preserve">
-    <value>flowLayoutPanelTraining</value>
-  </data>
-  <data name="&gt;&gt;buttonBoostYouthPlayers.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelCopyPlayerData.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="labelBoostYouthPlayers.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
+  <data name="&gt;&gt;buttonPastePlayerData.Name" xml:space="preserve">
+    <value>buttonPastePlayerData</value>
   </data>
-  <data name="labelBoostYouthPlayers.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelBoostYouthPlayers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>181, 156</value>
-  </data>
-  <data name="labelBoostYouthPlayers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 40</value>
-  </data>
-  <data name="labelBoostYouthPlayers.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="labelBoostYouthPlayers.Text" xml:space="preserve">
-    <value>Attributes of new spawned players
- are increased by 25</value>
-  </data>
-  <data name="&gt;&gt;labelBoostYouthPlayers.Name" xml:space="preserve">
-    <value>labelBoostYouthPlayers</value>
-  </data>
-  <data name="&gt;&gt;labelBoostYouthPlayers.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelBoostYouthPlayers.Parent" xml:space="preserve">
-    <value>flowLayoutPanelTraining</value>
-  </data>
-  <data name="&gt;&gt;labelBoostYouthPlayers.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="buttonBoostAllPlayersBy1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 199</value>
-  </data>
-  <data name="buttonBoostAllPlayersBy1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 30</value>
-  </data>
-  <data name="buttonBoostAllPlayersBy1.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="buttonBoostAllPlayersBy1.Text" xml:space="preserve">
-    <value>Boost All Players By 1</value>
-  </data>
-  <data name="buttonBoostAllPlayersBy1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;buttonBoostAllPlayersBy1.Name" xml:space="preserve">
-    <value>buttonBoostAllPlayersBy1</value>
-  </data>
-  <data name="&gt;&gt;buttonBoostAllPlayersBy1.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonPastePlayerData.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonBoostAllPlayersBy1.Parent" xml:space="preserve">
-    <value>flowLayoutPanelTraining</value>
+  <data name="&gt;&gt;buttonPastePlayerData.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
   </data>
-  <data name="&gt;&gt;buttonBoostAllPlayersBy1.ZOrder" xml:space="preserve">
-    <value>7</value>
+  <data name="&gt;&gt;buttonPastePlayerData.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
-  <data name="labelBoostAllPlayersBy1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
+  <data name="&gt;&gt;labelPastePlayerData.Name" xml:space="preserve">
+    <value>labelPastePlayerData</value>
   </data>
-  <data name="labelBoostAllPlayersBy1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelBoostAllPlayersBy1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>181, 196</value>
-  </data>
-  <data name="labelBoostAllPlayersBy1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 40</value>
-  </data>
-  <data name="labelBoostAllPlayersBy1.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="labelBoostAllPlayersBy1.Text" xml:space="preserve">
-    <value>Attributes of all players 
-are increased by 1</value>
-  </data>
-  <data name="&gt;&gt;labelBoostAllPlayersBy1.Name" xml:space="preserve">
-    <value>labelBoostAllPlayersBy1</value>
-  </data>
-  <data name="&gt;&gt;labelBoostAllPlayersBy1.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelPastePlayerData.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelBoostAllPlayersBy1.Parent" xml:space="preserve">
-    <value>flowLayoutPanelTraining</value>
+  <data name="&gt;&gt;labelPastePlayerData.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
   </data>
-  <data name="&gt;&gt;labelBoostAllPlayersBy1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelPastePlayerData.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;buttonEvalYoungPlayers.Name" xml:space="preserve">
+    <value>buttonEvalYoungPlayers</value>
+  </data>
+  <data name="&gt;&gt;buttonEvalYoungPlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonEvalYoungPlayers.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
+  </data>
+  <data name="&gt;&gt;buttonEvalYoungPlayers.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="flowLayoutPanelTraining.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="&gt;&gt;labelEvalMaxAge.Name" xml:space="preserve">
+    <value>labelEvalMaxAge</value>
+  </data>
+  <data name="&gt;&gt;labelEvalMaxAge.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelEvalMaxAge.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
+  </data>
+  <data name="&gt;&gt;labelEvalMaxAge.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownMaxAge.Name" xml:space="preserve">
+    <value>numericUpDownMaxAge</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownMaxAge.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownMaxAge.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownMaxAge.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;labelEvilYoungPlayers.Name" xml:space="preserve">
+    <value>labelEvilYoungPlayers</value>
+  </data>
+  <data name="&gt;&gt;labelEvilYoungPlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelEvilYoungPlayers.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
+  </data>
+  <data name="&gt;&gt;labelEvilYoungPlayers.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;webBrowserEvalResult.Name" xml:space="preserve">
+    <value>webBrowserEvalResult</value>
+  </data>
+  <data name="&gt;&gt;webBrowserEvalResult.Type" xml:space="preserve">
+    <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;webBrowserEvalResult.Parent" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
+  </data>
+  <data name="&gt;&gt;webBrowserEvalResult.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="flowLayoutPanelData.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="flowLayoutPanelTraining.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="flowLayoutPanelData.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="flowLayoutPanelTraining.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="flowLayoutPanelData.Size" type="System.Drawing.Size, System.Drawing">
     <value>997, 634</value>
   </data>
-  <data name="flowLayoutPanelTraining.TabIndex" type="System.Int32, mscorlib">
+  <data name="flowLayoutPanelData.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelTraining.Name" xml:space="preserve">
-    <value>flowLayoutPanelTraining</value>
+  <data name="&gt;&gt;flowLayoutPanelData.Name" xml:space="preserve">
+    <value>flowLayoutPanelData</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelTraining.Type" xml:space="preserve">
+  <data name="&gt;&gt;flowLayoutPanelData.Type" xml:space="preserve">
     <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelTraining.Parent" xml:space="preserve">
-    <value>tabPageTraining</value>
+  <data name="&gt;&gt;flowLayoutPanelData.Parent" xml:space="preserve">
+    <value>tabPageTransfer</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelTraining.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;flowLayoutPanelData.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="tabPageTraining.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
-  </data>
-  <data name="tabPageTraining.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageTraining.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1003, 640</value>
-  </data>
-  <data name="tabPageTraining.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabPageTraining.Text" xml:space="preserve">
-    <value>Training</value>
-  </data>
-  <data name="&gt;&gt;tabPageTraining.Name" xml:space="preserve">
-    <value>tabPageTraining</value>
-  </data>
-  <data name="&gt;&gt;tabPageTraining.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageTraining.Parent" xml:space="preserve">
-    <value>tabControlMain</value>
-  </data>
-  <data name="&gt;&gt;tabPageTraining.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="buttonExportPlayerData.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1558,56 +2224,185 @@ This can be used to restore saved attributes to a new spawn
   <data name="&gt;&gt;webBrowserEvalResult.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="flowLayoutPanelData.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="&gt;&gt;buttonPurchaseLand.Name" xml:space="preserve">
+    <value>buttonPurchaseLand</value>
+  </data>
+  <data name="&gt;&gt;buttonPurchaseLand.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonPurchaseLand.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;buttonPurchaseLand.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;labelPurchaseLand.Name" xml:space="preserve">
+    <value>labelPurchaseLand</value>
+  </data>
+  <data name="&gt;&gt;labelPurchaseLand.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelPurchaseLand.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;labelPurchaseLand.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;labelTimeTravel.Name" xml:space="preserve">
+    <value>labelTimeTravel</value>
+  </data>
+  <data name="&gt;&gt;labelTimeTravel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelTimeTravel.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;labelTimeTravel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;buttonTimeTravel.Name" xml:space="preserve">
+    <value>buttonTimeTravel</value>
+  </data>
+  <data name="&gt;&gt;buttonTimeTravel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonTimeTravel.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;buttonTimeTravel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownTimeTravel.Name" xml:space="preserve">
+    <value>numericUpDownTimeTravel</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownTimeTravel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownTimeTravel.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownTimeTravel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;buttonRestartGame.Name" xml:space="preserve">
+    <value>buttonRestartGame</value>
+  </data>
+  <data name="&gt;&gt;buttonRestartGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonRestartGame.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;buttonRestartGame.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;labelRestartGame.Name" xml:space="preserve">
+    <value>labelRestartGame</value>
+  </data>
+  <data name="&gt;&gt;labelRestartGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelRestartGame.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;labelRestartGame.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;labelUpdateNewSpawn.Name" xml:space="preserve">
+    <value>labelUpdateNewSpawn</value>
+  </data>
+  <data name="&gt;&gt;labelUpdateNewSpawn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelUpdateNewSpawn.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;labelUpdateNewSpawn.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdatePlayerNameForNewSpawn.Name" xml:space="preserve">
+    <value>buttonUpdatePlayerNameForNewSpawn</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdatePlayerNameForNewSpawn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdatePlayerNameForNewSpawn.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdatePlayerNameForNewSpawn.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;comboBoxRespawnCategory.Name" xml:space="preserve">
+    <value>comboBoxRespawnCategory</value>
+  </data>
+  <data name="&gt;&gt;comboBoxRespawnCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxRespawnCategory.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;comboBoxRespawnCategory.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeLanguage.Name" xml:space="preserve">
+    <value>buttonChangeLanguage</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeLanguage.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeLanguage.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguages.Name" xml:space="preserve">
+    <value>comboBoxLanguages</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguages.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguages.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguages.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;labelCopyright.Name" xml:space="preserve">
+    <value>labelCopyright</value>
+  </data>
+  <data name="&gt;&gt;labelCopyright.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelCopyright.Parent" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
+  </data>
+  <data name="&gt;&gt;labelCopyright.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="flowLayoutPanelOther.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="flowLayoutPanelData.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="flowLayoutPanelOther.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="flowLayoutPanelData.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="flowLayoutPanelOther.Size" type="System.Drawing.Size, System.Drawing">
     <value>997, 634</value>
   </data>
-  <data name="flowLayoutPanelData.TabIndex" type="System.Int32, mscorlib">
+  <data name="flowLayoutPanelOther.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelData.Name" xml:space="preserve">
-    <value>flowLayoutPanelData</value>
+  <data name="&gt;&gt;flowLayoutPanelOther.Name" xml:space="preserve">
+    <value>flowLayoutPanelOther</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelData.Type" xml:space="preserve">
+  <data name="&gt;&gt;flowLayoutPanelOther.Type" xml:space="preserve">
     <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelData.Parent" xml:space="preserve">
-    <value>tabPageTransfer</value>
+  <data name="&gt;&gt;flowLayoutPanelOther.Parent" xml:space="preserve">
+    <value>tabPageOther</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelData.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;flowLayoutPanelOther.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="tabPageTransfer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
-  </data>
-  <data name="tabPageTransfer.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageTransfer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1003, 640</value>
-  </data>
-  <data name="tabPageTransfer.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tabPageTransfer.Text" xml:space="preserve">
-    <value>Data</value>
-  </data>
-  <data name="&gt;&gt;tabPageTransfer.Name" xml:space="preserve">
-    <value>tabPageTransfer</value>
-  </data>
-  <data name="&gt;&gt;tabPageTransfer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageTransfer.Parent" xml:space="preserve">
-    <value>tabControlMain</value>
-  </data>
-  <data name="&gt;&gt;tabPageTransfer.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="buttonPurchaseLand.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
@@ -2079,159 +2874,6 @@ This should only be used at the begining of a season.</value>
   </data>
   <data name="&gt;&gt;labelCopyright.ZOrder" xml:space="preserve">
     <value>12</value>
-  </data>
-  <data name="flowLayoutPanelOther.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="flowLayoutPanelOther.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="flowLayoutPanelOther.Size" type="System.Drawing.Size, System.Drawing">
-    <value>997, 634</value>
-  </data>
-  <data name="flowLayoutPanelOther.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelOther.Name" xml:space="preserve">
-    <value>flowLayoutPanelOther</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelOther.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelOther.Parent" xml:space="preserve">
-    <value>tabPageOther</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelOther.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tabPageOther.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
-  </data>
-  <data name="tabPageOther.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageOther.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1003, 640</value>
-  </data>
-  <data name="tabPageOther.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="tabPageOther.Text" xml:space="preserve">
-    <value>Other</value>
-  </data>
-  <data name="&gt;&gt;tabPageOther.Name" xml:space="preserve">
-    <value>tabPageOther</value>
-  </data>
-  <data name="&gt;&gt;tabPageOther.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageOther.Parent" xml:space="preserve">
-    <value>tabControlMain</value>
-  </data>
-  <data name="&gt;&gt;tabPageOther.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tabControlMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tabControlMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="tabControlMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1011, 673</value>
-  </data>
-  <data name="tabControlMain.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabControlMain.Name" xml:space="preserve">
-    <value>tabControlMain</value>
-  </data>
-  <data name="&gt;&gt;tabControlMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControlMain.Parent" xml:space="preserve">
-    <value>toolStripContainer1.ContentPanel</value>
-  </data>
-  <data name="&gt;&gt;tabControlMain.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="toolStripContainer1.ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1011, 673</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.ContentPanel.Name" xml:space="preserve">
-    <value>toolStripContainer1.ContentPanel</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.ContentPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripContentPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.ContentPanel.Parent" xml:space="preserve">
-    <value>toolStripContainer1</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.ContentPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="toolStripContainer1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Name" xml:space="preserve">
-    <value>toolStripContainer1.LeftToolStripPanel</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Parent" xml:space="preserve">
-    <value>toolStripContainer1</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="toolStripContainer1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Name" xml:space="preserve">
-    <value>toolStripContainer1.RightToolStripPanel</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Parent" xml:space="preserve">
-    <value>toolStripContainer1</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="toolStripContainer1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1011, 730</value>
-  </data>
-  <data name="toolStripContainer1.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="toolStripContainer1.Text" xml:space="preserve">
-    <value>toolStripContainer1</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Name" xml:space="preserve">
-    <value>toolStripContainer1.TopToolStripPanel</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Parent" xml:space="preserve">
-    <value>toolStripContainer1</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.Name" xml:space="preserve">
-    <value>toolStripContainer1</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <metadata name="timerSlow.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>483, 17</value>

@@ -119,6 +119,7 @@
     <Compile Include="TeamNode.cs" />
     <Compile Include="TrainingSchedule.cs" />
     <Compile Include="TrainingSchedulePreset.cs" />
+    <Compile Include="TrainingScheduleCalculationState.cs" />
     <Compile Include="TrainingScheduleSteps.cs" />
     <Compile Include="WeeklyTrainingSchedule.cs" />
     <Compile Include="WikiDataPlayerResult.cs" />

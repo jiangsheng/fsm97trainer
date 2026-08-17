@@ -16,12 +16,34 @@ namespace SchedulingTest
 {
     internal static class Program
     {
+        static void TestPlayerManagers()
+        {
+            using (FormMainModel formMainModel = new FormMainModel())
+            {
+                var teams = formMainModel.GetMenusProcess().ReadTeams();
+                var players= formMainModel.GetMenusProcess().ReadPlayers(false);
+                foreach (var team in teams)
+                {
+                    var firstName=team.Data.ManagerFirstName;
+                    var lastName=team.Data.ManagerLastName;
+                    var playerFound= players.Where(p => p.Data.FirstName == firstName && p.Data.LastName == lastName).FirstOrDefault();
+                    if (playerFound!=null)
+                    {
+                        if(playerFound.TeamNode.Data.Id==team.Data.Id)
+                            continue;
+                        Debug.WriteLine("Player " + firstName + " " + lastName
+                            + " plays for team " + playerFound.TeamNode.Data.Name + " but manages team " + team.Data.Name);
+                    }
+                }
+            }
+        }
         static void Main(string[] args)
         {
             Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");
-                        TestEval();
+            TestEval();
             //TestTeams();
             //TestEvalPlayer();
+            //TestPlayerManagers();
         }
         static void TestTeams()
         {
@@ -42,18 +64,21 @@ namespace SchedulingTest
             {
                 lastDisplayedEvalProgress = 0;
                 formMainModel.AutoTrain = true;
-                formMainModel.MaxEvalAge = 99;
+                formMainModel.MaxEvalAge = 19;
                 formMainModel.MaxPower = true;
-                formMainModel.NoAlternativeTraining = false;
+                formMainModel.NoAlternativeTraining = true;
                 formMainModel.MaxEnergy = true;
                 formMainModel.CurrentLanguage = "zh-CN";
-                formMainModel.DebugTraining = true;
+                formMainModel.AlwaysTrainConsistency = false;
+                formMainModel.DebugTraining = false;// true;
                 //formMainModel.OnFastTimer();
                 formMainModel.OnEvalProgressChanged += FormMainModel_OnEvalProgressChanged; 
                 try
                 {
 
-                    formMainModel.EvaluateYoungPlayers(PlayerPosition.GK, "希曼", 60);
+                    //formMainModel.EvaluateYoungPlayers(PlayerPosition.GK, "吉文", 60);
+                    //formMainModel.EvaluateYoungPlayers(PlayerPosition.LWB, string.Empty, 60);
+                    formMainModel.EvaluateYoungPlayers(PlayerPosition.Count,string.Empty,19);
                     /*formMainModel.MaxEvalAge = 19;
                     formMainModel.TotalPlayerPositionsToEval=0;
                     formMainModel.EvaluateYoungPlayers(PlayerPosition.FOR, null, 60);*/
@@ -75,16 +100,25 @@ namespace SchedulingTest
         private static void TestEvalPlayer()
         {
             List<byte> data = new List<byte>() {
-                87,  87  ,81
-                ,99,74,99,
-                92,  97,  90,  89,  66,
-
-                  94,99, 85,  78,85,
+                //movement
+                99,  99  ,99
+                //health
+                ,99,99,99,
+                //skill
+                86,  99,  63,  99,  98,
+                //coolness, awareness
+                99,99,
+                //tackling
+                95,  90,
+                //flair
+                99,
+                //GK
                 20,  28,  24,
+                //misc
                 99,75,43,73,99
             };
 
-            PlayerModel player=new PlayerModel(data.ToArray());
+            PlayerModelDouble player=new PlayerModelDouble(data);
             player.LastName = "Test";
             player.FirstName = "Test";
 
@@ -97,14 +131,14 @@ namespace SchedulingTest
                 formMainModel.NoAlternativeTraining = false;
                 formMainModel.MaxEnergy = true;
                 formMainModel.CurrentLanguage = "zh-CN";
-                formMainModel.DebugTraining = true;
                 //formMainModel.OnFastTimer();
                 formMainModel.OnEvalProgressChanged += FormMainModel_OnEvalProgressChanged;
-                formMainModel.EvaluateYoungPlayer(PlayerPosition.DM, player);
-                /*formMainModel.MaxEvalAge = 19;
+                
+                //formMainModel.MaxEvalAge = 19;
                 formMainModel.TotalPlayerPositionsToEval=0;
-                formMainModel.EvaluateYoungPlayers(PlayerPosition.FOR, null, 60);*/
+                formMainModel.EvaluateYoungPlayer(PlayerPosition.LWB, player);
                 var fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".htm";
+
                 File.WriteAllText(fileName, formMainModel.EvalYoungPlayersResult);
                 ProcessStartInfo processStartInfo = new ProcessStartInfo(fileName)
                 {

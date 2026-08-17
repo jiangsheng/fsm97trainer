@@ -70,6 +70,7 @@
     <Compile Include="IPerson.cs" />
     <Compile Include="IPlayerTrainableAttributes.cs" />
     <Compile Include="ITeamMember.cs" />
+    <Compile Include="NumericExtensions.cs" />
     <Compile Include="PlayerAttribute.cs" />
     <Compile Include="PlayerModel.cs" />
     <Compile Include="PlayerModelDouble.cs" />

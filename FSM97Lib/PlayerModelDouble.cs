@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FSM97Lib
 {
-    public class PlayerModelDouble : IPlayerTrainableAttributes<double>,ITeamMember,IPerson
+    public class PlayerModelDouble : IPlayerTrainableAttributes<double>,ITeamMember<double>,IPerson
     {
         double[] preciseAttributes = new double[(int)PlayerAttribute.Count];
 
@@ -30,12 +30,28 @@ namespace FSM97Lib
             Age = player.Age;
         }
 
+        public PlayerModelDouble(PlayerModelDouble player, List<double> attributesToCopy) : this(player)
+        {
+            preciseAttributes = attributesToCopy.Select(x => x).ToArray();
+        }
+        public PlayerModelDouble(List<double> attributesToCopy)
+        {
+            preciseAttributes = attributesToCopy.Select(x => x).ToArray();
+        }
+        public PlayerModelDouble(List<byte> attributesToCopy)
+        {
+            preciseAttributes = attributesToCopy.Select(x =>(double) x).ToArray();
+        }
         public double[] Attributes
         {
             get
             {
                 return preciseAttributes;
             }
+        }
+        public void CopyAttributes(double[] attributes)
+        {
+            Array.Copy(attributes, preciseAttributes, Math.Min(attributes.Length, preciseAttributes.Length));
         }
 
         public  double Speed
@@ -221,11 +237,11 @@ namespace FSM97Lib
         public int BirthDateOffset { get; set; }
 
 
-        public int PositionRating
+        public double PositionRating
         {
             get
             {
-                return (int)PositionRatings.GetPositionRatingDouble
+                return PositionRatings.GetPositionRatingDouble
                 (Position, this);
             }
         }
@@ -238,11 +254,11 @@ namespace FSM97Lib
                 return position.ToLocalizedString();
             }
         }
-        public int BestPositionRating
+        public double BestPositionRating
         {
             get
             {
-                return (int)PositionRatings.GetPositionRatingDouble
+                return PositionRatings.GetPositionRatingDouble
                 (BestPosition, this);
             }
         }
@@ -251,19 +267,19 @@ namespace FSM97Lib
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendFormat("{0} yo/{1}:{2}/{3}:{4}/{5}: {6} {7}/{8}",
-                Age, PositionName, PositionRating, BestPositionName, BestPositionRating,
+            stringBuilder.AppendFormat("{0} yo/{1}:{2}/Best at {3}:{4}/#{5}: {6}, {7} from {8} \r\n",
+                Age, PositionName, PositionRating.ToStringTruncated(2), BestPositionName, BestPositionRating.ToStringTruncated(2),
                 Number, LastName, FirstName, NationalityName);
-            stringBuilder.AppendFormat("attributes: {0},{1},{2}/{3},{4},{5}/{6},{7},{8},{9},{10}/",
-                Speed, Agility, Acceleration, Stamina, Strength, Fitness, Shooting, Passing, Heading, Control, Dribbling);
-            stringBuilder.AppendFormat("{0},{1}/",
-                TackleDetermination, TackleSkill);
-            stringBuilder.AppendFormat("{0},{1},{2}/",
-                Coolness, Awareness, Flair);
-            stringBuilder.AppendFormat("{0},{1},{2}/",
-                Kicking, Throwing, Handling);
-            stringBuilder.AppendFormat("{0},{1},{2},{3},{4}",
-                ThrowIn, Leadership, Consistency, Determination, Greed);
+            stringBuilder.AppendFormat("Move ({0},{1},{2}) Power({3},{4},{5}) Skill({6},{7},{8},{9},{10})\r\n ",
+                Speed.ToStringTruncated(2), Agility.ToStringTruncated(2), Acceleration.ToStringTruncated(2), Stamina.ToStringTruncated(2), Strength.ToStringTruncated(2), Fitness.ToStringTruncated(2), Shooting.ToStringTruncated(2), Passing.ToStringTruncated(2), Heading.ToStringTruncated(2), Control.ToStringTruncated(2), Dribbling.ToStringTruncated(2));
+            stringBuilder.AppendFormat("Tackle（{0},{1}） ",
+                TackleDetermination.ToStringTruncated(2), TackleSkill.ToStringTruncated(2));
+            stringBuilder.AppendFormat("Mental ({0},{1},{2}) \r\n",
+                Coolness.ToStringTruncated(2), Awareness.ToStringTruncated(2), Flair.ToStringTruncated(2));
+            stringBuilder.AppendFormat("GK ({0},{1},{2}) ",
+                Kicking.ToStringTruncated(2), Throwing.ToStringTruncated(2), Handling.ToStringTruncated(2));
+            stringBuilder.AppendFormat("Misc ({0},{1},{2},{3},{4})",
+                ThrowIn.ToStringTruncated(2), Leadership.ToStringTruncated(2), Consistency.ToStringTruncated(2), Determination.ToStringTruncated(2), Greed.ToStringTruncated(2));
             return stringBuilder.ToString();
         }
     }

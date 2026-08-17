@@ -11,6 +11,6 @@ namespace Fsm97Trainer
         public List<TrainingScheduleSteps> Steps { get; set; }
         public int Weeks { get; set; }
         public List<BottleneckAttributes> BottleneckAttributes { get; set; }
-        public PlayerModel Player { get; set; }
+        public PlayerModelDouble Player { get; set; }
     }
 }

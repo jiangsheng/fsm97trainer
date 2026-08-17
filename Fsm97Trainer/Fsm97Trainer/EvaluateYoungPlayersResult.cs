@@ -11,7 +11,7 @@ namespace Fsm97Trainer
     internal class EvaluateYoungPlayersResult
     {
 
-        public EvaluateYoungPlayersResult(PlayerPosition position, List<PlayerModel> youngPlayers, bool autoResetStatus, bool maxEnergy,  bool maxPower, bool noAlternativeTraining, TrainingEffectModifier trainingEffectModifier, bool debugTraining, float[][] trainingEffects)
+        public EvaluateYoungPlayersResult(PlayerPosition position, List<PlayerModelDouble> youngPlayers, bool autoResetStatus, bool maxEnergy,  bool maxPower, bool noAlternativeTraining, TrainingEffectModifier trainingEffectModifier, bool alwaysTrainConsistency ,float[][] trainingEffects)
         {
             Position = position;
             YoungPlayers = youngPlayers;
@@ -21,21 +21,21 @@ namespace Fsm97Trainer
             NoAlternativeTraining = noAlternativeTraining;
             TrainingEffectModifier = trainingEffectModifier;
             GetTrainingScheduleEffects= TrainingScheduleEffect.GetTrainingScheduleEffect(trainingEffectModifier);
-            DebugTraining = debugTraining; 
             AttributeRelevanceForPosition = PositionRatings.Ratings[(int)Position];
             TrainingEffects = trainingEffects;
+            AlwaysTrainConsistency = alwaysTrainConsistency;
         }
         byte[] GetTrainingScheduleEffects { get; set; }
 
         public List<YoungPlayerEvaluation> Grades { get; set; }
         public PlayerPosition Position { get; }
-        public List<PlayerModel> YoungPlayers { get; }
+        public List<PlayerModelDouble> YoungPlayers { get; }
         public bool AutoResetStatus { get; }
         public bool MaxEnergy { get; }
         public bool MaxPower { get; }
         public bool NoAlternativeTraining { get; }
         public TrainingEffectModifier TrainingEffectModifier { get; }
-        public bool DebugTraining { get; set; }
+        public bool AlwaysTrainConsistency { get; set; }
         byte[] AttributeRelevanceForPosition { get; set; }
         float[][] TrainingEffects { get; set; }
 
@@ -48,26 +48,24 @@ namespace Fsm97Trainer
                 var positionRating = PositionRatings.GetPositionRatingDouble((int)this.Position, youngPlayer);
                 if (positionRating > minRating)
                 {
-                    Grades.Add(EvaluatePlayer(youngPlayer, minRating));
+                    Grades.Add(EvaluatePlayer(youngPlayer, minRating, AlwaysTrainConsistency));
                 }
                 else {
                     OnEvalPlayerPositionComplete?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
-        YoungPlayerEvaluation EvaluatePlayer(PlayerModel youngPlayer, int minRating)
+        YoungPlayerEvaluation EvaluatePlayer(PlayerModelDouble youngPlayer, int minRating, bool alwaysTrainConsistency)
         {
-            YoungPlayerEvaluation result=new YoungPlayerEvaluation();
+            YoungPlayerEvaluation result = new YoungPlayerEvaluation();
 
-            
+
             result.Player = youngPlayer;
 
-            //cut the lower half
+            //copy attibutes off but change position to the one we are evaluating
+            PlayerModelDouble currentTrainingResult = new PlayerModelDouble(youngPlayer);
 
-            var player = new PlayerModel(youngPlayer);
-
-            var playerModelDouble = new PlayerModelDouble(youngPlayer);
-            playerModelDouble.Position = player.Position= (int) this.Position;
+            currentTrainingResult.Position = (int)this.Position;
 
 
             int weeks = 0;
@@ -75,45 +73,41 @@ namespace Fsm97Trainer
             List<TrainingScheduleSteps> lastWeeklyTrainingSchedule = null;
             var trainingCount = new int[(int)TrainingScheduleType.Count];
 
-            var playerBeforeCurrentSchedule=youngPlayer;
-
             int lastScheduleLastedWeekCount = 0;
+            PlayerModelDouble lastTrainingResult = null;
+            TrainingScheduleCalculationState trainingScheduleCalculationState = new TrainingScheduleCalculationState(
+                currentTrainingResult, false,Position, AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining, alwaysTrainConsistency, TrainingEffectModifier, TrainingEffects
+                );
             while (!maxedOut)
             {
-                var projectedAttributesAfterSprinting = TrainingSchedule.ProjectedAttributesAfterSprinting(player, Position, TrainingEffectModifier,TrainingEffects);
-                var projectedAttributesAfterTrainingMatch = TrainingSchedule.ProjectedAttributesAfterTrainingMatch(player, Position,TrainingEffects,
-                    projectedAttributesAfterSprinting);
-                var attributeLeftToTrain = TrainingSchedule.GetAttributesToTrain(player, Position);
-                var bottleneckAttributeIndex = TrainingSchedule.GetTopBottleneckAttributes(player, Position, TrainingEffectModifier,TrainingEffects, attributeLeftToTrain
-                    , projectedAttributesAfterSprinting, projectedAttributesAfterSprinting);
-                var weeklyTrainingSchedule = TrainingSchedule.GetTrainingSchedule(player, AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining
-                    , TrainingEffectModifier,TrainingEffects, DebugTraining, projectedAttributesAfterSprinting, projectedAttributesAfterTrainingMatch, attributeLeftToTrain, bottleneckAttributeIndex);
+                var weeklyTrainingSchedule = TrainingSchedule.GetTrainingSchedule(trainingScheduleCalculationState);
 
-
-                double weeklyTrainingScheduleEffectsOnPosition = 0;
+                double[] weeklyTrainingScheduleEffectsOnPosition = new double[(int)PlayerAttribute.Count];
 
                 if (lastWeeklyTrainingSchedule == null)
                 {
+                    //this is the first schedule
                     result.WeeklyTrainingSchedules.AddLast(new WeeklyTrainingSchedule
                     {
                         Steps = weeklyTrainingSchedule,
                         Weeks = 0,
-                        BottleneckAttributes = bottleneckAttributeIndex,
-                        Player= youngPlayer
+                        BottleneckAttributes = trainingScheduleCalculationState.BottleneckAttributes,
+                        Player = youngPlayer //initial attributes before training
                     });
                 }
-                else if (weeklyTrainingSchedule!=null && !lastWeeklyTrainingSchedule.Select(x=>x.TrainingScheduleType).SequenceEqual(weeklyTrainingSchedule.Select(x => x.TrainingScheduleType)))
+                else if (weeklyTrainingSchedule != null && !lastWeeklyTrainingSchedule.Select(x => x.TrainingScheduleType).SequenceEqual(weeklyTrainingSchedule.Select(x => x.TrainingScheduleType)))
                 {
+                    //this is a new schedule, so we need to add the last schedule to the result
                     if (result.WeeklyTrainingSchedules.Count > 0)
                     {
                         result.WeeklyTrainingSchedules.Last().Weeks = lastScheduleLastedWeekCount;
                     }
                     result.WeeklyTrainingSchedules.AddLast(new WeeklyTrainingSchedule
-                    { 
+                    {
                         Steps = weeklyTrainingSchedule,
                         Weeks = 0,
-                        BottleneckAttributes = bottleneckAttributeIndex ,
-                        Player = new PlayerModel(player)
+                        BottleneckAttributes = trainingScheduleCalculationState.BottleneckAttributes,
+                        Player = new PlayerModelDouble(currentTrainingResult)//copy the current progress off for reporting purposes
                     });
                     lastScheduleLastedWeekCount = 0;
                 }
@@ -122,37 +116,51 @@ namespace Fsm97Trainer
                     for (int dayOfWeek = 0; dayOfWeek < weeklyTrainingSchedule.Count; dayOfWeek++)
                     {
                         var dailyTrainingScheduleType = weeklyTrainingSchedule[dayOfWeek];
-                        for (int attributeIndex = 0; attributeIndex < player.Attributes.Length; attributeIndex++)
+                        for (int attributeIndex = 0; attributeIndex < currentTrainingResult.Attributes.Length; attributeIndex++)
                         {
                             var dailyTrainingEffect = TrainingEffects[(int)dailyTrainingScheduleType.TrainingScheduleType][attributeIndex];
                             if (dailyTrainingEffect != 0)
                             {
-                                var preciseAttributeBefore = playerModelDouble.Attributes[attributeIndex];
+                                var preciseAttributeBefore = currentTrainingResult.Attributes[attributeIndex];
                                 var preciseAttributeAfter = preciseAttributeBefore + dailyTrainingEffect;
-                                if (preciseAttributeAfter > TrainingSchedule.attributeCap)
-                                    preciseAttributeAfter = TrainingSchedule.attributeCap;
-                                if (preciseAttributeAfter < 0)
-                                    preciseAttributeAfter = TrainingSchedule.attributeCap;
+                                if (preciseAttributeAfter > TrainingSchedule.attributeCap + TrainingSchedule.ConstantFastCeiling)
+                                    preciseAttributeAfter = TrainingSchedule.attributeCap + TrainingSchedule.ConstantFastCeiling;
+                                if (preciseAttributeAfter < 0) //this game underflows to max
+                                    preciseAttributeAfter = TrainingSchedule.attributeCap + TrainingSchedule.ConstantFastCeiling;
                                 if (AttributeRelevanceForPosition[attributeIndex] > 0)
                                 {
-                                    weeklyTrainingScheduleEffectsOnPosition += preciseAttributeAfter - preciseAttributeBefore;
+                                    weeklyTrainingScheduleEffectsOnPosition[attributeIndex] = preciseAttributeAfter - preciseAttributeBefore;
                                 }
-                                player.Attributes[attributeIndex] = (byte)(preciseAttributeAfter+0.1);
-                                playerModelDouble.Attributes[attributeIndex] = preciseAttributeAfter;
+                                currentTrainingResult.Attributes[attributeIndex] = preciseAttributeAfter;
                             }
+                            Debug.Assert(currentTrainingResult.Attributes[attributeIndex] < TrainingSchedule.attributeCap + 1);
                         }
                         trainingCount[(int)dailyTrainingScheduleType.TrainingScheduleType]++;
                     }
                 }
                 weeks++;
-                Debug.Assert(weeks < 1800);
+                Debug.Assert(weeks < 2600);
                 lastScheduleLastedWeekCount++;
-                player.Position = (int)this.Position;
 
-                if (player.PositionRating == 99 || weeklyTrainingScheduleEffectsOnPosition == 0)
+                maxedOut = true;
+                for (int attributeIndex = 0; attributeIndex < currentTrainingResult.Attributes.Length; attributeIndex++)
                 {
-                    //Debug.Assert(weeks > 100);
-                    maxedOut = true;
+                    if (AttributeRelevanceForPosition[attributeIndex] > 0)
+                    {
+                        if (currentTrainingResult.Attributes[attributeIndex] < TrainingSchedule.attributeCap)
+                        {
+                            if (attributeIndex == (int)PlayerAttribute.Leadership)
+                                maxedOut = !TrainingEffectModifier.PassingTrainLeadership;
+                            else
+                            {
+                                maxedOut = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (maxedOut)
+                {
                     if (result.WeeklyTrainingSchedules.Count > 0)
                     {
                         result.WeeklyTrainingSchedules.Last().Weeks = lastScheduleLastedWeekCount;
@@ -161,75 +169,26 @@ namespace Fsm97Trainer
                             Steps = null,
                             Weeks = 0,
                             BottleneckAttributes = null,
-                            Player = new PlayerModel(player)
+                            Player = new PlayerModelDouble(currentTrainingResult)//copy the current progress off for reporting purposes
                         });
                     }
 
                     OnEvalPlayerPositionComplete?.Invoke(this, EventArgs.Empty);
                     lastScheduleLastedWeekCount = 0;
                 }
-                lastWeeklyTrainingSchedule= weeklyTrainingSchedule;
+                else
+                {
+                    Debug.Assert(weeklyTrainingSchedule != null);
+                }
+                lastWeeklyTrainingSchedule = weeklyTrainingSchedule;
+                lastTrainingResult = new PlayerModelDouble(currentTrainingResult);
             }
             result.WeeksToMax = weeks;
-            result.FinalRating = player.PositionRating;
+
+            result.FinalRating = currentTrainingResult.PositionRating;
+            Debug.Assert(result.FinalRating > TrainingSchedule.attributeCap
+                ||this.Position==PlayerPosition.CD);
             return result;
         }
-        /*
-        private static void AddScheduleToOuput(YoungPlayerEvaluation result, PlayerModel playerClone, List<TrainingScheduleStep> weeklyTrainingSchedule, List<BottleneckAttributes> bottleneckAttributeIndex, bool debugTraining)
-        {
-            if (debugTraining)
-            {
-                result.Schedules.AppendFormat("{0},{1},{2}\t{3},{4:2},{5}\t{6},{7},{8},{9},{10}\t{11},{12}\t{13},{14},{15}\t{16},{17},{18}\t{19},{20} {21}",
-                    playerClone.Speed, playerClone.Agility, playerClone.Acceleration,
-                    playerClone.Stamina, playerClone.Strength, playerClone.Fitness,
-                    playerClone.Shooting, playerClone.Passing, playerClone.Heading, playerClone.Control, playerClone.Dribbling,
-                    playerClone.TackleDetermination, playerClone.TackleSkill,
-                    playerClone.Coolness, playerClone.Awareness, playerClone.Flair,
-                    playerClone.Kicking, playerClone.Throwing, playerClone.Handling,
-                    playerClone.Consistency, playerClone.Determination, playerClone.Leadership
-                    );
-                if (weeklyTrainingSchedule != null)
-                {
-                    if (bottleneckAttributeIndex != null)
-                    {
-                        result.Schedules.Append(" Bottlenecks: ");
-                        StringBuilder stringBuilder = new StringBuilder();
-                        bool firstAttribute = true;
-                        foreach (var item in bottleneckAttributeIndex)
-                        {
-                            if (firstAttribute)
-                            {
-                                firstAttribute = false;
-                            }
-                            else
-                                stringBuilder.Append(",");
-
-                            if (item.Repeat > 0)
-                            {
-                                stringBuilder.AppendFormat("{0} ({1})", item.AttributeIndex.ToLocalizedString(), item.Repeat);
-                            }
-                            else
-                                stringBuilder.AppendFormat("{0}", item.AttributeIndex.ToLocalizedString());
-                        }
-                        result.Schedules.AppendFormat("{0,-60}", stringBuilder.ToString());
-                    }                    
-                    result.Schedules.Append(" Next: ");
-                    bool firstdailyTrainingScheduleStep = true;
-                    for (int dayOfWeek = 0; dayOfWeek < weeklyTrainingSchedule.Count; dayOfWeek++)
-                    {
-                        var dailyTrainingScheduleStep = weeklyTrainingSchedule[dayOfWeek];
-                        if (firstdailyTrainingScheduleStep)
-                        {
-                            firstdailyTrainingScheduleStep = false;
-                        }
-                        else
-                        {
-                            result.Schedules.Append(",");                            
-                        }
-                        result.Schedules.AppendFormat("{0} ({1})", dailyTrainingScheduleStep.TrainingScheduleType.ToLocalizedString(), dailyTrainingScheduleStep.ForPlayerAttribute.ToLocalizedString() );
-                    }
-                }
-            }
-        }*/
     }
 }
