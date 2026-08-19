@@ -1,5 +1,23 @@
 # fsm97trainer
 Patch and trainer for EA's FIFA Soccer Manager (1997) or FSM97. 
+
+## Build
+
+The game runs on XP, thus the projects are targeting .Net 4.0. If you do not need to support XP, you can skip the .NET Framework 4.0 targeting pack and upgrade the project files when opening the solution in Visual Studio for the first time. If you do, then download .NET Framework 4.0 targeting pack if your Visual Studio version does not natively support .Net 4. You can get it in using VS 2019 web installer.
+
+Clone the following repositories using your favorite git tool:
+
+* https://github.com/jiangsheng/fsm97trainer
+* https://github.com/jiangsheng/OpenCC.NET
+* https://github.com/jiangsheng/NameParserSharp
+* https://github.com/jiangsheng/Diacritics.NET
+* 
+You can also clone some projects from the original locations instead of my XP-compatibility fork if you drop XP support.
+
+* https://github.com/CosineG/OpenCC.NET
+* https://github.com/aeshirey/NameParserSharp
+* https://github.com/thomasgalliker/Diacritics.NET
+
 ## Download
 The latest release can be downloaded at https://github.com/jiangsheng/fsm97trainer/releases
 
@@ -11,7 +29,7 @@ Requires .Net 4 (included in Windows 10).
 
 For Windows XP users .Net 4.0 can be downloaded from https://www.microsoft.com/en-us/download/details.aspx?id=17851 
 
-For updating player names online, the program needs to talk to the server via TLS 1.2. This means for Windows 7 or lower, servicer packs (e.g. Windows 7 SP1) and updates need to be installed to 1) enable TLS 1.2 and 2) set TLS 1.2 as default (e.g. by installing KB3140245). Windows 8.1 or higher support TLS 1.2 natively.
+For updating player names online, the program needs to talk to the Wikipedia server via TLS 1.2. This means for Windows 7 or lower, servicer packs (e.g. Windows 7 SP1) and updates need to be installed to 1) enable TLS 1.2 and 2) set TLS 1.2 as default (e.g. by installing KB3140245). Windows 8.1 or higher support TLS 1.2 natively.
 
 ## How to install
 
@@ -19,7 +37,7 @@ Unzip the files to anywhere.
 
 ## Patching the executable
 
-Run the patcher, enter the path to the menus.exe in game folder, or click the browse button to select the file. Choose the traning effects you want. Then click Patch.
+Run the patcher, enter the path to the menus.exe in game folder, or click the browse button to select the file. Choose the training effects you want. Then click Patch.
 
 To remove the patch, enter the path to menus.exe, then click Unpatch. 
 
@@ -35,7 +53,7 @@ By default English leagues allows only 3 players on the bench. This creates a ha
 
 #### Changing training effects
 
-This would let you choose to have previously untrainable attibutes trainable. For example, due to a cap on leadership at 74, respawn players can only be trained to 98 at the CD position.
+This would let you choose to have previously untrainable attributes trainable. For example, due to a cap on leadership at 74, respawn players can only be trained to 98 at the CD position.
 
 The 2X effect would double the training speed, letting you to max a player in 5-8 years instead of 10-16 years. This would open the door to versatile training. In addition, some training types now can have extra effects, making them less useless. 
 
@@ -49,47 +67,47 @@ Importing player would allow you to import player data back after modifying in y
 
 Copying data would take a snapshot of the current player data and pasting would restore the player data. Note this may cause you to lose your training progress. This can help if you want to transfer the training progress to a respawn when one of your favorite old player retires. 
 
-Evailuate young players gives suggestion to see who is best at each position for players younger than a specifed age outside of your team.
+Evaluate young players gives suggestion to see who is best at each position for players younger than a specified age outside of your team.
 
 #### Quality of life improvements
 
-No Absense would make player available in the next game after an injury or red card. You still have to move the player back to rotation though. Auto rotation would help on that. It can rotate by energy (sometimes this makes an unused goalkeeper to play out of position) or by statistics. 
+No Absence would make player available in the next game after an injury or red card. You still have to move the player back to rotation though. Auto rotation would help on that. It can rotate by energy (sometimes this makes an unused goalkeeper to play out of position) or by statistics. 
 
 Max strength and Max energy makes game less interrupted by injury.
 
-Auro contract renewal disables the contract renewal reminders and renew the contract for you. 
+Auto contract renewal disables the contract renewal reminders and renew the contract for you. 
 
-Auto Train would adjust the player's training schedule automatically. It would train for another position if the current one is maxed out. Converting to GK would be another option to minimize traing injury but your players don't really like that. They may threaten to retire (some do folow up with the threat, so change to their best position when season ends) and the club may warn you for undererformance (but never will). 
+Auto Train would adjust the player's training schedule automatically. It would train for another position if the current one is maxed out. Converting to GK would be another option to minimize traiing injury but your players don't really like that. They may threaten to retire (some do follow up with the threat, so change to their best position when season ends) and the club may warn you of termination for underperformance (but that is always an empty threat). 
 
-Due to the way training works a player could have best position changed (e.g. LRB and RWB could become LW and RW if you do sprint training which is also essential for wing backs) by training and complain about it. 
+Due to the way training works a player could have best position changed. For example, LRB and RWB could become LW and RW if you do sprint training too much, which is essential for wing backs. If you don't change their positions accordingly, they will complain about it. 
 
-Auto position would change every player to their best position. Well, sort of. Sometimes you want a fixed formation instead of letting players choose their position freely. You can set your formation in game (you don't really need to care if you put a CD in a forward position), then click the Save Current Formation button and check the Auto Position using Saved Formation checkbox. The next time you do auto positon or auto rotation, the saved formation would be used. You don't want to limit the player's free will if a player threatened to retire, however, and you should do Auto Position without formation when you enter the offseason if someone is unhappy. 
+Auto position would change every player to their best position. Well, sort of. Sometimes you want a fixed formation instead of letting players choose their position freely. You can set your formation in game (you don't really need to care if you put a CD in a forward position), then click the Save Current Formation button and check the Auto Position using Saved Formation checkbox. The next time you do auto position or auto rotation, the saved formation would be used. You don't want to limit the player's free will if a player threatened to retire, however, and you should do Auto Position without formation when you enter the offseason if someone is unhappy. 
 
-Land purshases enables you to build better looking stadiums that was previously made impossible by rivers or roads. 
+Land purchases enables you to build better looking stadiums that was previously made impossible by rivers or roads. 
 
 #### Improving the computer
 
-The computer does not train. This makes late game matchs a cake walk. If you want some challenges you can improve computer player attributes. The Boost Youth Player feature would increase the attributes of all respawn players (age <20 and contract weeks between 96 and 144) by 25. The Improve All Players feature would increase the attributes of all players by 1. You can use it to compensate the attribute cap on respawn players and lack of training for computer players. 
+The computer does not train. This makes late game matches a cake walk. If you want some challenges you can improve computer player attributes. The Boost Youth Player feature would increase the attributes of all respawn players (age <20 and contract weeks between 96 and 144) by 25. The Improve All Players feature would increase the attributes of all players by 1. You can use it to compensate the attribute cap on respawn players and lack of training for computer players. 
 
 #### Updating Player Names Online
 
-When an old player retires a new player would be respawn with the same last name. This makes the player data gradually obselete. 
+When an old player retires a new player would be respawn with the same last name. This makes the player data gradually obsolete. 
 
-The Updating Respawn Names Online feature (should only run at the starting of a new season) would query Wikipedia data dump from DBPedia (faster but no Chinese names) or WikiData (slower but supports more languages）for players born 17 years ago (if not found, then players born since 1960). Due to the limitation of data format, female players would also be included. 
+The Updating Respawn Names Online feature (should only run at the starting of a new season) would query Wikipedia data dump from WikiData for players born 17 years ago (if not found, then players born since 1960). Due to the limitation of data format, female players would also be included. 
+
+DBPedia was previously supported, but their loaded dataset no longer support many languages.
 
 Combined with the reset date feature (should only be run in the offseason) you can choose to go back to a few decades before the game officially starts and have corresponding player names from that era. 
 
-
-
 #### Game bugs
 
-The game has an year 2079 bug where all players would suddenly become age 90+ due to birth date being stored as a WORD and thus capped at 65535 days after December, 30, 1899. This would begin a 16 year dark period where every single player in the game would have a high chance to retire next season, starting from a club's main team until only 16 players left in the club. Computers would also lose the ability to purchase players off the transfer market during this period. After the 16 years, the game would be full of youth players again and each year a smaller and smaller amount of players retire as respwns making their retirement possible. Around 2105, when all old players from the dark period retired but no new player aged enough to retire, the game would freeze at the begining of the season due to lack of respawns. 
+The game has an year 2079 bug where all players would suddenly become age 90+ due to birth date being stored as a WORD and thus capped at 65535 days after December, 30, 1899. This would begin a 16 year dark period where every single player in the game would have a high chance to retire next season, starting from a club's main team until only 16 players left in the club. Computers would also lose the ability to purchase players off the transfer market during this period. After the 16 years, the game would be full of youth players again and each year a smaller and smaller amount of players retire as respawns making their retirement possible. Around 2105, when all old players from the dark period retired but no new player aged enough to retire, the game would freeze at the beginning of the season due to lack of respawns. 
 
-To avoid this bug, Date reset would reset the date to a secified year but keeping player ages intact. This should only be done in the offseason, though, as changing date in the middle of a season would disrupt competition schedule.
+To avoid this bug, Date reset would reset the date to a specified year but keeping player ages intact. This should only be done in the offseason, though, as changing date in the middle of a season would disrupt competition schedule.
 
 The game has another buffer overrun bug at 40 players (39 players in the official 97/98 season patch). When your team becomes too crowded, sometimes you would see a player with number 40 or 39 joins your team as the result of poorly planned player transfer or respawn. At this time, your game state becomes corrupted, random events will happen weekly until you are fired and game progress deleted.
 
-The only way to savalge the game save is to force exit the game process before the current game state is written to file, which the game does when you quit using the game's interface. You can instead close the game using the Task Manager tool in Windows, but the trainer provides a convient way to restart the game.
+The only way to savage the game save is to force exit the game process before the current game state is written to file, which the game does when you quit using the game's interface. You can instead close the game using the Task Manager tool in Windows, but the trainer provides a convient way to restart the game.
 
 
 
