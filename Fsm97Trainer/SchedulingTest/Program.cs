@@ -45,6 +45,8 @@ namespace SchedulingTest
             //TestEvalPlayer();
             //TestPlayerManagers();
         }
+
+
         static void TestTeams()
         {
             using (FormMainModel formMainModel = new FormMainModel())
@@ -76,9 +78,9 @@ namespace SchedulingTest
                 try
                 {
 
-                    //formMainModel.EvaluateYoungPlayers(PlayerPosition.GK, "吉文", 60);
+                    formMainModel.EvaluateYoungPlayers(PlayerPosition.GK, "艾德加尔", 0);
                     //formMainModel.EvaluateYoungPlayers(PlayerPosition.LWB, string.Empty, 60);
-                    formMainModel.EvaluateYoungPlayers(PlayerPosition.Count,string.Empty,19);
+                    //formMainModel.EvaluateYoungPlayers(PlayerPosition.GK,string.Empty,0);
                     /*formMainModel.MaxEvalAge = 19;
                     formMainModel.TotalPlayerPositionsToEval=0;
                     formMainModel.EvaluateYoungPlayers(PlayerPosition.FOR, null, 60);*/
@@ -99,23 +101,23 @@ namespace SchedulingTest
         }
         private static void TestEvalPlayer()
         {
-            List<byte> data = new List<byte>() {
+            List<double> data = new List<double>() {
                 //movement
                 99,  99  ,99
                 //health
                 ,99,99,99,
                 //skill
-                86,  99,  63,  99,  98,
+                99, 99,  98.67,  99,  99,
                 //coolness, awareness
                 99,99,
                 //tackling
-                95,  90,
+                99,  99,
                 //flair
                 99,
                 //GK
-                20,  28,  24,
+                99,  99,  99,
                 //misc
-                99,75,43,73,99
+                99,99,99,99,99
             };
 
             PlayerModelDouble player=new PlayerModelDouble(data);
@@ -136,7 +138,7 @@ namespace SchedulingTest
                 
                 //formMainModel.MaxEvalAge = 19;
                 formMainModel.TotalPlayerPositionsToEval=0;
-                formMainModel.EvaluateYoungPlayer(PlayerPosition.LWB, player);
+                formMainModel.EvaluateYoungPlayer(PlayerPosition.FOR, player);
                 var fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".htm";
 
                 File.WriteAllText(fileName, formMainModel.EvalYoungPlayersResult);

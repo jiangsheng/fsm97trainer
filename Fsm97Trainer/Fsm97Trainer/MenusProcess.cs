@@ -1,5 +1,6 @@
 ﻿using Diacritics.Extensions;
 using FSM97Lib;
+using Fsm97Trainer.Models;
 using HtmlAgilityPack;
 using NameParser;
 using Newtonsoft.Json.Linq;
@@ -11,12 +12,14 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -866,8 +869,13 @@ namespace Fsm97Trainer
                 var trainingEffects = trainingEffectModifier.TrainingEffects;
                 NativeMethods.SuspendProcess(Process);
                 var playerNodes = ReadPlayers(true);
+
+
+                var uiCulureInfo = Thread.CurrentThread.CurrentUICulture;
                 Parallel.ForEach(playerNodes, playerNode =>
                 {
+                    Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = uiCulureInfo;
+
                     var player = playerNode.Data;
                     if (autoTrain)
                     {
@@ -1122,8 +1130,8 @@ namespace Fsm97Trainer
         {
             if (TrainingEffectAddress != 0)
             {
-                var trainingEffectBytes = NativeMethods.ReadBytes(Process, TrainingEffectAddress, 4 * 27 * ((int)TrainingScheduleType.TrainingMatch + 1));
-                return TrainingScheduleEffect.DetectModifiers(trainingEffectBytes);
+                var trainingEffectBytes = NativeMethods.ReadBytes(Process, TrainingEffectAddress, 4 * 27 * ((int)TrainingActivityType.TrainingMatch + 1));
+                return TrainingActivity.DetectModifiers(trainingEffectBytes);
             }
             return new TrainingEffectModifier();
         }
@@ -1524,7 +1532,7 @@ namespace Fsm97Trainer
              string playerLastname, int minRating,bool alwaysTrainConsistency, bool debugTraining)
         {
             List<PlayerModelDouble> youngPlayers = null;
-            float[][] traingEffect = trainingEffectModifier.TrainingEffects;
+            var trainingEffect = trainingEffectModifier.TrainingEffects;
             try
             {
                 NativeMethods.SuspendProcess(Process);
@@ -1584,7 +1592,7 @@ namespace Fsm97Trainer
                     EvaluateYoungPlayersResult evaluateYoungPlayersResult = new EvaluateYoungPlayersResult(position, youngPlayers,
                     autoResetStatus,
                     maxEnergy, maxPower, noAlternativeTraining,
-                    trainingEffectModifier, alwaysTrainConsistency, traingEffect);
+                    trainingEffectModifier, alwaysTrainConsistency, trainingEffect);
                     evaluateYoungPlayersResults[targetPositionValueIndex] =
                     evaluateYoungPlayersResult;
                     evaluateYoungPlayersResult.OnEvalPlayerPositionComplete += (s, e) =>
@@ -1600,13 +1608,16 @@ namespace Fsm97Trainer
             }
             else
             {
+                var uiCulureInfo = Thread.CurrentThread.CurrentUICulture;
                 Parallel.ForEach(targetPositionValueIndexes, targetPositionValueIndex =>
                 {
+                    Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = uiCulureInfo;
+
                     var position = targetPositionValues[targetPositionValueIndex];
                     EvaluateYoungPlayersResult evaluateYoungPlayersResult = new EvaluateYoungPlayersResult(position, youngPlayers,
                     autoResetStatus,
                     maxEnergy, maxPower, noAlternativeTraining,
-                    trainingEffectModifier, alwaysTrainConsistency, traingEffect);
+                    trainingEffectModifier, alwaysTrainConsistency, trainingEffect);
                     evaluateYoungPlayersResults[targetPositionValueIndex] =
                     evaluateYoungPlayersResult;
                     evaluateYoungPlayersResult.OnEvalPlayerPositionComplete += (s, e) =>
@@ -1642,16 +1653,13 @@ namespace Fsm97Trainer
                 var resultForPosition = evaluateYoungPlayersResults[targetPositionIndex];
                 var topPlayers = resultForPosition.Grades
                     .Where(r => r.WeeksToMax > 0)
-                    .OrderBy(p => p.WeeksToMax)
-                    .ThenByDescending(p => p.FinalRating)
+                    .OrderByDescending(p => p.FinalRating)
+                    .ThenBy(p => p.WeeksToMax)
                     .ThenByDescending(p => p.Player.Statistics)
-                    .Take(20).ToList();
+                    .Take(200).ToList();
                 if (topPlayers.Count == 0) continue;
                 var averageWeeks = resultForPosition.Grades
                         .Where(r => r.WeeksToMax > 0)
-                        .OrderByDescending(p => p.FinalRating)
-                        .ThenBy(p => p.WeeksToMax)
-                        .ThenByDescending(p => p.Player.Statistics)
                         .Average(p => p.WeeksToMax);
                 var evalResultTable = doc.CreateElement("table");
                 var caption = doc.CreateElement("caption");
@@ -1784,7 +1792,7 @@ namespace Fsm97Trainer
                     scheduleTable.AppendChild(scheduleThead);
                     var scheduleTbody = doc.CreateElement("tbody");
 
-                    int[] roundsForEachTrainingScheduleType = new int[(int)TrainingScheduleType.Count];
+                    int[] roundsForEachTrainingScheduleType = new int[(int)TrainingActivityType.Count];
                     foreach (var weeklyTrainingSchedule in topPlayer.WeeklyTrainingSchedules)
                     {
                         var scheduleRow = doc.CreateElement("tr");
@@ -1816,7 +1824,8 @@ namespace Fsm97Trainer
                                 default:
                                     if (attributeValue < TrainingSchedule.attributeCap)
                                     {
-                                        cell.AppendChild(doc.CreateTextNode(attributeValue.ToStringTruncated(2)));
+                                        cell.AppendChild(doc.CreateTextNode(((int)attributeValue).ToString()));
+                                        cell.SetAttributeValue("title", attributeValue.ToStringTruncated(2));
                                     }
                                     if (columnWithBorders.ContainsKey(columnIndex))
                                         cell.AddClass("col-border");
@@ -1890,7 +1899,7 @@ namespace Fsm97Trainer
                     StringBuilder scheduleFootCellText = new StringBuilder();
                     bool firstScheduleFootCellText = true;
                     scheduleFootCellText.Append(Properties.Resources.TotalRoundsForEachTrainingScheduleType);
-                    for (int i = 0; i < (int)TrainingScheduleType.Count; i++)
+                    for (int i = 0; i < (int)TrainingActivityType.Count; i++)
                     {
                         if (roundsForEachTrainingScheduleType[i] > 0)
                         {
@@ -1898,7 +1907,7 @@ namespace Fsm97Trainer
                                 firstScheduleFootCellText = false;
                             else
                                 scheduleFootCellText.Append(", ");
-                            scheduleFootCellText.Append(((TrainingScheduleType)i).ToLocalizedString());
+                            scheduleFootCellText.Append(((TrainingActivityType)i).ToLocalizedString());
                             scheduleFootCellText.Append(": ");
                             scheduleFootCellText.Append(roundsForEachTrainingScheduleType[i].ToString());
                         }
@@ -1918,7 +1927,7 @@ namespace Fsm97Trainer
 
         public string EvaluateYoungPlayers(PlayerPosition playerPosition, int maxEvalAge, bool autoResetStatus, bool maxEnergy, bool maxPower, bool noAlternativeTraining, Action<int> evaluateYoungPlayersReportProgress, Action<int> evaluateYoungPlayersReportTotalPlayerPositions, bool alwaysTrainConsistency, PlayerModelDouble player, bool debugTraining)
         {
-            float[][] traingEffect = trainingEffectModifier.TrainingEffects;
+            var traingEffect = trainingEffectModifier.TrainingEffects;
             Dictionary<PlayerPosition, string> targetPositions = new Dictionary<PlayerPosition, string>();
             if (playerPosition == PlayerPosition.Count)
             {
@@ -1966,9 +1975,11 @@ namespace Fsm97Trainer
             }
             else
             {
-
+                var uiCulureInfo = Thread.CurrentThread.CurrentUICulture;
                 Parallel.ForEach(targetPositionValueIndexes, targetPositionValueIndex =>
                 {
+                    Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = uiCulureInfo;
+
                     var position = targetPositionValues[targetPositionValueIndex];
                     EvaluateYoungPlayersResult evaluateYoungPlayersResult = new EvaluateYoungPlayersResult(position, new List<PlayerModelDouble> { player },
                     autoResetStatus,

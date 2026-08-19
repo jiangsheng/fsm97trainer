@@ -279,171 +279,171 @@ namespace FSM97Lib {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Control {
+        internal static string TrainingActivityType_Control {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Control", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Control", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Exercise {
+        internal static string TrainingActivityType_Exercise {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Exercise", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Exercise", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_FiveASide {
+        internal static string TrainingActivityType_FiveASide {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_FiveASide", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_FiveASide", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_GoalKeeping {
+        internal static string TrainingActivityType_GoalKeeping {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_GoalKeeping", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_GoalKeeping", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Handling {
+        internal static string TrainingActivityType_Handling {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Handling", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Handling", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Heading {
+        internal static string TrainingActivityType_Heading {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Heading", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Heading", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Jogging {
+        internal static string TrainingActivityType_Jogging {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Jogging", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Jogging", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Kicking {
+        internal static string TrainingActivityType_Kicking {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Kicking", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Kicking", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Marking {
+        internal static string TrainingActivityType_Marking {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Marking", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Marking", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_None {
+        internal static string TrainingActivityType_None {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_None", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_None", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Passing {
+        internal static string TrainingActivityType_Passing {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Passing", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Passing", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Physiotherapist {
+        internal static string TrainingActivityType_Physiotherapist {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Physiotherapist", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Physiotherapist", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Shooting {
+        internal static string TrainingActivityType_Shooting {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Shooting", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Shooting", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Sprinting {
+        internal static string TrainingActivityType_Sprinting {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Sprinting", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Sprinting", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Tackling {
+        internal static string TrainingActivityType_Tackling {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Tackling", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Tackling", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_Throwing {
+        internal static string TrainingActivityType_Throwing {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_Throwing", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_Throwing", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_TrainingMatch {
+        internal static string TrainingActivityType_TrainingMatch {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_TrainingMatch", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_TrainingMatch", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_WeightTraining {
+        internal static string TrainingActivityType_WeightTraining {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_WeightTraining", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_WeightTraining", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TrainingScheduleType_ZonalDefence {
+        internal static string TrainingActivityType_ZonalDefence {
             get {
-                return ResourceManager.GetString("TrainingScheduleType_ZonalDefence", resourceCulture);
+                return ResourceManager.GetString("TrainingActivityType_ZonalDefence", resourceCulture);
             }
         }
     }

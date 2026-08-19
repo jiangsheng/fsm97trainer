@@ -6,8 +6,11 @@ using System.Text;
 
 namespace FSM97Lib
 {
-    public static class TrainingScheduleEffect
+    public  class TrainingActivity
     {
+        public TrainingActivityType Activity{ get; set; }
+        public float[] Effects { get; set; }
+
         public static float[] None = new float[] {
             0,0,0,//0-2 Speed Agility Acceleration
             0,0,0,//3-5 Stamina Strength Fitness
@@ -199,7 +202,7 @@ namespace FSM97Lib
             0,0.09f,-5f//form moral energy
         };
 
-        public static byte[] GetTrainingScheduleEffect(TrainingEffectModifier trainingEffectModifier)
+        public static byte[] GetTrainingEffects(TrainingEffectModifier trainingEffectModifier)
         {
             float[] resultInFloat = new float[27 * 19];
             int index = 0;
@@ -238,64 +241,64 @@ namespace FSM97Lib
             }
             if (trainingEffectModifier.ShootingTrainGreed)
             {
-                resultInFloat[(int)TrainingScheduleType.Sprinting* 27 + (int)PlayerAttribute.Greed] = 0.02f;
-                resultInFloat[(int)TrainingScheduleType.Shooting * 27 + (int)PlayerAttribute.Greed] = 0.08f;
-                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + (int)PlayerAttribute.Greed] = 0.05f;
-                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + (int)PlayerAttribute.Greed] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.Sprinting* 27 + (int)PlayerAttribute.Greed] = 0.02f;
+                resultInFloat[(int)TrainingActivityType.Shooting * 27 + (int)PlayerAttribute.Greed] = 0.08f;
+                resultInFloat[(int)TrainingActivityType.FiveASide * 27 + (int)PlayerAttribute.Greed] = 0.05f;
+                resultInFloat[(int)TrainingActivityType.TrainingMatch * 27 + (int)PlayerAttribute.Greed] = 0.04f;
             }
             if (trainingEffectModifier.PassingTrainLeadership)
             {
-                resultInFloat[(int)TrainingScheduleType.Passing * 27 + (int)PlayerAttribute.Leadership] = 0.08f;
-                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + (int)PlayerAttribute.Leadership] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + (int)PlayerAttribute.Leadership] = 0.05f;
-                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + (int)PlayerAttribute.Dribbling] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + (int)PlayerAttribute.Dribbling] = 0.05f;
-                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + (int)PlayerAttribute.Consistency] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + (int)PlayerAttribute.Consistency] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.Control * 27 + (int)PlayerAttribute.Dribbling] = 0.16f;
+                resultInFloat[(int)TrainingActivityType.Passing * 27 + (int)PlayerAttribute.Leadership] = 0.08f;
+                resultInFloat[(int)TrainingActivityType.FiveASide * 27 + (int)PlayerAttribute.Leadership] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.TrainingMatch * 27 + (int)PlayerAttribute.Leadership] = 0.05f;
+                resultInFloat[(int)TrainingActivityType.FiveASide * 27 + (int)PlayerAttribute.Dribbling] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.TrainingMatch * 27 + (int)PlayerAttribute.Dribbling] = 0.05f;
+                resultInFloat[(int)TrainingActivityType.FiveASide * 27 + (int)PlayerAttribute.Consistency] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.TrainingMatch * 27 + (int)PlayerAttribute.Consistency] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.Control * 27 + (int)PlayerAttribute.Dribbling] = 0.16f;
             }
             if (trainingEffectModifier.ThrowingTrainThrowIn)
             {
-                resultInFloat[(int)TrainingScheduleType.Throwing * 27 + (int)PlayerAttribute.ThrowIn] = 0.08f;
-                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + (int)PlayerAttribute.ThrowIn] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + (int)PlayerAttribute.ThrowIn] = 0.05f;
+                resultInFloat[(int)TrainingActivityType.Throwing * 27 + (int)PlayerAttribute.ThrowIn] = 0.08f;
+                resultInFloat[(int)TrainingActivityType.FiveASide * 27 + (int)PlayerAttribute.ThrowIn] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.TrainingMatch * 27 + (int)PlayerAttribute.ThrowIn] = 0.05f;
             }
             if (trainingEffectModifier.ImproveSpeed)
             {
-                resultInFloat[(int)TrainingScheduleType.Exercise* 27 + (int)PlayerAttribute.Speed] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.Exercise * 27 + (int)PlayerAttribute.Acceleration] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.Jogging * 27 + (int)PlayerAttribute.Speed] = 0.06f;
-                resultInFloat[(int)TrainingScheduleType.Jogging * 27 + (int)PlayerAttribute.Acceleration] = 0.02f;
-                resultInFloat[(int)TrainingScheduleType.Marking * 27 + (int)PlayerAttribute.Speed] = 0.02f;
-                resultInFloat[(int)TrainingScheduleType.Marking * 27 + (int)PlayerAttribute.Agility] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.Marking * 27 + (int)PlayerAttribute.Acceleration] = 0.06f;
-                resultInFloat[(int)TrainingScheduleType.Tackling * 27 + (int)PlayerAttribute.Speed] = 0.06f;
-                resultInFloat[(int)TrainingScheduleType.Tackling * 27 + (int)PlayerAttribute.Agility] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.Tackling * 27 + (int)PlayerAttribute.Acceleration] = 0.02f;
-                resultInFloat[(int)TrainingScheduleType.ZonalDefence * 27 + (int)PlayerAttribute.Speed] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.ZonalDefence * 27 + (int)PlayerAttribute.Agility] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.ZonalDefence * 27 + (int)PlayerAttribute.Acceleration] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + (int)PlayerAttribute.Speed] = 0.02f;
-                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + (int)PlayerAttribute.Acceleration] = 0.06f;
-                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + (int)PlayerAttribute.Speed] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + (int)PlayerAttribute.Acceleration] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.Exercise* 27 + (int)PlayerAttribute.Speed] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.Exercise * 27 + (int)PlayerAttribute.Acceleration] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.Jogging * 27 + (int)PlayerAttribute.Speed] = 0.06f;
+                resultInFloat[(int)TrainingActivityType.Jogging * 27 + (int)PlayerAttribute.Acceleration] = 0.02f;
+                resultInFloat[(int)TrainingActivityType.Marking * 27 + (int)PlayerAttribute.Speed] = 0.02f;
+                resultInFloat[(int)TrainingActivityType.Marking * 27 + (int)PlayerAttribute.Agility] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.Marking * 27 + (int)PlayerAttribute.Acceleration] = 0.06f;
+                resultInFloat[(int)TrainingActivityType.Tackling * 27 + (int)PlayerAttribute.Speed] = 0.06f;
+                resultInFloat[(int)TrainingActivityType.Tackling * 27 + (int)PlayerAttribute.Agility] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.Tackling * 27 + (int)PlayerAttribute.Acceleration] = 0.02f;
+                resultInFloat[(int)TrainingActivityType.ZonalDefence * 27 + (int)PlayerAttribute.Speed] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.ZonalDefence * 27 + (int)PlayerAttribute.Agility] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.ZonalDefence * 27 + (int)PlayerAttribute.Acceleration] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.FiveASide * 27 + (int)PlayerAttribute.Speed] = 0.02f;
+                resultInFloat[(int)TrainingActivityType.FiveASide * 27 + (int)PlayerAttribute.Acceleration] = 0.06f;
+                resultInFloat[(int)TrainingActivityType.TrainingMatch * 27 + (int)PlayerAttribute.Speed] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.TrainingMatch * 27 + (int)PlayerAttribute.Acceleration] = 0.04f;
             }
             if (trainingEffectModifier.KickingImproveSpeed) {
-                resultInFloat[(int)TrainingScheduleType.Kicking * 27 + (int)PlayerAttribute.Speed] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.Kicking * 27 + (int)PlayerAttribute.Shooting] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.Kicking * 27 + (int)PlayerAttribute.Speed] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.Kicking * 27 + (int)PlayerAttribute.Shooting] = 0.04f;
             }
             if (trainingEffectModifier.HandlingImproveAgility)
             {
-                resultInFloat[(int)TrainingScheduleType.Handling * 27 + (int)PlayerAttribute.Speed] = 0.02f;
-                resultInFloat[(int)TrainingScheduleType.Handling* 27 + (int)PlayerAttribute.Agility] = 0.04f;
-                resultInFloat[(int)TrainingScheduleType.Handling * 27 + (int)PlayerAttribute.Acceleration] = 0.06f;
+                resultInFloat[(int)TrainingActivityType.Handling * 27 + (int)PlayerAttribute.Speed] = 0.02f;
+                resultInFloat[(int)TrainingActivityType.Handling* 27 + (int)PlayerAttribute.Agility] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.Handling * 27 + (int)PlayerAttribute.Acceleration] = 0.06f;
             }
             if (trainingEffectModifier.HeadingImproveDetermination)
             {
-                resultInFloat[(int)TrainingScheduleType.Heading * 27 + (int)PlayerAttribute.Heading] = 0.16f;
-                resultInFloat[(int)TrainingScheduleType.Heading* 27 + (int)PlayerAttribute.Determination] = 0.08f;
-                resultInFloat[(int)TrainingScheduleType.FiveASide * 27 + (int)PlayerAttribute.Determination] = 0.06f;
-                resultInFloat[(int)TrainingScheduleType.TrainingMatch * 27 + (int)PlayerAttribute.Determination] = 0.04f;
+                resultInFloat[(int)TrainingActivityType.Heading * 27 + (int)PlayerAttribute.Heading] = 0.16f;
+                resultInFloat[(int)TrainingActivityType.Heading* 27 + (int)PlayerAttribute.Determination] = 0.08f;
+                resultInFloat[(int)TrainingActivityType.FiveASide * 27 + (int)PlayerAttribute.Determination] = 0.06f;
+                resultInFloat[(int)TrainingActivityType.TrainingMatch * 27 + (int)PlayerAttribute.Determination] = 0.04f;
             }
             byte[] result = new byte[resultInFloat.Length * 4];
             Buffer.BlockCopy(resultInFloat, 0, result, 0, result.Length);
@@ -308,78 +311,26 @@ namespace FSM97Lib
             TrainingEffectModifier result = new TrainingEffectModifier();
             if (trainingEffectFloat[26] == 10)
                 result.TrainingEffectX2 = true;
-            if (trainingEffectFloat[(int)TrainingScheduleType.Shooting* 27 + (int)PlayerAttribute.Stamina] >= 0)
+            if (trainingEffectFloat[(int)TrainingActivityType.Shooting* 27 + (int)PlayerAttribute.Stamina] >= 0)
                 result.RemoveNegativeTraining = true;
-            if (trainingEffectFloat[(int)TrainingScheduleType.Throwing * 27 + (int)PlayerAttribute.ThrowIn] > 0)
+            if (trainingEffectFloat[(int)TrainingActivityType.Throwing * 27 + (int)PlayerAttribute.ThrowIn] > 0)
                 result.ThrowingTrainThrowIn = true;
-            if (trainingEffectFloat[(int)TrainingScheduleType.Passing * 27 + (int)PlayerAttribute.Leadership] > 0)
+            if (trainingEffectFloat[(int)TrainingActivityType.Passing * 27 + (int)PlayerAttribute.Leadership] > 0)
                 result.PassingTrainLeadership = true;
-            if (trainingEffectFloat[(int)TrainingScheduleType.Shooting * 27 + (int)PlayerAttribute.Greed] > 0)
+            if (trainingEffectFloat[(int)TrainingActivityType.Shooting * 27 + (int)PlayerAttribute.Greed] > 0)
                 result.ShootingTrainGreed = true; 
-            if (trainingEffectFloat[(int)TrainingScheduleType.Exercise * 27 + (int)PlayerAttribute.Speed] > 0)
+            if (trainingEffectFloat[(int)TrainingActivityType.Exercise * 27 + (int)PlayerAttribute.Speed] > 0)
                 result.ImproveSpeed = true;
-            if (trainingEffectFloat[(int)TrainingScheduleType.Kicking * 27 + (int)PlayerAttribute.Speed] > 0)
+            if (trainingEffectFloat[(int)TrainingActivityType.Kicking * 27 + (int)PlayerAttribute.Speed] > 0)
                 result.KickingImproveSpeed = true;
-            if (trainingEffectFloat[(int)TrainingScheduleType.Handling * 27 + (int)PlayerAttribute.Agility] > 0)
+            if (trainingEffectFloat[(int)TrainingActivityType.Handling * 27 + (int)PlayerAttribute.Agility] > 0)
                 result.HandlingImproveAgility = true;
-            if (trainingEffectFloat[(int)TrainingScheduleType.Heading * 27 + (int)PlayerAttribute.Determination] > 0)
+            if (trainingEffectFloat[(int)TrainingActivityType.Heading * 27 + (int)PlayerAttribute.Determination] > 0)
                 result.HeadingImproveDetermination = true;
             result.RawData = trainingEffectFloat;
 
             return result;
         }
 
-        public static double GetScheduleEffect(int scheduleType, PlayerPosition playerPosition, byte[] attributes,TrainingEffectModifier trainingEffectModifier, bool shouldTrainAsGK, bool shouldTrainAsLrb, bool shouldTrainAsCd)
-        {
-            byte[] positionRatings;
-
-            switch (playerPosition)
-            {
-                case PlayerPosition.Count:
-                    positionRatings = Enumerable.Range(1, (int)PlayerAttribute.Count).Select(i => (byte)i).ToArray(); break;
-                default:
-                    positionRatings= PositionRatings.Ratings[(int)playerPosition]; break;
-            }
-                
-            double sum = 0;
-            for (int attributeIndex = 0; attributeIndex < (int)PlayerAttribute.Count; attributeIndex++)
-            {
-                //skip attributes that won't affect position rating
-                if (attributeIndex == (int)PlayerAttribute.Stamina) continue;
-                if (attributeIndex == (int)PlayerAttribute.Fitness) continue;
-                if (attributeIndex == (int) PlayerAttribute.Strength) continue;
-                //skip goal keeper traning from calculation if not good enough for 
-                if (!shouldTrainAsGK)
-                {
-                    if (attributeIndex == (int)PlayerAttribute.Kicking) continue;
-                    if (attributeIndex == (int)PlayerAttribute.Handling) continue;
-                    if (attributeIndex == (int)PlayerAttribute.Throwing) continue;
-                }
-
-                // skip wrightlifting traning if not good enough 
-                if (!shouldTrainAsLrb)
-                {
-                    if (attributeIndex == (int)PlayerAttribute.Determination) continue;
-                }
-                //skip consistency traning if not needed
-                if (!shouldTrainAsGK && !shouldTrainAsLrb && !shouldTrainAsCd)
-                {
-                    if (attributeIndex == (int)PlayerAttribute.Consistency) continue;
-                }
-                if (positionRatings[attributeIndex]==0) continue;
-
-
-                int attribute = 99 - attributes[attributeIndex];
-                if (attribute < 0) attribute = 0;
-                if (attribute == 0) continue;
-                sum += attribute*trainingEffectModifier.TrainingEffects[scheduleType][attributeIndex];
-            }
-            return sum;
-        }
-        public static double GetScheduleEffect(TrainingScheduleType[] scheduleTypes, PlayerPosition playerPosition, byte[] attributes, TrainingEffectModifier trainingEffectModifier, bool shouldTrainAsGK, bool shouldTrainAsLrb, bool shouldTrainAsCd)
-        {
-            
-            return scheduleTypes.Select(scheduleType=> GetScheduleEffect((int)scheduleType, playerPosition, attributes, trainingEffectModifier, shouldTrainAsGK, shouldTrainAsLrb, shouldTrainAsCd)).Sum();
-        }
     }
 }

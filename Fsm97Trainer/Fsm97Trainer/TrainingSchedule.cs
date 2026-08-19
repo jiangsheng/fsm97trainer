@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using System.Web.UI.WebControls;
@@ -18,8 +19,9 @@ namespace Fsm97Trainer
         static int[] stages =
             Enumerable.Range(1, 75).Select(x => x + 24).ToArray();
         public const int attributeCap = 99;
-        public const int almostAttributeCap = 85;
-        public const double ConstantFastCeiling = 0.999999;
+        public const int almostAttributeCap = 87;
+        public const double ConstantFastCeiling = 0.9999;
+        public const double EPS = 1e-9;
         internal static List<TrainingScheduleSteps> GetTrainingSchedule(TrainingScheduleCalculationState trainingScheduleCalculationState)
         {
             trainingScheduleCalculationState.UpdateProjectedAttributesAfterSprinting();
@@ -53,7 +55,7 @@ namespace Fsm97Trainer
                     //fitness = attributeCap can still injured in training once in a blue moon but we ignore that. 
                     if (player.Status == 0 && player.Position != (byte)PlayerPosition.GK && player.Fitness < attributeCap)
                     {
-                        schedule[1].TrainingScheduleType = schedule[3].TrainingScheduleType = schedule[5].TrainingScheduleType = TrainingScheduleType.Physiotherapist;
+                        schedule[1].TrainingScheduleType = schedule[3].TrainingScheduleType = schedule[5].TrainingScheduleType = TrainingActivityType.Physiotherapist;
                     }
                 }
             }
@@ -69,23 +71,22 @@ namespace Fsm97Trainer
             var projectedAttributesAfterSprinting = trainingScheduleCalculationState.ProjectedAttributesAfterSprinting;
             var projectedAttributesAfterTrainingMatch = trainingScheduleCalculationState.ProjectedAttributesAfterTrainingMatch;
 
-            bool trainAcceleration = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Acceleration] > 0;
-            bool trainingShooting = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Shooting] > 0;
-            bool trainingPassing = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Passing] > 0;
-            bool trainHeading = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Heading] > 0;
+            bool trainAcceleration = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Acceleration);
+            bool trainingShooting = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Shooting);
+            bool trainingPassing = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Passing);
+            bool trainHeading = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Heading);
 
-            bool trainControl = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Control] > 0;
-            bool trainDribbling = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Dribbling] > 0;
+            bool trainControl = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Control);
+            bool trainDribbling = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Dribbling);
 
 
-            bool trainTackleSkill = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.TackleSkill] > 0;
-            bool trainTackleDetermination = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.TackleDetermination] > 0;
+            bool trainTackleSkill = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.TackleSkill);
+            bool trainTackleDetermination = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.TackleDetermination);
 
-            bool trainCoolness = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Coolness] > 0;
-            bool trainFlair = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Flair] > 0;
+            bool trainCoolness = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Coolness);
+            bool trainFlair = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Flair);
 
-            bool trainDetermination = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Determination] > 0;
-            var alwaysTrainConsistency = trainingScheduleCalculationState.AlwaysTrainConsistency;
+            bool trainDetermination = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Determination);
             var genericTrainingGrind = trainingScheduleCalculationState.GenericTrainingGrind;
             var genericTrainingCounter=trainingScheduleCalculationState.GenericTrainingCounter;
 
@@ -102,7 +103,7 @@ namespace Fsm97Trainer
                 
                 if (result != null)
                 {
-                    Debug.Assert(result[0].TrainingScheduleType != TrainingScheduleType.TrainingMatch);
+                    Debug.Assert(result[0].TrainingScheduleType != TrainingActivityType.TrainingMatch);
                     return result;
                 }
             }
@@ -168,6 +169,16 @@ namespace Fsm97Trainer
             attributeLeftToTrain.Kicking = attributeCap - player.Kicking;
             if (attributeLeftToTrain.Handling <= 0 && attributeLeftToTrain.Throwing <= 0 && attributeLeftToTrain.Kicking <= 0)
                 return null;
+            var result = ImproveHandlingTo(player, almostAttributeCap, trainingScheduleCalculationState.TrainingEffectModifier);
+            if(result != null)
+                return result;
+            result = ImproveKickingTo(player, almostAttributeCap, trainingScheduleCalculationState.TrainingEffectModifier);
+            if (result != null)
+                return result;
+            result = ImproveThrowingTo(player, almostAttributeCap);
+            if (result != null)
+                return result;
+
             var bottleneckAttributeIndex = trainingScheduleCalculationState.GetBottleneckAttributes(PlayerPosition.GK, attributeLeftToTrain);
             
             var playerSchedule = GenericTraining(trainingScheduleCalculationState, PlayerPosition.GK, attributeLeftToTrain,bottleneckAttributeIndex);
@@ -183,28 +194,27 @@ namespace Fsm97Trainer
             var genericTrainingCounter = trainingScheduleCalculationState.GenericTrainingCounter;
             var trainingEffectModifier=trainingScheduleCalculationState.TrainingEffectModifier;
 
-            bool trainAcceleration = position==PlayerPosition.Count?true:PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Acceleration] > 0;
+            bool trainAcceleration = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Acceleration);
             
-            bool trainingShooting = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Shooting] > 0;
-            bool trainingPassing = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Passing] > 0;
-            bool trainHeading = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Heading] > 0;
-            bool trainControl= position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Control] > 0;
-            bool trainDribbling = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Dribbling] > 0;
+            bool trainingShooting = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Shooting);
+            bool trainingPassing = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Passing);
+            bool trainHeading = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Heading);
+            bool trainControl= trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Control);
+            bool trainDribbling = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Dribbling);
             
-            bool trainTackleSkill = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.TackleSkill] > 0;
-            bool trainTackleDetermination = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.TackleDetermination] > 0;
-            bool trainCoolness= position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int) position][(int)PlayerAttribute.Coolness] > 0;
-            bool trainFlair = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Flair] > 0;
+            bool trainTackleSkill = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.TackleSkill);
+            bool trainTackleDetermination = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.TackleDetermination);
+            bool trainCoolness= trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Coolness);
+            bool trainFlair = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Flair);
 
-            bool trainDetermination = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Determination] > 0;
+            bool trainDetermination = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Determination);
 
             if (attributeLeftToTrain == null && bottleneckAttributeIndex == null)
-            {
-                //gk training only
+            {                
                 attributeLeftToTrain = trainingScheduleCalculationState.AttributesLeftToTrain;
                 bottleneckAttributeIndex = trainingScheduleCalculationState.BottleneckAttributes;
 
-                if (AreAllRevelantAttribtesAboveAlmostCap(trainingScheduleCalculationState.Player, position, trainingEffectModifier))
+                if (AreAllRevelantAttribtesAboveAlmostCap(trainingScheduleCalculationState, position, trainingEffectModifier))
                 {
                     return GetFinalTrainingSchedule(trainingScheduleCalculationState, position);
                 }
@@ -226,70 +236,72 @@ namespace Fsm97Trainer
                         break;
                     var topBottleneckAttribute = bottleneckAttributeIndex[i];
                     var repeat = topBottleneckAttribute.Repeat;
+                    if (repeat < 1) repeat = 1; 
+                    if (repeat >7) repeat =7;
 
                     switch (topBottleneckAttribute.AttributeIndex)
                     {
                         case PlayerAttribute.Speed:
                         case PlayerAttribute.Acceleration:
 
-                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Sprinting);
-                            AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
+                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Sprinting);
+                            AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
 
                             break;
                         case PlayerAttribute.Agility:
 
                             if (player.Position != (int)PlayerPosition.GK)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else
                             {
                                 if (player.Kicking >= TrainingSchedule.attributeCap)
-                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                                 else
                                 {
                                     //it is usually not good to maxed this last
-                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.GoalKeeping);
-                                    AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Kicking, trainingEffectModifier);
-                                    AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Throwing, trainingEffectModifier);
-                                    AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
+                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.GoalKeeping);
+                                    AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Kicking, trainingEffectModifier);
+                                    AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Throwing, trainingEffectModifier);
+                                    AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
                                 }
                             }
                             break;
                         case PlayerAttribute.Shooting:                        
                         case PlayerAttribute.Leadership:
-                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             break;
                         case PlayerAttribute.Passing:
                             if (trainingShooting && attributeLeftToTrain.Attributes[(int)PlayerAttribute.Shooting] > 0)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else if (trainHeading && attributeLeftToTrain.Attributes[(int)PlayerAttribute.Heading] > 0)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else if (trainTackleDetermination && attributeLeftToTrain.Attributes[(int)PlayerAttribute.TackleDetermination] > 0)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else if (trainCoolness && attributeLeftToTrain.Attributes[(int)PlayerAttribute.Coolness] > 0)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.FiveASide);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.FiveASide);
                             break;
                         case PlayerAttribute.Fitness:
                             if (Math.Max(attributeLeftToTrain.Speed, attributeLeftToTrain.Acceleration) > 0)
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Sprinting);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Sprinting);
                             else
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             break;
 
                         case PlayerAttribute.Heading:
-                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Heading);
-                            AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Sprinting, trainingEffectModifier);
+                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Heading);
+                            AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Sprinting, trainingEffectModifier);
                             /*
                             //2 training match = 1 heading training
                             if (headingLeftToTrain- (Math.Max(almostAttributeCap- projectedShootingAfterTrainingMatch, almostAttributeCap - projectedPassingAfterTrainingMatch)/2) > 0)
@@ -307,50 +319,51 @@ namespace Fsm97Trainer
                                 Debug.Assert(!(player.Shooting == attributeCap && player.Passing == attributeCap && player.Heading == attributeCap));
                                 if (trainingShooting && attributeLeftToTrain.Attributes[(int)PlayerAttribute.Shooting] > 0)
                                 {
-                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                                 }
                                 else if (trainHeading && attributeLeftToTrain.Attributes[(int)PlayerAttribute.Heading] > 0)
                                 {
-                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                                 }
                                 else if (trainTackleDetermination && attributeLeftToTrain.Attributes[(int)PlayerAttribute.TackleDetermination] > 0)
                                 {
-                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                                 }
                                 else if (trainCoolness && attributeLeftToTrain.Attributes[(int)PlayerAttribute.Coolness] > 0)
                                 {
-                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                                 }
                                 else
-                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.FiveASide);
+                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.FiveASide);
                             }
                             else if (attributeLeftToTrain.Coolness * 3 < attributeLeftToTrain.Awareness * 2)
                             {
                                 if(!(player.Shooting == attributeCap && player.Passing == attributeCap && player.Heading == attributeCap))
                                 //should use training match 
-                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                    AddGrind(
+                                        topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                                 else
-                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                                    AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             }
                             else if (attributeLeftToTrain.Coolness == 0 && attributeLeftToTrain.Dribbling < attributeLeftToTrain.Control / 4)
                             {
                                 //should use five a side instead
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.FiveASide);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.FiveASide);
                             }
                             else
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             }
                             break;
                         case PlayerAttribute.Dribbling:
                             if (player.Dribbling < projectedAttributesAfterTrainingMatch.Dribbling)
                             {
                                 Debug.Assert(!(player.Shooting == attributeCap && player.Passing == attributeCap && player.Heading == attributeCap));
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             }
                             break;
                         case PlayerAttribute.TackleDetermination:
@@ -359,7 +372,7 @@ namespace Fsm97Trainer
                             var tackleDeterminationLeftToTrain = attributeLeftToTrain.TackleDetermination;
                             if (player.TackleDetermination < projectedAttributesAfterTrainingMatch.TackleDetermination)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else if (tackleDeterminationLeftToTrain / (double)4 <= new[] {
                                 //is it covered by training match?
@@ -371,7 +384,7 @@ namespace Fsm97Trainer
                                     attributeLeftToTrain.Awareness/(double)6,
                                     attributeLeftToTrain.Flair/(double)6}.Max())
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else if (tackleDeterminationLeftToTrain / (double)2 <= new[] {
                                 //is it covered by five a side?
@@ -382,20 +395,20 @@ namespace Fsm97Trainer
                                     attributeLeftToTrain.Awareness/(double)4,
                                     attributeLeftToTrain.Flair/(double)8}.Max())
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.FiveASide);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.FiveASide);
                             }
                             else if (tackleDeterminationLeftToTrain < attributeLeftToTrain.TackleSkill / 2)
                             {
                                 //is it covered by tackling training?
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Tackling);
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Control, trainingEffectModifier);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Tackling);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Control, trainingEffectModifier);
                             }
                             else
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Marking);
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Control, trainingEffectModifier);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Marking);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Control, trainingEffectModifier);
                             }
 
                             break;
@@ -406,7 +419,7 @@ namespace Fsm97Trainer
                             //still in initial training match grinding?
                             if (player.TackleSkill < projectedAttributesAfterTrainingMatch.TackleSkill)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else if (tackleSkillLeftToTrain / (double)4 <= new[]
                             {
@@ -418,7 +431,7 @@ namespace Fsm97Trainer
                                 attributeLeftToTrain.Awareness/(double)6,
                                 attributeLeftToTrain.Flair/(double)6}.Max())
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else if (tackleSkillLeftToTrain / (double)6 <= new[] {
                                 //is it fully covered by reqired five a side?
@@ -429,20 +442,20 @@ namespace Fsm97Trainer
                                 attributeLeftToTrain.Awareness/(double)4,
                                 attributeLeftToTrain.Flair/(double)8}.Max())
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.FiveASide);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.FiveASide);
                             }
                             //is it fully covered by reqired marking?
                             else if (tackleSkillLeftToTrain < attributeLeftToTrain.TackleDetermination / 2)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Marking);
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Control, trainingEffectModifier);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Marking);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Control, trainingEffectModifier);
                             }
                             else
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Tackling);
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Control, trainingEffectModifier);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Tackling);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Control, trainingEffectModifier);
                             }
                             break;
 
@@ -451,20 +464,20 @@ namespace Fsm97Trainer
 
                             if (player.Coolness < projectedAttributesAfterTrainingMatch.Coolness)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else if (attributeLeftToTrain.Attributes[(int)PlayerAttribute.Consistency] > 0 && player.Consistency < almostAttributeCap)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             }
                             else if (attributeLeftToTrain.Coolness * 3 <= awarenessLeftToTrain * 2)
                             {
                                 //should use training match 
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             }
                             break;
 
@@ -472,19 +485,19 @@ namespace Fsm97Trainer
                             Debug.Assert(player.Awareness < attributeCap);
                             if (player.Awareness < projectedAttributesAfterTrainingMatch.Awareness)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else if (attributeLeftToTrain.Attributes[(int)PlayerAttribute.Consistency] > 0 && player.Consistency < attributeCap)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             }
                             else if (attributeLeftToTrain.Attributes[(int)PlayerAttribute.Control] > 0 && trainControl)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             }
                             else if (attributeLeftToTrain.Attributes[(int)PlayerAttribute.Dribbling] > 0 && trainDribbling)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             }
                             else if (position == PlayerPosition.GK && player.Passing == attributeCap
                                     && player.Control == attributeCap
@@ -492,24 +505,24 @@ namespace Fsm97Trainer
                                     && attributeLeftToTrain.Agility >= 1)
                             {
                                 Debug.Assert(player.Kicking < TrainingSchedule.attributeCap);
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.GoalKeeping);
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Kicking, trainingEffectModifier);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.GoalKeeping);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Kicking, trainingEffectModifier);
                             }
                             else if (attributeLeftToTrain.Coolness * 3 > attributeLeftToTrain.Awareness * 2)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             }
                             else if (attributeLeftToTrain.Flair * 3 > attributeLeftToTrain.Awareness * 4)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.FiveASide);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.FiveASide);
                             }
                             else if (attributeLeftToTrain.Coolness >= 1 || attributeLeftToTrain.Flair >= 1)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.ZonalDefence);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.ZonalDefence);
                             }
 
 
@@ -519,11 +532,11 @@ namespace Fsm97Trainer
 
                             if (player.Flair < projectedAttributesAfterTrainingMatch.Flair)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else if (attributeLeftToTrain.Attributes[(int)PlayerAttribute.Consistency] > 0 && player.Consistency < attributeCap)
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             }
                             else if (flairLeftToTrain / (double)8 <= new[] {
 
@@ -536,7 +549,7 @@ namespace Fsm97Trainer
                                 attributeLeftToTrain.Awareness/(double)6}.Max())
                             {
                                 //is it fully covered by training match
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.TrainingMatch);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.TrainingMatch);
                             }
                             else if (flairLeftToTrain / (double)2 <= new[] {
                                     attributeLeftToTrain.Attributes[(int)PlayerAttribute.Control]/(double)8,
@@ -545,16 +558,16 @@ namespace Fsm97Trainer
                                     attributeLeftToTrain.Attributes[(int)PlayerAttribute.Consistency]/(double)6 }.Max())
                             {
                                 //is it fully covered by control training?
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             }
                             else
                             {
-                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.FiveASide);
+                                AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.FiveASide);
                             }
                             break;
                         case PlayerAttribute.Kicking:
-                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Kicking);
-                            AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Throwing, trainingEffectModifier);
+                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Kicking);
+                            AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Throwing, trainingEffectModifier);
                             //is training match better?
                             if ((attributeCap - player.Agility) / 4 < new[] {
                             attributeLeftToTrain.Attributes[(int)PlayerAttribute.Shooting] / (double)8,
@@ -566,36 +579,36 @@ namespace Fsm97Trainer
                                 attributeLeftToTrain.Attributes[(int)PlayerAttribute.Awareness] / (double)6,
                             attributeLeftToTrain.Attributes[(int)PlayerAttribute.Flair] / (double)6}.Max())
                             {
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
                             }
                             else
                             {
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.GoalKeeping, trainingEffectModifier);
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Kicking, trainingEffectModifier);
-                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Throwing, trainingEffectModifier);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.GoalKeeping, trainingEffectModifier);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Kicking, trainingEffectModifier);
+                                AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Throwing, trainingEffectModifier);
 
                             }
                             break;
                         case PlayerAttribute.Handling:
-                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Handling);
-                            AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.Kicking, trainingEffectModifier);
+                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Handling);
+                            AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.Kicking, trainingEffectModifier);
                             break;
                         case PlayerAttribute.Throwing:
                         case PlayerAttribute.ThrowIn:
-                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Throwing);
+                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Throwing);
                             break;
                         case PlayerAttribute.Consistency:
                             Debug.Assert(position == PlayerPosition.GK|| position == PlayerPosition.LB|| position == PlayerPosition.RB|| position == PlayerPosition.CD
                                 || trainingScheduleCalculationState.AlwaysTrainConsistency);
-                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Control);
+                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             break;
 
                         case PlayerAttribute.Determination:
-                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.WeightTraining);
-                            AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
+                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.WeightTraining);
+                            AddCounter(topBottleneckAttribute.AttributeIndex, genericTrainingCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
                             break;
                         case PlayerAttribute.Greed:
-                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingScheduleType.Shooting);
+                            AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Shooting);
                             break;
                         default:
                             //for other attributes, just ignore them
@@ -604,7 +617,7 @@ namespace Fsm97Trainer
                 }
                 if (bottleneckAttributeIndex[0].AttributeIndex == PlayerAttribute.Control)
                 {
-                    if (genericTrainingGrind[0].TrainingScheduleType == TrainingScheduleType.TrainingMatch)
+                    if (genericTrainingGrind[0].TrainingScheduleType == TrainingActivityType.TrainingMatch)
                     {
                         Debug.Assert(!(player.Shooting == 00 && player.Passing == attributeCap && player.Heading == attributeCap));
                     }
@@ -617,26 +630,81 @@ namespace Fsm97Trainer
                     emptyResult.Add(new TrainingScheduleSteps
                     {
                         ForPlayerAttribute = PlayerAttribute.Count,
-                        TrainingScheduleType = TrainingScheduleType.None
+                        TrainingScheduleType = TrainingActivityType.None
                     });
                 }
                 return emptyResult;
             }
-            bool addCounter =  AreAllRevelantAttribtesAboveAlmostCap(player, position,trainingEffectModifier);
+            bool addCounter =  AreAllRevelantAttribtesAboveAlmostCap(trainingScheduleCalculationState, position,trainingEffectModifier);
             var result = new List<TrainingScheduleSteps>();
             if (addCounter)
             {
                 Debug.Assert(genericTrainingGrind.Count > 0);
+                if (genericTrainingGrind.Count == 1)
+                {
+                    switch (genericTrainingGrind[0].TrainingScheduleType)
+                    {
+                        case TrainingActivityType.Heading:
+                            break;
+                        case TrainingActivityType.Sprinting:
+                            break;
+                        case TrainingActivityType.ZonalDefence:
+                            break;
+                        case TrainingActivityType.Marking:
+                            break;
+                        case TrainingActivityType.Tackling:
+                            break;
+                        case TrainingActivityType.Handling:
+                            for (int i = 0; i < 4; i++)
+                            {
+                                genericTrainingGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Handling, ForPlayerAttribute = genericTrainingGrind[0].ForPlayerAttribute });
+                            }
+                            for (int i = 0; i < 2; i++)
+                            {
+                                genericTrainingCounter.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Kicking, ForPlayerAttribute = genericTrainingGrind[0].ForPlayerAttribute });
+                            }
+                            break;
+                        case TrainingActivityType.GoalKeeping:
+                            break;
+                        case TrainingActivityType.Kicking:
+                            for (int i = 0; i < 4; i++)
+                            {
+                                genericTrainingGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Kicking, ForPlayerAttribute = genericTrainingGrind[0].ForPlayerAttribute });
+                            }
+                            for (int i = 0; i < 2; i++)
+                            {
+                                genericTrainingCounter.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Throwing, ForPlayerAttribute = genericTrainingGrind[0].ForPlayerAttribute });
+                            }
+
+                            break;
+                        case TrainingActivityType.Throwing:
+                            break;
+                    }
+                    foreach (var item in genericTrainingGrind)
+                    {
+                        result.Add(item);
+                    }
+                    foreach (var item in genericTrainingCounter)
+                    {
+                        result.Add(item);
+                    }
+                }
                 //Debug.Assert(counter.Count > 0);
-                while (result.Count + genericTrainingCounter.Count < 7)
+                while (result.Count  < 7)
                 {
-                    result.AddRange(new List<TrainingScheduleSteps>(genericTrainingGrind));
+                    foreach (var item in genericTrainingGrind)
+                    {
+                        result.Add(item);
+                    }
+                    foreach (var item in genericTrainingCounter)
+                    {
+                        result.Add(item);
+                    }
                 }
-                if (result.Count + genericTrainingCounter.Count > 7)
+                if (result.Count  > 7)
                 {
-                    result.RemoveRange(7 - genericTrainingCounter.Count, result.Count + genericTrainingCounter.Count - 7);
+                    result.RemoveRange(7 , result.Count - 7);
                 }
-                result.AddRange(genericTrainingCounter);
             }
             else
             {
@@ -651,11 +719,12 @@ namespace Fsm97Trainer
 
             return result;
         }
-        static bool AreAllRevelantAttribtesAboveAlmostCap(PlayerModelDouble player, PlayerPosition position, TrainingEffectModifier trainingEffectModifier)
+        static bool AreAllRevelantAttribtesAboveAlmostCap(TrainingScheduleCalculationState trainingScheduleCalculationState, PlayerPosition position, TrainingEffectModifier trainingEffectModifier)
         {   
+            var player= trainingScheduleCalculationState.Player;
             for (int i = 0; i < (int)PlayerAttribute.Count; i++)
             {
-                if (position==PlayerPosition.Count||PositionRatings.Ratings[(int)position][i] > 0)
+                if (trainingScheduleCalculationState.RequiredAttributes.Contains((PlayerAttribute)i))
                 {
                     switch (i)
                     {
@@ -685,8 +754,8 @@ namespace Fsm97Trainer
             finalGrind.Clear();
             finalCounter.Clear();
             finalResult.Clear();
-            var trainingShooting = trainingScheduleCalculationState.TrainShooting;
-            var trainHeading = trainingScheduleCalculationState.TrainHeading;
+            var trainingShooting = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Shooting);
+            var trainHeading = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Heading);
 
             var finalAttributeLeftToTrain = trainingScheduleCalculationState.AttributesLeftToTrain;
             double controlAdded = 0;
@@ -699,29 +768,29 @@ namespace Fsm97Trainer
                 case PlayerPosition.GK:
                     
                     var handlingNeeded = finalAttributeLeftToTrain.Handling;
-                    if (handlingNeeded >= 1)
+                    if (handlingNeeded >0)
                     {
-                        AddGrind(PlayerAttribute.Handling, finalGrind, finalCounter, handlingNeeded, TrainingScheduleType.Handling);
+                        AddGrind(PlayerAttribute.Handling, finalGrind, finalCounter, handlingNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Handling);
                     }
                     var kickingNeeded = finalAttributeLeftToTrain.Kicking;
-                    if (handlingNeeded >= 1 && !trainingEffectModifier.RemoveNegativeTraining)
+                    if (handlingNeeded >0 && !trainingEffectModifier.RemoveNegativeTraining)
                     {
                         kickingNeeded += (handlingNeeded + 3) / 4;
                     }
-                    if (kickingNeeded >= 1)
+                    if (kickingNeeded >0)
                     {
-                        AddGrind(PlayerAttribute.Kicking, finalGrind, finalCounter, kickingNeeded, TrainingScheduleType.Kicking);
-                        AddCounter(PlayerAttribute.Kicking, finalCounter, TrainingScheduleType.Throwing, trainingEffectModifier);
+                        AddGrind(PlayerAttribute.Kicking, finalGrind, finalCounter, kickingNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Kicking);
+                        AddCounter(PlayerAttribute.Kicking, finalCounter, TrainingActivityType.Throwing, trainingEffectModifier);
                         agilityLost+= kickingNeeded;
                     }
                     var throwingNeeded = finalAttributeLeftToTrain.ThrowIn;
-                    if (kickingNeeded>=1 && !trainingEffectModifier.RemoveNegativeTraining)
+                    if (kickingNeeded>0 && !trainingEffectModifier.RemoveNegativeTraining)
                     {
                         throwingNeeded += kickingNeeded / 4;
                     }
-                    if (throwingNeeded >= 1)
+                    if (throwingNeeded >0)
                     {
-                        AddGrind(PlayerAttribute.Throwing, finalGrind, finalCounter, throwingNeeded, TrainingScheduleType.Throwing);
+                        AddGrind(PlayerAttribute.Throwing, finalGrind, finalCounter, throwingNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Throwing);
                     }
                     break;
                 case PlayerPosition.LB:
@@ -729,10 +798,10 @@ namespace Fsm97Trainer
                     var determinationNeeded= finalAttributeLeftToTrain.Determination;
                     if (determinationNeeded>0)
                     {
-                        AddGrind(PlayerAttribute.Determination, finalGrind, finalCounter, determinationNeeded, TrainingScheduleType.WeightTraining);
+                        AddGrind(PlayerAttribute.Determination, finalGrind, finalCounter, determinationNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.WeightTraining);
                         if (!trainingEffectModifier.RemoveNegativeTraining)
                         {
-                            AddCounter(PlayerAttribute.Speed, finalCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
+                            AddCounter(PlayerAttribute.Speed, finalCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
                             trainingMatchesAdded += 1;
                         }
                     }
@@ -748,7 +817,7 @@ namespace Fsm97Trainer
                     var consistencyNeeded = finalAttributeLeftToTrain.Consistency;
                     if (consistencyNeeded>0)
                     {
-                        AddGrind(PlayerAttribute.Consistency, finalGrind, finalCounter, consistencyNeeded, TrainingScheduleType.Control);
+                        AddGrind(PlayerAttribute.Consistency, finalGrind, finalCounter, consistencyNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Control);
                         controlAdded += consistencyNeeded;
                     }
                     break;
@@ -757,12 +826,12 @@ namespace Fsm97Trainer
             double sprintNeededForSpeed = finalAttributeLeftToTrain.Speed;
             if (sprintNeededForSpeed >0)
             {
-                AddGrind(PlayerAttribute.Speed, finalGrind, finalCounter, sprintNeededForSpeed, TrainingScheduleType.Sprinting);
+                AddGrind(PlayerAttribute.Speed, finalGrind, finalCounter, sprintNeededForSpeed + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Sprinting);
                 sprintAdded += sprintNeededForSpeed;                
                 skillLost += sprintNeededForSpeed;
-                if (finalCounter.Where(t => t.TrainingScheduleType == TrainingScheduleType.TrainingMatch).Count() < (sprintNeededForSpeed + 1) / 2)
+                if (finalCounter.Where(t => t.TrainingScheduleType == TrainingActivityType.TrainingMatch).Count() < (sprintNeededForSpeed + 1) / 2)
                 {
-                    AddCounter(PlayerAttribute.Speed, finalCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
+                    AddCounter(PlayerAttribute.Speed, finalCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
                     skillLost = 0;
                     agilityLost = 0;
                     trainingMatchesAdded++;
@@ -772,71 +841,80 @@ namespace Fsm97Trainer
             double sprintNeededForAcceleration = finalAttributeLeftToTrain.Acceleration;
             if (sprintNeededForAcceleration > 0 && sprintNeededForAcceleration > sprintNeededForSpeed)
             {
-                AddGrind(PlayerAttribute.Acceleration, finalGrind, finalCounter, sprintNeededForAcceleration - sprintNeededForSpeed, TrainingScheduleType.Sprinting);
+                var repeat = (int)(sprintNeededForAcceleration - sprintNeededForSpeed + TrainingSchedule.ConstantFastCeiling);
+                if (repeat == 0) repeat = 1;
+                if (repeat > 7) repeat = 7;
+                AddGrind(PlayerAttribute.Acceleration, finalGrind, finalCounter, repeat, TrainingActivityType.Sprinting);
                 skillLost += sprintNeededForAcceleration - sprintNeededForSpeed;
                 if (trainingMatchesAdded == 0)
                 {
-                    AddCounter(PlayerAttribute.Acceleration, finalCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
+                    AddCounter(PlayerAttribute.Acceleration, finalCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
                     skillLost = 0;
                     agilityLost = 0;
                     trainingMatchesAdded++;
                 }
             }
-            double agilityNeeded = (int)(finalAttributeLeftToTrain.Agility- trainingMatchesAdded/2+ (agilityLost+0.99)/2);
+            double agilityNeeded = finalAttributeLeftToTrain.Agility- trainingMatchesAdded/2+ agilityLost/2;
             if (agilityNeeded < 0) agilityNeeded = 0;
-            if (agilityNeeded >0)
+            if (agilityNeeded > TrainingSchedule.EPS)
             {
-                AddGrind(PlayerAttribute.Agility, finalGrind, finalCounter, agilityNeeded, TrainingScheduleType.TrainingMatch);
+                AddGrind(PlayerAttribute.Agility, finalGrind, finalCounter, agilityNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.TrainingMatch);
                 trainingMatchesAdded += agilityNeeded;
             }
             double shootingNeeded = finalAttributeLeftToTrain.Shooting- trainingMatchesAdded;
             if (shootingNeeded < 0) shootingNeeded = 0;
-            if (shootingNeeded >0)
+            if (shootingNeeded > TrainingSchedule.EPS)
             {
-                AddGrind(PlayerAttribute.Shooting, finalGrind, finalCounter, shootingNeeded, TrainingScheduleType.TrainingMatch);
+                AddGrind(PlayerAttribute.Shooting, finalGrind, finalCounter, shootingNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.TrainingMatch);
                 trainingMatchesAdded += shootingNeeded;
             }
             double passingNeeded = finalAttributeLeftToTrain.Passing - trainingMatchesAdded;
             if (passingNeeded < 0) passingNeeded = 0;
-            if (passingNeeded >0 && passingNeeded > shootingNeeded)
+            if (passingNeeded > TrainingSchedule.EPS && passingNeeded > shootingNeeded)
             {
-                int repeat = (int)(passingNeeded - shootingNeeded);
+                int repeat = (int)(passingNeeded - shootingNeeded + TrainingSchedule.ConstantFastCeiling);
+                if (repeat == 0) repeat = 1;
+                if (repeat > 7) repeat = 7;
 
                 if (trainingShooting && finalAttributeLeftToTrain.Attributes[(int)PlayerAttribute.Shooting] > 0)
                 {
-                    AddGrind(PlayerAttribute.Passing, finalGrind, finalCounter, repeat, TrainingScheduleType.TrainingMatch);
+                    AddGrind(PlayerAttribute.Passing, finalGrind, finalCounter, repeat, TrainingActivityType.TrainingMatch);
                 }
                 else if (trainHeading && finalAttributeLeftToTrain.Attributes[(int)PlayerAttribute.Heading] > 0)
                 {
-                    AddGrind(PlayerAttribute.Passing, finalGrind, finalCounter, repeat, TrainingScheduleType.TrainingMatch);
+                    AddGrind(PlayerAttribute.Passing, finalGrind, finalCounter, repeat, TrainingActivityType.TrainingMatch);
                 }
-                else if (trainingScheduleCalculationState.TrainTackleDetermination && finalAttributeLeftToTrain.Attributes[(int)PlayerAttribute.TackleDetermination] > 0)
+                else if (trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.TackleDetermination) && finalAttributeLeftToTrain.Attributes[(int)PlayerAttribute.TackleDetermination] > 0)
                 {
-                    AddGrind(PlayerAttribute.Passing, finalGrind, finalCounter, repeat, TrainingScheduleType.TrainingMatch);
+                    AddGrind(PlayerAttribute.Passing, finalGrind, finalCounter, repeat, TrainingActivityType.TrainingMatch);
                 }
-                else if (trainingScheduleCalculationState.TrainCoolness && finalAttributeLeftToTrain.Attributes[(int)PlayerAttribute.Coolness] > 0)
+                else if (trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Coolness) && finalAttributeLeftToTrain.Attributes[(int)PlayerAttribute.Coolness] > 0)
                 {
-                    AddGrind(PlayerAttribute.Passing, finalGrind, finalCounter, repeat, TrainingScheduleType.TrainingMatch);
+                    AddGrind(PlayerAttribute.Passing, finalGrind, finalCounter, repeat, TrainingActivityType.TrainingMatch);
                 }
                 else
-                    AddGrind(PlayerAttribute.Passing, finalGrind, finalCounter, repeat, TrainingScheduleType.FiveASide);
-                trainingMatchesAdded += passingNeeded - shootingNeeded;
+                    AddGrind(PlayerAttribute.Passing, finalGrind, finalCounter, repeat, TrainingActivityType.FiveASide);
+                trainingMatchesAdded += repeat;
             }
             double controlNeeded = finalAttributeLeftToTrain.Control- trainingMatchesAdded / 2;
             if (controlNeeded < 0) controlNeeded = 0;
-            if (controlNeeded >0)
+            if (controlNeeded > TrainingSchedule.EPS)
             {
                 if(finalAttributeLeftToTrain.Dribbling>0|| finalAttributeLeftToTrain.Coolness>0|| finalAttributeLeftToTrain.Consistency >0)
-                    AddGrind(PlayerAttribute.Control, finalGrind, finalCounter, controlNeeded, TrainingScheduleType.Control);
+                    AddGrind(PlayerAttribute.Control, finalGrind, finalCounter, controlNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Control);
                 else
-                    AddGrind(PlayerAttribute.Control, finalGrind, finalCounter, controlNeeded, TrainingScheduleType.FiveASide);
+                    AddGrind(PlayerAttribute.Control, finalGrind, finalCounter, controlNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.FiveASide);
                 controlAdded += controlNeeded;
             }
             double driblingNeeded = finalAttributeLeftToTrain.Dribbling - trainingMatchesAdded / 4;            
             if (driblingNeeded <0) driblingNeeded = 0;            
             if (driblingNeeded >0  && driblingNeeded > controlNeeded)
             {
-                AddGrind(PlayerAttribute.Dribbling, finalGrind, finalCounter, driblingNeeded-controlNeeded, TrainingScheduleType.Control);
+                var repeat = (int)(driblingNeeded - controlNeeded + TrainingSchedule.ConstantFastCeiling);
+                if (repeat == 0) repeat = 1;
+                if (repeat >=7) repeat = 7;
+
+                AddGrind(PlayerAttribute.Dribbling, finalGrind, finalCounter, repeat, TrainingActivityType.Control);
                 controlAdded += driblingNeeded - controlNeeded;
             }
             double coolnessNeeded = finalAttributeLeftToTrain.Coolness - controlAdded - trainingMatchesAdded / 2;
@@ -847,7 +925,7 @@ namespace Fsm97Trainer
             if (flairNeeded < 0) flairNeeded = 0;
             if (coolnessNeeded >0 && awarenessNeeded < coolnessNeeded)
             {
-                AddGrind(PlayerAttribute.Coolness, finalGrind, finalCounter, coolnessNeeded, TrainingScheduleType.Control);
+                AddGrind(PlayerAttribute.Coolness, finalGrind, finalCounter, coolnessNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Control);
                 controlAdded += coolnessNeeded;
             }
             awarenessNeeded = finalAttributeLeftToTrain.Awareness - controlAdded / 4 - trainingMatchesAdded / 2;
@@ -862,12 +940,12 @@ namespace Fsm97Trainer
             {
                 if (awarenessNeeded < flairNeeded)
                 {
-                    AddGrind(PlayerAttribute.Flair, finalGrind, finalCounter, flairNeeded - awarenessNeeded, TrainingScheduleType.FiveASide);
+                    AddGrind(PlayerAttribute.Flair, finalGrind, finalCounter, flairNeeded - awarenessNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.FiveASide);
                     fiveaSideAdded += flairNeeded - awarenessNeeded;
                 }
                 else {
                     trainingMatchAddedForFlair = awarenessNeeded;
-                    AddGrind(PlayerAttribute.Flair, finalGrind, finalCounter, trainingMatchAddedForFlair, TrainingScheduleType.TrainingMatch);
+                    AddGrind(PlayerAttribute.Flair, finalGrind, finalCounter, awarenessNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.TrainingMatch);
                     trainingMatchesAdded += trainingMatchAddedForFlair;
                 }
             }
@@ -877,49 +955,52 @@ namespace Fsm97Trainer
             {
                 if (skillLost >0)
                 {
-                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, (skillLost+1)/2, TrainingScheduleType.TrainingMatch);
+                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, (skillLost+1)/2 + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.TrainingMatch);
                     if(awarenessNeeded> (skillLost + 1) / 2)
-                        AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded-skillLost, TrainingScheduleType.TrainingMatch);
+                        AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded-skillLost + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.TrainingMatch);
                     skillLost = 0;
                 }
                 else if (controlNeeded >0)
                 {
-                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded, TrainingScheduleType.FiveASide);
+                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.FiveASide);
                     fiveaSideAdded += awarenessNeeded;
                 }
                 else if (flairNeeded <1 && coolnessNeeded <1 )
                 {
-                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded, TrainingScheduleType.ZonalDefence);
+                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.ZonalDefence);
                     if (trainingMatchesAdded == 0 && !trainingEffectModifier.RemoveNegativeTraining)
                     {
-                        AddCounter(PlayerAttribute.Awareness, finalCounter, TrainingScheduleType.TrainingMatch, trainingEffectModifier);
+                        AddCounter(PlayerAttribute.Awareness, finalCounter, TrainingActivityType.TrainingMatch, trainingEffectModifier);
                         trainingMatchesAdded+= awarenessNeeded;
                     }
                 }
                 else if (coolnessNeeded * 3 > awarenessNeeded * 2 && finalAttributeLeftToTrain.Coolness >0)
                 {
-                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded, TrainingScheduleType.Control);
+                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Control);
                     controlAdded+= awarenessNeeded;
                 }
                 else if (flairNeeded > awarenessNeeded && finalAttributeLeftToTrain.Flair >0)
                 {
-                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded, TrainingScheduleType.FiveASide);
+                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.FiveASide);
                     fiveaSideAdded+= awarenessNeeded;
                 }
                 else
                 {
-                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded, TrainingScheduleType.TrainingMatch);
+                    AddGrind(PlayerAttribute.Awareness, finalGrind, finalCounter, awarenessNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.TrainingMatch);
                     trainingMatchesAdded+= awarenessNeeded;
                 }
             }
-            var headingNeeded =(int)( finalAttributeLeftToTrain.Heading - trainingMatchesAdded - fiveaSideAdded / 4+(skillLost+3)/8);
+            var headingNeeded = finalAttributeLeftToTrain.Heading - trainingMatchesAdded - fiveaSideAdded / 4.0+skillLost/8;
             if (headingNeeded < 0) headingNeeded = 0;
-            if (headingNeeded >0)
+            if (headingNeeded > 0)
             {
                 if (headingNeeded > 4)
                     headingNeeded = 4;
-                AddGrind(PlayerAttribute.Heading, finalGrind, finalCounter, headingNeeded, TrainingScheduleType.Heading);
-                AddCounter(PlayerAttribute.Heading, finalCounter, TrainingScheduleType.Sprinting, trainingEffectModifier);
+                var repeat = (int)(headingNeeded + TrainingSchedule.ConstantFastCeiling);
+                if (repeat == 0) repeat = 1;
+
+                AddGrind(PlayerAttribute.Heading, finalGrind, finalCounter, headingNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Heading);
+                AddCounter(PlayerAttribute.Heading, finalCounter, TrainingActivityType.Sprinting, trainingEffectModifier);
                 skillLost += 1;
             }
             if (finalAttributeLeftToTrain.TackleSkill < finalAttributeLeftToTrain.TackleDetermination)
@@ -931,7 +1012,9 @@ namespace Fsm97Trainer
                 {
                     if(markingNeeded>4)
                         markingNeeded = 4;
-                    AddGrind(PlayerAttribute.TackleDetermination, finalGrind, finalCounter, markingNeeded, TrainingScheduleType.Marking);
+                    var repeat = (int)(markingNeeded + TrainingSchedule.ConstantFastCeiling);
+                    if (repeat == 0) repeat = 1;
+                    AddGrind(PlayerAttribute.TackleDetermination, finalGrind, finalCounter, repeat,TrainingActivityType.Marking);
                     markingsAdded += markingNeeded;
                     skillLost += 1;
                 }
@@ -943,12 +1026,15 @@ namespace Fsm97Trainer
                     if (tacklingSkillNeeded > 4)
                         tacklingSkillNeeded = 4;
                     tacklingSkillAdded = tacklingSkillNeeded;
-
-                    AddGrind(PlayerAttribute.TackleSkill, finalGrind, finalCounter, tacklingSkillNeeded, TrainingScheduleType.Tackling);
-                    if (trainingMatchesAdded == 0)
+                    var repeat = (int)(tacklingSkillNeeded + TrainingSchedule.ConstantFastCeiling);
+                    if (repeat > 0)
                     {
-                        AddCounter(PlayerAttribute.TackleSkill, finalCounter, TrainingScheduleType.FiveASide, trainingEffectModifier);
-                        fiveaSideAdded++;
+                        AddGrind(PlayerAttribute.TackleSkill, finalGrind, finalCounter, repeat, TrainingActivityType.Tackling);
+                        if (trainingMatchesAdded == 0)
+                        {
+                            AddCounter(PlayerAttribute.TackleSkill, finalCounter, TrainingActivityType.FiveASide, trainingEffectModifier);
+                            fiveaSideAdded++;
+                        }
                     }
                 }
             }
@@ -961,10 +1047,10 @@ namespace Fsm97Trainer
                     if (tacklingSkillNeeded > 4)
                         tacklingSkillNeeded = 4;
                     tacklingSkillAdded = tacklingSkillNeeded;
-                    AddGrind(PlayerAttribute.TackleSkill, finalGrind, finalCounter, tacklingSkillNeeded, TrainingScheduleType.Tackling);
+                    AddGrind(PlayerAttribute.TackleSkill, finalGrind, finalCounter, tacklingSkillNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Tackling);
                     if (trainingMatchesAdded == 0)
                     {
-                        AddCounter(PlayerAttribute.TackleSkill, finalCounter, TrainingScheduleType.FiveASide, trainingEffectModifier);
+                        AddCounter(PlayerAttribute.TackleSkill, finalCounter, TrainingActivityType.FiveASide, trainingEffectModifier);
                         fiveaSideAdded++;
                     }
                 }
@@ -975,7 +1061,7 @@ namespace Fsm97Trainer
                 {
                     if (markingNeeded > 4)
                         markingNeeded = 4;
-                    AddGrind(PlayerAttribute.TackleDetermination, finalGrind, finalCounter, markingNeeded, TrainingScheduleType.Marking);
+                    AddGrind(PlayerAttribute.TackleDetermination, finalGrind, finalCounter, markingNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Marking);
                     markingsAdded += markingNeeded;
                     skillLost += 1;
                 }
@@ -990,18 +1076,100 @@ namespace Fsm97Trainer
                 }
             }*/
             if (finalGrind.Count == 0)
-                finalGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingScheduleType.TrainingMatch, ForPlayerAttribute = PlayerAttribute.Count });
+            {
+                Debug.Assert(false);
+                finalGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.TrainingMatch, ForPlayerAttribute = PlayerAttribute.Count });
+            }
+            else if (finalGrind.Count == 1)
+            {
+                switch (finalGrind[0].TrainingScheduleType)
+                {                  
+                    case TrainingActivityType.Heading:
+                        for (int i = 0; i < 4; i++)
+                        {
+                            finalGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Heading, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
+                        }
+                        finalCounter.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Sprinting, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
+                        finalCounter.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.TrainingMatch, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
+                        break;
+                    case TrainingActivityType.Sprinting:
+                        for (int i = 0; i < 3; i++)
+                        {
+                            finalGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Sprinting, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute});
+                        }
+                        for (int i = 0; i < 3; i++)
+                        {
+                            finalCounter.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.TrainingMatch, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
+                        }
+
+                        break;
+                    case TrainingActivityType.ZonalDefence:
+                        for (int i = 0; i < 6; i++)
+                        {
+                            finalGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.ZonalDefence, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
+                        }
+                        finalCounter.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.TrainingMatch, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
+                        break;
+                    case TrainingActivityType.Marking:
+                        for (int i = 0; i < 4; i++)
+                        {
+                            finalGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Marking, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
+                        }
+                        for (int i = 0; i < 2; i++)
+                        {
+                            finalCounter.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.TrainingMatch, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
+                        }
+                        break;
+                    case TrainingActivityType.Tackling:
+                        for (int i = 0; i < 4; i++)
+                        {
+                            finalGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Tackling, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
+                        }
+                        for (int i = 0; i < 2; i++)
+                        {
+                            finalCounter.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.TrainingMatch, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
+                        }
+                        break;
+                    case TrainingActivityType.Physiotherapist:
+                        break;
+                    case TrainingActivityType.Handling:
+                        break;
+                    case TrainingActivityType.GoalKeeping:
+                        break;
+                    case TrainingActivityType.Kicking:
+                        break;
+                    case TrainingActivityType.Throwing:
+                        break;
+                    case TrainingActivityType.FiveASide:
+                        break;
+                    case TrainingActivityType.TrainingMatch:
+                        break;
+                    case TrainingActivityType.Count:
+                        break;
+                    default:
+                        break;
+                }
+            }
             finalResult.AddRange(finalGrind);
-            while (finalResult.Count + finalCounter.Count < 7)
-            {
-                finalResult.AddRange(new List<TrainingScheduleSteps>(finalGrind));
-            }
-            if (finalResult.Count + finalCounter.Count > 7)
-            {
-                finalResult.RemoveRange(7 - finalCounter.Count, finalResult.Count + finalCounter.Count - 7);
-            }
             finalResult.AddRange(finalCounter);
+
+            while (finalResult.Count < 7)
+            {
+                foreach (var item in finalGrind)
+                {
+                    finalResult.Add(item);
+                }
+                foreach (var item in finalCounter)
+                {
+                    finalResult.Add(item);
+                }
+            }
+            if (finalResult.Count > 7)
+            {
+                finalResult.RemoveRange(7, finalResult.Count - 7);
+            }
             return finalResult.Take(7).ToList();
+
         }
 
         #endregion
@@ -1536,9 +1704,9 @@ namespace Fsm97Trainer
             }
             return true;
         }
-        static void AddGrind(PlayerAttribute attributeIndex, List<TrainingScheduleSteps> grind, List<TrainingScheduleSteps> counter, double repeat, TrainingScheduleType trainingScheduleType)
+        static void AddGrind(PlayerAttribute attributeIndex, List<TrainingScheduleSteps> grind, List<TrainingScheduleSteps> counter, double repeat, TrainingActivityType trainingScheduleType)
         {
-
+            if (repeat > 7) repeat = 7;
             if (!counter.Any(c => c.TrainingScheduleType == trainingScheduleType)
                               && !grind.Any(c => c.TrainingScheduleType == trainingScheduleType))
             {
@@ -1548,14 +1716,14 @@ namespace Fsm97Trainer
                 }
             }
         }
-        static void AddCounter(PlayerAttribute attributeIndex, List<TrainingScheduleSteps> counter, TrainingScheduleType trainingScheduleType, TrainingEffectModifier trainingEffectModifier)
+        static void AddCounter(PlayerAttribute attributeIndex, List<TrainingScheduleSteps> counter, TrainingActivityType trainingScheduleType, TrainingEffectModifier trainingEffectModifier)
         {
-            /*
+            
             if (!trainingEffectModifier.RemoveNegativeTraining)
             {
                 if (!counter.Any(c => c.TrainingScheduleType == trainingScheduleType))
                     counter.Add(new TrainingScheduleSteps { ForPlayerAttribute = attributeIndex, TrainingScheduleType = trainingScheduleType });
-            }*/
+            }
         }
         static List<TrainingScheduleSteps> ImproveAwarenessAndFlairTo(PlayerModelDouble player, int stageMinimum, bool maxPower,
            bool needShooting, bool needHeading, bool needmarking, TrainingEffectModifier trainingEffectModifier, float[][] trainingEffects)
@@ -1592,7 +1760,7 @@ namespace Fsm97Trainer
                 double coolnessLeftToTrain = attributeCap - player.Coolness;
                 double awarenessLeftToTrain = attributeCap - player.Awareness;
 
-                var presets = new List<TrainingScheduleType[]>();
+                var presets = new List<TrainingActivityType[]>();
                 presets.Add(TrainingSchedulePreset.ControlAllWeek);
                 presets.Add(TrainingSchedulePreset.TrainingMatchAllWeek);
                 presets.Add(TrainingSchedulePreset.FiveASideAllWeek);
@@ -1632,7 +1800,7 @@ namespace Fsm97Trainer
                 var flairLeftToTrain = attributeCap - player.Flair;
                 var awarenessLeftToTrain = attributeCap - player.Awareness;
 
-                var presets = new List<TrainingScheduleType[]>();
+                var presets = new List<TrainingActivityType[]>();
                 presets.Add(TrainingSchedulePreset.ControlAllWeek);
                 presets.Add(TrainingSchedulePreset.TrainingMatchAllWeek);
                 presets.Add(TrainingSchedulePreset.FiveASideAllWeek);

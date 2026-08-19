@@ -1,6 +1,6 @@
 ﻿namespace FSM97Lib
 {
-    public enum TrainingScheduleType
+    public enum TrainingActivityType
     {
         None,//0
         Shooting,

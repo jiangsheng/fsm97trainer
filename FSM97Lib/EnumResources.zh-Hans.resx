@@ -117,61 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TrainingScheduleType_Control" xml:space="preserve">
+  <data name="TrainingActivityType_Control" xml:space="preserve">
     <value>控球</value>
   </data>
-  <data name="TrainingScheduleType_Exercise" xml:space="preserve">
+  <data name="TrainingActivityType_Exercise" xml:space="preserve">
     <value>练习</value>
   </data>
-  <data name="TrainingScheduleType_FiveASide" xml:space="preserve">
+  <data name="TrainingActivityType_FiveASide" xml:space="preserve">
     <value>五人</value>
   </data>
-  <data name="TrainingScheduleType_GoalKeeping" xml:space="preserve">
+  <data name="TrainingActivityType_GoalKeeping" xml:space="preserve">
     <value>守门</value>
   </data>
-  <data name="TrainingScheduleType_Handling" xml:space="preserve">
+  <data name="TrainingActivityType_Handling" xml:space="preserve">
     <value>救球</value>
   </data>
-  <data name="TrainingScheduleType_Heading" xml:space="preserve">
+  <data name="TrainingActivityType_Heading" xml:space="preserve">
     <value>头球</value>
   </data>
-  <data name="TrainingScheduleType_Jogging" xml:space="preserve">
+  <data name="TrainingActivityType_Jogging" xml:space="preserve">
     <value>慢跑</value>
   </data>
-  <data name="TrainingScheduleType_Kicking" xml:space="preserve">
+  <data name="TrainingActivityType_Kicking" xml:space="preserve">
     <value>开球</value>
   </data>
-  <data name="TrainingScheduleType_Marking" xml:space="preserve">
+  <data name="TrainingActivityType_Marking" xml:space="preserve">
     <value>盯人</value>
   </data>
-  <data name="TrainingScheduleType_Passing" xml:space="preserve">
+  <data name="TrainingActivityType_Passing" xml:space="preserve">
     <value>传球</value>
   </data>
-  <data name="TrainingScheduleType_Physiotherapist" xml:space="preserve">
+  <data name="TrainingActivityType_Physiotherapist" xml:space="preserve">
     <value>理疗</value>
   </data>
-  <data name="TrainingScheduleType_Shooting" xml:space="preserve">
+  <data name="TrainingActivityType_Shooting" xml:space="preserve">
     <value>射门</value>
   </data>
-  <data name="TrainingScheduleType_Sprinting" xml:space="preserve">
+  <data name="TrainingActivityType_Sprinting" xml:space="preserve">
     <value>冲刺</value>
   </data>
-  <data name="TrainingScheduleType_Tackling" xml:space="preserve">
+  <data name="TrainingActivityType_Tackling" xml:space="preserve">
     <value>铲球</value>
   </data>
-  <data name="TrainingScheduleType_Throwing" xml:space="preserve">
+  <data name="TrainingActivityType_Throwing" xml:space="preserve">
     <value>掷球</value>
   </data>
-  <data name="TrainingScheduleType_TrainingMatch" xml:space="preserve">
+  <data name="TrainingActivityType_TrainingMatch" xml:space="preserve">
     <value>比赛</value>
   </data>
-  <data name="TrainingScheduleType_None" xml:space="preserve">
+  <data name="TrainingActivityType_None" xml:space="preserve">
     <value>无</value>
   </data>
-  <data name="TrainingScheduleType_WeightTraining" xml:space="preserve">
+  <data name="TrainingActivityType_WeightTraining" xml:space="preserve">
     <value>举重</value>
   </data>
-  <data name="TrainingScheduleType_ZonalDefence" xml:space="preserve">
+  <data name="TrainingActivityType_ZonalDefence" xml:space="preserve">
     <value>区域</value>
   </data>
   <data name="PlayerAttribute_Speed" xml:space="preserve">

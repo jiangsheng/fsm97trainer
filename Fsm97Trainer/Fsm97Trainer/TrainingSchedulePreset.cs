@@ -6,7 +6,7 @@ namespace Fsm97Trainer
     internal static class TrainingSchedulePreset
     {
         static TrainingSchedulePreset(){
-            defaultPresets = new List<TrainingScheduleType[]>()
+            defaultPresets = new List<TrainingActivityType[]>()
             {
                 DefaultGK,
                 DefaultLRB,
@@ -18,7 +18,7 @@ namespace Fsm97Trainer
 
             };
 
-                allPresets = new List<TrainingScheduleType[]>() {
+                allPresets = new List<TrainingActivityType[]>() {
                 SprintingAllWeek,SprintingWithWeightTraining,
                 SprintingWithTrainingMatch,
                 TrainingMatchAllWeek,GKAgility,
@@ -47,7 +47,7 @@ namespace Fsm97Trainer
             };
             allPresets.AddRange(defaultPresets);
             
-            noNegativePresets = new List<TrainingScheduleType[]>() {
+            noNegativePresets = new List<TrainingActivityType[]>() {
                 SprintingWithWeightTraining,
                 SprintingWithTrainingMatch,
                 TrainingMatchAllWeek,GKAgility,
@@ -72,308 +72,308 @@ namespace Fsm97Trainer
                 None
             };
         }
-        static List<TrainingScheduleType[]> allPresets;
-        public static List<TrainingScheduleType[]> AllPresets
+        static List<TrainingActivityType[]> allPresets;
+        public static List<TrainingActivityType[]> AllPresets
         {
             get {
                 return allPresets;
             }
         }
-        static List<TrainingScheduleType[]> noNegativePresets;
-        public static List<TrainingScheduleType[]> NoNegativePresets
+        static List<TrainingActivityType[]> noNegativePresets;
+        public static List<TrainingActivityType[]> NoNegativePresets
         {
             get
             {
                 return noNegativePresets;
             }
         }
-        static List<TrainingScheduleType[]> defaultPresets;
-        public static List<TrainingScheduleType[]> DefaultPresets
+        static List<TrainingActivityType[]> defaultPresets;
+        public static List<TrainingActivityType[]> DefaultPresets
         {
             get
             {
                 return defaultPresets;
             }
         }
-        public static TrainingScheduleType[] SprintingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Sprinting
+        public static TrainingActivityType[] SprintingAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.Sprinting, TrainingActivityType.Sprinting,
+            TrainingActivityType.Sprinting, TrainingActivityType.Sprinting,
+            TrainingActivityType.Sprinting, TrainingActivityType.Sprinting,
+            TrainingActivityType.Sprinting
         };
-        public static TrainingScheduleType[] SprintingWithWeightTraining = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining
-        };
-
-        public static TrainingScheduleType[] SprintingWithTrainingMatch = new TrainingScheduleType[] {
-           TrainingScheduleType.TrainingMatch, TrainingScheduleType.Sprinting,
-           TrainingScheduleType.TrainingMatch, TrainingScheduleType.Sprinting,
-           TrainingScheduleType.TrainingMatch, TrainingScheduleType.Sprinting,
-           TrainingScheduleType.TrainingMatch
-        };
-        public static TrainingScheduleType[] TrainingMatchAllWeek = new TrainingScheduleType[] {
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch
+        public static TrainingActivityType[] SprintingWithWeightTraining = new TrainingActivityType[] {
+           TrainingActivityType.Sprinting, TrainingActivityType.Sprinting,
+            TrainingActivityType.Sprinting, TrainingActivityType.Sprinting,
+            TrainingActivityType.WeightTraining, TrainingActivityType.WeightTraining,
+            TrainingActivityType.WeightTraining
         };
 
-
-        public static TrainingScheduleType[] GKAgility = new TrainingScheduleType[] {
-           TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
-            TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
-            TrainingScheduleType.Kicking, TrainingScheduleType.Throwing,
-            TrainingScheduleType.TrainingMatch
+        public static TrainingActivityType[] SprintingWithTrainingMatch = new TrainingActivityType[] {
+           TrainingActivityType.TrainingMatch, TrainingActivityType.Sprinting,
+           TrainingActivityType.TrainingMatch, TrainingActivityType.Sprinting,
+           TrainingActivityType.TrainingMatch, TrainingActivityType.Sprinting,
+           TrainingActivityType.TrainingMatch
         };
-        public static TrainingScheduleType[] SprintingWithHeading = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Heading
-        };
-        public static TrainingScheduleType[] JoggingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Jogging, TrainingScheduleType.Jogging,
-            TrainingScheduleType.Jogging, TrainingScheduleType.Jogging,
-            TrainingScheduleType.Jogging, TrainingScheduleType.Jogging,
-            TrainingScheduleType.Jogging
-        };
-        public static TrainingScheduleType[] ExerciseAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Exercise, TrainingScheduleType.Exercise,
-            TrainingScheduleType.Exercise, TrainingScheduleType.Exercise,
-            TrainingScheduleType.Exercise, TrainingScheduleType.Exercise,
-            TrainingScheduleType.Exercise
+        public static TrainingActivityType[] TrainingMatchAllWeek = new TrainingActivityType[] {
+            TrainingActivityType.TrainingMatch, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.TrainingMatch, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.TrainingMatch, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.TrainingMatch
         };
 
-        public static TrainingScheduleType[] ShootingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Shooting, TrainingScheduleType.Shooting,
-            TrainingScheduleType.Shooting, TrainingScheduleType.Shooting,
-            TrainingScheduleType.Shooting, TrainingScheduleType.Shooting,
-            TrainingScheduleType.Shooting
+
+        public static TrainingActivityType[] GKAgility = new TrainingActivityType[] {
+           TrainingActivityType.GoalKeeping, TrainingActivityType.GoalKeeping,
+            TrainingActivityType.GoalKeeping, TrainingActivityType.GoalKeeping,
+            TrainingActivityType.Kicking, TrainingActivityType.Throwing,
+            TrainingActivityType.TrainingMatch
+        };
+        public static TrainingActivityType[] SprintingWithHeading = new TrainingActivityType[] {
+           TrainingActivityType.Sprinting, TrainingActivityType.Sprinting,
+            TrainingActivityType.Sprinting, TrainingActivityType.Sprinting,
+            TrainingActivityType.Heading, TrainingActivityType.Heading,
+            TrainingActivityType.Heading
+        };
+        public static TrainingActivityType[] JoggingAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.Jogging, TrainingActivityType.Jogging,
+            TrainingActivityType.Jogging, TrainingActivityType.Jogging,
+            TrainingActivityType.Jogging, TrainingActivityType.Jogging,
+            TrainingActivityType.Jogging
+        };
+        public static TrainingActivityType[] ExerciseAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.Exercise, TrainingActivityType.Exercise,
+            TrainingActivityType.Exercise, TrainingActivityType.Exercise,
+            TrainingActivityType.Exercise, TrainingActivityType.Exercise,
+            TrainingActivityType.Exercise
+        };
+
+        public static TrainingActivityType[] ShootingAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.Shooting, TrainingActivityType.Shooting,
+            TrainingActivityType.Shooting, TrainingActivityType.Shooting,
+            TrainingActivityType.Shooting, TrainingActivityType.Shooting,
+            TrainingActivityType.Shooting
         }; 
         
-        public static TrainingScheduleType[] PassingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Passing, TrainingScheduleType.Passing,
-            TrainingScheduleType.Passing, TrainingScheduleType.Passing,
-            TrainingScheduleType.Passing, TrainingScheduleType.Passing,
-            TrainingScheduleType.Passing
+        public static TrainingActivityType[] PassingAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.Passing, TrainingActivityType.Passing,
+            TrainingActivityType.Passing, TrainingActivityType.Passing,
+            TrainingActivityType.Passing, TrainingActivityType.Passing,
+            TrainingActivityType.Passing
         };
-        public static TrainingScheduleType[] HeadingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Heading
-        };
-
-        public static TrainingScheduleType[] HeadingWithSprint= new TrainingScheduleType[] {
-           TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Sprinting
-        };
-        public static TrainingScheduleType[] ImproveHeading = new TrainingScheduleType[] {
-           TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Heading, TrainingScheduleType.Heading,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch
+        public static TrainingActivityType[] HeadingAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.Heading, TrainingActivityType.Heading,
+            TrainingActivityType.Heading, TrainingActivityType.Heading,
+            TrainingActivityType.Heading, TrainingActivityType.Heading,
+            TrainingActivityType.Heading
         };
 
-        public static TrainingScheduleType[] ControlAllWeek = new TrainingScheduleType[] {
-            TrainingScheduleType.Control, TrainingScheduleType.Control,
-            TrainingScheduleType.Control, TrainingScheduleType.Control,
-            TrainingScheduleType.Control, TrainingScheduleType.Control,
-            TrainingScheduleType.Control
-
+        public static TrainingActivityType[] HeadingWithSprint= new TrainingActivityType[] {
+           TrainingActivityType.Heading, TrainingActivityType.Heading,
+            TrainingActivityType.Heading, TrainingActivityType.Heading,
+            TrainingActivityType.Heading, TrainingActivityType.Heading,
+            TrainingActivityType.Sprinting
         };
-        public static TrainingScheduleType[] MarkingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.Marking
-        };
-        public static TrainingScheduleType[] ImproveMarking = new TrainingScheduleType[] {
-           TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.Marking, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch
-        };
-        public static TrainingScheduleType[] TacklingSkillAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
-            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
-            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
-            TrainingScheduleType.Tackling
+        public static TrainingActivityType[] ImproveHeading = new TrainingActivityType[] {
+           TrainingActivityType.Heading, TrainingActivityType.Heading,
+            TrainingActivityType.Heading, TrainingActivityType.Heading,
+            TrainingActivityType.Sprinting, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.TrainingMatch
         };
 
-
-        public static TrainingScheduleType[] ImproveTacklingSkill = new TrainingScheduleType[] {
-           TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
-            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
-            TrainingScheduleType.Tackling, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch
-        };
-        public static TrainingScheduleType[] ImproveTacklingBalanced = new TrainingScheduleType[] {
-           TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
-            TrainingScheduleType.Tackling
-        };
-        public static TrainingScheduleType[] ImproveTacklingBalancedWithTrainingMatch = new TrainingScheduleType[] {
-           TrainingScheduleType.Marking, TrainingScheduleType.Marking,
-            TrainingScheduleType.Marking, TrainingScheduleType.Tackling,
-            TrainingScheduleType.Tackling, TrainingScheduleType.Tackling,
-            TrainingScheduleType.TrainingMatch
-        };
-        public static TrainingScheduleType[] ImproveAwareness = new TrainingScheduleType[] {
-           TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
-            TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
-            TrainingScheduleType.ZonalDefence, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch
-        };
-        public static TrainingScheduleType[] ZonalDefenceAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
-            TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
-            TrainingScheduleType.ZonalDefence, TrainingScheduleType.ZonalDefence,
-            TrainingScheduleType.ZonalDefence
-        };
-        public static TrainingScheduleType[] FiveASideAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.FiveASide, TrainingScheduleType.FiveASide,
-            TrainingScheduleType.FiveASide, TrainingScheduleType.FiveASide,
-            TrainingScheduleType.FiveASide, TrainingScheduleType.FiveASide,
-            TrainingScheduleType.FiveASide
-        };
-        public static TrainingScheduleType[] KickingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Kicking
+        public static TrainingActivityType[] ControlAllWeek = new TrainingActivityType[] {
+            TrainingActivityType.Control, TrainingActivityType.Control,
+            TrainingActivityType.Control, TrainingActivityType.Control,
+            TrainingActivityType.Control, TrainingActivityType.Control,
+            TrainingActivityType.Control
 
         };
-        public static TrainingScheduleType[] ImproveKicking = new TrainingScheduleType[] {
-           TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Kicking, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Kicking, TrainingScheduleType.Throwing,
-            TrainingScheduleType.Kicking
-
+        public static TrainingActivityType[] MarkingAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.Marking, TrainingActivityType.Marking,
+            TrainingActivityType.Marking, TrainingActivityType.Marking,
+            TrainingActivityType.Marking, TrainingActivityType.Marking,
+            TrainingActivityType.Marking
         };
-        public static TrainingScheduleType[] ThrowingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Throwing, TrainingScheduleType.Throwing,
-            TrainingScheduleType.Throwing, TrainingScheduleType.Throwing,
-            TrainingScheduleType.Throwing, TrainingScheduleType.Throwing,
-            TrainingScheduleType.Throwing
+        public static TrainingActivityType[] ImproveMarking = new TrainingActivityType[] {
+           TrainingActivityType.Marking, TrainingActivityType.Marking,
+            TrainingActivityType.Marking, TrainingActivityType.Marking,
+            TrainingActivityType.Marking, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.TrainingMatch
         };
-        public static TrainingScheduleType[] GoalkeepingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
-            TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
-            TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
-            TrainingScheduleType.GoalKeeping
-        };
-
-        public static TrainingScheduleType[] ImproveGoalkeeping = new TrainingScheduleType[] {
-           TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
-            TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
-            TrainingScheduleType.GoalKeeping, TrainingScheduleType.GoalKeeping,
-            TrainingScheduleType.Kicking
-        };
-        public static TrainingScheduleType[] HandlingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.Handling, TrainingScheduleType.Handling,
-            TrainingScheduleType.Handling, TrainingScheduleType.Handling,
-            TrainingScheduleType.Handling, TrainingScheduleType.Handling,
-            TrainingScheduleType.Handling
-        };
-        public static TrainingScheduleType[] ImproveHandling = new TrainingScheduleType[] {
-           TrainingScheduleType.Handling, TrainingScheduleType.Handling,
-            TrainingScheduleType.Handling, TrainingScheduleType.Handling,
-            TrainingScheduleType.Handling, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Handling
-        };
-
-        public static TrainingScheduleType[] WeightTrainingAllWeek = new TrainingScheduleType[] {
-           TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining
-        };
-        public static TrainingScheduleType[] ImproveDetermination = new TrainingScheduleType[] {
-           TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining
-        };
-        public static TrainingScheduleType[] ImproveStrength = new TrainingScheduleType[] {
-           TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.WeightTraining
-        };
-
-        public static TrainingScheduleType[] BalancedSpeedAndSkill = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting,TrainingScheduleType.TrainingMatch,
-           TrainingScheduleType.Sprinting,TrainingScheduleType.TrainingMatch, 
-           TrainingScheduleType.WeightTraining, TrainingScheduleType.Sprinting,
-           TrainingScheduleType.FiveASide
-        };
-
-        public static TrainingScheduleType[] MaintainShape = new TrainingScheduleType[] {
-           TrainingScheduleType.WeightTraining, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Handling,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.Throwing,
-            TrainingScheduleType.Control
-        };
-        public static TrainingScheduleType[] None = new TrainingScheduleType[] {
-           TrainingScheduleType.None, TrainingScheduleType.None,
-            TrainingScheduleType.None, TrainingScheduleType.None,
-            TrainingScheduleType.None, TrainingScheduleType.None,
-            TrainingScheduleType.None
-        };
-        static TrainingScheduleType[] DefaultGK = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Control,
-            TrainingScheduleType.Handling, TrainingScheduleType.Kicking,
-            TrainingScheduleType.Kicking, TrainingScheduleType.Throwing,
-            TrainingScheduleType.TrainingMatch
-        };
-        static TrainingScheduleType[] DefaultLRB = new TrainingScheduleType[] {
-           TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.WeightTraining, TrainingScheduleType.WeightTraining,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Heading,
-            TrainingScheduleType.TrainingMatch
-        };
-        static TrainingScheduleType[] DefaultCD = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Heading,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Control, TrainingScheduleType.Control,
-            TrainingScheduleType.TrainingMatch
-        };
-        static TrainingScheduleType[] DefaultLRWB = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.Control, TrainingScheduleType.Marking,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.Control
-        };
-        static TrainingScheduleType[] DefaultDMSW = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Heading,
-            TrainingScheduleType.Sprinting, TrainingScheduleType.Control,
-            TrainingScheduleType.Marking, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch
+        public static TrainingActivityType[] TacklingSkillAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.Tackling, TrainingActivityType.Tackling,
+            TrainingActivityType.Tackling, TrainingActivityType.Tackling,
+            TrainingActivityType.Tackling, TrainingActivityType.Tackling,
+            TrainingActivityType.Tackling
         };
 
 
-        static TrainingScheduleType[] DefaultLRAMLRW = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Tackling,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Tackling, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.TrainingMatch
+        public static TrainingActivityType[] ImproveTacklingSkill = new TrainingActivityType[] {
+           TrainingActivityType.Tackling, TrainingActivityType.Tackling,
+            TrainingActivityType.Tackling, TrainingActivityType.Tackling,
+            TrainingActivityType.Tackling, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.TrainingMatch
         };
-        static TrainingScheduleType[] DefaultFRFORSS = new TrainingScheduleType[] {
-           TrainingScheduleType.Sprinting, TrainingScheduleType.Heading,
-            TrainingScheduleType.TrainingMatch, TrainingScheduleType.Sprinting,
-            TrainingScheduleType.Heading, TrainingScheduleType.TrainingMatch,
-            TrainingScheduleType.Control
+        public static TrainingActivityType[] ImproveTacklingBalanced = new TrainingActivityType[] {
+           TrainingActivityType.Marking, TrainingActivityType.Marking,
+            TrainingActivityType.Marking, TrainingActivityType.Marking,
+            TrainingActivityType.Tackling, TrainingActivityType.Tackling,
+            TrainingActivityType.Tackling
+        };
+        public static TrainingActivityType[] ImproveTacklingBalancedWithTrainingMatch = new TrainingActivityType[] {
+           TrainingActivityType.Marking, TrainingActivityType.Marking,
+            TrainingActivityType.Marking, TrainingActivityType.Tackling,
+            TrainingActivityType.Tackling, TrainingActivityType.Tackling,
+            TrainingActivityType.TrainingMatch
+        };
+        public static TrainingActivityType[] ImproveAwareness = new TrainingActivityType[] {
+           TrainingActivityType.ZonalDefence, TrainingActivityType.ZonalDefence,
+            TrainingActivityType.ZonalDefence, TrainingActivityType.ZonalDefence,
+            TrainingActivityType.ZonalDefence, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.TrainingMatch
+        };
+        public static TrainingActivityType[] ZonalDefenceAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.ZonalDefence, TrainingActivityType.ZonalDefence,
+            TrainingActivityType.ZonalDefence, TrainingActivityType.ZonalDefence,
+            TrainingActivityType.ZonalDefence, TrainingActivityType.ZonalDefence,
+            TrainingActivityType.ZonalDefence
+        };
+        public static TrainingActivityType[] FiveASideAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.FiveASide, TrainingActivityType.FiveASide,
+            TrainingActivityType.FiveASide, TrainingActivityType.FiveASide,
+            TrainingActivityType.FiveASide, TrainingActivityType.FiveASide,
+            TrainingActivityType.FiveASide
+        };
+        public static TrainingActivityType[] KickingAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.Kicking, TrainingActivityType.Kicking,
+            TrainingActivityType.Kicking, TrainingActivityType.Kicking,
+            TrainingActivityType.Kicking, TrainingActivityType.Kicking,
+            TrainingActivityType.Kicking
+
+        };
+        public static TrainingActivityType[] ImproveKicking = new TrainingActivityType[] {
+           TrainingActivityType.Kicking, TrainingActivityType.Kicking,
+            TrainingActivityType.Kicking, TrainingActivityType.Kicking,
+            TrainingActivityType.Kicking, TrainingActivityType.Throwing,
+            TrainingActivityType.Kicking
+
+        };
+        public static TrainingActivityType[] ThrowingAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.Throwing, TrainingActivityType.Throwing,
+            TrainingActivityType.Throwing, TrainingActivityType.Throwing,
+            TrainingActivityType.Throwing, TrainingActivityType.Throwing,
+            TrainingActivityType.Throwing
+        };
+        public static TrainingActivityType[] GoalkeepingAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.GoalKeeping, TrainingActivityType.GoalKeeping,
+            TrainingActivityType.GoalKeeping, TrainingActivityType.GoalKeeping,
+            TrainingActivityType.GoalKeeping, TrainingActivityType.GoalKeeping,
+            TrainingActivityType.GoalKeeping
+        };
+
+        public static TrainingActivityType[] ImproveGoalkeeping = new TrainingActivityType[] {
+           TrainingActivityType.GoalKeeping, TrainingActivityType.GoalKeeping,
+            TrainingActivityType.GoalKeeping, TrainingActivityType.GoalKeeping,
+            TrainingActivityType.GoalKeeping, TrainingActivityType.GoalKeeping,
+            TrainingActivityType.Kicking
+        };
+        public static TrainingActivityType[] HandlingAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.Handling, TrainingActivityType.Handling,
+            TrainingActivityType.Handling, TrainingActivityType.Handling,
+            TrainingActivityType.Handling, TrainingActivityType.Handling,
+            TrainingActivityType.Handling
+        };
+        public static TrainingActivityType[] ImproveHandling = new TrainingActivityType[] {
+           TrainingActivityType.Handling, TrainingActivityType.Handling,
+            TrainingActivityType.Handling, TrainingActivityType.Handling,
+            TrainingActivityType.Handling, TrainingActivityType.Kicking,
+            TrainingActivityType.Handling
+        };
+
+        public static TrainingActivityType[] WeightTrainingAllWeek = new TrainingActivityType[] {
+           TrainingActivityType.WeightTraining, TrainingActivityType.WeightTraining,
+            TrainingActivityType.WeightTraining, TrainingActivityType.WeightTraining,
+            TrainingActivityType.WeightTraining, TrainingActivityType.WeightTraining,
+            TrainingActivityType.WeightTraining
+        };
+        public static TrainingActivityType[] ImproveDetermination = new TrainingActivityType[] {
+           TrainingActivityType.WeightTraining, TrainingActivityType.WeightTraining,
+            TrainingActivityType.WeightTraining, TrainingActivityType.WeightTraining,
+            TrainingActivityType.Sprinting, TrainingActivityType.WeightTraining,
+            TrainingActivityType.WeightTraining
+        };
+        public static TrainingActivityType[] ImproveStrength = new TrainingActivityType[] {
+           TrainingActivityType.WeightTraining, TrainingActivityType.WeightTraining,
+            TrainingActivityType.WeightTraining, TrainingActivityType.WeightTraining,
+            TrainingActivityType.Sprinting, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.WeightTraining
+        };
+
+        public static TrainingActivityType[] BalancedSpeedAndSkill = new TrainingActivityType[] {
+           TrainingActivityType.Sprinting,TrainingActivityType.TrainingMatch,
+           TrainingActivityType.Sprinting,TrainingActivityType.TrainingMatch, 
+           TrainingActivityType.WeightTraining, TrainingActivityType.Sprinting,
+           TrainingActivityType.FiveASide
+        };
+
+        public static TrainingActivityType[] MaintainShape = new TrainingActivityType[] {
+           TrainingActivityType.WeightTraining, TrainingActivityType.Kicking,
+            TrainingActivityType.Sprinting, TrainingActivityType.Handling,
+            TrainingActivityType.TrainingMatch, TrainingActivityType.Throwing,
+            TrainingActivityType.Control
+        };
+        public static TrainingActivityType[] None = new TrainingActivityType[] {
+           TrainingActivityType.None, TrainingActivityType.None,
+            TrainingActivityType.None, TrainingActivityType.None,
+            TrainingActivityType.None, TrainingActivityType.None,
+            TrainingActivityType.None
+        };
+        static TrainingActivityType[] DefaultGK = new TrainingActivityType[] {
+           TrainingActivityType.Sprinting, TrainingActivityType.Control,
+            TrainingActivityType.Handling, TrainingActivityType.Kicking,
+            TrainingActivityType.Kicking, TrainingActivityType.Throwing,
+            TrainingActivityType.TrainingMatch
+        };
+        static TrainingActivityType[] DefaultLRB = new TrainingActivityType[] {
+           TrainingActivityType.WeightTraining, TrainingActivityType.WeightTraining,
+            TrainingActivityType.WeightTraining, TrainingActivityType.WeightTraining,
+            TrainingActivityType.Sprinting, TrainingActivityType.Heading,
+            TrainingActivityType.TrainingMatch
+        };
+        static TrainingActivityType[] DefaultCD = new TrainingActivityType[] {
+           TrainingActivityType.Sprinting, TrainingActivityType.Heading,
+            TrainingActivityType.Sprinting, TrainingActivityType.Sprinting,
+            TrainingActivityType.Control, TrainingActivityType.Control,
+            TrainingActivityType.TrainingMatch
+        };
+        static TrainingActivityType[] DefaultLRWB = new TrainingActivityType[] {
+           TrainingActivityType.Sprinting, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.Control, TrainingActivityType.Marking,
+            TrainingActivityType.Sprinting, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.Control
+        };
+        static TrainingActivityType[] DefaultDMSW = new TrainingActivityType[] {
+           TrainingActivityType.Sprinting, TrainingActivityType.Heading,
+            TrainingActivityType.Sprinting, TrainingActivityType.Control,
+            TrainingActivityType.Marking, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.TrainingMatch
         };
 
 
-        public static TrainingScheduleType[] GetDefaultTrainingSchedule(PlayerPosition playerPosition, TrainingEffectModifier trainingEffectModifier)
+        static TrainingActivityType[] DefaultLRAMLRW = new TrainingActivityType[] {
+           TrainingActivityType.Sprinting, TrainingActivityType.Tackling,
+            TrainingActivityType.TrainingMatch, TrainingActivityType.Sprinting,
+            TrainingActivityType.Tackling, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.TrainingMatch
+        };
+        static TrainingActivityType[] DefaultFRFORSS = new TrainingActivityType[] {
+           TrainingActivityType.Sprinting, TrainingActivityType.Heading,
+            TrainingActivityType.TrainingMatch, TrainingActivityType.Sprinting,
+            TrainingActivityType.Heading, TrainingActivityType.TrainingMatch,
+            TrainingActivityType.Control
+        };
+
+
+        public static TrainingActivityType[] GetDefaultTrainingSchedule(PlayerPosition playerPosition, TrainingEffectModifier trainingEffectModifier)
         {
             switch (playerPosition)
             {

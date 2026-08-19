@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace Fsm97Trainer.Models
@@ -755,7 +756,8 @@ namespace Fsm97Trainer.Models
                 EvalProgress = 0;
                 TotalPlayerPositionsToEval = 0;
                 MenusProcess menusProcess = GetMenusProcess();
-                EvalYoungPlayersResult = menusProcess.EvaluateYoungPlayers(playerPosition, MaxEvalAge, AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining
+                EvalYoungPlayersResult = menusProcess.EvaluateYoungPlayers(playerPosition, MaxEvalAge, 
+                    AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining
                     , EvaluateYoungPlayersReportProgress, EvaluateYoungPlayersReportTotalPlayerPositions, AlwaysTrainConsistency,player, DebugTraining);
             }
             catch (Exception ex)

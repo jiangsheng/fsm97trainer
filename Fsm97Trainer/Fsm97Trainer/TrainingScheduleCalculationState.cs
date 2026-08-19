@@ -16,7 +16,7 @@ namespace Fsm97Trainer
         public TrainingScheduleCalculationState(PlayerModelDouble player, bool revertFromGK,PlayerPosition position, 
             bool autoResetStatus, bool maxEnergy, bool maxPower, 
             bool noAlternativeTraining, bool alwaysTrainConsistency, 
-            TrainingEffectModifier trainingEffectModifier, float[][] trainingEffects)
+            TrainingEffectModifier trainingEffectModifier, TrainingActivity[] trainingEffects)
         {
             Player = player;
             AttributesLeftToTrain = new PlayerModelDouble(player);
@@ -34,50 +34,57 @@ namespace Fsm97Trainer
            
             TrainingEffects = trainingEffects;
 
+            for(int i = 0; i <(int) PlayerAttribute.Count; i++)
+            {
 
-            TrainAcceleration = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Acceleration] > 0;
-            TrainDetermination = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Determination] > 0;
-            TrainShooting = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Shooting] > 0;
-            TrainPassing = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Passing] > 0;
-            TrainHeading = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Heading] > 0;
-            TrainControl = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Control] > 0;
-            TrainDribbling = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Dribbling] > 0;
-            TrainTackleSkill = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.TackleSkill] > 0;
-            TrainTackleDetermination = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.TackleDetermination] > 0;
-            TrainCoolness = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Coolness] > 0;
-            TrainFlair = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Flair] > 0;
-            TrainConsistency = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Consistency] > 0;
-            TrainDetermination = PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Determination] > 0;
+                bool trainThisAttribute = (position==PlayerPosition.Count)?true: PositionRatings.Ratings[(int)position][i] > 0;
+                switch (i)
+                {
+                    case (int)PlayerAttribute.Leadership:
+
+                        if (TrainingEffectModifier.PassingTrainLeadership)
+                            trainThisAttribute = true;
+                        break;
+                    case (int)PlayerAttribute.Consistency:
+                        if (AlwaysTrainConsistency)
+                            trainThisAttribute = true;
+                        break;
+                    case (int)PlayerAttribute.Stamina:
+                    case (int)PlayerAttribute.Strength:
+                        trainThisAttribute = false;
+                        break;
+                    case (int)PlayerAttribute.ThrowIn:
+                        if (trainingEffectModifier.ThrowingTrainThrowIn)
+                            trainThisAttribute = true;
+                        break;
+                    case (int)PlayerAttribute.Greed:
+                        if (trainingEffectModifier.ShootingTrainGreed)
+                            trainThisAttribute = true; break;
+                }
+                if (trainThisAttribute)
+                {
+                    RequiredAttributes.Add((PlayerAttribute)i);
+                }
+            }
         }
         public List<TrainingScheduleSteps> GenericTrainingGrind { get; } = new List<TrainingScheduleSteps>(20);
         public List<TrainingScheduleSteps> GenericTrainingCounter { get; } = new List<TrainingScheduleSteps>(20);
         public List<TrainingScheduleSteps> FinalResult { get; } = new List<TrainingScheduleSteps>(20);
         public List<TrainingScheduleSteps> FinalGrind { get; } = new List<TrainingScheduleSteps>(20);
         public List<TrainingScheduleSteps> FinalCounter { get; } = new List<TrainingScheduleSteps>(20);
-        public bool TrainAcceleration { get; private set; }
-        public bool TrainShooting { get; private set; }
-        public bool TrainPassing { get; private set; }
-        public bool TrainHeading { get; private set; }
-        public bool TrainControl { get; private set; }
-        public bool TrainDribbling { get; private set; }
-        public bool TrainTackleSkill { get; private set; }
-        public bool TrainTackleDetermination { get; private set; }
-        public bool TrainCoolness { get; private set; }
-        public bool TrainFlair { get; private set; }
 
-        public bool TrainConsistency { get; private set; }
-        public bool TrainDetermination { get; private set; }
+        public List<PlayerAttribute> RequiredAttributes { get; } = new List<PlayerAttribute>();
         
         public bool AlwaysTrainConsistency { get; private set; }
         public TrainingEffectModifier TrainingEffectModifier { get; }
-        public float[][] TrainingEffects { get; private set; }
+        public TrainingActivity[] TrainingEffects { get; private set; }
         public bool RevertFromGK { get; private set; }
         public bool AutoResetStatus { get; private set; }
         public bool MaxEnergy { get; private set; }
         public bool MaxPower { get; }
         public bool NoAlternativeTraining { get; }
 
-        double[] roundsToMaxForSchedule = new double[(int)TrainingScheduleType.Count];
+        double[] roundsToMaxForSchedule = new double[(int)TrainingActivityType.Count];
         double[] fastestRoundsToMax = new double[(int)PlayerAttribute.Count];
 
         public PlayerModelDouble ProjectedAttributesAfterSprinting { get; private set; }
@@ -93,7 +100,8 @@ namespace Fsm97Trainer
             var almostAttributeCap = TrainingSchedule.almostAttributeCap;
             var attributeCap = TrainingSchedule.attributeCap;
             var ConstantFastCeiling= TrainingSchedule.ConstantFastCeiling;
-            if (TrainDetermination)
+
+            if (RequiredAttributes.Contains(PlayerAttribute.Determination))
             {
                 //determination can be safely maxed out 
                 //as nothing decreases with determination
@@ -101,14 +109,14 @@ namespace Fsm97Trainer
                 if (attributeCap > Player.Determination)
                 {
                     int weightLiftingRounds = TrainingEffectModifier.weightLiftingRoundsForEachDetermination[attributeCap - (int)Player.Determination];
-                    int speedLostForWeightLifting = -(int)(ConstantFastCeiling + weightLiftingRounds * trainingEffects[(int)TrainingScheduleType.WeightTraining][(int)PlayerAttribute.Speed]);
+                    int speedLostForWeightLifting = -(int)(ConstantFastCeiling + weightLiftingRounds * trainingEffects[(int)TrainingActivityType.WeightTraining].Effects[(int)PlayerAttribute.Speed]);
                     if (speedLostForWeightLifting < 0)
                         speedLostForWeightLifting = 0;
                     var sprintRoundsForDetermination = TrainingEffectModifier.sprintRoundsForEachSpeed[speedLostForWeightLifting];
                     for (int i = 0; i < (int)PlayerAttribute.Count; i++)
                     {
-                        playerAttributes[i] += weightLiftingRounds * trainingEffects[(int)TrainingScheduleType.WeightTraining][(int)i];
-                        playerAttributes[i] += sprintRoundsForDetermination * trainingEffects[(int)TrainingScheduleType.Sprinting][(int)i];
+                        playerAttributes[i] += weightLiftingRounds * trainingEffects[(int)TrainingActivityType.WeightTraining].Effects[(int)i];
+                        playerAttributes[i] += sprintRoundsForDetermination * trainingEffects[(int)TrainingActivityType.Sprinting].Effects[(int)i];
                     }
                 }
             }
@@ -124,10 +132,10 @@ namespace Fsm97Trainer
             {
                 for (int i = 0; i < (int)PlayerAttribute.Count; i++)
                 {
-                    playerAttributes[i] += sprintRoundsForSpeed * trainingEffects[(int)TrainingScheduleType.Sprinting][(int)i];
+                    playerAttributes[i] += sprintRoundsForSpeed * trainingEffects[(int)TrainingActivityType.Sprinting].Effects[(int)i];
                 }
             }
-            if (TrainAcceleration)
+            if (RequiredAttributes.Contains(PlayerAttribute.Acceleration))
             {
                 //for those who need acceleration, we will max it out as much as possible
                 //as sprinting costs skills
@@ -141,7 +149,7 @@ namespace Fsm97Trainer
                 {
                     for (int i = 0; i < (int)PlayerAttribute.Count; i++)
                     {
-                        playerAttributes[i] += sprintRoundsForAcceleration * trainingEffects[(int)TrainingScheduleType.Sprinting][(int)i];
+                        playerAttributes[i] += sprintRoundsForAcceleration * trainingEffects[(int)TrainingActivityType.Sprinting].Effects[(int)i];
                     }
                 }
             }
@@ -159,8 +167,8 @@ namespace Fsm97Trainer
             var trainingEffects = TrainingEffects;
             var almostAttributeCap = TrainingSchedule.almostAttributeCap;
 
-            bool trainShooting = TrainShooting;
-            bool trainPassing = TrainPassing;            
+            bool trainShooting = RequiredAttributes.Contains(PlayerAttribute.Shooting);
+            bool trainPassing = RequiredAttributes.Contains(PlayerAttribute.Passing);
 
             if (trainShooting)
             {
@@ -170,7 +178,7 @@ namespace Fsm97Trainer
                 var trainingMatchRoundsForShooting = TrainingEffectModifier.trainingMatchtRoundsForEachShooting[shootingNeeded];
                 for (int i = 0; i < (int)PlayerAttribute.Count; i++)
                 {
-                    playerAttributes[i] += trainingMatchRoundsForShooting * trainingEffects[(int)TrainingScheduleType.TrainingMatch][(int)i];
+                    playerAttributes[i] += trainingMatchRoundsForShooting * trainingEffects[(int)TrainingActivityType.TrainingMatch].Effects[(int)i];
                 }
             }
             if (trainPassing)
@@ -181,7 +189,7 @@ namespace Fsm97Trainer
                 var trainingMatchRoundsForPassing = TrainingEffectModifier.trainingMatchtRoundsForEachPassing[passingNeeded];
                 for (int i = 0; i < (int)PlayerAttribute.Count; i++)
                 {
-                    playerAttributes[i] += trainingMatchRoundsForPassing * trainingEffects[(int)TrainingScheduleType.TrainingMatch][(int)i];
+                    playerAttributes[i] += trainingMatchRoundsForPassing * trainingEffects[(int)TrainingActivityType.TrainingMatch].Effects[(int)i];
                 }
             }
             ProjectedAttributesAfterTrainingMatch.CopyAttributes(playerAttributes);
@@ -207,16 +215,10 @@ namespace Fsm97Trainer
         public void UpdateAttributesLeftToTrain(int cap = TrainingSchedule.attributeCap)
         {
             double[] attributeLeftToTrain = new double[(int)PlayerAttribute.Count];
+
             for (int playerAttribute = 0; playerAttribute < (int)PlayerAttribute.Count; playerAttribute++)
             {
-                bool countThisAttribute = false;
-                if (playerPosition == PlayerPosition.Count)
-                    countThisAttribute = true;//we will max ratings for every position at once
-                else if (AlwaysTrainConsistency && PlayerAttribute.Consistency == (PlayerAttribute)playerAttribute)
-                    countThisAttribute = true;//train consistecy regardless of the target postion
-                else
-                    countThisAttribute = PositionRatings.Ratings[(int)playerPosition][playerAttribute] > 0;//only train attributes that are relevant to the target position
-
+                bool countThisAttribute = RequiredAttributes.Contains((PlayerAttribute)playerAttribute);
                 if (countThisAttribute)
                 {
                     if (cap > Player.Attributes[playerAttribute])
@@ -245,9 +247,9 @@ namespace Fsm97Trainer
 
             var position = playerPosition;
 
-            bool trainShooting = TrainShooting;
-            bool trainPassing = TrainPassing;
-            bool trainAcceleration = TrainAcceleration;
+            bool trainShooting = RequiredAttributes.Contains(PlayerAttribute.Shooting);
+            bool trainPassing = RequiredAttributes.Contains(PlayerAttribute.Passing);
+            bool trainAcceleration = RequiredAttributes.Contains(PlayerAttribute.Acceleration);
             Array.Clear(fastestRoundsToMax, 0, (int)PlayerAttribute.Count);
             //find the top bottleneck attributes
             //attributes are weighted by how much they are left to train and how fast each training schedule can train them
@@ -263,17 +265,17 @@ namespace Fsm97Trainer
                         break;
                     default:
 
-                        Array.Clear(roundsToMaxForSchedule, 0, (int)TrainingScheduleType.Count);
-                        for (int trainingScheduleType = 0; trainingScheduleType < (int)TrainingScheduleType.Count; trainingScheduleType++)
+                        Array.Clear(roundsToMaxForSchedule, 0, (int)TrainingActivityType.Count);
+                        for (int trainingScheduleType = 0; trainingScheduleType < (int)TrainingActivityType.Count; trainingScheduleType++)
                         {
                             bool skipThisTraining = true;
                             double rounds = 0;
                             if (attributeLeftToTrain.Attributes[playerAttribute] > 0)
                             {
-                                var trainingEffect = TrainingEffects[trainingScheduleType][playerAttribute];
+                                var trainingEffect = TrainingEffects[trainingScheduleType].Effects[playerAttribute];
                                 if (trainingEffect > 0)
                                 {
-                                    skipThisTraining = ShouldSkipTraining(position, (PlayerAttribute)playerAttribute, (TrainingScheduleType)trainingScheduleType);
+                                    skipThisTraining = ShouldSkipTraining(position, (PlayerAttribute)playerAttribute, (TrainingActivityType)trainingScheduleType);
                                     rounds = attributeLeftToTrain.Attributes[playerAttribute] / trainingEffect;
                                 }
                             }
@@ -383,13 +385,13 @@ namespace Fsm97Trainer
             return topBottleneckAttributes.Take(7).ToList();
         }
         int[][] almostAttributeCapGapRounds = null;
-        bool ShouldSkipTraining(PlayerPosition position, PlayerAttribute playerAttribute, TrainingScheduleType trainingScheduleType)
+        bool ShouldSkipTraining(PlayerPosition position, PlayerAttribute playerAttribute, TrainingActivityType trainingScheduleType)
         {
-            bool trainShooting = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Shooting] > 0;
-            bool trainPassing = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Passing] > 0;
-            bool trainAcceleration = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Acceleration] > 0;
-            bool trainDetermination = position == PlayerPosition.Count ? true : PositionRatings.Ratings[(int)position][(int)PlayerAttribute.Determination] > 0;
-            
+            bool trainShooting = RequiredAttributes.Contains(PlayerAttribute.Shooting);
+            bool trainPassing = RequiredAttributes.Contains(PlayerAttribute.Passing);
+            bool trainAcceleration = RequiredAttributes.Contains(PlayerAttribute.Acceleration);
+            bool trainDetermination = RequiredAttributes.Contains(PlayerAttribute.Determination);
+
             var almostAttributeCap = TrainingSchedule.almostAttributeCap;
             var attributeCap = TrainingSchedule.attributeCap;
             var ConstantFastCeiling = TrainingSchedule.ConstantFastCeiling;
@@ -402,15 +404,15 @@ namespace Fsm97Trainer
             if (almostAttributeCapGapRounds == null)
             {
 
-                almostAttributeCapGapRounds = new int[(int)TrainingScheduleType.Count][];
+                almostAttributeCapGapRounds = new int[(int)TrainingActivityType.Count][];
 
-                for (int i = 0; i < (int)TrainingScheduleType.Count; i++)
+                for (int i = 0; i < (int)TrainingActivityType.Count; i++)
                 {
                     almostAttributeCapGapRounds[i] = new int[(int)PlayerAttribute.Count];
                     for (int j = 0; j < (int)PlayerAttribute.Count; j++)
                     {
                         almostAttributeCapGapRounds[i][j] = (int)(
-                            (attributeCap - almostAttributeCap) / trainingEffects[i][j]
+                            (attributeCap - almostAttributeCap) / trainingEffects[i].Effects[j]
                             + ConstantFastCeiling);
                     }
                 }
@@ -492,7 +494,7 @@ namespace Fsm97Trainer
                 case PlayerAttribute.Heading:
 
                     //skip specialized training if will covered by other training
-                    if (trainingScheduleType == TrainingScheduleType.Heading)
+                    if (trainingScheduleType == TrainingActivityType.Heading)
                     {
                         if (headingLeftToTrain > 0)
                         {
@@ -511,7 +513,7 @@ namespace Fsm97Trainer
                     //the options are control, five a side and training match
                     switch (trainingScheduleType)
                     {
-                        case TrainingScheduleType.Control:
+                        case TrainingActivityType.Control:
 
                             //skip specialized training if will covered by other training                    
                             if (player.Control < projectedControlAfterTrainingMatch)
@@ -537,7 +539,7 @@ namespace Fsm97Trainer
                             }
                             break;
 
-                        case TrainingScheduleType.FiveASide:
+                        case TrainingActivityType.FiveASide:
                             if (consistancyLeftToTrain > 0) return true;//max consistency first
                             if (player.Control < projectedControlAfterTrainingMatch)
                             {
@@ -552,7 +554,7 @@ namespace Fsm97Trainer
                 case PlayerAttribute.Dribbling:
                     switch (trainingScheduleType)
                     {
-                        case TrainingScheduleType.Control:
+                        case TrainingActivityType.Control:
 
                             //skip specialized training if will covered by other training                    
                             if (player.Dribbling < projectedDribblingAfterTrainingMatch)
@@ -561,7 +563,7 @@ namespace Fsm97Trainer
                                 return true;
                             }
                             break;
-                        case TrainingScheduleType.FiveASide:
+                        case TrainingActivityType.FiveASide:
                             if (player.Control < projectedControlAfterTrainingMatch)
                             {
                                 //use training match at the beginning
@@ -571,9 +573,9 @@ namespace Fsm97Trainer
                     }
                     break;
                 case PlayerAttribute.Coolness:
-                    switch ((TrainingScheduleType)trainingScheduleType)
+                    switch ((TrainingActivityType)trainingScheduleType)
                     {
-                        case TrainingScheduleType.Control:
+                        case TrainingActivityType.Control:
                             if (player.Coolness < projectedCoolnessAfterTrainingMatch)
                                 return true;//use training match at the beginning
 
@@ -588,7 +590,7 @@ namespace Fsm97Trainer
                 case PlayerAttribute.Awareness:
                     switch (trainingScheduleType)
                     {
-                        case TrainingScheduleType.TrainingMatch: break;
+                        case TrainingActivityType.TrainingMatch: break;
                         default:
                             if (player.Awareness < projectedAwarenessAfterTrainingMatch)
                                 return true;//use training match at the beginning
@@ -596,7 +598,7 @@ namespace Fsm97Trainer
                     }
                     switch (trainingScheduleType)
                     {
-                        case TrainingScheduleType.Control: break;
+                        case TrainingActivityType.Control: break;
                         default:
                             if (attributeLeftToTrain.Control > 0)
                                 return true;
@@ -617,7 +619,7 @@ namespace Fsm97Trainer
                     }
                     switch (trainingScheduleType)
                     {
-                        case TrainingScheduleType.ZonalDefence:
+                        case TrainingActivityType.ZonalDefence:
 
                             if (attributeLeftToTrain.Coolness > 0)
                             {
@@ -630,15 +632,15 @@ namespace Fsm97Trainer
                                 return true;
                             }
                             break;
-                        case TrainingScheduleType.GoalKeeping:
+                        case TrainingActivityType.GoalKeeping:
                             //it basically increase handlling and agility
                             //except if one of them is maxed then there are better options
                             if (attributeLeftToTrain.Handling == 0) return true;
                             if (attributeLeftToTrain.Agility == 0) return true;
                             break;
-                        case TrainingScheduleType.Control:
+                        case TrainingActivityType.Control:
                             break;
-                        case TrainingScheduleType.TrainingMatch:
+                        case TrainingActivityType.TrainingMatch:
                             if (attributeLeftToTrain.Coolness * 3 > attributeLeftToTrain.Awareness * 2)
                             {
                                 //should use control instead
@@ -651,11 +653,11 @@ namespace Fsm97Trainer
                             }
 
                             break;
-                        case TrainingScheduleType.Marking:
-                        case TrainingScheduleType.Tackling:
+                        case TrainingActivityType.Marking:
+                        case TrainingActivityType.Tackling:
                             return true;//we don't reall want to use this for awareness
 
-                        case TrainingScheduleType.FiveASide:
+                        case TrainingActivityType.FiveASide:
                             if (flairLeftToTrain > awarenessLeftToTrain)
                                 return true;
                             break;
@@ -672,7 +674,7 @@ namespace Fsm97Trainer
 
                     switch (trainingScheduleType)
                     {
-                        case TrainingScheduleType.Marking:
+                        case TrainingActivityType.Marking:
                             //have too benefits and generally should be avoided
                             if (player.TackleDetermination < projectedAttributesAfterTrainingMatch.TackleDetermination)
                             {
@@ -711,7 +713,7 @@ namespace Fsm97Trainer
                             }
 
                             break;
-                        case TrainingScheduleType.TrainingMatch:
+                        case TrainingActivityType.TrainingMatch:
 
                             if (tackleDeterminationLeftToTrain / (double)2 <= new[] {
                             //is it covered by five a side?
@@ -731,7 +733,7 @@ namespace Fsm97Trainer
                                 return true;
                             }
                             break;
-                        case TrainingScheduleType.Tackling:
+                        case TrainingActivityType.Tackling:
                             if (player.TackleDetermination < projectedAttributesAfterTrainingMatch.TackleDetermination)
                             {
                                 //use training match at the beginning
@@ -755,7 +757,7 @@ namespace Fsm97Trainer
                                 return true;
                             }
                             break;
-                        case TrainingScheduleType.FiveASide:
+                        case TrainingActivityType.FiveASide:
                             if (player.TackleDetermination < projectedAttributesAfterTrainingMatch.TackleDetermination)
                             {
                                 //use training match at the beginning
@@ -767,7 +769,7 @@ namespace Fsm97Trainer
                 case PlayerAttribute.TackleSkill:
                     switch (trainingScheduleType)
                     {
-                        case TrainingScheduleType.Tackling:
+                        case TrainingActivityType.Tackling:
                             if (player.TackleSkill < projectedAttributesAfterTrainingMatch.TackleSkill)
                             {
                                 //use training match at the beginning
@@ -802,7 +804,7 @@ namespace Fsm97Trainer
                             if (tackleSkillLeftToTrain < tackleDeterminationLeftToTrain / 2)
                                 return true;
                             break;
-                        case TrainingScheduleType.FiveASide:
+                        case TrainingActivityType.FiveASide:
                             if (player.TackleDetermination < projectedAttributesAfterTrainingMatch.TackleDetermination)
                             {
                                 //use training match at the beginning
@@ -826,7 +828,7 @@ namespace Fsm97Trainer
                                 return true;
                             }
                             break;
-                        case TrainingScheduleType.TrainingMatch:
+                        case TrainingActivityType.TrainingMatch:
 
                             if (tackleSkillLeftToTrain < tackleDeterminationLeftToTrain / 2)
                             {
@@ -839,9 +841,9 @@ namespace Fsm97Trainer
                     break;
                 case PlayerAttribute.Flair:
 
-                    switch ((TrainingScheduleType)trainingScheduleType)
+                    switch ((TrainingActivityType)trainingScheduleType)
                     {
-                        case TrainingScheduleType.FiveASide:
+                        case TrainingActivityType.FiveASide:
                             if (player.Flair < projectedAttributesAfterTrainingMatch.Flair)
                             {
                                 //use training match at the beginning
@@ -873,12 +875,12 @@ namespace Fsm97Trainer
 
                             break;
 
-                        case TrainingScheduleType.TrainingMatch:
+                        case TrainingActivityType.TrainingMatch:
                             if (attributeLeftToTrain.Attributes[(int)PlayerAttribute.Consistency] > 0 && player.Consistency < almostAttributeCap)
                                 return true;//still need control training
                             if (consistancyLeftToTrain > 0) return true;//max consistency first
                             break;
-                        case TrainingScheduleType.Control:
+                        case TrainingActivityType.Control:
                             if (player.Flair < projectedAttributesAfterTrainingMatch.Flair)
                             {
                                 //use training match at the beginning

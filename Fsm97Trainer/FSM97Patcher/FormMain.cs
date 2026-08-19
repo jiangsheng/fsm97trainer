@@ -71,7 +71,7 @@ namespace FSM97Patcher
                 {
                     outStream.Seek(detectAddressPatch, SeekOrigin.Begin);
                     outStream.Write(patched, 0, patched.Length);
-                    var patchSchedulingEffect = TrainingScheduleEffect.GetTrainingScheduleEffect(GetTrainingEffectModifier());
+                    var patchSchedulingEffect = TrainingActivity.GetTrainingEffects(GetTrainingEffectModifier());
                     if (trainingEffectAddress != 0)
                     {
                         outStream.Seek(trainingEffectAddress, SeekOrigin.Begin);
@@ -276,9 +276,9 @@ namespace FSM97Patcher
                             csv.WriteField(item);
                         }
                         csv.NextRecord();
-                        for (int i = 0; i < (int)TrainingScheduleType.TrainingMatch + 1; i++)
+                        for (int i = 0; i < (int)TrainingActivityType.TrainingMatch + 1; i++)
                         {
-                            csv.WriteField(Enum.GetName(typeof(TrainingScheduleType), i));
+                            csv.WriteField(Enum.GetName(typeof(TrainingActivityType), i));
                             for (int j = 0; j < 27; j++)
                             {
                                 var fieldValue = trainingEffectFloat[i * 27 + j] * 200;

@@ -9,7 +9,7 @@ namespace Fsm97Trainer
     public class TrainingScheduleSteps
     {
         public PlayerAttribute ForPlayerAttribute { get; set; }
-        public TrainingScheduleType TrainingScheduleType { get; set; }
+        public TrainingActivityType TrainingScheduleType { get; set; }
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();

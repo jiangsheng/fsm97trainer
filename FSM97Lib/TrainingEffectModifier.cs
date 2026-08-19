@@ -31,33 +31,36 @@ namespace FSM97Lib
             get { return rawData; }
             set {
                 rawData = value;
-                trainingEffects=new float[(int)TrainingScheduleType.Count][];
+                trainingEffects=new TrainingActivity[(int)TrainingActivityType.Count];
                 for (int i = 0; i < trainingEffects.Length; i++)
                 {
-                    trainingEffects[i]=new float[AttributesPerSchedule];
-                    for (int j = 0; j < trainingEffects[i].Length; j++)
+                    var trainingEffect=new TrainingActivity();
+                    trainingEffect.Activity = (TrainingActivityType)i;
+                    trainingEffect.Effects = new float[AttributesPerSchedule];
+                    for (int j = 0; j < trainingEffect.Effects.Length; j++)
                     {
-                        trainingEffects[i][j] = RawData[i* AttributesPerSchedule+j];
+                        trainingEffect.Effects[j] = RawData[i* AttributesPerSchedule+j];
                     }
+                    trainingEffects[i] = trainingEffect;
                 }
                 for (int i = 0; i < 100; i++)
                 {
                     //round up for rounds required for each attribute gain, since we cannot train a fraction of a round
-                    sprintRoundsForEachSpeed[i] = (int)(ConstantFastCeiling + i / rawData[(int)TrainingScheduleType.Sprinting * 27 + (int)PlayerAttribute.Speed]);
-                    weightLiftingRoundsForEachDetermination[i] = (int)(ConstantFastCeiling + i / rawData[(int)TrainingScheduleType.WeightTraining * 27 + (int)PlayerAttribute.Determination]);
-                    sprintRoundsForEachAcceleration[i] = (int)(ConstantFastCeiling + i / rawData[(int)TrainingScheduleType.Sprinting * 27 + (int)PlayerAttribute.Acceleration]);
+                    sprintRoundsForEachSpeed[i] = (int)(ConstantFastCeiling + i / rawData[(int)TrainingActivityType.Sprinting * 27 + (int)PlayerAttribute.Speed]);
+                    weightLiftingRoundsForEachDetermination[i] = (int)(ConstantFastCeiling + i / rawData[(int)TrainingActivityType.WeightTraining * 27 + (int)PlayerAttribute.Determination]);
+                    sprintRoundsForEachAcceleration[i] = (int)(ConstantFastCeiling + i / rawData[(int)TrainingActivityType.Sprinting * 27 + (int)PlayerAttribute.Acceleration]);
                     //round up for each loss of speed or acceleration, so that the player will lose at least 1 point of speed or acceleration for each round of weight lifting or heading training
                        
-                    if(rawData[(int)TrainingScheduleType.Heading * 27 + (int)PlayerAttribute.Acceleration]!=0)
-                        accelerationLostForEachHeading[i] = -(int)(ConstantFastCeiling + i / rawData[(int)TrainingScheduleType.Heading * 27 + (int)PlayerAttribute.Acceleration]);
+                    if(rawData[(int)TrainingActivityType.Heading * 27 + (int)PlayerAttribute.Acceleration]!=0)
+                        accelerationLostForEachHeading[i] = -(int)(ConstantFastCeiling + i / rawData[(int)TrainingActivityType.Heading * 27 + (int)PlayerAttribute.Acceleration]);
 
-                    trainingMatchtRoundsForEachShooting[i] = (int)(ConstantFastCeiling + i / rawData[(int)TrainingScheduleType.Shooting * 27 + (int)PlayerAttribute.Shooting]);
-                    trainingMatchtRoundsForEachPassing[i] = (int)(ConstantFastCeiling + i / rawData[(int)TrainingScheduleType.Passing * 27 + (int)PlayerAttribute.Passing]);
+                    trainingMatchtRoundsForEachShooting[i] = (int)(ConstantFastCeiling + i / rawData[(int)TrainingActivityType.Shooting * 27 + (int)PlayerAttribute.Shooting]);
+                    trainingMatchtRoundsForEachPassing[i] = (int)(ConstantFastCeiling + i / rawData[(int)TrainingActivityType.Passing * 27 + (int)PlayerAttribute.Passing]);
                 }
             }
         }
-        float[][] trainingEffects;
-        public float[][] TrainingEffects {
+        TrainingActivity[] trainingEffects;
+        public TrainingActivity[] TrainingEffects {
             get { return trainingEffects; } 
         }
 

@@ -2,16 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 
 namespace Fsm97Trainer
 {
     internal class EvaluateYoungPlayersResult
     {
 
-        public EvaluateYoungPlayersResult(PlayerPosition position, List<PlayerModelDouble> youngPlayers, bool autoResetStatus, bool maxEnergy,  bool maxPower, bool noAlternativeTraining, TrainingEffectModifier trainingEffectModifier, bool alwaysTrainConsistency ,float[][] trainingEffects)
+        public EvaluateYoungPlayersResult(PlayerPosition position, List<PlayerModelDouble> youngPlayers, bool autoResetStatus, bool maxEnergy,  bool maxPower, bool noAlternativeTraining, TrainingEffectModifier trainingEffectModifier, bool alwaysTrainConsistency ,TrainingActivity[] trainingEffects)
         {
             Position = position;
             YoungPlayers = youngPlayers;
@@ -20,12 +23,12 @@ namespace Fsm97Trainer
             MaxPower = maxPower;
             NoAlternativeTraining = noAlternativeTraining;
             TrainingEffectModifier = trainingEffectModifier;
-            GetTrainingScheduleEffects= TrainingScheduleEffect.GetTrainingScheduleEffect(trainingEffectModifier);
+            TrainingScheduleEffects= TrainingActivity.GetTrainingEffects(trainingEffectModifier);
             AttributeRelevanceForPosition = PositionRatings.Ratings[(int)Position];
             TrainingEffects = trainingEffects;
             AlwaysTrainConsistency = alwaysTrainConsistency;
         }
-        byte[] GetTrainingScheduleEffects { get; set; }
+        byte[] TrainingScheduleEffects { get; set; }
 
         public List<YoungPlayerEvaluation> Grades { get; set; }
         public PlayerPosition Position { get; }
@@ -37,7 +40,7 @@ namespace Fsm97Trainer
         public TrainingEffectModifier TrainingEffectModifier { get; }
         public bool AlwaysTrainConsistency { get; set; }
         byte[] AttributeRelevanceForPosition { get; set; }
-        float[][] TrainingEffects { get; set; }
+        TrainingActivity[] TrainingEffects { get; set; }
 
         public event EventHandler OnEvalPlayerPositionComplete;
         public void Evaluate(int minRating)
@@ -71,7 +74,7 @@ namespace Fsm97Trainer
             int weeks = 0;
             bool maxedOut = false;
             List<TrainingScheduleSteps> lastWeeklyTrainingSchedule = null;
-            var trainingCount = new int[(int)TrainingScheduleType.Count];
+            var trainingCount = new int[(int)TrainingActivityType.Count];
 
             int lastScheduleLastedWeekCount = 0;
             PlayerModelDouble lastTrainingResult = null;
@@ -118,7 +121,7 @@ namespace Fsm97Trainer
                         var dailyTrainingScheduleType = weeklyTrainingSchedule[dayOfWeek];
                         for (int attributeIndex = 0; attributeIndex < currentTrainingResult.Attributes.Length; attributeIndex++)
                         {
-                            var dailyTrainingEffect = TrainingEffects[(int)dailyTrainingScheduleType.TrainingScheduleType][attributeIndex];
+                            var dailyTrainingEffect = TrainingEffects[(int)dailyTrainingScheduleType.TrainingScheduleType].Effects[attributeIndex];
                             if (dailyTrainingEffect != 0)
                             {
                                 var preciseAttributeBefore = currentTrainingResult.Attributes[attributeIndex];
@@ -184,9 +187,11 @@ namespace Fsm97Trainer
                 lastTrainingResult = new PlayerModelDouble(currentTrainingResult);
             }
             result.WeeksToMax = weeks;
+            List<int> attributes = currentTrainingResult.Attributes.Select(x => (int)x).ToList();
 
-            result.FinalRating = currentTrainingResult.PositionRating;
-            Debug.Assert(result.FinalRating > TrainingSchedule.attributeCap
+
+            result.FinalRating =(int)(new PlayerModel(attributes).GetPositionRatingDouble(currentTrainingResult.Position));
+            Debug.Assert(result.FinalRating >= TrainingSchedule.attributeCap
                 ||this.Position==PlayerPosition.CD);
             return result;
         }

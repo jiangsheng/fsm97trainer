@@ -299,9 +299,9 @@ namespace FSM97Lib
             attributes = newAttributes.Select(x =>(int) x).ToArray();
         }
 
-        public PlayerModel(List<int> attributeLeftToTrain)
+        public PlayerModel(List<int> attributeToCopy)
         {
-            attributes = attributeLeftToTrain.Select(x =>x).ToArray();
+            attributes = attributeToCopy.Select(x =>x).ToArray();
         }
 
         public int BirthDateOffset{ get; set; }
