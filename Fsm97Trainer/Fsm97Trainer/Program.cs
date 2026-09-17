@@ -55,6 +55,7 @@ namespace Fsm97Trainer
             mainForm.RestoreBoundsBottom = settings.RestoreBounds.Bottom;
             mainForm.MaxEvalAge = settings.MaxEvalAge;
             mainForm.AlwaysTrainConsistency = settings.AlwaysTrainConsistency;
+            mainForm.RestartAfterClosing = settings.RestartAfterClosing;
             return mainForm;
         }
         static void SaveSettings(FormMainModel mainForm)
@@ -80,6 +81,7 @@ namespace Fsm97Trainer
                 mainForm.RestoreBoundsBottom - mainForm.RestoreBoundsTop);
             settings.MaxEvalAge = mainForm.MaxEvalAge;
             settings.AlwaysTrainConsistency = mainForm.AlwaysTrainConsistency;
+            settings.RestartAfterClosing = mainForm.RestartAfterClosing;
             settings.Save();
         }
         public static void CopyProperties<T>(T source, T destination)

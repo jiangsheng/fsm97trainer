@@ -40,9 +40,9 @@ namespace SchedulingTest
         static void Main(string[] args)
         {
             Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");
-            TestEval();
+            //TestEval();
             //TestTeams();
-            //TestEvalPlayer();
+            TestEvalPlayer();
             //TestPlayerManagers();
         }
 
@@ -72,18 +72,17 @@ namespace SchedulingTest
                 formMainModel.MaxEnergy = true;
                 formMainModel.CurrentLanguage = "zh-CN";
                 formMainModel.AlwaysTrainConsistency = false;
-                formMainModel.DebugTraining = false;// true;
+                formMainModel.DebugTraining = true;// true;
                 //formMainModel.OnFastTimer();
                 formMainModel.OnEvalProgressChanged += FormMainModel_OnEvalProgressChanged; 
                 try
                 {
-
-                    formMainModel.EvaluateYoungPlayers(PlayerPosition.GK, "艾德加尔", 0);
+                    formMainModel.EvaluatePosition = PlayerPosition.Count;
+                    //formMainModel.EvaluateYoungPlayers(PlayerPosition.GK, "艾德加尔", 0);
                     //formMainModel.EvaluateYoungPlayers(PlayerPosition.LWB, string.Empty, 60);
                     //formMainModel.EvaluateYoungPlayers(PlayerPosition.GK,string.Empty,0);
-                    /*formMainModel.MaxEvalAge = 19;
                     formMainModel.TotalPlayerPositionsToEval=0;
-                    formMainModel.EvaluateYoungPlayers(PlayerPosition.FOR, null, 60);*/
+                    formMainModel.EvaluateYoungPlayers(PlayerPosition.Count, null, 60);
                     Debug.WriteLine(formMainModel.EvalYoungPlayersResult);
                     var fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".htm";
                     File.WriteAllText(fileName, formMainModel.EvalYoungPlayersResult);
@@ -107,7 +106,7 @@ namespace SchedulingTest
                 //health
                 ,99,99,99,
                 //skill
-                99, 99,  98.67,  99,  99,
+                99, 99,  98,  99,  99,
                 //coolness, awareness
                 99,99,
                 //tackling
@@ -133,6 +132,7 @@ namespace SchedulingTest
                 formMainModel.NoAlternativeTraining = false;
                 formMainModel.MaxEnergy = true;
                 formMainModel.CurrentLanguage = "zh-CN";
+                formMainModel.DebugTraining = true;
                 //formMainModel.OnFastTimer();
                 formMainModel.OnEvalProgressChanged += FormMainModel_OnEvalProgressChanged;
                 

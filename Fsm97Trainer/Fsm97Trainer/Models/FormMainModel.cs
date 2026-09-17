@@ -263,6 +263,9 @@ namespace Fsm97Trainer.Models
         public event EventHandler OnEvalProgressChanged;
         public int MaxEvalAge { get; set; }
         public bool DebugTraining { get; set; }
+        public bool RestartAfterClosing{ get; set; }
+        public PlayerPosition EvaluatePosition { get; set; }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -735,7 +738,7 @@ namespace Fsm97Trainer.Models
 
         public void EvaluateYoungPlayers(PlayerPosition playerPosition,string playerLastName,int minRating)
         {
-           
+            this.EvaluatePosition = playerPosition;
             try
             {
                 EvalProgress = 0;
@@ -751,6 +754,7 @@ namespace Fsm97Trainer.Models
         }
         public void EvaluateYoungPlayer(PlayerPosition playerPosition, PlayerModelDouble player)
         {
+            this.EvaluatePosition = playerPosition;
             try
             {
                 EvalProgress = 0;

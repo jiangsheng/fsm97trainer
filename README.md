@@ -8,11 +8,8 @@ The game runs on XP, thus the projects are targeting .Net 4.0. If you do not nee
 Clone the following repositories using your favorite git tool:
 
 * https://github.com/jiangsheng/fsm97trainer
-* https://github.com/jiangsheng/OpenCC.NET
-* https://github.com/jiangsheng/NameParserSharp
-* https://github.com/jiangsheng/Diacritics.NET
-* 
-You can also clone some projects from the original locations instead of my XP-compatibility fork if you drop XP support.
+
+You can also replace some sub modules and update dependencies from the original locations instead of my XP-compatibility fork if you drop XP support.
 
 * https://github.com/CosineG/OpenCC.NET
 * https://github.com/aeshirey/NameParserSharp

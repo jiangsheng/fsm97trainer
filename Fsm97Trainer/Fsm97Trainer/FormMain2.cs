@@ -124,6 +124,9 @@ namespace Fsm97Trainer
                     (screenHeight - formHeight) / 2
                 );
             }
+            radioButtonFocusOnPositionRating.Checked = Model.NoAlternativeTraining;
+            radioButtonFocusOnStatistics.Checked = !Model.NoAlternativeTraining;
+            comboBoxEvalForPosition.Items.AddRange(Enum.GetNames(typeof(PlayerPosition)));
         }
         bool IsOnScreen(Rectangle bounds)
         {
@@ -249,9 +252,17 @@ namespace Fsm97Trainer
             Model.ResetDate(targetYear);
         }
 
-        private void buttonRestartGame_Click(object sender, EventArgs e)
+        private void buttonCloseGame_Click(object sender, EventArgs e)
         {
-            Model.Restart();
+            if (Model.RestartAfterClosing)
+            {
+
+                Model.Restart();
+            }
+            else
+            {
+                Model.ForceExit();
+            }
         }
 
         private void buttonUpdatePlayerNameForNewSpawn_Click(object sender, EventArgs e)
@@ -328,6 +339,18 @@ namespace Fsm97Trainer
                 return;
             }
             Model.EvalProgress = 0;
+            PlayerPosition playerPosition;
+
+            if (Enum.TryParse(comboBoxEvalForPosition.Text, out playerPosition))
+            {
+                Model.EvaluatePosition=playerPosition;
+            }
+            else
+            {
+                Model.EvaluatePosition = PlayerPosition.Count;
+
+            }
+
             webBrowserEvalResult.Navigate("about:blank"); 
             backgroundWorkerEval.RunWorkerAsync();
         }
@@ -341,7 +364,7 @@ namespace Fsm97Trainer
         {
             if(!string.IsNullOrEmpty(Model.CurrentLanguage))
                 Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Model.CurrentLanguage);
-            Model.EvaluateYoungPlayers(PlayerPosition.Count,null,50);
+            Model.EvaluateYoungPlayers(Model.EvaluatePosition, null,50);
             Model.OnEvalProgressChanged+= (s, ev) =>
             {
                 backgroundWorkerEval.ReportProgress(Model.EvalProgress);
@@ -359,6 +382,21 @@ namespace Fsm97Trainer
             toolStripProgressBar1.Value = 0;
             toolStripStatusLabel1.Text = Properties.Resources.EvaluationCompleted;
             webBrowserEvalResult.DocumentText= Model.EvalYoungPlayersResult;
+        }
+
+        private void radioButtonFocusOnStatistics_CheckedChanged(object sender, EventArgs e)
+        {
+            OnTrainingFocusChanged();
+        }
+
+        private void radioButtonFocusOnPositionRating_CheckedChanged(object sender, EventArgs e)
+        {
+            OnTrainingFocusChanged();
+        }
+
+        private void OnTrainingFocusChanged()
+        {
+            Model.NoAlternativeTraining = radioButtonFocusOnPositionRating.Checked;
         }
     }
 }

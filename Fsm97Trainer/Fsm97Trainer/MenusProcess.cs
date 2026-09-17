@@ -1529,7 +1529,7 @@ namespace Fsm97Trainer
         object evalProgressLock = new object();
         public string EvaluateYoungPlayers(PlayerPosition playerPosition, int maxEvalAge, bool autoResetStatus,
             bool maxEnergy, bool maxPower, bool noAlternativeTraining, Action<int> evaluateYoungPlayersReportProgress, Action<int> evaluateYoungPlayersReportTotalPlayerPositions,
-             string playerLastname, int minRating,bool alwaysTrainConsistency, bool debugTraining)
+             string playerLastname, int minRating, bool alwaysTrainConsistency, bool debugTraining)
         {
             List<PlayerModelDouble> youngPlayers = null;
             var trainingEffect = trainingEffectModifier.TrainingEffects;
@@ -1544,7 +1544,7 @@ namespace Fsm97Trainer
                 {
                     youngPlayersQuery = youngPlayersQuery.Where(p => p.Data.LastName == playerLastname);
                 }
-                youngPlayers = youngPlayersQuery.Select(node =>new PlayerModelDouble(node.Data)).ToList();
+                youngPlayers = youngPlayersQuery.Select(node => new PlayerModelDouble(node.Data)).ToList();
 
             }
             catch
@@ -1631,10 +1631,10 @@ namespace Fsm97Trainer
                     evaluateYoungPlayersResults[targetPositionValueIndex].Evaluate(minRating);
                 });
             }
-            return GenerateHtmlOutput(targetPositions, targetPositionValues, evaluateYoungPlayersResults);
+            return GenerateHtmlOutput(targetPositions, targetPositionValues, evaluateYoungPlayersResults, debugTraining);
         }
 
-        private static string GenerateHtmlOutput(Dictionary<PlayerPosition, string> targetPositions, List<PlayerPosition> targetPositionValues, EvaluateYoungPlayersResult[] evaluateYoungPlayersResults)
+        private static string GenerateHtmlOutput(Dictionary<PlayerPosition, string> targetPositions, List<PlayerPosition> targetPositionValues, EvaluateYoungPlayersResult[] evaluateYoungPlayersResults, bool debugTraining)
         {
             var doc = new HtmlAgilityPack.HtmlDocument();
             var documentNode = HtmlNode.CreateNode("<!DOCTYPE html><html><head><style>table {\r\n    border-collapse: collapse; /* Prevents double borders or gaps */\r\n  }\r\n  th, td {\r\n    padding: 3px;\r\n  }\r\n  /* Apply a vertical border to the right side of targeted cells */\r\n  .col-border {\r\n    border-right: 1px solid black;\r\n  }</style></head><body></body></html>");
@@ -1656,7 +1656,7 @@ namespace Fsm97Trainer
                     .OrderByDescending(p => p.FinalRating)
                     .ThenBy(p => p.WeeksToMax)
                     .ThenByDescending(p => p.Player.Statistics)
-                    .Take(200).ToList();
+                    .Take(20).ToList();
                 if (topPlayers.Count == 0) continue;
                 var averageWeeks = resultForPosition.Grades
                         .Where(r => r.WeeksToMax > 0)
@@ -1678,7 +1678,6 @@ namespace Fsm97Trainer
                 thead.AppendChild(headerRow);
                 evalResultTable.AppendChild(thead);
                 var tbody = doc.CreateElement("tbody");
-
                 foreach (var topPlayer in topPlayers)
                 {
                     var player = topPlayer.Player;
@@ -1721,25 +1720,26 @@ namespace Fsm97Trainer
                 evalResultTable.AppendChild(tfoot);
 
                 rankingsNode.AppendChild(evalResultTable);
-
-                foreach (var topPlayer in topPlayers)
+                if (debugTraining)
                 {
-                    var player = topPlayer.Player;
-                    var scheduleTable = doc.CreateElement("table");
-                    var scheduleCaption = doc.CreateElement("caption");
-                    scheduleCaption.AppendChild(doc.CreateTextNode(string.Format(Properties.Resources.EvalTopPlayerEntry,
-                        player.LastName, player.FirstName,
-                        player.Age,
-                        player.PositionRating,
-                        player.PositionName,
-                        player.NationalityName,
-                        topPlayer.WeeksToMax
-                        )));
-                    scheduleTable.AppendChild(scheduleCaption);
+                    foreach (var topPlayer in topPlayers)
+                    {
+                        var player = topPlayer.Player;
+                        var scheduleTable = doc.CreateElement("table");
+                        var scheduleCaption = doc.CreateElement("caption");
+                        scheduleCaption.AppendChild(doc.CreateTextNode(string.Format(Properties.Resources.EvalTopPlayerEntry,
+                            player.LastName, player.FirstName,
+                            player.Age,
+                            player.PositionRating,
+                            player.PositionName,
+                            player.NationalityName,
+                            topPlayer.WeeksToMax
+                            )));
+                        scheduleTable.AppendChild(scheduleCaption);
 
-                    var scheduleThead = doc.CreateElement("thead");
-                    var scheduleHeaderRow = doc.CreateElement("tr");
-                    var scheduleHeaders = new string[] { PlayerAttribute.Speed.ToLocalizedString(),
+                        var scheduleThead = doc.CreateElement("thead");
+                        var scheduleHeaderRow = doc.CreateElement("tr");
+                        var scheduleHeaders = new string[] { PlayerAttribute.Speed.ToLocalizedString(),
                                 PlayerAttribute.Agility.ToLocalizedString(),
                                 PlayerAttribute.Acceleration.ToLocalizedString(),
                                 PlayerAttribute.Stamina.ToLocalizedString(),
@@ -1765,163 +1765,164 @@ namespace Fsm97Trainer
                                 Properties.Resources.TrainingSchedule,
                                 Properties.Resources.WeeksCount
                         };
-                    var columnWithBorders = new Dictionary<int,int>();
-                    columnWithBorders.Add(2, 2);
-                    columnWithBorders.Add(5, 5);
-                    columnWithBorders.Add(10, 10);
-                    columnWithBorders.Add(12, 12);
-                    columnWithBorders.Add(15, 15);
-                    columnWithBorders.Add(18, 18);
-                    columnWithBorders.Add(21, 21);
-                    columnWithBorders.Add(22, 22);
+                        var columnWithBorders = new Dictionary<int, int>();
+                        columnWithBorders.Add(2, 2);
+                        columnWithBorders.Add(5, 5);
+                        columnWithBorders.Add(10, 10);
+                        columnWithBorders.Add(12, 12);
+                        columnWithBorders.Add(15, 15);
+                        columnWithBorders.Add(18, 18);
+                        columnWithBorders.Add(21, 21);
+                        columnWithBorders.Add(22, 22);
 
-                    int columnIndex = 0;
-                    foreach (var scheduleHeader in scheduleHeaders)
-                    {
-                        if (scheduleHeader != null)
+                        int columnIndex = 0;
+                        foreach (var scheduleHeader in scheduleHeaders)
                         {
-                            var th = doc.CreateElement("th");
-                            th.AppendChild(doc.CreateTextNode(scheduleHeader));
-                            if (columnWithBorders.ContainsKey(columnIndex))
-                                th.AddClass("col-border");
-                            scheduleHeaderRow.AppendChild(th);
-                            columnIndex++;
-                        }
-                    }
-                    scheduleThead.AppendChild(scheduleHeaderRow);
-                    scheduleTable.AppendChild(scheduleThead);
-                    var scheduleTbody = doc.CreateElement("tbody");
-
-                    int[] roundsForEachTrainingScheduleType = new int[(int)TrainingActivityType.Count];
-                    foreach (var weeklyTrainingSchedule in topPlayer.WeeklyTrainingSchedules)
-                    {
-                        var scheduleRow = doc.CreateElement("tr");
-                        var schedulePlayer = weeklyTrainingSchedule.Player;
-                        columnIndex = 0;
-                        for (int i = 0; i < (int)PlayerAttribute.Count; i++)
-                        {
-                            var cell = doc.CreateElement("td");
-                            double attributeValue;
-                            switch ((PlayerAttribute)i)
+                            if (scheduleHeader != null)
                             {
-                                default:
-                                    attributeValue = schedulePlayer.Attributes[i]; break;
-                                case PlayerAttribute.Coolness:
-                                    attributeValue = schedulePlayer.TackleDetermination; break;
-                                case PlayerAttribute.Awareness:
-                                    attributeValue = schedulePlayer.TackleSkill; break;
-
-                                case PlayerAttribute.TackleDetermination:
-                                    attributeValue = schedulePlayer.Coolness; break;
-                                case PlayerAttribute.TackleSkill:
-                                    attributeValue = schedulePlayer.Awareness; break;
+                                var th = doc.CreateElement("th");
+                                th.AppendChild(doc.CreateTextNode(scheduleHeader));
+                                if (columnWithBorders.ContainsKey(columnIndex))
+                                    th.AddClass("col-border");
+                                scheduleHeaderRow.AppendChild(th);
+                                columnIndex++;
                             }
-                            switch ((PlayerAttribute)i)
-                            {
-                                case PlayerAttribute.ThrowIn:
-                                case PlayerAttribute.Greed:
-                                    break;
-                                default:
-                                    if (attributeValue < TrainingSchedule.attributeCap)
-                                    {
-                                        cell.AppendChild(doc.CreateTextNode(((int)attributeValue).ToString()));
-                                        cell.SetAttributeValue("title", attributeValue.ToStringTruncated(2));
-                                    }
-                                    if (columnWithBorders.ContainsKey(columnIndex))
-                                        cell.AddClass("col-border");
-                                    scheduleRow.AppendChild(cell);
-                                    columnIndex++;
-                                    break;
-
-                            }
-                            
                         }
+                        scheduleThead.AppendChild(scheduleHeaderRow);
+                        scheduleTable.AppendChild(scheduleThead);
+                        var scheduleTbody = doc.CreateElement("tbody");
 
-                        var bottleneckAttributesCell = doc.CreateElement("td");
-                        if (weeklyTrainingSchedule.BottleneckAttributes != null)
+                        int[] roundsForEachTrainingScheduleType = new int[(int)TrainingActivityType.Count];
+                        foreach (var weeklyTrainingSchedule in topPlayer.WeeklyTrainingSchedules)
                         {
-                            bool isFirstBottleneckAttribute = true;
-                            StringBuilder stringBuilderbottleneckAttributesCellText = new StringBuilder();
-                            foreach (var bottleneckAttribute in weeklyTrainingSchedule.BottleneckAttributes)
+                            var scheduleRow = doc.CreateElement("tr");
+                            var schedulePlayer = weeklyTrainingSchedule.Player;
+                            columnIndex = 0;
+                            for (int i = 0; i < (int)PlayerAttribute.Count; i++)
                             {
-                                if (isFirstBottleneckAttribute)
-                                    isFirstBottleneckAttribute = false;
-                                else
-                                    stringBuilderbottleneckAttributesCellText.Append(", ");
-                                stringBuilderbottleneckAttributesCellText.Append(bottleneckAttribute.AttributeIndex.ToLocalizedString());
-                                if (bottleneckAttribute.Repeat > 0)
+                                var cell = doc.CreateElement("td");
+                                double attributeValue;
+                                switch ((PlayerAttribute)i)
                                 {
-                                    stringBuilderbottleneckAttributesCellText.Append("(");
-                                    stringBuilderbottleneckAttributesCellText.Append(bottleneckAttribute.Repeat.ToString());
-                                    stringBuilderbottleneckAttributesCellText.Append(")");
+                                    default:
+                                        attributeValue = schedulePlayer.Attributes[i]; break;
+                                    case PlayerAttribute.Coolness:
+                                        attributeValue = schedulePlayer.TackleDetermination; break;
+                                    case PlayerAttribute.Awareness:
+                                        attributeValue = schedulePlayer.TackleSkill; break;
+
+                                    case PlayerAttribute.TackleDetermination:
+                                        attributeValue = schedulePlayer.Coolness; break;
+                                    case PlayerAttribute.TackleSkill:
+                                        attributeValue = schedulePlayer.Awareness; break;
+                                }
+                                switch ((PlayerAttribute)i)
+                                {
+                                    case PlayerAttribute.ThrowIn:
+                                    case PlayerAttribute.Greed:
+                                        break;
+                                    default:
+                                        if (attributeValue < TrainingSchedule.attributeCap)
+                                        {
+                                            cell.AppendChild(doc.CreateTextNode(((int)attributeValue).ToString()));
+                                            cell.SetAttributeValue("title", attributeValue.ToStringTruncated(2));
+                                        }
+                                        if (columnWithBorders.ContainsKey(columnIndex))
+                                            cell.AddClass("col-border");
+                                        scheduleRow.AppendChild(cell);
+                                        columnIndex++;
+                                        break;
+
+                                }
+
+                            }
+
+                            var bottleneckAttributesCell = doc.CreateElement("td");
+                            if (weeklyTrainingSchedule.BottleneckAttributes != null)
+                            {
+                                bool isFirstBottleneckAttribute = true;
+                                StringBuilder stringBuilderbottleneckAttributesCellText = new StringBuilder();
+                                foreach (var bottleneckAttribute in weeklyTrainingSchedule.BottleneckAttributes)
+                                {
+                                    if (isFirstBottleneckAttribute)
+                                        isFirstBottleneckAttribute = false;
+                                    else
+                                        stringBuilderbottleneckAttributesCellText.Append(", ");
+                                    stringBuilderbottleneckAttributesCellText.Append(bottleneckAttribute.AttributeIndex.ToLocalizedString());
+                                    if (bottleneckAttribute.Repeat > 0)
+                                    {
+                                        stringBuilderbottleneckAttributesCellText.Append("(");
+                                        stringBuilderbottleneckAttributesCellText.Append(bottleneckAttribute.Repeat.ToString());
+                                        stringBuilderbottleneckAttributesCellText.Append(")");
+                                    }
+                                }
+                                if (stringBuilderbottleneckAttributesCellText.Length > 0)
+                                {
+                                    bottleneckAttributesCell.AppendChild(doc.CreateTextNode(stringBuilderbottleneckAttributesCellText.ToString()));
                                 }
                             }
-                            if (stringBuilderbottleneckAttributesCellText.Length > 0)
+                            bottleneckAttributesCell.AddClass("col-border");
+                            scheduleRow.AppendChild(bottleneckAttributesCell);
+                            var trainingScheduleCell = doc.CreateElement("td");
+                            if (weeklyTrainingSchedule.Steps != null)
                             {
-                                bottleneckAttributesCell.AppendChild(doc.CreateTextNode(stringBuilderbottleneckAttributesCellText.ToString()));
+                                bool firstTrainingScheduleCell = true;
+                                StringBuilder trainingScheduleCellText = new StringBuilder();
+                                foreach (var training in weeklyTrainingSchedule.Steps)
+                                {
+                                    if (firstTrainingScheduleCell)
+                                        firstTrainingScheduleCell = false;
+                                    else
+                                        trainingScheduleCellText.Append(", ");
+                                    trainingScheduleCellText.Append(training.ToString());
+                                    roundsForEachTrainingScheduleType[(int)training.TrainingScheduleType] += weeklyTrainingSchedule.Weeks;
+                                }
+                                trainingScheduleCell.AppendChild(doc.CreateTextNode(trainingScheduleCellText.ToString()));
                             }
-                        }
-                        bottleneckAttributesCell.AddClass("col-border");
-                        scheduleRow.AppendChild(bottleneckAttributesCell);
-                        var trainingScheduleCell = doc.CreateElement("td");
-                        if (weeklyTrainingSchedule.Steps != null)
-                        {
-                            bool firstTrainingScheduleCell = true;
-                            StringBuilder trainingScheduleCellText = new StringBuilder();
-                            foreach (var training in weeklyTrainingSchedule.Steps)
+                            scheduleRow.AppendChild(trainingScheduleCell);
+
+                            var weeksCountCell = doc.CreateElement("td");
+                            if (weeklyTrainingSchedule.Weeks > 0)
                             {
-                                if (firstTrainingScheduleCell)
-                                    firstTrainingScheduleCell = false;
+                                weeksCountCell.AppendChild(doc.CreateTextNode(weeklyTrainingSchedule.Weeks.ToString()));
+                            }
+                            scheduleRow.AppendChild(weeksCountCell);
+                            scheduleTbody.AppendChild(scheduleRow);
+                        }
+                        scheduleTable.AppendChild(scheduleTbody);
+                        var scheduleFoot = doc.CreateElement("tfoot");
+                        scheduleFoot.Attributes.Add("style", "text-align: center;");
+
+                        var scheduleFootRow = doc.CreateElement("tr");
+                        var scheduleFootCell = doc.CreateElement("td");
+                        scheduleFootCell.SetAttributeValue("colspan", scheduleHeaders.Length.ToString());
+                        StringBuilder scheduleFootCellText = new StringBuilder();
+                        bool firstScheduleFootCellText = true;
+                        scheduleFootCellText.Append(Properties.Resources.TotalRoundsForEachTrainingScheduleType);
+                        for (int i = 0; i < (int)TrainingActivityType.Count; i++)
+                        {
+                            if (roundsForEachTrainingScheduleType[i] > 0)
+                            {
+                                if (firstScheduleFootCellText)
+                                    firstScheduleFootCellText = false;
                                 else
-                                    trainingScheduleCellText.Append(", ");
-                                trainingScheduleCellText.Append(training.ToString());
-                                roundsForEachTrainingScheduleType[(int)training.TrainingScheduleType] += weeklyTrainingSchedule.Weeks;
+                                    scheduleFootCellText.Append(", ");
+                                scheduleFootCellText.Append(((TrainingActivityType)i).ToLocalizedString());
+                                scheduleFootCellText.Append(": ");
+                                scheduleFootCellText.Append(roundsForEachTrainingScheduleType[i].ToString());
                             }
-                            trainingScheduleCell.AppendChild(doc.CreateTextNode(trainingScheduleCellText.ToString()));
                         }
-                        scheduleRow.AppendChild(trainingScheduleCell);
-
-                        var weeksCountCell = doc.CreateElement("td");
-                        if (weeklyTrainingSchedule.Weeks > 0)
-                        {
-                            weeksCountCell.AppendChild(doc.CreateTextNode(weeklyTrainingSchedule.Weeks.ToString()));
-                        }
-                        scheduleRow.AppendChild(weeksCountCell);
-                        scheduleTbody.AppendChild(scheduleRow);
+                        scheduleFootCell.AppendChild(doc.CreateTextNode(scheduleFootCellText.ToString()));
+                        scheduleFootRow.AppendChild(scheduleFootCell);
+                        scheduleFoot.AppendChild(scheduleFootRow);
+                        scheduleTable.AppendChild(scheduleFoot);
+                        detailsNode.AppendChild(scheduleTable);
                     }
-                    scheduleTable.AppendChild(scheduleTbody);
-                    var scheduleFoot = doc.CreateElement("tfoot");
-                    scheduleFoot.Attributes.Add("style", "text-align: center;");
-
-                    var scheduleFootRow = doc.CreateElement("tr");
-                    var scheduleFootCell = doc.CreateElement("td");
-                    scheduleFootCell.SetAttributeValue("colspan", scheduleHeaders.Length.ToString());
-                    StringBuilder scheduleFootCellText = new StringBuilder();
-                    bool firstScheduleFootCellText = true;
-                    scheduleFootCellText.Append(Properties.Resources.TotalRoundsForEachTrainingScheduleType);
-                    for (int i = 0; i < (int)TrainingActivityType.Count; i++)
-                    {
-                        if (roundsForEachTrainingScheduleType[i] > 0)
-                        {
-                            if (firstScheduleFootCellText)
-                                firstScheduleFootCellText = false;
-                            else
-                                scheduleFootCellText.Append(", ");
-                            scheduleFootCellText.Append(((TrainingActivityType)i).ToLocalizedString());
-                            scheduleFootCellText.Append(": ");
-                            scheduleFootCellText.Append(roundsForEachTrainingScheduleType[i].ToString());
-                        }
-                    }
-                    scheduleFootCell.AppendChild(doc.CreateTextNode(scheduleFootCellText.ToString()));
-                    scheduleFootRow.AppendChild(scheduleFootCell);
-                    scheduleFoot.AppendChild(scheduleFootRow);
-                    scheduleTable.AppendChild(scheduleFoot);
-                    detailsNode.AppendChild(scheduleTable);
                 }
             }
             bodyNode.AppendChild(rankingsNode);
-            bodyNode.AppendChild(detailsNode);
-
+            if(debugTraining)
+                bodyNode.AppendChild(detailsNode);
             return doc.DocumentNode.OuterHtml;
         }
 
@@ -1998,7 +1999,7 @@ namespace Fsm97Trainer
                     evaluateYoungPlayersResults[targetPositionValueIndex].Evaluate(0);
                 });
             }
-            return GenerateHtmlOutput(targetPositions, targetPositionValues, evaluateYoungPlayersResults);
+            return GenerateHtmlOutput(targetPositions, targetPositionValues, evaluateYoungPlayersResults, debugTraining);
         }
     }
 }

@@ -999,7 +999,7 @@ namespace Fsm97Trainer
                 var repeat = (int)(headingNeeded + TrainingSchedule.ConstantFastCeiling);
                 if (repeat == 0) repeat = 1;
 
-                AddGrind(PlayerAttribute.Heading, finalGrind, finalCounter, headingNeeded + TrainingSchedule.ConstantFastCeiling, TrainingActivityType.Heading);
+                AddGrind(PlayerAttribute.Heading, finalGrind, finalCounter, repeat, TrainingActivityType.Heading);
                 AddCounter(PlayerAttribute.Heading, finalCounter, TrainingActivityType.Sprinting, trainingEffectModifier);
                 skillLost += 1;
             }
@@ -1089,7 +1089,7 @@ namespace Fsm97Trainer
                         {
                             finalGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Heading, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
                         }
-                        finalCounter.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Sprinting, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
+                        finalGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.Sprinting, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
                         finalCounter.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.TrainingMatch, ForPlayerAttribute = finalGrind[0].ForPlayerAttribute });
                         break;
                     case TrainingActivityType.Sprinting:

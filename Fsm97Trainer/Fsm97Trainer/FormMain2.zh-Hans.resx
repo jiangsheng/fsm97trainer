@@ -120,50 +120,6 @@
   <data name="toolStripStatusLabel1.Text" xml:space="preserve">
     <value>就绪</value>
   </data>
-  <data name="tabPageFormation.Text" xml:space="preserve">
-    <value>阵型</value>
-  </data>
-  <data name="checkBoxAutoTrainingSchedule.Text" xml:space="preserve">
-    <value>自动化训练日程</value>
-  </data>
-  <data name="labelAutoTraningSchedule.Text" xml:space="preserve">
-    <value>根据球员位置和能力自动设置训练计划。</value>
-  </data>
-  <data name="checkBoxConvertToGk.Text" xml:space="preserve">
-    <value>替补转守门员</value>
-  </data>
-  <data name="labelCnvertToGK.Text" xml:space="preserve">
-    <value>将替补转为守门员来最小化受伤风险。训练日程无变化。
-除非你忘记在赛季末使用位置自适应，
-否则球员的退役威胁是没有用的。</value>
-  </data>
-  <data name="checkBoxAlwaysTrainConsistency.Text" xml:space="preserve">
-    <value>总是训练意志</value>
-  </data>
-  <data name="labelComputerBoost.Text" xml:space="preserve">
-    <value>电脑不训练，因此游戏越来越无聊。所以这里有一些更改来弥补这一点。</value>
-  </data>
-  <data name="buttonBoostYouthPlayers.Text" xml:space="preserve">
-    <value>改善年轻球员</value>
-  </data>
-  <data name="labelBoostYouthPlayers.Text" xml:space="preserve">
-    <value>新生球员全属性+25。</value>
-  </data>
-  <data name="buttonBoostAllPlayersBy1.Text" xml:space="preserve">
-    <value>所有球员全属性+1</value>
-  </data>
-  <data name="labelBoostAllPlayersBy1.Text" xml:space="preserve">
-    <value>所有球员属性+1</value>
-  </data>
-  <data name="tabPageTraining.Text" xml:space="preserve">
-    <value>训练</value>
-  </data>
-  <data name="tabPageTransfer.Text" xml:space="preserve">
-    <value>数据</value>
-  </data>
-  <data name="tabPageOther.Text" xml:space="preserve">
-    <value>其他</value>
-  </data>
   <data name="buttonSaveFormation.Text" xml:space="preserve">
     <value>保存阵型</value>
   </data>
@@ -230,6 +186,50 @@
   <data name="labelNoAbsense.Text" xml:space="preserve">
     <value>红牌不是问题。</value>
   </data>
+  <data name="tabPageFormation.Text" xml:space="preserve">
+    <value>阵型</value>
+  </data>
+  <data name="checkBoxAutoTrainingSchedule.Text" xml:space="preserve">
+    <value>自动化训练日程</value>
+  </data>
+  <data name="labelAutoTraningSchedule.Text" xml:space="preserve">
+    <value>根据球员位置和能力自动设置训练计划。</value>
+  </data>
+  <data name="radioButtonFocusOnPositionRating.Text" xml:space="preserve">
+    <value>优先最大化位置值</value>
+  </data>
+  <data name="radioButtonFocusOnStatistics.Text" xml:space="preserve">
+    <value>优先最大化统计值</value>
+  </data>
+  <data name="checkBoxConvertToGk.Text" xml:space="preserve">
+    <value>替补转守门员</value>
+  </data>
+  <data name="labelCnvertToGK.Text" xml:space="preserve">
+    <value>将替补转为守门员来最小化受伤风险。训练日程无变化。
+除非你忘记在赛季末使用位置自适应，
+否则球员的退役威胁是没有用的。</value>
+  </data>
+  <data name="checkBoxAlwaysTrainConsistency.Text" xml:space="preserve">
+    <value>总是训练意志</value>
+  </data>
+  <data name="labelComputerBoost.Text" xml:space="preserve">
+    <value>电脑不训练，因此游戏越来越无聊。所以这里有一些更改来弥补这一点。</value>
+  </data>
+  <data name="buttonBoostYouthPlayers.Text" xml:space="preserve">
+    <value>改善年轻球员</value>
+  </data>
+  <data name="labelBoostYouthPlayers.Text" xml:space="preserve">
+    <value>新生球员全属性+25。</value>
+  </data>
+  <data name="buttonBoostAllPlayersBy1.Text" xml:space="preserve">
+    <value>所有球员全属性+1</value>
+  </data>
+  <data name="labelBoostAllPlayersBy1.Text" xml:space="preserve">
+    <value>所有球员属性+1</value>
+  </data>
+  <data name="tabPageTraining.Text" xml:space="preserve">
+    <value>训练</value>
+  </data>
   <data name="buttonExportPlayerData.Text" xml:space="preserve">
     <value>导出球员数据</value>
   </data>
@@ -261,8 +261,17 @@
   <data name="labelEvalMaxAge.Text" xml:space="preserve">
     <value>年龄上限</value>
   </data>
+  <data name="labelEvalForPosition.Text" xml:space="preserve">
+    <value>目标位置</value>
+  </data>
+  <data name="comboBoxEvalForPosition.Items" xml:space="preserve">
+    <value>全部</value>
+  </data>
   <data name="labelEvilYoungPlayers.Text" xml:space="preserve">
     <value>评估其他球队的年轻队员。</value>
+  </data>
+  <data name="tabPageTransfer.Text" xml:space="preserve">
+    <value>数据</value>
   </data>
   <data name="buttonPurchaseLand.Text" xml:space="preserve">
     <value>购买全部土地</value>
@@ -279,10 +288,13 @@
   <data name="buttonTimeTravel.Text" xml:space="preserve">
     <value>时间旅行到</value>
   </data>
-  <data name="buttonRestartGame.Text" xml:space="preserve">
-    <value>重启游戏</value>
+  <data name="buttonCloseGame.Text" xml:space="preserve">
+    <value>关闭游戏</value>
   </data>
-  <data name="labelRestartGame.Text" xml:space="preserve">
+  <data name="checkBoxRestartAfterClosing.Text" xml:space="preserve">
+    <value>关闭后重启</value>
+  </data>
+  <data name="labelCloseGame.Text" xml:space="preserve">
     <value>本作关闭时自动存盘。如果碰到40号球员溢出，需要不保存关闭。
 在游戏持续要求插入光盘时也可以用这个而不是任务管理器重启游戏。
 </value>
@@ -299,6 +311,9 @@
   </data>
   <data name="buttonChangeLanguage.Text" xml:space="preserve">
     <value>Change Language</value>
+  </data>
+  <data name="tabPageOther.Text" xml:space="preserve">
+    <value>其他</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>FSM97 球探工具</value>

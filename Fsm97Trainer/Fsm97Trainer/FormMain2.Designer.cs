@@ -52,8 +52,11 @@
             this.flowLayoutPanelTraining = new System.Windows.Forms.FlowLayoutPanel();
             this.checkBoxAutoTrainingSchedule = new System.Windows.Forms.CheckBox();
             this.labelAutoTraningSchedule = new System.Windows.Forms.Label();
+            this.radioButtonFocusOnPositionRating = new System.Windows.Forms.RadioButton();
+            this.radioButtonFocusOnStatistics = new System.Windows.Forms.RadioButton();
             this.checkBoxConvertToGk = new System.Windows.Forms.CheckBox();
             this.labelCnvertToGK = new System.Windows.Forms.Label();
+            this.checkBoxAlwaysTrainConsistency = new System.Windows.Forms.CheckBox();
             this.labelComputerBoost = new System.Windows.Forms.Label();
             this.buttonBoostYouthPlayers = new System.Windows.Forms.Button();
             this.labelBoostYouthPlayers = new System.Windows.Forms.Label();
@@ -72,6 +75,8 @@
             this.buttonEvalYoungPlayers = new System.Windows.Forms.Button();
             this.labelEvalMaxAge = new System.Windows.Forms.Label();
             this.numericUpDownMaxAge = new System.Windows.Forms.NumericUpDown();
+            this.labelEvalForPosition = new System.Windows.Forms.Label();
+            this.comboBoxEvalForPosition = new System.Windows.Forms.ComboBox();
             this.labelEvilYoungPlayers = new System.Windows.Forms.Label();
             this.webBrowserEvalResult = new System.Windows.Forms.WebBrowser();
             this.tabPageOther = new System.Windows.Forms.TabPage();
@@ -81,8 +86,9 @@
             this.labelTimeTravel = new System.Windows.Forms.Label();
             this.buttonTimeTravel = new System.Windows.Forms.Button();
             this.numericUpDownTimeTravel = new System.Windows.Forms.NumericUpDown();
-            this.buttonRestartGame = new System.Windows.Forms.Button();
-            this.labelRestartGame = new System.Windows.Forms.Label();
+            this.buttonCloseGame = new System.Windows.Forms.Button();
+            this.checkBoxRestartAfterClosing = new System.Windows.Forms.CheckBox();
+            this.labelCloseGame = new System.Windows.Forms.Label();
             this.labelUpdateNewSpawn = new System.Windows.Forms.Label();
             this.buttonUpdatePlayerNameForNewSpawn = new System.Windows.Forms.Button();
             this.comboBoxRespawnCategory = new System.Windows.Forms.ComboBox();
@@ -93,7 +99,6 @@
             this.timerFast = new System.Windows.Forms.Timer(this.components);
             this.timerEvelProgressReport = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerEval = new System.ComponentModel.BackgroundWorker();
-            this.checkBoxAlwaysTrainConsistency = new System.Windows.Forms.CheckBox();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -346,6 +351,8 @@
             // 
             this.flowLayoutPanelTraining.Controls.Add(this.checkBoxAutoTrainingSchedule);
             this.flowLayoutPanelTraining.Controls.Add(this.labelAutoTraningSchedule);
+            this.flowLayoutPanelTraining.Controls.Add(this.radioButtonFocusOnPositionRating);
+            this.flowLayoutPanelTraining.Controls.Add(this.radioButtonFocusOnStatistics);
             this.flowLayoutPanelTraining.Controls.Add(this.checkBoxConvertToGk);
             this.flowLayoutPanelTraining.Controls.Add(this.labelCnvertToGK);
             this.flowLayoutPanelTraining.Controls.Add(this.checkBoxAlwaysTrainConsistency);
@@ -370,6 +377,23 @@
             this.flowLayoutPanelTraining.SetFlowBreak(this.labelAutoTraningSchedule, true);
             this.labelAutoTraningSchedule.Name = "labelAutoTraningSchedule";
             // 
+            // radioButtonFocusOnPositionRating
+            // 
+            resources.ApplyResources(this.radioButtonFocusOnPositionRating, "radioButtonFocusOnPositionRating");
+            this.radioButtonFocusOnPositionRating.Name = "radioButtonFocusOnPositionRating";
+            this.radioButtonFocusOnPositionRating.TabStop = true;
+            this.radioButtonFocusOnPositionRating.UseVisualStyleBackColor = true;
+            this.radioButtonFocusOnPositionRating.CheckedChanged += new System.EventHandler(this.radioButtonFocusOnPositionRating_CheckedChanged);
+            // 
+            // radioButtonFocusOnStatistics
+            // 
+            resources.ApplyResources(this.radioButtonFocusOnStatistics, "radioButtonFocusOnStatistics");
+            this.flowLayoutPanelTraining.SetFlowBreak(this.radioButtonFocusOnStatistics, true);
+            this.radioButtonFocusOnStatistics.Name = "radioButtonFocusOnStatistics";
+            this.radioButtonFocusOnStatistics.TabStop = true;
+            this.radioButtonFocusOnStatistics.UseVisualStyleBackColor = true;
+            this.radioButtonFocusOnStatistics.CheckedChanged += new System.EventHandler(this.radioButtonFocusOnStatistics_CheckedChanged);
+            // 
             // checkBoxConvertToGk
             // 
             this.checkBoxConvertToGk.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.bindingSourceMain, "ConvertToGK", true));
@@ -382,6 +406,13 @@
             resources.ApplyResources(this.labelCnvertToGK, "labelCnvertToGK");
             this.flowLayoutPanelTraining.SetFlowBreak(this.labelCnvertToGK, true);
             this.labelCnvertToGK.Name = "labelCnvertToGK";
+            // 
+            // checkBoxAlwaysTrainConsistency
+            // 
+            resources.ApplyResources(this.checkBoxAlwaysTrainConsistency, "checkBoxAlwaysTrainConsistency");
+            this.flowLayoutPanelTraining.SetFlowBreak(this.checkBoxAlwaysTrainConsistency, true);
+            this.checkBoxAlwaysTrainConsistency.Name = "checkBoxAlwaysTrainConsistency";
+            this.checkBoxAlwaysTrainConsistency.UseVisualStyleBackColor = true;
             // 
             // labelComputerBoost
             // 
@@ -434,6 +465,8 @@
             this.flowLayoutPanelData.Controls.Add(this.buttonEvalYoungPlayers);
             this.flowLayoutPanelData.Controls.Add(this.labelEvalMaxAge);
             this.flowLayoutPanelData.Controls.Add(this.numericUpDownMaxAge);
+            this.flowLayoutPanelData.Controls.Add(this.labelEvalForPosition);
+            this.flowLayoutPanelData.Controls.Add(this.comboBoxEvalForPosition);
             this.flowLayoutPanelData.Controls.Add(this.labelEvilYoungPlayers);
             this.flowLayoutPanelData.Controls.Add(this.webBrowserEvalResult);
             resources.ApplyResources(this.flowLayoutPanelData, "flowLayoutPanelData");
@@ -520,6 +553,21 @@
             0,
             0});
             // 
+            // labelEvalForPosition
+            // 
+            resources.ApplyResources(this.labelEvalForPosition, "labelEvalForPosition");
+            this.labelEvalForPosition.Name = "labelEvalForPosition";
+            // 
+            // comboBoxEvalForPosition
+            // 
+            this.comboBoxEvalForPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.flowLayoutPanelData.SetFlowBreak(this.comboBoxEvalForPosition, true);
+            this.comboBoxEvalForPosition.FormattingEnabled = true;
+            this.comboBoxEvalForPosition.Items.AddRange(new object[] {
+            resources.GetString("comboBoxEvalForPosition.Items")});
+            resources.ApplyResources(this.comboBoxEvalForPosition, "comboBoxEvalForPosition");
+            this.comboBoxEvalForPosition.Name = "comboBoxEvalForPosition";
+            // 
             // labelEvilYoungPlayers
             // 
             resources.ApplyResources(this.labelEvilYoungPlayers, "labelEvilYoungPlayers");
@@ -545,8 +593,9 @@
             this.flowLayoutPanelOther.Controls.Add(this.labelTimeTravel);
             this.flowLayoutPanelOther.Controls.Add(this.buttonTimeTravel);
             this.flowLayoutPanelOther.Controls.Add(this.numericUpDownTimeTravel);
-            this.flowLayoutPanelOther.Controls.Add(this.buttonRestartGame);
-            this.flowLayoutPanelOther.Controls.Add(this.labelRestartGame);
+            this.flowLayoutPanelOther.Controls.Add(this.buttonCloseGame);
+            this.flowLayoutPanelOther.Controls.Add(this.checkBoxRestartAfterClosing);
+            this.flowLayoutPanelOther.Controls.Add(this.labelCloseGame);
             this.flowLayoutPanelOther.Controls.Add(this.labelUpdateNewSpawn);
             this.flowLayoutPanelOther.Controls.Add(this.buttonUpdatePlayerNameForNewSpawn);
             this.flowLayoutPanelOther.Controls.Add(this.comboBoxRespawnCategory);
@@ -603,18 +652,25 @@
             0,
             0});
             // 
-            // buttonRestartGame
+            // buttonCloseGame
             // 
-            resources.ApplyResources(this.buttonRestartGame, "buttonRestartGame");
-            this.buttonRestartGame.Name = "buttonRestartGame";
-            this.buttonRestartGame.UseVisualStyleBackColor = true;
-            this.buttonRestartGame.Click += new System.EventHandler(this.buttonRestartGame_Click);
+            resources.ApplyResources(this.buttonCloseGame, "buttonCloseGame");
+            this.buttonCloseGame.Name = "buttonCloseGame";
+            this.buttonCloseGame.UseVisualStyleBackColor = true;
+            this.buttonCloseGame.Click += new System.EventHandler(this.buttonCloseGame_Click);
             // 
-            // labelRestartGame
+            // checkBoxRestartAfterClosing
             // 
-            resources.ApplyResources(this.labelRestartGame, "labelRestartGame");
-            this.flowLayoutPanelOther.SetFlowBreak(this.labelRestartGame, true);
-            this.labelRestartGame.Name = "labelRestartGame";
+            resources.ApplyResources(this.checkBoxRestartAfterClosing, "checkBoxRestartAfterClosing");
+            this.flowLayoutPanelOther.SetFlowBreak(this.checkBoxRestartAfterClosing, true);
+            this.checkBoxRestartAfterClosing.Name = "checkBoxRestartAfterClosing";
+            this.checkBoxRestartAfterClosing.UseVisualStyleBackColor = true;
+            // 
+            // labelCloseGame
+            // 
+            resources.ApplyResources(this.labelCloseGame, "labelCloseGame");
+            this.flowLayoutPanelOther.SetFlowBreak(this.labelCloseGame, true);
+            this.labelCloseGame.Name = "labelCloseGame";
             // 
             // labelUpdateNewSpawn
             // 
@@ -719,13 +775,6 @@
             this.backgroundWorkerEval.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerEval_ProgressChanged);
             this.backgroundWorkerEval.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerEval_RunWorkerCompleted);
             // 
-            // checkBoxAlwaysTrainConsistency
-            // 
-            resources.ApplyResources(this.checkBoxAlwaysTrainConsistency, "checkBoxAlwaysTrainConsistency");
-            this.flowLayoutPanelTraining.SetFlowBreak(this.checkBoxAlwaysTrainConsistency, true);
-            this.checkBoxAlwaysTrainConsistency.Name = "checkBoxAlwaysTrainConsistency";
-            this.checkBoxAlwaysTrainConsistency.UseVisualStyleBackColor = true;
-            // 
             // FormMain2
             // 
             resources.ApplyResources(this, "$this");
@@ -819,8 +868,8 @@
         private System.Windows.Forms.Label labelTimeTravel;
         private System.Windows.Forms.Button buttonTimeTravel;
         private System.Windows.Forms.NumericUpDown numericUpDownTimeTravel;
-        private System.Windows.Forms.Button buttonRestartGame;
-        private System.Windows.Forms.Label labelRestartGame;
+        private System.Windows.Forms.Button buttonCloseGame;
+        private System.Windows.Forms.Label labelCloseGame;
         private System.Windows.Forms.Label labelUpdateNewSpawn;
         private System.Windows.Forms.Button buttonUpdatePlayerNameForNewSpawn;
         private System.Windows.Forms.ComboBox comboBoxRespawnCategory;
@@ -839,5 +888,10 @@
         private System.ComponentModel.BackgroundWorker backgroundWorkerEval;
         private System.Windows.Forms.WebBrowser webBrowserEvalResult;
         private System.Windows.Forms.CheckBox checkBoxAlwaysTrainConsistency;
+        private System.Windows.Forms.RadioButton radioButtonFocusOnPositionRating;
+        private System.Windows.Forms.RadioButton radioButtonFocusOnStatistics;
+        private System.Windows.Forms.CheckBox checkBoxRestartAfterClosing;
+        private System.Windows.Forms.Label labelEvalForPosition;
+        private System.Windows.Forms.ComboBox comboBoxEvalForPosition;
     }
 }

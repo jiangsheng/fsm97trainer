@@ -169,21 +169,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Diacritics.NET\Diacritics\Diacritics.csproj">
-      <Project>{c24ddb9b-b0e6-4da4-9b61-eb8f94ca1323}</Project>
+    <ProjectReference Include="..\..\Diacritics.NET\Diacritics\Diacritics.csproj">
+      <Project>{5485726b-1457-c3f7-b4b7-96b21376716e}</Project>
       <Name>Diacritics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\NameParserSharp\NameParser\NameParser\NameParser.csproj">
-      <Project>{d7d43fac-7a56-4adb-882f-c6dd6ffecea4}</Project>
-      <Name>NameParser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\OpenCC.NET\OpenCCNET.csproj">
-      <Project>{5bf51327-c5ce-4d60-ba2c-df946dff4ff0}</Project>
-      <Name>OpenCCNET</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\FSM97Lib\FSM97Lib.csproj">
       <Project>{92c0ac2c-ec8a-443e-acbc-7fff26e98f9d}</Project>
       <Name>FSM97Lib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NameParserSharp\NameParser\NameParser\NameParser.csproj">
+      <Project>{69fab1cb-1df1-3ce2-cb5b-f42dfedbb61d}</Project>
+      <Name>NameParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenCC.NET\OpenCCNET.csproj">
+      <Project>{9fe6ce6e-31d4-61c9-259f-fd082afe5004}</Project>
+      <Name>OpenCCNET</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
