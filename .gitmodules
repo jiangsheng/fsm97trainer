@@ -1,0 +1,9 @@
+[submodule "OpenCC.NET"]
+	path = OpenCC.NET
+	url = https://github.com/jiangsheng/OpenCC.NET
+[submodule "NameParserSharp"]
+	path = NameParserSharp
+	url = https://github.com/jiangsheng/NameParserSharp
+[submodule "Diacritics.NET"]
+	path = Diacritics.NET
+	url = https://github.com/jiangsheng/Diacritics.NET
