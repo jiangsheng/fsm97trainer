@@ -9,6 +9,11 @@ Clone the following repositories using your favorite git tool:
 
 * https://github.com/jiangsheng/fsm97trainer
 
+You also need to initialize sub modules. This can be done in Visual Studio (https://devblogs.microsoft.com/visualstudio/managing-git-submodules-without-leaving-the-ide/) or if you prefer command line
+
+   git submodule update --init --recursive
+
+
 You can also replace some sub modules and update dependencies from the original locations instead of my XP-compatibility fork if you drop XP support.
 
 * https://github.com/CosineG/OpenCC.NET
