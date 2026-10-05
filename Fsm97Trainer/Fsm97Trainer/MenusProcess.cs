@@ -1,23 +1,15 @@
 ﻿using Diacritics.Extensions;
 using FSM97Lib;
-using Fsm97Trainer.Models;
-using HtmlAgilityPack;
 using NameParser;
 using Newtonsoft.Json.Linq;
 using OpenCCNET;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Security.Cryptography;
-using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -869,6 +861,13 @@ namespace Fsm97Trainer
                 var trainingEffects = trainingEffectModifier.TrainingEffects;
                 NativeMethods.SuspendProcess(Process);
                 var playerNodes = ReadPlayers(true);
+                if (playerNodes.Where(p => p.Data.Status == 1).Count() < 3 && playerNodes.Where(p => p.Data.Status == 0).Count() >0)
+                {
+                    NativeMethods.ResumeProcess(Process);
+                    //data corrupt, maybe concurrent writing
+                    this.Restart();
+                    return;
+                }
 
 
                 var uiCulureInfo = Thread.CurrentThread.CurrentUICulture;
@@ -892,6 +891,7 @@ namespace Fsm97Trainer
                         TrainingScheduleCalculationState trainingScheduleCalculationState=new TrainingScheduleCalculationState(playerDouble, 
                             convertToGK, playerPosition,
                             autoResetStatus, maxEnergy, maxPower, noAlternativeTraining, alwaysTrainConsistency, trainingEffectModifier, trainingEffects);
+                        trainingScheduleCalculationState.IsFastUpdate = true;
 
                         var playerSchedule = TrainingSchedule.GetTrainingSchedule(trainingScheduleCalculationState);
                         if (playerSchedule == null)
@@ -1228,7 +1228,6 @@ namespace Fsm97Trainer
             {
                 NativeMethods.ResumeProcess(Process);
             }
-            return newNames;
         }
 
 
@@ -1637,7 +1636,7 @@ namespace Fsm97Trainer
         private static string GenerateHtmlOutput(Dictionary<PlayerPosition, string> targetPositions, List<PlayerPosition> targetPositionValues, EvaluateYoungPlayersResult[] evaluateYoungPlayersResults, bool debugTraining)
         {
             var doc = new HtmlAgilityPack.HtmlDocument();
-            var documentNode = HtmlNode.CreateNode("<!DOCTYPE html><html><head><style>table {\r\n    border-collapse: collapse; /* Prevents double borders or gaps */\r\n  }\r\n  th, td {\r\n    padding: 3px;\r\n  }\r\n  /* Apply a vertical border to the right side of targeted cells */\r\n  .col-border {\r\n    border-right: 1px solid black;\r\n  }</style></head><body></body></html>");
+            var documentNode = HtmlAgilityPack.HtmlNode.CreateNode("<!DOCTYPE html><html><head><style>table {\r\n    border-collapse: collapse; /* Prevents double borders or gaps */\r\n  }\r\n  th, td {\r\n    padding: 3px;\r\n  }\r\n  /* Apply a vertical border to the right side of targeted cells */\r\n  .col-border {\r\n    border-right: 1px solid black;\r\n  }</style></head><body></body></html>");
             doc.DocumentNode.AppendChild(documentNode);
             var bodyNode = doc.DocumentNode.SelectSingleNode("//body");
             var rankingsNode = doc.CreateElement("div");

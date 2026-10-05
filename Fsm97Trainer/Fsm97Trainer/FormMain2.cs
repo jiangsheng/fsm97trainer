@@ -254,6 +254,7 @@ namespace Fsm97Trainer
 
         private void buttonCloseGame_Click(object sender, EventArgs e)
         {
+            Model.RestartAfterClosing = checkBoxRestartAfterClosing.Checked;
             if (Model.RestartAfterClosing)
             {
 

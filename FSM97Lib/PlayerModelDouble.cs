@@ -18,6 +18,8 @@ namespace FSM97Lib
             Position = player.Position;
             Number = player.Number;
             Age = player.Age;
+            Nationality = player.Nationality;
+            NationalityName = player.NationalityName;
         }
         public PlayerModelDouble(PlayerModelDouble player)
         {
@@ -28,6 +30,8 @@ namespace FSM97Lib
             Position = player.Position;
             Number = player.Number;
             Age = player.Age;
+            Nationality = player.Nationality;
+            NationalityName = player.NationalityName;
         }
 
         public PlayerModelDouble(PlayerModelDouble player, List<double> attributesToCopy) : this(player)

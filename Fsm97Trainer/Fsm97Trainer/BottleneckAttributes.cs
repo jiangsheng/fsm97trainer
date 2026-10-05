@@ -11,5 +11,9 @@ namespace Fsm97Trainer
         public double Rounds { get; set; }
         public PlayerAttribute AttributeIndex { get; set; }
         public int Repeat { get; set; }
+        public override string ToString()
+        {
+            return string.Format("{0}*{1}", AttributeIndex, Repeat);
+        }
     }
 }

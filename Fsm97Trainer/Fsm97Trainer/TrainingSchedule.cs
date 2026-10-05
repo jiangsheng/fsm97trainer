@@ -599,7 +599,7 @@ namespace Fsm97Trainer
                             break;
                         case PlayerAttribute.Consistency:
                             Debug.Assert(position == PlayerPosition.GK|| position == PlayerPosition.LB|| position == PlayerPosition.RB|| position == PlayerPosition.CD
-                                || trainingScheduleCalculationState.AlwaysTrainConsistency);
+                                || trainingScheduleCalculationState.AlwaysTrainConsistency || !trainingScheduleCalculationState.NoAlternativeTraining);
                             AddGrind(topBottleneckAttribute.AttributeIndex, genericTrainingGrind, genericTrainingCounter, repeat, TrainingActivityType.Control);
                             break;
 
@@ -756,7 +756,9 @@ namespace Fsm97Trainer
             finalResult.Clear();
             var trainingShooting = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Shooting);
             var trainHeading = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Heading);
-
+            var trainLeadership= trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Leadership);
+            var trainThrowIn= trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.ThrowIn);
+            var trainGreed = trainingScheduleCalculationState.RequiredAttributes.Contains(PlayerAttribute.Greed);
             var finalAttributeLeftToTrain = trainingScheduleCalculationState.AttributesLeftToTrain;
             double controlAdded = 0;
             double trainingMatchesAdded = 0;
@@ -1075,10 +1077,38 @@ namespace Fsm97Trainer
                         finalGrind[i].TrainingScheduleType = TrainingScheduleType.Control;
                 }
             }*/
+            var leadershipNeeded = finalAttributeLeftToTrain.Leadership;
+            if (trainLeadership && leadershipNeeded > 0)
+            {
+                AddGrind(PlayerAttribute.Leadership, finalGrind, finalCounter, 1, TrainingActivityType.TrainingMatch);
+                trainingMatchesAdded++;
+            }
+            var throwinNeeded = finalAttributeLeftToTrain.ThrowIn;
+            if (trainThrowIn && throwinNeeded > 0)
+            {
+                AddGrind(PlayerAttribute.ThrowIn, finalGrind, finalCounter, 1, TrainingActivityType.Throwing);
+            }
+            var greedNeeded = finalAttributeLeftToTrain.Greed;
+            if (trainGreed && greedNeeded>0)
+            {
+                AddGrind(PlayerAttribute.Greed, finalGrind, finalCounter, 1, TrainingActivityType.Shooting);
+            }
+
             if (finalGrind.Count == 0)
             {
-                Debug.Assert(false);
-                finalGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.TrainingMatch, ForPlayerAttribute = PlayerAttribute.Count });
+                if (trainingScheduleCalculationState.IsFastUpdate)
+                {
+                    return TrainingSchedulePreset.MaintainShape.Select(t=>new TrainingScheduleSteps { 
+                        TrainingScheduleType=t,
+                        ForPlayerAttribute= PlayerAttribute.Count
+                    }).ToList();
+                }
+                else
+                {
+                    //Debug.Assert(false);
+                    //finalGrind.Add(new TrainingScheduleSteps() { TrainingScheduleType = TrainingActivityType.TrainingMatch, ForPlayerAttribute = PlayerAttribute.Count });
+                    return null;
+                }
             }
             else if (finalGrind.Count == 1)
             {

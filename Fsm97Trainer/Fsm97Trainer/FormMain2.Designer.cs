@@ -662,6 +662,7 @@
             // checkBoxRestartAfterClosing
             // 
             resources.ApplyResources(this.checkBoxRestartAfterClosing, "checkBoxRestartAfterClosing");
+            this.checkBoxRestartAfterClosing.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.bindingSourceMain, "RestartAfterClosing", true));
             this.flowLayoutPanelOther.SetFlowBreak(this.checkBoxRestartAfterClosing, true);
             this.checkBoxRestartAfterClosing.Name = "checkBoxRestartAfterClosing";
             this.checkBoxRestartAfterClosing.UseVisualStyleBackColor = true;

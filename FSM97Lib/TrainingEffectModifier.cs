@@ -26,6 +26,7 @@ namespace FSM97Lib
         public int[] trainingMatchtRoundsForEachShooting = new int[100];
         public int[] trainingMatchtRoundsForEachPassing = new int[100];
         public const double ConstantFastCeiling = 0.999999;
+        bool[] canTrainThisAttribute = new bool[AttributesPerSchedule];
         public float[] RawData
         {
             get { return rawData; }
@@ -37,9 +38,11 @@ namespace FSM97Lib
                     var trainingEffect=new TrainingActivity();
                     trainingEffect.Activity = (TrainingActivityType)i;
                     trainingEffect.Effects = new float[AttributesPerSchedule];
-                    for (int j = 0; j < trainingEffect.Effects.Length; j++)
+                    for (int j = 0; j < AttributesPerSchedule; j++)
                     {
                         trainingEffect.Effects[j] = RawData[i* AttributesPerSchedule+j];
+                        if(trainingEffect.Effects[j]>0)
+                            canTrainThisAttribute[j] = true;
                     }
                     trainingEffects[i] = trainingEffect;
                 }
@@ -66,5 +69,9 @@ namespace FSM97Lib
 
         private const int AttributesPerSchedule = 27;
 
+        public bool CanTrainThisAttribute(PlayerAttribute i)
+        {
+            return canTrainThisAttribute[(int)i];
+        }
     }
 }

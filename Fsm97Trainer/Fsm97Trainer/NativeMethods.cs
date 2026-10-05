@@ -44,13 +44,23 @@ namespace Fsm97Trainer
         public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress,
             [Out] byte[] lpBuffer, int dwSize, out int lpNumberOfBytesRead);
 
-        [DllImport("kernel32.dll")]
-        static extern IntPtr OpenThread(ThreadAccessFlags dwDesiredAccess, bool bInheritHandle, uint dwThreadId);
-        [DllImport("kernel32.dll")]
-        static extern uint SuspendThread(IntPtr hThread);
-        [DllImport("kernel32.dll")]
-        static extern int ResumeThread(IntPtr hThread);
+        /*        [DllImport("kernel32.dll")]
+                static extern IntPtr OpenThread(ThreadAccessFlags dwDesiredAccess, bool bInheritHandle, uint dwThreadId);
+                [DllImport("kernel32.dll")]
+                static extern uint SuspendThread(IntPtr hThread);
+                [DllImport("kernel32.dll")]
+                static extern int ResumeThread(IntPtr hThread);*/
+
+        // Import the native Windows Kernel/NT APIs
+        [DllImport("ntdll.dll", SetLastError = true)]
+        private static extern int NtSuspendProcess(IntPtr processHandle);
+
+        [DllImport("ntdll.dll", SetLastError = true)]
+        private static extern int NtResumeProcess(IntPtr processHandle);
+
+
         [DllImport("kernel32", CharSet = CharSet.Auto, SetLastError = true)]
+
         static extern bool CloseHandle(IntPtr handle);
         public static byte[] ReadMemory(IntPtr hProcess, IntPtr address, int numOfBytes, out int bytesRead)
         {
@@ -159,6 +169,21 @@ namespace Fsm97Trainer
 
         public static void ResumeProcess(Process process)
         {
+            if (process == null || process.HasExited) return ;
+
+            try
+            {
+                // NtResumeProcess returns an NTSTATUS code. 0 (STATUS_SUCCESS) means success.
+                int ntStatus = NtResumeProcess(process.Handle);
+                return ;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to resume process: {ex.Message}");
+                return ;
+            }
+            /*
+
             foreach (ProcessThread processThread in process.Threads)
             {
                 IntPtr hThread = OpenThread(ThreadAccessFlags.SUSPEND_RESUME, false, (uint)processThread.Id);
@@ -175,11 +200,25 @@ namespace Fsm97Trainer
                 } while (suspendCount > 0);
 
                 CloseHandle(hThread);
-            }
+            }*/
         }
 
         public static void SuspendProcess(Process process)
         {
+            if (process == null || process.HasExited) return;
+
+            try
+            {
+                // NtSuspendProcess returns an NTSTATUS code. 0 (STATUS_SUCCESS) means success.
+                int ntStatus = NtSuspendProcess(process.Handle);
+                return ;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to suspend process: {ex.Message}");
+                return ;
+            }/*
+
             foreach (ProcessThread processThread in process.Threads)
             {
                 IntPtr hThread = OpenThread(ThreadAccessFlags.SUSPEND_RESUME, false, (uint)processThread.Id);
@@ -190,7 +229,7 @@ namespace Fsm97Trainer
                 }
                 SuspendThread(hThread);
                 CloseHandle(hThread);
-            }
+            }*/
         }
 
     }

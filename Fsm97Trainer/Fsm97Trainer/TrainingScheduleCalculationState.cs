@@ -3,6 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Web.UI.WebControls;
@@ -36,30 +37,24 @@ namespace Fsm97Trainer
 
             for(int i = 0; i <(int) PlayerAttribute.Count; i++)
             {
-
+                //default is determined using the rating system
                 bool trainThisAttribute = (position==PlayerPosition.Count)?true: PositionRatings.Ratings[(int)position][i] > 0;
-                switch (i)
+                bool canTrainThisAttribute = trainingEffectModifier.CanTrainThisAttribute((PlayerAttribute)i);
+                if (NoAlternativeTraining)
                 {
-                    case (int)PlayerAttribute.Leadership:
-
-                        if (TrainingEffectModifier.PassingTrainLeadership)
-                            trainThisAttribute = true;
-                        break;
-                    case (int)PlayerAttribute.Consistency:
-                        if (AlwaysTrainConsistency)
-                            trainThisAttribute = true;
-                        break;
-                    case (int)PlayerAttribute.Stamina:
-                    case (int)PlayerAttribute.Strength:
+                    if(AlwaysTrainConsistency && (PlayerAttribute)i==PlayerAttribute.Consistency)
+                        trainThisAttribute = true;
+                }
+                else
+                {
+                    trainThisAttribute = canTrainThisAttribute;
+                }
+                switch((PlayerAttribute)i)
+                {
+                    case PlayerAttribute.Stamina:
+                    case PlayerAttribute.Strength:
                         trainThisAttribute = false;
                         break;
-                    case (int)PlayerAttribute.ThrowIn:
-                        if (trainingEffectModifier.ThrowingTrainThrowIn)
-                            trainThisAttribute = true;
-                        break;
-                    case (int)PlayerAttribute.Greed:
-                        if (trainingEffectModifier.ShootingTrainGreed)
-                            trainThisAttribute = true; break;
                 }
                 if (trainThisAttribute)
                 {
@@ -88,7 +83,7 @@ namespace Fsm97Trainer
         double[] fastestRoundsToMax = new double[(int)PlayerAttribute.Count];
 
         public PlayerModelDouble ProjectedAttributesAfterSprinting { get; private set; }
-
+        public bool IsFastUpdate{ get; set; }
 
         public void UpdateProjectedAttributesAfterSprinting()
         {
@@ -306,10 +301,10 @@ namespace Fsm97Trainer
 
             var topBottleneckAttributes = topList.OrderByDescending(x => x.Rounds).Take(7).ToList();
             var repeats = new List<int>();
-            if (topBottleneckAttributes.Count == 0)
+            if (topBottleneckAttributes.Count == 0 && !IsFastUpdate)
             {
                 //might be a maxed out cd whose leadership cannot be trained
-                Debug.Assert(position == PlayerPosition.CD);
+                //Debug.Assert(position == PlayerPosition.CD);
                 Debug.Assert(Player.PositionRating >= 96);
                 return null;
             }

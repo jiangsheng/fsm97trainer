@@ -81,6 +81,7 @@ namespace Fsm97Trainer
             TrainingScheduleCalculationState trainingScheduleCalculationState = new TrainingScheduleCalculationState(
                 currentTrainingResult, false,Position, AutoResetStatus, MaxEnergy, MaxPower, NoAlternativeTraining, alwaysTrainConsistency, TrainingEffectModifier, TrainingEffects
                 );
+
             while (!maxedOut)
             {
                 var weeklyTrainingSchedule = TrainingSchedule.GetTrainingSchedule(trainingScheduleCalculationState);
